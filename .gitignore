@@ -1,0 +1,8 @@
+_bak/
+_extras/
+
+build/
+
+# 忽略 ANT 和 JDK 的内容
+/tools/apache-ant-1.9.15/*
+/tools/jdk1.8.0_503/*
