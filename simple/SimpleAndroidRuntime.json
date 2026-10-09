@@ -2026,6 +2026,11 @@
 						"simple.runtime.components.可视组件",
 						"simple.runtime.components.组件容器"
 					],
+					"projection": {
+						"layout": "frame",
+						"scroll": "vertical",
+						"limit": 1
+					},
 					"properties": [
 						{
 							"name": "启用滚动条",
@@ -2089,6 +2094,11 @@
 						"simple.runtime.components.可视组件",
 						"simple.runtime.components.组件容器"
 					],
+					"projection": {
+						"layout": "frame",
+						"scroll": "horizontal",
+						"limit": 1
+					},
 					"properties": [
 						{
 							"name": "启用滚动条",

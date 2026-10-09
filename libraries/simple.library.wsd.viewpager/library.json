@@ -24,6 +24,9 @@
 						"simple.runtime.components.可视组件",
 						"simple.runtime.components.组件容器"
 					],
+					"projection": {
+						"layout": "frame"
+					},
 					"constants": [
 						{
 							"name": "滑动状态_未滑动",

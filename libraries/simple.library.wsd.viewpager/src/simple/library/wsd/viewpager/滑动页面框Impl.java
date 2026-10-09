@@ -224,12 +224,14 @@ public final class 滑动页面框Impl extends 视图组件 implements 滑动页
 		try {
 			// 把可视组件接口转为实现接口视图组件
 			视图组件 viewComponent = (视图组件) visibleComponent;
+
 			// 将视图从父级布局中移除
 			View view = viewComponent.getView();
 			ViewGroup group = (ViewGroup) view.getParent();
 			if (group != null) {
 				group.removeView(view);
 			}
+			
 			// 将欲添加组件添加到页面视图
 			addPageView(view);
 		} catch (Exception e) {
