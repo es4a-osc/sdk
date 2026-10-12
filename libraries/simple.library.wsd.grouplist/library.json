@@ -106,11 +106,11 @@
 							"name": "添加分组",
 							"params": [
 								{
-									"name": "title",
+									"name": "标题",
 									"type": "文本型"
 								},
 								{
-									"name": "info",
+									"name": "信息",
 									"type": "文本型"
 								}
 							],
@@ -120,7 +120,7 @@
 							"name": "添加分组",
 							"params": [
 								{
-									"name": "title",
+									"name": "标题",
 									"type": "文本型"
 								}
 							],
@@ -130,7 +130,7 @@
 							"name": "取分组标记",
 							"params": [
 								{
-									"name": "position",
+									"name": "分组索引",
 									"type": "整数型"
 								}
 							],
@@ -140,11 +140,11 @@
 							"name": "置分组标记",
 							"params": [
 								{
-									"name": "position",
+									"name": "分组索引",
 									"type": "整数型"
 								},
 								{
-									"name": "tag",
+									"name": "标记",
 									"type": "文本型"
 								}
 							]
@@ -153,7 +153,7 @@
 							"name": "取分组标题",
 							"params": [
 								{
-									"name": "groupid",
+									"name": "分组索引",
 									"type": "整数型"
 								}
 							],
@@ -163,11 +163,11 @@
 							"name": "置分组标题",
 							"params": [
 								{
-									"name": "groupid",
+									"name": "分组索引",
 									"type": "整数型"
 								},
 								{
-									"name": "title",
+									"name": "标题",
 									"type": "文本型"
 								}
 							]
@@ -176,7 +176,7 @@
 							"name": "取分组信息",
 							"params": [
 								{
-									"name": "groupid",
+									"name": "分组索引",
 									"type": "整数型"
 								}
 							],
@@ -186,11 +186,11 @@
 							"name": "置分组信息",
 							"params": [
 								{
-									"name": "groupid",
+									"name": "分组索引",
 									"type": "整数型"
 								},
 								{
-									"name": "info",
+									"name": "信息",
 									"type": "文本型"
 								}
 							]
@@ -203,7 +203,7 @@
 							"name": "展开分组",
 							"params": [
 								{
-									"name": "groupid",
+									"name": "分组索引",
 									"type": "整数型"
 								}
 							]
@@ -212,7 +212,7 @@
 							"name": "收起分组",
 							"params": [
 								{
-									"name": "groupid",
+									"name": "分组索引",
 									"type": "整数型"
 								}
 							]
@@ -221,7 +221,7 @@
 							"name": "取分组状态",
 							"params": [
 								{
-									"name": "groupid",
+									"name": "分组索引",
 									"type": "整数型"
 								}
 							],
@@ -231,7 +231,7 @@
 							"name": "选中分组",
 							"params": [
 								{
-									"name": "groupPosition",
+									"name": "分组索引",
 									"type": "整数型"
 								}
 							]
@@ -240,7 +240,7 @@
 							"name": "删除分组",
 							"params": [
 								{
-									"name": "groupid",
+									"name": "分组索引",
 									"type": "整数型"
 								}
 							]
@@ -252,27 +252,27 @@
 							"name": "添加子项",
 							"params": [
 								{
-									"name": "groupid",
+									"name": "分组索引",
 									"type": "整数型"
 								},
 								{
-									"name": "image",
+									"name": "图片",
 									"type": "文本型"
 								},
 								{
-									"name": "title",
+									"name": "标题",
 									"type": "文本型"
 								},
 								{
-									"name": "info",
+									"name": "信息",
 									"type": "文本型"
 								},
 								{
-									"name": "buttonimage",
+									"name": "按钮图片",
 									"type": "文本型"
 								},
 								{
-									"name": "buttontitle",
+									"name": "按钮标题",
 									"type": "文本型"
 								}
 							]
@@ -281,11 +281,11 @@
 							"name": "添加子项",
 							"params": [
 								{
-									"name": "groupid",
+									"name": "分组索引",
 									"type": "整数型"
 								},
 								{
-									"name": "title",
+									"name": "标题",
 									"type": "文本型"
 								}
 							]
@@ -294,11 +294,11 @@
 							"name": "取子项标记",
 							"params": [
 								{
-									"name": "groupid",
+									"name": "分组索引",
 									"type": "整数型"
 								},
 								{
-									"name": "childid",
+									"name": "子项索引",
 									"type": "整数型"
 								}
 							],
@@ -308,15 +308,15 @@
 							"name": "置子项标记",
 							"params": [
 								{
-									"name": "groupid",
+									"name": "分组索引",
 									"type": "整数型"
 								},
 								{
-									"name": "childid",
+									"name": "子项索引",
 									"type": "整数型"
 								},
 								{
-									"name": "tag",
+									"name": "标记",
 									"type": "文本型"
 								}
 							]
@@ -325,11 +325,11 @@
 							"name": "取子项图片",
 							"params": [
 								{
-									"name": "groupid",
+									"name": "分组索引",
 									"type": "整数型"
 								},
 								{
-									"name": "childid",
+									"name": "子项索引",
 									"type": "整数型"
 								}
 							],
@@ -339,15 +339,15 @@
 							"name": "置子项图片",
 							"params": [
 								{
-									"name": "groupid",
+									"name": "分组索引",
 									"type": "整数型"
 								},
 								{
-									"name": "childid",
+									"name": "子项索引",
 									"type": "整数型"
 								},
 								{
-									"name": "image",
+									"name": "图片",
 									"type": "文本型"
 								}
 							]
@@ -356,11 +356,11 @@
 							"name": "取子项标题",
 							"params": [
 								{
-									"name": "groupid",
+									"name": "分组索引",
 									"type": "整数型"
 								},
 								{
-									"name": "childid",
+									"name": "子项索引",
 									"type": "整数型"
 								}
 							],
@@ -370,15 +370,15 @@
 							"name": "置子项标题",
 							"params": [
 								{
-									"name": "groupid",
+									"name": "分组索引",
 									"type": "整数型"
 								},
 								{
-									"name": "childid",
+									"name": "子项索引",
 									"type": "整数型"
 								},
 								{
-									"name": "title",
+									"name": "标题",
 									"type": "文本型"
 								}
 							]
@@ -387,11 +387,11 @@
 							"name": "取子项信息",
 							"params": [
 								{
-									"name": "groupid",
+									"name": "分组索引",
 									"type": "整数型"
 								},
 								{
-									"name": "childid",
+									"name": "子项索引",
 									"type": "整数型"
 								}
 							],
@@ -401,15 +401,15 @@
 							"name": "置子项信息",
 							"params": [
 								{
-									"name": "groupid",
+									"name": "分组索引",
 									"type": "整数型"
 								},
 								{
-									"name": "childid",
+									"name": "子项索引",
 									"type": "整数型"
 								},
 								{
-									"name": "info",
+									"name": "信息",
 									"type": "文本型"
 								}
 							]
@@ -418,11 +418,11 @@
 							"name": "取子项按钮图片",
 							"params": [
 								{
-									"name": "groupid",
+									"name": "分组索引",
 									"type": "整数型"
 								},
 								{
-									"name": "childid",
+									"name": "子项索引",
 									"type": "整数型"
 								}
 							],
@@ -432,15 +432,15 @@
 							"name": "置子项按钮图片",
 							"params": [
 								{
-									"name": "groupid",
+									"name": "分组索引",
 									"type": "整数型"
 								},
 								{
-									"name": "childid",
+									"name": "子项索引",
 									"type": "整数型"
 								},
 								{
-									"name": "buttonimage",
+									"name": "按钮图片",
 									"type": "文本型"
 								}
 							]
@@ -449,11 +449,11 @@
 							"name": "取子项按钮标题",
 							"params": [
 								{
-									"name": "groupid",
+									"name": "分组索引",
 									"type": "整数型"
 								},
 								{
-									"name": "childid",
+									"name": "子项索引",
 									"type": "整数型"
 								}
 							],
@@ -463,15 +463,15 @@
 							"name": "置子项按钮标题",
 							"params": [
 								{
-									"name": "groupid",
+									"name": "分组索引",
 									"type": "整数型"
 								},
 								{
-									"name": "childid",
+									"name": "子项索引",
 									"type": "整数型"
 								},
 								{
-									"name": "buttontitle",
+									"name": "按钮标题",
 									"type": "文本型"
 								}
 							]
@@ -480,7 +480,7 @@
 							"name": "取子项总数",
 							"params": [
 								{
-									"name": "groupid",
+									"name": "分组索引",
 									"type": "整数型"
 								}
 							],
@@ -490,11 +490,11 @@
 							"name": "删除子项",
 							"params": [
 								{
-									"name": "groupid",
+									"name": "分组索引",
 									"type": "整数型"
 								},
 								{
-									"name": "childid",
+									"name": "子项索引",
 									"type": "整数型"
 								}
 							]
@@ -503,7 +503,7 @@
 							"name": "清空子项",
 							"params": [
 								{
-									"name": "groupid",
+									"name": "分组索引",
 									"type": "整数型"
 								}
 							]
@@ -512,15 +512,15 @@
 							"name": "选中子项",
 							"params": [
 								{
-									"name": "groupPosition",
+									"name": "分组索引",
 									"type": "整数型"
 								},
 								{
-									"name": "childPosition",
+									"name": "子项索引",
 									"type": "整数型"
 								},
 								{
-									"name": "shouldExpandGroup",
+									"name": "展开分组",
 									"type": "逻辑型"
 								}
 							]
@@ -531,11 +531,11 @@
 							"name": "子项被单击",
 							"params": [
 								{
-									"name": "groupid",
+									"name": "分组索引",
 									"type": "整数型"
 								},
 								{
-									"name": "childid",
+									"name": "子项索引",
 									"type": "整数型"
 								}
 							]
@@ -544,11 +544,11 @@
 							"name": "子项被长按",
 							"params": [
 								{
-									"name": "groupid",
+									"name": "分组索引",
 									"type": "整数型"
 								},
 								{
-									"name": "childid",
+									"name": "子项索引",
 									"type": "整数型"
 								}
 							]
@@ -557,11 +557,11 @@
 							"name": "子项按钮被单击",
 							"params": [
 								{
-									"name": "groupid",
+									"name": "分组索引",
 									"type": "整数型"
 								},
 								{
-									"name": "childid",
+									"name": "子项索引",
 									"type": "整数型"
 								}
 							]
@@ -570,7 +570,7 @@
 							"name": "分组被展开",
 							"params": [
 								{
-									"name": "groupid",
+									"name": "分组索引",
 									"type": "整数型"
 								}
 							]
@@ -579,7 +579,7 @@
 							"name": "分组被收起",
 							"params": [
 								{
-									"name": "groupid",
+									"name": "分组索引",
 									"type": "整数型"
 								}
 							]
@@ -588,7 +588,7 @@
 							"name": "分组被单击",
 							"params": [
 								{
-									"name": "groupid",
+									"name": "分组索引",
 									"type": "整数型"
 								}
 							]

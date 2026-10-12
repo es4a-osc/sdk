@@ -980,7 +980,7 @@
 					"events": [
 						{
 							"name": "初始化",
-							"description": "组件初始化时触发。"
+							"description": "组件初始化时触发，可通过组件名称访问该组件。"
 						}
 					]
 				},
@@ -1164,12 +1164,12 @@
 							"description": "当播放器触发错误时，触发该事件。",
 							"params": [
 								{
-									"name": "what",
+									"name": "错误码",
 									"type": "整数型",
 									"description": "可选值请参考错误_未知等"
 								},
 								{
-									"name": "extra",
+									"name": "附加码",
 									"type": "整数型"
 								}
 							]
@@ -1179,12 +1179,12 @@
 							"description": "当播放器触发信息或警告时，触发该事件。",
 							"params": [
 								{
-									"name": "what",
+									"name": "信息码",
 									"type": "整数型",
 									"description": "可选值请参考信息_未知等"
 								},
 								{
-									"name": "extra",
+									"name": "附加码",
 									"type": "整数型"
 								}
 							]
@@ -1194,7 +1194,7 @@
 							"description": "被调用以更新缓冲通过渐进式HTTP下载接收的媒体流的状态。\n接收的缓冲百分比表示已缓冲或播放了多少内容。\n例如，当已播放一半内容时，缓冲更新为80%表示要播放的下一个30%的内容已被缓冲。",
 							"params": [
 								{
-									"name": "percent",
+									"name": "百分比",
 									"type": "整数型",
 									"description": "到目前为止已缓冲或播放的内容的百分比（0-100）"
 								}
@@ -1240,7 +1240,7 @@
 							"description": "呼叫给定电话号码的电话。",
 							"params": [
 								{
-									"name": "phoneNumber",
+									"name": "电话号码",
 									"type": "文本型",
 									"description": "仅数字形式的电话号码（无空格、破折号等）"
 								}
@@ -1383,12 +1383,12 @@
 							"description": "收到广播事件默认处理方法。",
 							"params": [
 								{
-									"name": "action",
+									"name": "动作",
 									"type": "文本型",
 									"description": "广播动作。"
 								},
 								{
-									"name": "intent",
+									"name": "意图",
 									"type": "意图",
 									"description": "意图实例。"
 								}
@@ -1421,7 +1421,7 @@
 							"description": "检验当前应用请求权限是否授权。\n注意API等级小于21始终返回true",
 							"params": [
 								{
-									"name": "permission",
+									"name": "权限",
 									"type": "文本型",
 									"description": "请求权限名。"
 								}
@@ -1433,12 +1433,12 @@
 							"description": "请求使用权限，请求结果将通过请求权限结果事件通知。\n谷歌不推荐一次请求大量权限，会使用户感到无所适。",
 							"params": [
 								{
-									"name": "permissions",
+									"name": "权限列表",
 									"type": "文本型()",
 									"description": "权限列表名，注意仅可为清单中声明的权限。"
 								},
 								{
-									"name": "requestMark",
+									"name": "请求标记",
 									"type": "文本型",
 									"description": "请求标记，可为null。"
 								}
@@ -1449,7 +1449,7 @@
 							"description": "检验是否应该显示权限理由。",
 							"params": [
 								{
-									"name": "permission",
+									"name": "权限",
 									"type": "文本型",
 									"description": "请求权限名。"
 								}
@@ -1463,17 +1463,17 @@
 							"description": "请求权限结果通知。",
 							"params": [
 								{
-									"name": "permissions",
+									"name": "权限列表",
 									"type": "文本型()",
 									"description": "权限名称。"
 								},
 								{
-									"name": "grantResults",
+									"name": "授权结果",
 									"type": "整数型()",
 									"description": "授予结果。"
 								},
 								{
-									"name": "requestMark",
+									"name": "请求标记",
 									"type": "文本型",
 									"description": "请求标记。"
 								}
@@ -1619,7 +1619,7 @@
 							"description": "检查列是否折叠",
 							"params": [
 								{
-									"name": "columnIndex",
+									"name": "列索引",
 									"type": "整数型",
 									"description": "列索引，从0开始。"
 								}
@@ -1631,12 +1631,12 @@
 							"description": "设置列是否折叠",
 							"params": [
 								{
-									"name": "columnIndex",
+									"name": "列索引",
 									"type": "整数型",
 									"description": "列索引，从0开始。"
 								},
 								{
-									"name": "isCollapsed",
+									"name": "折叠",
 									"type": "逻辑型",
 									"description": "是否折叠"
 								}
@@ -1647,7 +1647,7 @@
 							"description": "检验列是否可收缩",
 							"params": [
 								{
-									"name": "columnIndex",
+									"name": "列索引",
 									"type": "整数型",
 									"description": "列索引，从0开始。"
 								}
@@ -1659,12 +1659,12 @@
 							"description": "设置列是否可收缩",
 							"params": [
 								{
-									"name": "columnIndex",
+									"name": "列索引",
 									"type": "整数型",
 									"description": "列索引，从0开始。"
 								},
 								{
-									"name": "isShrinkable",
+									"name": "可收缩",
 									"type": "逻辑型",
 									"description": "是否可收缩"
 								}
@@ -1675,7 +1675,7 @@
 							"description": "检验列是否可拉伸",
 							"params": [
 								{
-									"name": "columnIndex",
+									"name": "列索引",
 									"type": "整数型",
 									"description": "列索引，从0开始。"
 								}
@@ -1687,12 +1687,12 @@
 							"description": "设置列是否可拉伸",
 							"params": [
 								{
-									"name": "columnIndex",
+									"name": "列索引",
 									"type": "整数型",
 									"description": "列索引，从0开始。"
 								},
 								{
-									"name": "isStretchable",
+									"name": "可拉伸",
 									"type": "逻辑型",
 									"description": "是否可拉伸"
 								}
@@ -1713,7 +1713,7 @@
 							"description": "将指点窗口添加到布局。",
 							"params": [
 								{
-									"name": "form",
+									"name": "窗口",
 									"type": "窗口",
 									"description": "窗口实例。"
 								}
@@ -2608,7 +2608,7 @@
 							"description": "为当前视图添加相对规则，仅限位于相对布局中时可用。",
 							"params": [
 								{
-									"name": "verb",
+									"name": "规则",
 									"type": "整数型",
 									"description": "相对规则，可使用 布局_规则_* 常量。"
 								}
@@ -2619,12 +2619,12 @@
 							"description": "为当前视图添加相对规则，仅限位于相对布局中时可用。",
 							"params": [
 								{
-									"name": "verb",
+									"name": "规则",
 									"type": "整数型",
 									"description": "相对规则，可使用 布局_规则_* 常量。"
 								},
 								{
-									"name": "anchor",
+									"name": "锚点",
 									"type": "整数型",
 									"description": "瞄点值，可使用 布局_规则_真 或 视图标识。"
 								}
@@ -2635,7 +2635,7 @@
 							"description": "删除当前视图的相对规则，仅限位于相对布局中时可用。",
 							"params": [
 								{
-									"name": "verb",
+									"name": "规则",
 									"type": "整数型",
 									"description": "要删除的相对规则。"
 								}
@@ -2646,7 +2646,7 @@
 							"description": "取得当前视图指定相对规则的瞄点值，仅限位于相对布局中时可用。",
 							"params": [
 								{
-									"name": "verb",
+									"name": "规则",
 									"type": "整数型",
 									"description": "要查询的相对规则。"
 								}
@@ -2775,17 +2775,17 @@
 							"description": "设置左边图标。",
 							"params": [
 								{
-									"name": "image",
+									"name": "图片",
 									"type": "文本型",
 									"description": "支持：资源标识 @drawable /资源名 资产文件名 /外部文件名"
 								},
 								{
-									"name": "width",
+									"name": "宽度",
 									"type": "整数型",
 									"description": "绘制宽度，单位像素。"
 								},
 								{
-									"name": "height",
+									"name": "高度",
 									"type": "整数型",
 									"description": "绘制高度，单位像素。"
 								}
@@ -2796,17 +2796,17 @@
 							"description": "设置顶边图标。",
 							"params": [
 								{
-									"name": "image",
+									"name": "图片",
 									"type": "文本型",
 									"description": "支持：资源标识 @drawable /资源名 资产文件名 /外部文件名"
 								},
 								{
-									"name": "width",
+									"name": "宽度",
 									"type": "整数型",
 									"description": "绘制宽度，单位像素。"
 								},
 								{
-									"name": "height",
+									"name": "高度",
 									"type": "整数型",
 									"description": "绘制高度，单位像素。"
 								}
@@ -2817,17 +2817,17 @@
 							"description": "设置右边图标。",
 							"params": [
 								{
-									"name": "image",
+									"name": "图片",
 									"type": "文本型",
 									"description": "支持：资源标识 @drawable /资源名 资产文件名 /外部文件名"
 								},
 								{
-									"name": "width",
+									"name": "宽度",
 									"type": "整数型",
 									"description": "绘制宽度，单位像素。"
 								},
 								{
-									"name": "height",
+									"name": "高度",
 									"type": "整数型",
 									"description": "绘制高度，单位像素。"
 								}
@@ -2838,17 +2838,17 @@
 							"description": "设置底边图标。",
 							"params": [
 								{
-									"name": "image",
+									"name": "图片",
 									"type": "文本型",
 									"description": "支持：资源标识 @drawable /资源名 资产文件名 /外部文件名"
 								},
 								{
-									"name": "width",
+									"name": "宽度",
 									"type": "整数型",
 									"description": "绘制宽度，单位像素。"
 								},
 								{
-									"name": "height",
+									"name": "高度",
 									"type": "整数型",
 									"description": "绘制高度，单位像素。"
 								}
@@ -2859,7 +2859,7 @@
 							"description": "设置图标的填充距离。",
 							"params": [
 								{
-									"name": "padding",
+									"name": "间距",
 									"type": "整数型",
 									"description": "填充距离。"
 								}
@@ -2980,12 +2980,12 @@
 							"description": "默认按下事件处理方法。",
 							"params": [
 								{
-									"name": "x",
+									"name": "横坐标",
 									"type": "整数型",
 									"description": "按下横向位置。"
 								},
 								{
-									"name": "y",
+									"name": "纵坐标",
 									"type": "整数型",
 									"description": "按下纵向位置。"
 								}
@@ -2996,12 +2996,12 @@
 							"description": "默认松开事件处理方法。",
 							"params": [
 								{
-									"name": "x",
+									"name": "横坐标",
 									"type": "整数型",
 									"description": "松开横向位置。"
 								},
 								{
-									"name": "y",
+									"name": "纵坐标",
 									"type": "整数型",
 									"description": "松开纵向位置。"
 								}
@@ -3012,22 +3012,22 @@
 							"description": "默认触摸移动事件处理方法。",
 							"params": [
 								{
-									"name": "lastX",
+									"name": "上次横坐标",
 									"type": "整数型",
 									"description": "移动起始横向位置。"
 								},
 								{
-									"name": "lastY",
+									"name": "上次纵坐标",
 									"type": "整数型",
 									"description": "移动起始纵向位置。"
 								},
 								{
-									"name": "currX",
+									"name": "当前横坐标",
 									"type": "整数型",
 									"description": "移动起始横向位置。"
 								},
 								{
-									"name": "currY",
+									"name": "当前纵坐标",
 									"type": "整数型",
 									"description": "移动结束纵向位置。"
 								}
@@ -3038,7 +3038,7 @@
 							"description": "默认触摸手势事件处理方法。",
 							"params": [
 								{
-									"name": "direction",
+									"name": "方向",
 									"type": "整数型",
 									"description": "不断识别触摸手势的方向（@see 组件）。"
 								}
@@ -3121,12 +3121,12 @@
 							"description": "默认按下事件处理方法。",
 							"params": [
 								{
-									"name": "x",
+									"name": "横坐标",
 									"type": "整数型",
 									"description": "按下横向位置。"
 								},
 								{
-									"name": "y",
+									"name": "纵坐标",
 									"type": "整数型",
 									"description": "按下纵向位置。"
 								}
@@ -3137,12 +3137,12 @@
 							"description": "默认弹起事件处理方法。",
 							"params": [
 								{
-									"name": "x",
+									"name": "横坐标",
 									"type": "整数型",
 									"description": "弹起横向位置。"
 								},
 								{
-									"name": "y",
+									"name": "纵坐标",
 									"type": "整数型",
 									"description": "弹起纵向位置。"
 								}
@@ -3153,22 +3153,22 @@
 							"description": "默认触摸移动事件处理方法。",
 							"params": [
 								{
-									"name": "lastX",
+									"name": "上次横坐标",
 									"type": "整数型",
 									"description": "移动起始横向位置。"
 								},
 								{
-									"name": "lastY",
+									"name": "上次纵坐标",
 									"type": "整数型",
 									"description": "移动起始纵向位置。"
 								},
 								{
-									"name": "currX",
+									"name": "当前横坐标",
 									"type": "整数型",
 									"description": "移动起始横向位置。"
 								},
 								{
-									"name": "currY",
+									"name": "当前纵坐标",
 									"type": "整数型",
 									"description": "移动结束纵向位置。"
 								}
@@ -3179,7 +3179,7 @@
 							"description": "默认触摸手势事件处理方法。",
 							"params": [
 								{
-									"name": "direction",
+									"name": "方向",
 									"type": "整数型",
 									"description": "不断识别触摸手势的方向（@see 组件）。"
 								}
@@ -3285,7 +3285,7 @@
 							"description": "在内容末尾加入文本。",
 							"params": [
 								{
-									"name": "text",
+									"name": "文本",
 									"type": "文本型",
 									"description": "加入文本。"
 								}
@@ -3296,12 +3296,12 @@
 							"description": "插入文本到指定位置。",
 							"params": [
 								{
-									"name": "location",
+									"name": "位置",
 									"type": "整数型",
 									"description": "插入位置。"
 								},
 								{
-									"name": "text",
+									"name": "文本",
 									"type": "文本型",
 									"description": "插入文本。"
 								}
@@ -3312,12 +3312,12 @@
 							"description": "删除指定文本。",
 							"params": [
 								{
-									"name": "start",
+									"name": "起始位置",
 									"type": "整数型",
 									"description": "起始位置。"
 								},
 								{
-									"name": "stop",
+									"name": "结束位置",
 									"type": "整数型",
 									"description": "结束位置。"
 								}
@@ -3328,12 +3328,12 @@
 							"description": "选中指点文本。",
 							"params": [
 								{
-									"name": "start",
+									"name": "起始位置",
 									"type": "整数型",
 									"description": "开始位置。"
 								},
 								{
-									"name": "stop",
+									"name": "结束位置",
 									"type": "整数型",
 									"description": "停止位置。"
 								}
@@ -3366,12 +3366,12 @@
 							"description": "默认文本改变事件处理器。 注意参数accept暂时无效",
 							"params": [
 								{
-									"name": "text",
+									"name": "文本",
 									"type": "文本型",
 									"description": "要验证的文本"
 								},
 								{
-									"name": "accept",
+									"name": "接受输入",
 									"type": "逻辑型",
 									"description": "设置为false以拒绝文本输入，默认值为true。",
 									"byRef": true
@@ -3543,12 +3543,12 @@
 							"description": "默认按下事件处理方法。",
 							"params": [
 								{
-									"name": "x",
+									"name": "横坐标",
 									"type": "整数型",
 									"description": "按下横向位置。"
 								},
 								{
-									"name": "y",
+									"name": "纵坐标",
 									"type": "整数型",
 									"description": "按下纵向位置。"
 								}
@@ -3559,12 +3559,12 @@
 							"description": "默认弹起事件处理方法。",
 							"params": [
 								{
-									"name": "x",
+									"name": "横坐标",
 									"type": "整数型",
 									"description": "弹起横向位置。"
 								},
 								{
-									"name": "y",
+									"name": "纵坐标",
 									"type": "整数型",
 									"description": "弹起纵向位置。"
 								}
@@ -3575,22 +3575,22 @@
 							"description": "默认触摸移动事件处理方法。",
 							"params": [
 								{
-									"name": "lastX",
+									"name": "上次横坐标",
 									"type": "整数型",
 									"description": "移动起始横向位置。"
 								},
 								{
-									"name": "lastY",
+									"name": "上次纵坐标",
 									"type": "整数型",
 									"description": "移动起始纵向位置。"
 								},
 								{
-									"name": "currX",
+									"name": "当前横坐标",
 									"type": "整数型",
 									"description": "移动起始横向位置。"
 								},
 								{
-									"name": "currY",
+									"name": "当前纵坐标",
 									"type": "整数型",
 									"description": "移动结束纵向位置。"
 								}
@@ -3601,7 +3601,7 @@
 							"description": "默认触摸手势事件处理方法。",
 							"params": [
 								{
-									"name": "direction",
+									"name": "方向",
 									"type": "整数型",
 									"description": "不断识别触摸手势的方向（@see 组件）。"
 								}
@@ -3659,12 +3659,12 @@
 							"description": "默认按下事件处理方法。",
 							"params": [
 								{
-									"name": "x",
+									"name": "横坐标",
 									"type": "整数型",
 									"description": "按下横向位置。"
 								},
 								{
-									"name": "y",
+									"name": "纵坐标",
 									"type": "整数型",
 									"description": "按下纵向位置。"
 								}
@@ -3675,12 +3675,12 @@
 							"description": "默认弹起事件处理方法。",
 							"params": [
 								{
-									"name": "x",
+									"name": "横坐标",
 									"type": "整数型",
 									"description": "弹起横向位置。"
 								},
 								{
-									"name": "y",
+									"name": "纵坐标",
 									"type": "整数型",
 									"description": "弹起纵向位置。"
 								}
@@ -3691,22 +3691,22 @@
 							"description": "默认触摸移动事件处理方法。",
 							"params": [
 								{
-									"name": "lastX",
+									"name": "上次横坐标",
 									"type": "整数型",
 									"description": "移动起始横向位置。"
 								},
 								{
-									"name": "lastY",
+									"name": "上次纵坐标",
 									"type": "整数型",
 									"description": "移动起始纵向位置。"
 								},
 								{
-									"name": "currX",
+									"name": "当前横坐标",
 									"type": "整数型",
 									"description": "移动起始横向位置。"
 								},
 								{
-									"name": "currY",
+									"name": "当前纵坐标",
 									"type": "整数型",
 									"description": "移动结束纵向位置。"
 								}
@@ -3717,7 +3717,7 @@
 							"description": "默认触摸手势事件处理方法。",
 							"params": [
 								{
-									"name": "direction",
+									"name": "方向",
 									"type": "整数型",
 									"description": "不断识别触摸手势的方向（@see 组件）。"
 								}
@@ -3800,7 +3800,7 @@
 							"name": "位置被改变",
 							"params": [
 								{
-									"name": "progress",
+									"name": "位置",
 									"type": "整数型"
 								}
 							]
@@ -3827,7 +3827,7 @@
 							"name": "位置被改变",
 							"params": [
 								{
-									"name": "progress",
+									"name": "位置",
 									"type": "整数型"
 								}
 							]
@@ -3855,7 +3855,7 @@
 							"name": "垂直滚动",
 							"params": [
 								{
-									"name": "x",
+									"name": "滚动比例",
 									"type": "整数型"
 								}
 							]
@@ -3868,7 +3868,7 @@
 							"name": "选择项目",
 							"params": [
 								{
-									"name": "index",
+									"name": "索引",
 									"type": "整数型"
 								}
 							]
@@ -3877,7 +3877,7 @@
 							"name": "删除项目",
 							"params": [
 								{
-									"name": "index",
+									"name": "索引",
 									"type": "整数型"
 								}
 							]
@@ -3889,7 +3889,7 @@
 							"name": "添加项目",
 							"params": [
 								{
-									"name": "text",
+									"name": "文本",
 									"type": "文本型"
 								}
 							],
@@ -3899,7 +3899,7 @@
 							"name": "取项目文本",
 							"params": [
 								{
-									"name": "index",
+									"name": "索引",
 									"type": "整数型"
 								}
 							],
@@ -3909,11 +3909,11 @@
 							"name": "置项目文本",
 							"params": [
 								{
-									"name": "index",
+									"name": "索引",
 									"type": "整数型"
 								},
 								{
-									"name": "text",
+									"name": "文本",
 									"type": "文本型"
 								}
 							]
@@ -3924,7 +3924,7 @@
 							"name": "项目被单击",
 							"params": [
 								{
-									"name": "index",
+									"name": "索引",
 									"type": "整数型"
 								}
 							]
@@ -3933,7 +3933,7 @@
 							"name": "项目被长按",
 							"params": [
 								{
-									"name": "index",
+									"name": "索引",
 									"type": "整数型"
 								}
 							]
@@ -3942,15 +3942,15 @@
 							"name": "项目被滚动",
 							"params": [
 								{
-									"name": "firstVisibleItem",
+									"name": "首项索引",
 									"type": "整数型"
 								},
 								{
-									"name": "visibleItemCount",
+									"name": "可见项数",
 									"type": "整数型"
 								},
 								{
-									"name": "totalItemCount",
+									"name": "总项数",
 									"type": "整数型"
 								}
 							]
@@ -3978,7 +3978,7 @@
 							"name": "垂直滚动",
 							"params": [
 								{
-									"name": "x",
+									"name": "滚动比例",
 									"type": "整数型"
 								}
 							]
@@ -3991,7 +3991,7 @@
 							"name": "选择项目",
 							"params": [
 								{
-									"name": "index",
+									"name": "索引",
 									"type": "整数型"
 								}
 							]
@@ -4000,7 +4000,7 @@
 							"name": "删除项目",
 							"params": [
 								{
-									"name": "index",
+									"name": "索引",
 									"type": "整数型"
 								}
 							]
@@ -4012,7 +4012,7 @@
 							"name": "添加项目",
 							"params": [
 								{
-									"name": "text",
+									"name": "文本",
 									"type": "文本型"
 								}
 							],
@@ -4022,11 +4022,11 @@
 							"name": "插入项目",
 							"params": [
 								{
-									"name": "index",
+									"name": "索引",
 									"type": "整数型"
 								},
 								{
-									"name": "text",
+									"name": "文本",
 									"type": "文本型"
 								}
 							]
@@ -4035,7 +4035,7 @@
 							"name": "取项目文本",
 							"params": [
 								{
-									"name": "index",
+									"name": "索引",
 									"type": "整数型"
 								}
 							],
@@ -4045,11 +4045,11 @@
 							"name": "置项目文本",
 							"params": [
 								{
-									"name": "index",
+									"name": "索引",
 									"type": "整数型"
 								},
 								{
-									"name": "value",
+									"name": "文本",
 									"type": "文本型"
 								}
 							]
@@ -4058,7 +4058,7 @@
 							"name": "取项目选中",
 							"params": [
 								{
-									"name": "index",
+									"name": "索引",
 									"type": "整数型"
 								}
 							],
@@ -4068,11 +4068,11 @@
 							"name": "置项目选中",
 							"params": [
 								{
-									"name": "index",
+									"name": "索引",
 									"type": "整数型"
 								},
 								{
-									"name": "value",
+									"name": "选中",
 									"type": "逻辑型"
 								}
 							]
@@ -4087,7 +4087,7 @@
 							"name": "项目被单击",
 							"params": [
 								{
-									"name": "index",
+									"name": "索引",
 									"type": "整数型"
 								}
 							]
@@ -4096,7 +4096,7 @@
 							"name": "项目被长按",
 							"params": [
 								{
-									"name": "index",
+									"name": "索引",
 									"type": "整数型"
 								}
 							]
@@ -4105,15 +4105,15 @@
 							"name": "项目被滚动",
 							"params": [
 								{
-									"name": "firstVisibleItem",
+									"name": "首项索引",
 									"type": "整数型"
 								},
 								{
-									"name": "visibleItemCount",
+									"name": "可见项数",
 									"type": "整数型"
 								},
 								{
-									"name": "totalItemCount",
+									"name": "总项数",
 									"type": "整数型"
 								}
 							]
@@ -4141,7 +4141,7 @@
 							"name": "垂直滚动",
 							"params": [
 								{
-									"name": "x",
+									"name": "滚动比例",
 									"type": "整数型"
 								}
 							]
@@ -4154,7 +4154,7 @@
 							"name": "选择项目",
 							"params": [
 								{
-									"name": "index",
+									"name": "索引",
 									"type": "整数型"
 								}
 							]
@@ -4163,7 +4163,7 @@
 							"name": "删除项目",
 							"params": [
 								{
-									"name": "index",
+									"name": "索引",
 									"type": "整数型"
 								}
 							]
@@ -4175,7 +4175,7 @@
 							"name": "添加项目",
 							"params": [
 								{
-									"name": "text",
+									"name": "文本",
 									"type": "文本型"
 								}
 							],
@@ -4185,11 +4185,11 @@
 							"name": "插入项目",
 							"params": [
 								{
-									"name": "index",
+									"name": "索引",
 									"type": "整数型"
 								},
 								{
-									"name": "text",
+									"name": "文本",
 									"type": "文本型"
 								}
 							]
@@ -4198,7 +4198,7 @@
 							"name": "取项目文本",
 							"params": [
 								{
-									"name": "index",
+									"name": "索引",
 									"type": "整数型"
 								}
 							],
@@ -4208,11 +4208,11 @@
 							"name": "置项目文本",
 							"params": [
 								{
-									"name": "index",
+									"name": "索引",
 									"type": "整数型"
 								},
 								{
-									"name": "text",
+									"name": "文本",
 									"type": "文本型"
 								}
 							]
@@ -4221,7 +4221,7 @@
 							"name": "取项目选中",
 							"params": [
 								{
-									"name": "index",
+									"name": "索引",
 									"type": "整数型"
 								}
 							],
@@ -4231,11 +4231,11 @@
 							"name": "置项目选中",
 							"params": [
 								{
-									"name": "index",
+									"name": "索引",
 									"type": "整数型"
 								},
 								{
-									"name": "value",
+									"name": "选中",
 									"type": "逻辑型"
 								}
 							]
@@ -4254,7 +4254,7 @@
 							"name": "项目被单击",
 							"params": [
 								{
-									"name": "index",
+									"name": "索引",
 									"type": "整数型"
 								}
 							]
@@ -4263,7 +4263,7 @@
 							"name": "项目被长按",
 							"params": [
 								{
-									"name": "index",
+									"name": "索引",
 									"type": "整数型"
 								}
 							]
@@ -4272,15 +4272,15 @@
 							"name": "项目被滚动",
 							"params": [
 								{
-									"name": "firstVisibleItem",
+									"name": "首项索引",
 									"type": "整数型"
 								},
 								{
-									"name": "visibleItemCount",
+									"name": "可见项数",
 									"type": "整数型"
 								},
 								{
-									"name": "totalItemCount",
+									"name": "总项数",
 									"type": "整数型"
 								}
 							]
@@ -4312,7 +4312,7 @@
 							"name": "删除项目",
 							"params": [
 								{
-									"name": "index",
+									"name": "索引",
 									"type": "整数型"
 								}
 							]
@@ -4324,7 +4324,7 @@
 							"name": "添加项目",
 							"params": [
 								{
-									"name": "text",
+									"name": "文本",
 									"type": "文本型"
 								}
 							],
@@ -4334,11 +4334,11 @@
 							"name": "插入项目",
 							"params": [
 								{
-									"name": "index",
+									"name": "索引",
 									"type": "整数型"
 								},
 								{
-									"name": "text",
+									"name": "文本",
 									"type": "文本型"
 								}
 							]
@@ -4347,7 +4347,7 @@
 							"name": "取项目文本",
 							"params": [
 								{
-									"name": "index",
+									"name": "索引",
 									"type": "整数型"
 								}
 							],
@@ -4357,11 +4357,11 @@
 							"name": "置项目文本",
 							"params": [
 								{
-									"name": "index",
+									"name": "索引",
 									"type": "整数型"
 								},
 								{
-									"name": "text",
+									"name": "文本",
 									"type": "文本型"
 								}
 							]
@@ -4372,7 +4372,7 @@
 							"name": "项目被选择",
 							"params": [
 								{
-									"name": "index",
+									"name": "索引",
 									"type": "整数型"
 								}
 							]
@@ -4466,12 +4466,12 @@
 							"description": "在画板上的给定坐标处绘制点。",
 							"params": [
 								{
-									"name": "x",
+									"name": "横坐标",
 									"type": "整数型",
 									"description": "x坐标"
 								},
 								{
-									"name": "y",
+									"name": "纵坐标",
 									"type": "整数型",
 									"description": "y坐标"
 								}
@@ -4482,17 +4482,17 @@
 							"description": "在画板上给定的坐标，用给定的半径画一个圆。",
 							"params": [
 								{
-									"name": "x",
+									"name": "横坐标",
 									"type": "整数型",
 									"description": "x坐标"
 								},
 								{
-									"name": "y",
+									"name": "纵坐标",
 									"type": "整数型",
 									"description": "y坐标"
 								},
 								{
-									"name": "r",
+									"name": "半径",
 									"type": "单精度小数型",
 									"description": "半径"
 								}
@@ -4503,22 +4503,22 @@
 							"description": "在画板上给定的坐标之间绘制一条直线。",
 							"params": [
 								{
-									"name": "x1",
+									"name": "起点横坐标",
 									"type": "整数型",
 									"description": "第一点的x坐标"
 								},
 								{
-									"name": "y1",
+									"name": "起点纵坐标",
 									"type": "整数型",
 									"description": "第一点的y坐标"
 								},
 								{
-									"name": "x2",
+									"name": "终点横坐标",
 									"type": "整数型",
 									"description": "第二点的x坐标"
 								},
 								{
-									"name": "y2",
+									"name": "终点纵坐标",
 									"type": "整数型",
 									"description": "第二点的y坐标"
 								}
@@ -4531,12 +4531,12 @@
 							"description": "默认按下事件处理方法。",
 							"params": [
 								{
-									"name": "x",
+									"name": "横坐标",
 									"type": "整数型",
 									"description": "按下横向位置。"
 								},
 								{
-									"name": "y",
+									"name": "纵坐标",
 									"type": "整数型",
 									"description": "按下纵向位置。"
 								}
@@ -4547,12 +4547,12 @@
 							"description": "默认被弹起事件处理方法。",
 							"params": [
 								{
-									"name": "x",
+									"name": "横坐标",
 									"type": "整数型",
 									"description": "弹起横向位置。"
 								},
 								{
-									"name": "y",
+									"name": "纵坐标",
 									"type": "整数型",
 									"description": "弹起纵向位置。"
 								}
@@ -4563,22 +4563,22 @@
 							"description": "默认触摸移动事件处理方法。",
 							"params": [
 								{
-									"name": "lastX",
+									"name": "上次横坐标",
 									"type": "整数型",
 									"description": "移动起始横向位置。"
 								},
 								{
-									"name": "lastY",
+									"name": "上次纵坐标",
 									"type": "整数型",
 									"description": "移动起始纵向位置。"
 								},
 								{
-									"name": "currX",
+									"name": "当前横坐标",
 									"type": "整数型",
 									"description": "移动起始横向位置。"
 								},
 								{
-									"name": "currY",
+									"name": "当前纵坐标",
 									"type": "整数型",
 									"description": "移动结束纵向位置。"
 								}
@@ -4589,7 +4589,7 @@
 							"description": "默认触摸手势事件处理方法。",
 							"params": [
 								{
-									"name": "direction",
+									"name": "方向",
 									"type": "整数型",
 									"description": "不断识别触摸手势的方向（@see 组件）。"
 								}
@@ -4711,7 +4711,7 @@
 							"description": "加载指定网址。 可以载入asset中的html，如file:///android_asset/index.html",
 							"params": [
 								{
-									"name": "url",
+									"name": "网址",
 									"type": "文本型",
 									"description": "加载网址。"
 								}
@@ -4748,7 +4748,7 @@
 							"description": "向浏览器中注册JS接口，会开启JS。 JS中调用格式为接口对象名.call(param)， 将触发param)事件。",
 							"params": [
 								{
-									"name": "name",
+									"name": "接口名",
 									"type": "文本型",
 									"description": "接口对象名"
 								}
@@ -4759,12 +4759,12 @@
 							"description": "调用JS中的函数，会开启JS。 注意仅API19及以上版本才可有返回值， 成功将触发result)事件。",
 							"params": [
 								{
-									"name": "script",
+									"name": "脚本",
 									"type": "文本型",
 									"description": "要执行的JavaScript。"
 								},
 								{
-									"name": "isReturn",
+									"name": "返回结果",
 									"type": "逻辑型",
 									"description": "是否有返回值。"
 								}
@@ -4778,7 +4778,7 @@
 							"description": "触摸手势事件处理方法。",
 							"params": [
 								{
-									"name": "direction",
+									"name": "方向",
 									"type": "整数型",
 									"description": "触摸，可选值请参考触摸_单击等常量。"
 								}
@@ -4789,12 +4789,12 @@
 							"description": "即将跳转事件处理方法。",
 							"params": [
 								{
-									"name": "url",
+									"name": "网址",
 									"type": "文本型",
 									"description": "即将跳转的网址。"
 								},
 								{
-									"name": "shield",
+									"name": "屏蔽",
 									"type": "逻辑型",
 									"description": "是否屏蔽，缺省为false。",
 									"byRef": true
@@ -4806,7 +4806,7 @@
 							"description": "开始载入事件处理方法。",
 							"params": [
 								{
-									"name": "url",
+									"name": "网址",
 									"type": "文本型",
 									"description": "开始载入的网址。"
 								}
@@ -4817,7 +4817,7 @@
 							"description": "载入完毕事件处理方法。",
 							"params": [
 								{
-									"name": "url",
+									"name": "网址",
 									"type": "文本型",
 									"description": "载入完毕的网址。"
 								}
@@ -4828,12 +4828,12 @@
 							"description": "载入失败事件处理方法。",
 							"params": [
 								{
-									"name": "errorCode",
+									"name": "错误码",
 									"type": "整数型",
 									"description": "失败的代码"
 								},
 								{
-									"name": "failingUrl",
+									"name": "网址",
 									"type": "文本型"
 								}
 							]
@@ -4843,7 +4843,7 @@
 							"description": "进度改变事件处理方法。",
 							"params": [
 								{
-									"name": "newProgress",
+									"name": "进度",
 									"type": "整数型",
 									"description": "当前进度。"
 								}
@@ -4854,17 +4854,17 @@
 							"description": "弹出警告框事件处理方法。",
 							"params": [
 								{
-									"name": "url",
+									"name": "网址",
 									"type": "文本型",
 									"description": "网址。"
 								},
 								{
-									"name": "message",
+									"name": "信息",
 									"type": "文本型",
 									"description": "警告信息。"
 								},
 								{
-									"name": "shield",
+									"name": "屏蔽",
 									"type": "逻辑型",
 									"description": "是否屏蔽。",
 									"byRef": true
@@ -4876,17 +4876,17 @@
 							"description": "弹出确认框事件处理方法。",
 							"params": [
 								{
-									"name": "url",
+									"name": "网址",
 									"type": "文本型",
 									"description": "网址。"
 								},
 								{
-									"name": "message",
+									"name": "信息",
 									"type": "文本型",
 									"description": "警告信息。"
 								},
 								{
-									"name": "handle",
+									"name": "处理方式",
 									"type": "整数型",
 									"description": "处理方式；可选值请参考处理方式_忽略。",
 									"byRef": true
@@ -4898,23 +4898,23 @@
 							"description": "弹出输入框事件处理方法。",
 							"params": [
 								{
-									"name": "url",
+									"name": "网址",
 									"type": "文本型",
 									"description": "网址。"
 								},
 								{
-									"name": "message",
+									"name": "信息",
 									"type": "文本型",
 									"description": "警告信息。"
 								},
 								{
-									"name": "value",
+									"name": "输入文本",
 									"type": "文本型",
 									"description": "输入内容。",
 									"byRef": true
 								},
 								{
-									"name": "handle",
+									"name": "处理方式",
 									"type": "整数型",
 									"description": "处理方式；可选值请参考处理方式_忽略。",
 									"byRef": true
@@ -4926,12 +4926,12 @@
 							"description": "开始下载事件处理方法。",
 							"params": [
 								{
-									"name": "url",
+									"name": "网址",
 									"type": "文本型",
 									"description": "开始下载网址。"
 								},
 								{
-									"name": "contentLength",
+									"name": "内容长度",
 									"type": "长整数型",
 									"description": "内容长度。"
 								}
@@ -4942,12 +4942,12 @@
 							"description": "接口触发事件处理方法。 JS脚本中调用已注册的接口对象触发该事件。",
 							"params": [
 								{
-									"name": "name",
+									"name": "接口名",
 									"type": "文本型",
 									"description": "被调用的接口对象名。"
 								},
 								{
-									"name": "param",
+									"name": "参数",
 									"type": "文本型",
 									"description": "传递的参数内容。"
 								}
@@ -4958,12 +4958,12 @@
 							"description": "接口返回事件处理方法。 调用JS脚本中函数后返回结果触发触发该事件。",
 							"params": [
 								{
-									"name": "script",
+									"name": "脚本",
 									"type": "文本型",
 									"description": "调用的JS脚本。"
 								},
 								{
-									"name": "result",
+									"name": "结果",
 									"type": "文本型",
 									"description": "函数返回结果。"
 								}
@@ -4985,7 +4985,7 @@
 							"name": "播放视频",
 							"params": [
 								{
-									"name": "paramString",
+									"name": "路径",
 									"type": "文本型"
 								}
 							]
@@ -5011,7 +5011,7 @@
 							"name": "置播放位置",
 							"params": [
 								{
-									"name": "paramInt",
+									"name": "位置",
 									"type": "整数型"
 								}
 							]
@@ -5028,7 +5028,7 @@
 							"name": "置控制条状态",
 							"params": [
 								{
-									"name": "paramBoolean",
+									"name": "显示",
 									"type": "逻辑型"
 								}
 							]
@@ -5131,15 +5131,15 @@
 							"description": "指示已检测到新位置。",
 							"params": [
 								{
-									"name": "latitude",
+									"name": "纬度",
 									"type": "双精度小数型"
 								},
 								{
-									"name": "longitude",
+									"name": "经度",
 									"type": "双精度小数型"
 								},
 								{
-									"name": "altitude",
+									"name": "高度",
 									"type": "双精度小数型"
 								}
 							]
@@ -5193,17 +5193,17 @@
 							"description": "默认加速度改变事件处理方法。",
 							"params": [
 								{
-									"name": "xAccel",
+									"name": "横向加速度",
 									"type": "单精度小数型",
 									"description": "x轴上的加速度减去Gx"
 								},
 								{
-									"name": "yAccel",
+									"name": "纵向加速度",
 									"type": "单精度小数型",
 									"description": "y轴上的加速度减去Gy"
 								},
 								{
-									"name": "zAccel",
+									"name": "垂向加速度",
 									"type": "单精度小数型",
 									"description": "z轴上的加速度减去Gz"
 								}
@@ -5274,17 +5274,17 @@
 							"description": "Default OrientationChanged event handler.",
 							"params": [
 								{
-									"name": "yaw",
+									"name": "偏航角",
 									"type": "单精度小数型",
 									"description": "angle between the magnetic north direction and the Y axis, around the Z axis (0 to 359). 0=North, 90=East, 180=South, 270=West"
 								},
 								{
-									"name": "pitch",
+									"name": "俯仰角",
 									"type": "单精度小数型",
 									"description": "rotation around X axis (-180 to 180), with positive values when the z-axis moves toward the y-axis."
 								},
 								{
-									"name": "roll",
+									"name": "翻滚角",
 									"type": "单精度小数型",
 									"description": "rotation around Y axis (-90 to 90), with positive values when the x-axis moves away from the z-axis."
 								}
@@ -5368,12 +5368,12 @@
 							"description": "设置代理IP地址，在打开(String)前设置生效。 信息将一直有效或直到取消代理()",
 							"params": [
 								{
-									"name": "hostname",
+									"name": "主机",
 									"type": "文本型",
 									"description": "IP地址"
 								},
 								{
-									"name": "port",
+									"name": "端口",
 									"type": "整数型",
 									"description": "端口号"
 								}
@@ -5384,12 +5384,12 @@
 							"description": "设置代理用户名和密码，在打开(String)前设置生效。 信息将一直有效或直到取消代理()",
 							"params": [
 								{
-									"name": "user",
+									"name": "用户名",
 									"type": "文本型",
 									"description": "用户名"
 								},
 								{
-									"name": "password",
+									"name": "密码",
 									"type": "文本型",
 									"description": "密码"
 								}
@@ -5404,7 +5404,7 @@
 							"description": "打开一个请求地址。",
 							"params": [
 								{
-									"name": "requestUrl",
+									"name": "网址",
 									"type": "文本型",
 									"description": "请求地址"
 								}
@@ -5416,11 +5416,11 @@
 							"description": "设置请求协议头，在发送()前设置生效。",
 							"params": [
 								{
-									"name": "key",
+									"name": "键",
 									"type": "文本型"
 								},
 								{
-									"name": "value",
+									"name": "值",
 									"type": "文本型"
 								}
 							],
@@ -5431,7 +5431,7 @@
 							"description": "返回指定请求头名值。 将强制传为POST方式",
 							"params": [
 								{
-									"name": "key",
+									"name": "键",
 									"type": "文本型",
 									"description": "请求头名"
 								}
@@ -5443,12 +5443,12 @@
 							"description": "设置提交哈希表，在发送()前设置生效。 将强制传为POST方式",
 							"params": [
 								{
-									"name": "data",
+									"name": "数据",
 									"type": "哈希表",
 									"description": "哈希表"
 								},
 								{
-									"name": "enc",
+									"name": "编码",
 									"type": "文本型",
 									"description": "编码方式（如：utf-8），null或空文本将不编码"
 								}
@@ -5459,7 +5459,7 @@
 							"name": "置提交文本",
 							"params": [
 								{
-									"name": "data",
+									"name": "数据",
 									"type": "文本型"
 								}
 							],
@@ -5470,7 +5470,7 @@
 							"description": "设置提交数据，在发送()前设置生效。 将强制传为POST方式",
 							"params": [
 								{
-									"name": "data",
+									"name": "数据",
 									"type": "字节型()",
 									"description": "提交数据"
 								}
@@ -5568,7 +5568,7 @@
 							"description": "将当前JSON对象值或JSON数组值格式到文本。",
 							"params": [
 								{
-									"name": "indentSpaces",
+									"name": "缩进空格数",
 									"type": "整数型",
 									"description": "缩进空格数"
 								}
@@ -5580,7 +5580,7 @@
 							"description": "删除指定属性或成员。",
 							"params": [
 								{
-									"name": "item",
+									"name": "键或索引",
 									"type": "变体型",
 									"description": "属性名或成员索引"
 								}
@@ -5597,7 +5597,7 @@
 							"description": "检验指定属性或成员的是否存在。",
 							"params": [
 								{
-									"name": "item",
+									"name": "键或索引",
 									"type": "变体型",
 									"description": "属性名或成员索引"
 								}
@@ -5609,7 +5609,7 @@
 							"description": "检验指定属性或成员的值是否为对象，或检验当前JOSN值。",
 							"params": [
 								{
-									"name": "item",
+									"name": "键或索引",
 									"type": "变体型",
 									"description": "属性名或成员索引，为null将检验当前JOSN值"
 								}
@@ -5621,7 +5621,7 @@
 							"description": "检验指定属性或成员的值是否为数组，或检验当前JOSN值。",
 							"params": [
 								{
-									"name": "item",
+									"name": "键或索引",
 									"type": "变体型",
 									"description": "属性名或成员索引，为null将检验当前JOSN值"
 								}
@@ -5633,7 +5633,7 @@
 							"description": "检验指定属性或成员的值是否为空，或检验当前JOSN值。",
 							"params": [
 								{
-									"name": "item",
+									"name": "键或索引",
 									"type": "变体型",
 									"description": "属性名或成员索引，为null将检验当前JOSN值"
 								}
@@ -5645,7 +5645,7 @@
 							"description": "取指定属性或成员的对象值。",
 							"params": [
 								{
-									"name": "item",
+									"name": "键或索引",
 									"type": "变体型",
 									"description": "属性名或成员索引"
 								}
@@ -5657,7 +5657,7 @@
 							"description": "取指定属性或成员的数组值。",
 							"params": [
 								{
-									"name": "item",
+									"name": "键或索引",
 									"type": "变体型",
 									"description": "属性名或成员索引"
 								}
@@ -5669,7 +5669,7 @@
 							"description": "取指定属性或成员的文本值。",
 							"params": [
 								{
-									"name": "item",
+									"name": "键或索引",
 									"type": "变体型",
 									"description": "属性名或成员索引"
 								}
@@ -5681,7 +5681,7 @@
 							"description": "取指定属性或成员的双精度小数值。",
 							"params": [
 								{
-									"name": "item",
+									"name": "键或索引",
 									"type": "变体型",
 									"description": "属性名或成员索引"
 								}
@@ -5693,7 +5693,7 @@
 							"description": "取指定属性或成员的长整数值。",
 							"params": [
 								{
-									"name": "item",
+									"name": "键或索引",
 									"type": "变体型",
 									"description": "属性名或成员索引"
 								}
@@ -5705,7 +5705,7 @@
 							"description": "取指定属性或成员的整数值。",
 							"params": [
 								{
-									"name": "item",
+									"name": "键或索引",
 									"type": "变体型",
 									"description": "属性名或成员索引"
 								}
@@ -5717,7 +5717,7 @@
 							"description": "取指定属性或成员的逻辑值。",
 							"params": [
 								{
-									"name": "item",
+									"name": "键或索引",
 									"type": "变体型",
 									"description": "属性名或成员索引"
 								}
@@ -5729,12 +5729,12 @@
 							"description": "设置指定属性或成员的对象值。",
 							"params": [
 								{
-									"name": "item",
+									"name": "键或索引",
 									"type": "变体型",
 									"description": "属性名或成员索引"
 								},
 								{
-									"name": "value",
+									"name": "值",
 									"type": "JSON值",
 									"description": "JSON对象值"
 								}
@@ -5746,12 +5746,12 @@
 							"description": "设置指定属性或成员的数组值。",
 							"params": [
 								{
-									"name": "item",
+									"name": "键或索引",
 									"type": "变体型",
 									"description": "属性名或成员索引"
 								},
 								{
-									"name": "value",
+									"name": "值",
 									"type": "JSON值",
 									"description": "JSON数组值"
 								}
@@ -5763,12 +5763,12 @@
 							"description": "设置指定属性或成员的文本值。",
 							"params": [
 								{
-									"name": "item",
+									"name": "键或索引",
 									"type": "变体型",
 									"description": "属性名或成员索引"
 								},
 								{
-									"name": "value",
+									"name": "值",
 									"type": "文本型",
 									"description": "文本值"
 								}
@@ -5780,12 +5780,12 @@
 							"description": "设置指定属性或成员的双精度小数值。",
 							"params": [
 								{
-									"name": "item",
+									"name": "键或索引",
 									"type": "变体型",
 									"description": "属性名或成员索引"
 								},
 								{
-									"name": "value",
+									"name": "值",
 									"type": "双精度小数型",
 									"description": "双精度小数值"
 								}
@@ -5797,12 +5797,12 @@
 							"description": "设置指定属性或成员的长整数值。",
 							"params": [
 								{
-									"name": "item",
+									"name": "键或索引",
 									"type": "变体型",
 									"description": "属性名或成员索引"
 								},
 								{
-									"name": "value",
+									"name": "值",
 									"type": "长整数型",
 									"description": "长整数值"
 								}
@@ -5814,12 +5814,12 @@
 							"description": "设置指定属性或成员的整数值。",
 							"params": [
 								{
-									"name": "item",
+									"name": "键或索引",
 									"type": "变体型",
 									"description": "属性名或成员索引"
 								},
 								{
-									"name": "value",
+									"name": "值",
 									"type": "整数型",
 									"description": "整数值"
 								}
@@ -5831,12 +5831,12 @@
 							"description": "设置指定属性或成员的逻辑值。",
 							"params": [
 								{
-									"name": "item",
+									"name": "键或索引",
 									"type": "变体型",
 									"description": "属性名或成员索引"
 								},
 								{
-									"name": "value",
+									"name": "值",
 									"type": "逻辑型",
 									"description": "逻辑值"
 								}
@@ -5848,7 +5848,7 @@
 							"description": "设置指定属性或成员的空值。",
 							"params": [
 								{
-									"name": "item",
+									"name": "键或索引",
 									"type": "变体型",
 									"description": "属性名或成员索引"
 								}
@@ -5860,7 +5860,7 @@
 							"description": "将JSON对象值添加到数组。",
 							"params": [
 								{
-									"name": "value",
+									"name": "值",
 									"type": "JSON值",
 									"description": "JSON对象值"
 								}
@@ -5872,7 +5872,7 @@
 							"description": "将JSON数组值添加到数组。",
 							"params": [
 								{
-									"name": "value",
+									"name": "值",
 									"type": "JSON值",
 									"description": "JSON数组值"
 								}
@@ -5884,7 +5884,7 @@
 							"description": "将文本值添加到数组。",
 							"params": [
 								{
-									"name": "value",
+									"name": "值",
 									"type": "文本型",
 									"description": "文本值"
 								}
@@ -5896,7 +5896,7 @@
 							"description": "将双精度小数值添加到数组。",
 							"params": [
 								{
-									"name": "value",
+									"name": "值",
 									"type": "双精度小数型",
 									"description": "双精度小数值"
 								}
@@ -5908,7 +5908,7 @@
 							"description": "将长整数值添加到数组。",
 							"params": [
 								{
-									"name": "value",
+									"name": "值",
 									"type": "长整数型",
 									"description": "长整数值"
 								}
@@ -5920,7 +5920,7 @@
 							"description": "将整数值添加到数组。",
 							"params": [
 								{
-									"name": "value",
+									"name": "值",
 									"type": "整数型",
 									"description": "整数值"
 								}
@@ -5932,7 +5932,7 @@
 							"description": "将逻辑值添加到数组。",
 							"params": [
 								{
-									"name": "value",
+									"name": "值",
 									"type": "逻辑型",
 									"description": "逻辑值"
 								}
@@ -5969,12 +5969,12 @@
 							"description": "加入键值对。",
 							"params": [
 								{
-									"name": "key",
+									"name": "键",
 									"type": "文本型",
 									"description": "键名"
 								},
 								{
-									"name": "value",
+									"name": "值",
 									"type": "变体型",
 									"description": "值"
 								}
@@ -5985,7 +5985,7 @@
 							"description": "取指定键的值。",
 							"params": [
 								{
-									"name": "key",
+									"name": "键",
 									"type": "文本型",
 									"description": "键名"
 								}
@@ -5997,7 +5997,7 @@
 							"description": "删除指定键。",
 							"params": [
 								{
-									"name": "key",
+									"name": "键",
 									"type": "文本型",
 									"description": "键名"
 								}
@@ -6008,7 +6008,7 @@
 							"description": "检验是否包含指定键。",
 							"params": [
 								{
-									"name": "key",
+									"name": "键",
 									"type": "文本型",
 									"description": "键"
 								}
@@ -6063,7 +6063,7 @@
 							"name": "置录音源",
 							"params": [
 								{
-									"name": "value",
+									"name": "录音源",
 									"type": "整数型"
 								}
 							]
@@ -6072,7 +6072,7 @@
 							"name": "开始录音",
 							"params": [
 								{
-									"name": "path",
+									"name": "路径",
 									"type": "文本型"
 								}
 							]
@@ -6098,7 +6098,7 @@
 							"description": "置意图欲要执行的动作。",
 							"params": [
 								{
-									"name": "action",
+									"name": "动作",
 									"type": "文本型",
 									"description": "欲执行的动作，如启动服务其值为服务限定名"
 								}
@@ -6114,7 +6114,7 @@
 							"description": "置意图仅限应用包名。",
 							"params": [
 								{
-									"name": "packageName",
+									"name": "包名",
 									"type": "文本型",
 									"description": "应用包名。"
 								}
@@ -6125,12 +6125,12 @@
 							"description": "置意图的附加参数。",
 							"params": [
 								{
-									"name": "name",
+									"name": "参数名",
 									"type": "文本型",
 									"description": "附加参数名。"
 								},
 								{
-									"name": "value",
+									"name": "值",
 									"type": "变体型",
 									"description": "附加参数值，支持任基本数据类型或数组。"
 								}
@@ -6141,7 +6141,7 @@
 							"description": "取意图的指定附加参数的值。",
 							"params": [
 								{
-									"name": "name",
+									"name": "参数名",
 									"type": "文本型",
 									"description": "参数名。"
 								}
@@ -6165,7 +6165,7 @@
 							"description": "收到意图将执行该方法，继承单元请覆写该过程。",
 							"params": [
 								{
-									"name": "intent",
+									"name": "意图",
 									"type": "意图",
 									"description": "意图实例。"
 								}
@@ -6232,12 +6232,12 @@
 							"description": "将给定的正则表达式编译到模式中。",
 							"params": [
 								{
-									"name": "regex",
+									"name": "表达式",
 									"type": "文本型",
 									"description": "要编译的表达式"
 								},
 								{
-									"name": "flags",
+									"name": "匹配标志",
 									"type": "整数型",
 									"description": "匹配标志，可选组合值请参考“匹配_*”"
 								}
@@ -6248,7 +6248,7 @@
 							"description": "用正则表达式对指定文本进行分割。",
 							"params": [
 								{
-									"name": "text",
+									"name": "文本",
 									"type": "文本型",
 									"description": "待分割文本"
 								}
@@ -6260,7 +6260,7 @@
 							"description": "创建匹配给定输入与此模式的匹配器。",
 							"params": [
 								{
-									"name": "input",
+									"name": "文本",
 									"type": "文本型"
 								}
 							]
@@ -6270,7 +6270,7 @@
 							"description": "替换模式与给定替换字符串相匹配的输入序列的每个子序列。",
 							"params": [
 								{
-									"name": "replacement",
+									"name": "替换文本",
 									"type": "文本型",
 									"description": "替换字符串"
 								}
@@ -6292,7 +6292,7 @@
 							"description": "调用本命令取出匹配到的指定索引的子文本",
 							"params": [
 								{
-									"name": "group",
+									"name": "子匹配索引",
 									"type": "整数型",
 									"description": "子文本索引是从1开始的。"
 								}
@@ -6387,7 +6387,7 @@
 							"description": "堵塞当前操作线程，并等待该线程执行完毕。",
 							"params": [
 								{
-									"name": "millis",
+									"name": "毫秒数",
 									"type": "长整数型",
 									"description": "以毫秒为单位的等待时间，为 0 意味着要一直等下去。"
 								}
@@ -6399,7 +6399,7 @@
 							"description": "使线程等待。",
 							"params": [
 								{
-									"name": "timeout",
+									"name": "超时毫秒数",
 									"type": "长整数型",
 									"description": "要等待的最长时间（以毫秒为单位），为 0 意味着要一直等下去。"
 								}
@@ -6445,7 +6445,7 @@
 							"description": "将新项添加到集合中。",
 							"params": [
 								{
-									"name": "item",
+									"name": "项目",
 									"type": "变体型",
 									"description": "要添加的项目"
 								}
@@ -6456,12 +6456,12 @@
 							"description": "返回指定位置的项目。",
 							"params": [
 								{
-									"name": "index",
+									"name": "索引",
 									"type": "整数型",
 									"description": "欲插入项目的位置"
 								},
 								{
-									"name": "item",
+									"name": "项目",
 									"type": "变体型",
 									"description": "项目添加"
 								}
@@ -6472,7 +6472,7 @@
 							"description": "返回指定位置的项目。",
 							"params": [
 								{
-									"name": "index",
+									"name": "索引",
 									"type": "整数型",
 									"description": "项目位置"
 								}
@@ -6484,12 +6484,12 @@
 							"description": "重新设置指点位置的项目值。",
 							"params": [
 								{
-									"name": "index",
+									"name": "索引",
 									"type": "整数型",
 									"description": "项目位置"
 								},
 								{
-									"name": "item",
+									"name": "项目",
 									"type": "变体型"
 								}
 							]
@@ -6499,7 +6499,7 @@
 							"description": "从集合中移除指点位置的项。",
 							"params": [
 								{
-									"name": "index",
+									"name": "索引",
 									"type": "整数型",
 									"description": "项目位置"
 								}
@@ -6510,7 +6510,7 @@
 							"description": "将指点集合并入到当前集合。",
 							"params": [
 								{
-									"name": "collection",
+									"name": "集合",
 									"type": "集合",
 									"description": "集合"
 								}
@@ -6521,7 +6521,7 @@
 							"description": "将数组并入到当前集合。",
 							"params": [
 								{
-									"name": "array",
+									"name": "数组",
 									"type": "变体型()",
 									"description": "数组。"
 								}
@@ -6555,12 +6555,12 @@
 							"global": true,
 							"params": [
 								{
-									"name": "oldname",
+									"name": "原路径",
 									"type": "文本型",
 									"description": "file name before renaming"
 								},
 								{
-									"name": "newname",
+									"name": "新路径",
 									"type": "文本型",
 									"description": "file name after renaming"
 								}
@@ -6572,7 +6572,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "name",
+									"name": "路径",
 									"type": "文本型",
 									"description": "name of file to delete"
 								}
@@ -6584,7 +6584,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "name",
+									"name": "路径",
 									"type": "文本型",
 									"description": "name of new directory"
 								}
@@ -6596,7 +6596,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "name",
+									"name": "路径",
 									"type": "文本型",
 									"description": "name of directory to delete"
 								}
@@ -6608,7 +6608,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "name",
+									"name": "路径",
 									"type": "文本型",
 									"description": "name to check"
 								}
@@ -6621,7 +6621,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "name",
+									"name": "路径",
 									"type": "文本型",
 									"description": "file to check"
 								}
@@ -6634,7 +6634,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "name",
+									"name": "路径",
 									"type": "文本型",
 									"description": "name of file to open or create"
 								}
@@ -6647,7 +6647,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "handle",
+									"name": "句柄",
 									"type": "整数型",
 									"description": "handle of file to close"
 								}
@@ -6659,7 +6659,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "handle",
+									"name": "句柄",
 									"type": "整数型",
 									"description": "handle of file to check"
 								}
@@ -6672,12 +6672,12 @@
 							"global": true,
 							"params": [
 								{
-									"name": "handle",
+									"name": "句柄",
 									"type": "整数型",
 									"description": "handle of file"
 								},
 								{
-									"name": "offset",
+									"name": "位置",
 									"type": "长整数型",
 									"description": "absolute position within file"
 								}
@@ -6690,7 +6690,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "handle",
+									"name": "句柄",
 									"type": "整数型",
 									"description": "handle of file"
 								}
@@ -6703,12 +6703,12 @@
 							"global": true,
 							"params": [
 								{
-									"name": "handle",
+									"name": "句柄",
 									"type": "整数型",
 									"description": "handle of file"
 								},
 								{
-									"name": "value",
+									"name": "值",
 									"type": "文本型",
 									"description": "value to write"
 								}
@@ -6720,7 +6720,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "handle",
+									"name": "句柄",
 									"type": "整数型",
 									"description": "handle of file"
 								}
@@ -6733,12 +6733,12 @@
 							"global": true,
 							"params": [
 								{
-									"name": "handle",
+									"name": "句柄",
 									"type": "整数型",
 									"description": "handle of file"
 								},
 								{
-									"name": "value",
+									"name": "值",
 									"type": "逻辑型",
 									"description": "value to write"
 								}
@@ -6750,7 +6750,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "handle",
+									"name": "句柄",
 									"type": "整数型",
 									"description": "handle of file"
 								}
@@ -6763,12 +6763,12 @@
 							"global": true,
 							"params": [
 								{
-									"name": "handle",
+									"name": "句柄",
 									"type": "整数型",
 									"description": "handle of file"
 								},
 								{
-									"name": "value",
+									"name": "值",
 									"type": "字节型",
 									"description": "value to write"
 								}
@@ -6780,7 +6780,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "handle",
+									"name": "句柄",
 									"type": "整数型",
 									"description": "handle of file"
 								}
@@ -6793,12 +6793,12 @@
 							"global": true,
 							"params": [
 								{
-									"name": "handle",
+									"name": "句柄",
 									"type": "整数型",
 									"description": "handle of file"
 								},
 								{
-									"name": "value",
+									"name": "值",
 									"type": "短整数型",
 									"description": "value to write"
 								}
@@ -6810,7 +6810,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "handle",
+									"name": "句柄",
 									"type": "整数型",
 									"description": "handle of file"
 								}
@@ -6823,12 +6823,12 @@
 							"global": true,
 							"params": [
 								{
-									"name": "handle",
+									"name": "句柄",
 									"type": "整数型",
 									"description": "handle of file"
 								},
 								{
-									"name": "value",
+									"name": "值",
 									"type": "整数型",
 									"description": "value to write"
 								}
@@ -6840,7 +6840,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "handle",
+									"name": "句柄",
 									"type": "整数型",
 									"description": "handle of file"
 								}
@@ -6853,12 +6853,12 @@
 							"global": true,
 							"params": [
 								{
-									"name": "handle",
+									"name": "句柄",
 									"type": "整数型",
 									"description": "handle of file"
 								},
 								{
-									"name": "value",
+									"name": "值",
 									"type": "长整数型",
 									"description": "value to write"
 								}
@@ -6870,7 +6870,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "handle",
+									"name": "句柄",
 									"type": "整数型",
 									"description": "handle of file"
 								}
@@ -6883,12 +6883,12 @@
 							"global": true,
 							"params": [
 								{
-									"name": "handle",
+									"name": "句柄",
 									"type": "整数型",
 									"description": "handle of file"
 								},
 								{
-									"name": "value",
+									"name": "值",
 									"type": "单精度小数型",
 									"description": "value to write"
 								}
@@ -6900,7 +6900,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "handle",
+									"name": "句柄",
 									"type": "整数型",
 									"description": "handle of file"
 								}
@@ -6913,12 +6913,12 @@
 							"global": true,
 							"params": [
 								{
-									"name": "handle",
+									"name": "句柄",
 									"type": "整数型",
 									"description": "handle of file"
 								},
 								{
-									"name": "value",
+									"name": "值",
 									"type": "双精度小数型",
 									"description": "value to write"
 								}
@@ -6930,7 +6930,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "handle",
+									"name": "句柄",
 									"type": "整数型",
 									"description": "handle of file"
 								}
@@ -6969,7 +6969,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "text",
+									"name": "文本",
 									"type": "文本型",
 									"description": "JSON文本。"
 								}
@@ -6982,12 +6982,12 @@
 							"global": true,
 							"params": [
 								{
-									"name": "text",
+									"name": "文本",
 									"type": "文本型",
 									"description": "JSON文本。"
 								},
 								{
-									"name": "indentSpaces",
+									"name": "缩进空格数",
 									"type": "整数型",
 									"description": "缩进空格数"
 								}
@@ -7014,12 +7014,12 @@
 							"global": true,
 							"params": [
 								{
-									"name": "sourceComponent",
+									"name": "源组件",
 									"type": "组件",
 									"description": "被转移的组件"
 								},
 								{
-									"name": "targetComponent",
+									"name": "目标组件",
 									"type": "组件",
 									"description": "触发事件的组件"
 								}
@@ -7031,12 +7031,12 @@
 							"global": true,
 							"params": [
 								{
-									"name": "component",
+									"name": "组件",
 									"type": "组件",
 									"description": "欲执行的已实例化组件"
 								},
 								{
-									"name": "name",
+									"name": "事件名",
 									"type": "文本型",
 									"description": "事件名称"
 								}
@@ -7048,17 +7048,17 @@
 							"global": true,
 							"params": [
 								{
-									"name": "component",
+									"name": "组件",
 									"type": "组件",
 									"description": "欲执行的已实例化组件"
 								},
 								{
-									"name": "name",
+									"name": "事件名",
 									"type": "文本型",
 									"description": "事件名称"
 								},
 								{
-									"name": "params",
+									"name": "参数",
 									"type": "变体型()"
 								}
 							]
@@ -7097,12 +7097,12 @@
 							"global": true,
 							"params": [
 								{
-									"name": "value",
+									"name": "像素值",
 									"type": "单精度小数型",
 									"description": "像素值"
 								},
 								{
-									"name": "unit",
+									"name": "单位",
 									"type": "整数型",
 									"description": "类型，可选值钱请参考“像素_绝对”等"
 								}
@@ -7115,7 +7115,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "dipValue",
+									"name": "相对像素",
 									"type": "单精度小数型",
 									"description": "相对像素（dip）"
 								}
@@ -7128,7 +7128,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "pxValue",
+									"name": "绝对像素",
 									"type": "单精度小数型",
 									"description": "绝对像素（px）值"
 								}
@@ -7141,7 +7141,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "pxValue",
+									"name": "绝对像素",
 									"type": "单精度小数型",
 									"description": "绝对像素（px）值"
 								}
@@ -7161,7 +7161,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "bytes",
+									"name": "字节数组",
 									"type": "字节型()"
 								}
 							],
@@ -7181,17 +7181,17 @@
 							"global": true,
 							"params": [
 								{
-									"name": "unit",
+									"name": "对象",
 									"type": "对象",
 									"description": "单元对象实例。"
 								},
 								{
-									"name": "name",
+									"name": "过程名",
 									"type": "文本型",
 									"description": "回调过程名。"
 								},
 								{
-									"name": "args",
+									"name": "参数",
 									"type": "变体型()",
 									"description": "传递给过程的参数；成员与参数对应，没有参数可传递空或没有成员的数组。"
 								}
@@ -7204,12 +7204,12 @@
 							"global": true,
 							"params": [
 								{
-									"name": "unit",
+									"name": "对象",
 									"type": "对象",
 									"description": "单元对象实例。"
 								},
 								{
-									"name": "name",
+									"name": "过程名",
 									"type": "文本型",
 									"description": "回调过程名。"
 								}
@@ -7222,17 +7222,17 @@
 							"global": true,
 							"params": [
 								{
-									"name": "unit",
+									"name": "对象",
 									"type": "对象",
 									"description": "单元对象实例。"
 								},
 								{
-									"name": "name",
+									"name": "过程名",
 									"type": "文本型",
 									"description": "回调过程名。"
 								},
 								{
-									"name": "args",
+									"name": "参数",
 									"type": "变体型()",
 									"description": "传递给过程的参数；成员与参数对应，没有参数可传递空或没有成员的数组。"
 								}
@@ -7245,12 +7245,12 @@
 							"global": true,
 							"params": [
 								{
-									"name": "unit",
+									"name": "对象",
 									"type": "对象",
 									"description": "单元对象实例。"
 								},
 								{
-									"name": "name",
+									"name": "过程名",
 									"type": "文本型",
 									"description": "回调过程名。"
 								}
@@ -7269,7 +7269,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "millis",
+									"name": "毫秒数",
 									"type": "长整数型",
 									"description": "延时时间，单位为毫秒。"
 								}
@@ -7296,7 +7296,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "text",
+									"name": "文本",
 									"type": "文本型",
 									"description": "提示文本。"
 								}
@@ -7308,7 +7308,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "text",
+									"name": "文本",
 									"type": "文本型",
 									"description": "提示文本。"
 								}
@@ -7320,17 +7320,17 @@
 							"global": true,
 							"params": [
 								{
-									"name": "title",
+									"name": "标题",
 									"type": "文本型",
 									"description": "对话框的标题。"
 								},
 								{
-									"name": "message",
+									"name": "信息",
 									"type": "文本型",
 									"description": "对话框的信息。"
 								},
 								{
-									"name": "btnOK",
+									"name": "确定文本",
 									"type": "文本型",
 									"description": "确认按钮的标题。"
 								}
@@ -7342,22 +7342,22 @@
 							"global": true,
 							"params": [
 								{
-									"name": "title",
+									"name": "标题",
 									"type": "文本型",
 									"description": "对话框的标题。"
 								},
 								{
-									"name": "message",
+									"name": "信息",
 									"type": "文本型",
 									"description": "对话框的信息。"
 								},
 								{
-									"name": "btnOK",
+									"name": "确定文本",
 									"type": "文本型",
 									"description": "是按钮的标题。"
 								},
 								{
-									"name": "btnNO",
+									"name": "取消文本",
 									"type": "文本型",
 									"description": "否按钮的标题。"
 								}
@@ -7370,17 +7370,17 @@
 							"global": true,
 							"params": [
 								{
-									"name": "title",
+									"name": "标题",
 									"type": "文本型",
 									"description": "对话框的标题。"
 								},
 								{
-									"name": "items",
+									"name": "选项",
 									"type": "文本型()",
 									"description": "单选项目文本。"
 								},
 								{
-									"name": "checkedItem",
+									"name": "选中索引",
 									"type": "整数型",
 									"description": "选择项目索引。"
 								}
@@ -7393,17 +7393,17 @@
 							"global": true,
 							"params": [
 								{
-									"name": "title",
+									"name": "标题",
 									"type": "文本型",
 									"description": "对话框的标题。"
 								},
 								{
-									"name": "items",
+									"name": "选项",
 									"type": "文本型()",
 									"description": "多选项目文本。"
 								},
 								{
-									"name": "checkedItems",
+									"name": "选中状态",
 									"type": "逻辑型()",
 									"description": "初始项目选中状态。"
 								}
@@ -7416,22 +7416,22 @@
 							"global": true,
 							"params": [
 								{
-									"name": "title",
+									"name": "标题",
 									"type": "文本型",
 									"description": "对话框的标题。"
 								},
 								{
-									"name": "hint",
+									"name": "提示",
 									"type": "文本型",
 									"description": "编辑框提示文本。"
 								},
 								{
-									"name": "multiline",
+									"name": "多行",
 									"type": "逻辑型",
 									"description": "编辑框是否允许多行输入。"
 								},
 								{
-									"name": "model",
+									"name": "输入模式",
 									"type": "整数型",
 									"description": "编辑框输入模式，可选值请参考“输入模式_文本”等常量。"
 								}
@@ -7444,12 +7444,12 @@
 							"global": true,
 							"params": [
 								{
-									"name": "title",
+									"name": "标题",
 									"type": "文本型",
 									"description": "对话框的标题。"
 								},
 								{
-									"name": "message",
+									"name": "信息",
 									"type": "文本型",
 									"description": "对话框的信息。"
 								}
@@ -7462,12 +7462,12 @@
 							"global": true,
 							"params": [
 								{
-									"name": "object",
+									"name": "进度框",
 									"type": "对象",
 									"description": "进度框对象实例。"
 								},
 								{
-									"name": "message",
+									"name": "信息",
 									"type": "文本型",
 									"description": "对话框的信息。"
 								}
@@ -7479,7 +7479,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "object",
+									"name": "进度框",
 									"type": "对象"
 								}
 							]
@@ -7490,22 +7490,22 @@
 							"global": true,
 							"params": [
 								{
-									"name": "title",
+									"name": "标题",
 									"type": "文本型",
 									"description": "对话框的标题。"
 								},
 								{
-									"name": "form",
+									"name": "窗口",
 									"type": "窗口",
 									"description": "窗口对象。"
 								},
 								{
-									"name": "btnOK",
+									"name": "确定文本",
 									"type": "文本型",
 									"description": "是按钮标题。"
 								},
 								{
-									"name": "btnNO",
+									"name": "取消文本",
 									"type": "文本型",
 									"description": "否按钮标题。"
 								}
@@ -7526,7 +7526,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "caption",
+									"name": "标题",
 									"type": "文本型",
 									"description": "菜单项标题"
 								}
@@ -7538,7 +7538,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "form",
+									"name": "窗口",
 									"type": "窗口",
 									"description": "要显示的窗口"
 								}
@@ -7555,7 +7555,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "name",
+									"name": "设置名",
 									"type": "文本型",
 									"description": "用于在以下存储值的名称"
 								}
@@ -7568,12 +7568,12 @@
 							"global": true,
 							"params": [
 								{
-									"name": "name",
+									"name": "设置名",
 									"type": "文本型",
 									"description": "要在以下存储值的名称"
 								},
 								{
-									"name": "value",
+									"name": "值",
 									"type": "变体型",
 									"description": "要存储的值（必须是原始值，不允许使用对象）"
 								}
@@ -7609,7 +7609,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "intent",
+									"name": "意图",
 									"type": "意图",
 									"description": "意图实例。"
 								}
@@ -7622,7 +7622,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "intent",
+									"name": "意图",
 									"type": "意图",
 									"description": "意图动作。"
 								}
@@ -7635,7 +7635,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "intent",
+									"name": "意图",
 									"type": "意图",
 									"description": "意图动作。"
 								}
@@ -7713,17 +7713,17 @@
 							"global": true,
 							"params": [
 								{
-									"name": "array",
+									"name": "数组",
 									"type": "文本型()",
 									"description": "要搜索的数组"
 								},
 								{
-									"name": "str",
+									"name": "文本",
 									"type": "文本型",
 									"description": "要在数组中搜索的子文本"
 								},
 								{
-									"name": "include",
+									"name": "包含",
 									"type": "逻辑型",
 									"description": "如果真则在结果中包含匹配的子文本，否则排除它们"
 								}
@@ -7736,12 +7736,12 @@
 							"global": true,
 							"params": [
 								{
-									"name": "array",
+									"name": "数组",
 									"type": "文本型()",
 									"description": "包含要连接文本的数组"
 								},
 								{
-									"name": "separator",
+									"name": "分隔符",
 									"type": "文本型",
 									"description": "在数组成员之间连接文本"
 								}
@@ -7754,17 +7754,17 @@
 							"global": true,
 							"params": [
 								{
-									"name": "str",
+									"name": "文本",
 									"type": "文本型",
 									"description": "欲分割的文本"
 								},
 								{
-									"name": "separator",
+									"name": "分隔符",
 									"type": "文本型",
 									"description": "欲查找的分割文本"
 								},
 								{
-									"name": "count",
+									"name": "数量",
 									"type": "整数型",
 									"description": "分割次数"
 								}
@@ -7777,12 +7777,12 @@
 							"global": true,
 							"params": [
 								{
-									"name": "array",
+									"name": "数组",
 									"type": "变体型",
 									"description": "请求其大小的数组"
 								},
 								{
-									"name": "dim",
+									"name": "维度",
 									"type": "整数型",
 									"description": "维度（第一个维度为1，依此类推）"
 								}
@@ -7795,7 +7795,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "array",
+									"name": "数组",
 									"type": "变体型",
 									"description": "欲取成员的数组。"
 								}
@@ -7816,17 +7816,17 @@
 							"global": true,
 							"params": [
 								{
-									"name": "str1",
+									"name": "文本",
 									"type": "文本型",
 									"description": "被寻找的文本"
 								},
 								{
-									"name": "str2",
+									"name": "查找文本",
 									"type": "文本型",
 									"description": "要寻找的文本"
 								},
 								{
-									"name": "start",
+									"name": "起始位置",
 									"type": "整数型",
 									"description": "寻找在开始索引str1"
 								}
@@ -7839,17 +7839,17 @@
 							"global": true,
 							"params": [
 								{
-									"name": "str1",
+									"name": "文本",
 									"type": "文本型",
 									"description": "被寻找的文本"
 								},
 								{
-									"name": "str2",
+									"name": "查找文本",
 									"type": "文本型",
 									"description": "要寻找的文本"
 								},
 								{
-									"name": "start",
+									"name": "起始位置",
 									"type": "整数型",
 									"description": "在str1中寻找开始索引"
 								}
@@ -7862,7 +7862,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "str",
+									"name": "文本",
 									"type": "文本型",
 									"description": "要转换为小写的文本",
 									"byRef": true
@@ -7875,7 +7875,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "str",
+									"name": "文本",
 									"type": "文本型",
 									"description": "要转换为大写文本",
 									"byRef": true
@@ -7888,12 +7888,12 @@
 							"global": true,
 							"params": [
 								{
-									"name": "str",
+									"name": "文本",
 									"type": "文本型",
 									"description": "从中返回子文本的给定文本"
 								},
 								{
-									"name": "len",
+									"name": "长度",
 									"type": "整数型",
 									"description": "要返回的文本数"
 								}
@@ -7906,12 +7906,12 @@
 							"global": true,
 							"params": [
 								{
-									"name": "str",
+									"name": "文本",
 									"type": "文本型",
 									"description": "从中返回子文本的给定文本"
 								},
 								{
-									"name": "len",
+									"name": "长度",
 									"type": "整数型",
 									"description": "要返回的文本数"
 								}
@@ -7924,17 +7924,17 @@
 							"global": true,
 							"params": [
 								{
-									"name": "str",
+									"name": "文本",
 									"type": "文本型",
 									"description": "返回子文本的给定文本"
 								},
 								{
-									"name": "start",
+									"name": "起始位置",
 									"type": "整数型",
 									"description": "在str中开始索引"
 								},
 								{
-									"name": "len",
+									"name": "长度",
 									"type": "整数型",
 									"description": "要返回的字符数"
 								}
@@ -7947,7 +7947,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "str",
+									"name": "文本",
 									"type": "文本型",
 									"description": "获得长度的文本"
 								}
@@ -7960,7 +7960,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "str",
+									"name": "文本",
 									"type": "文本型",
 									"description": "要修剪的文本",
 									"byRef": true
@@ -7973,7 +7973,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "str",
+									"name": "文本",
 									"type": "文本型",
 									"description": "要修剪的文本",
 									"byRef": true
@@ -7986,7 +7986,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "str",
+									"name": "文本",
 									"type": "文本型",
 									"description": "要修剪的文本",
 									"byRef": true
@@ -7999,28 +7999,28 @@
 							"global": true,
 							"params": [
 								{
-									"name": "str",
+									"name": "文本",
 									"type": "文本型",
 									"description": "要修改的文本",
 									"byRef": true
 								},
 								{
-									"name": "find",
+									"name": "查找文本",
 									"type": "文本型",
 									"description": "要查找的文本"
 								},
 								{
-									"name": "replace",
+									"name": "替换文本",
 									"type": "文本型",
 									"description": "子文本替换的文本"
 								},
 								{
-									"name": "start",
+									"name": "起始位置",
 									"type": "整数型",
 									"description": "str中的起始索引"
 								},
 								{
-									"name": "count",
+									"name": "替换次数",
 									"type": "整数型",
 									"description": "执行替换的次数（-1 替换所有）"
 								}
@@ -8032,12 +8032,12 @@
 							"global": true,
 							"params": [
 								{
-									"name": "str1",
+									"name": "文本1",
 									"type": "文本型",
 									"description": "第一个比较文本"
 								},
 								{
-									"name": "str2",
+									"name": "文本2",
 									"type": "文本型",
 									"description": "第二个比较文本"
 								}
@@ -8050,7 +8050,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "str",
+									"name": "文本",
 									"type": "文本型",
 									"description": "要反转的文本",
 									"byRef": true
@@ -8063,12 +8063,12 @@
 							"global": true,
 							"params": [
 								{
-									"name": "format",
+									"name": "格式",
 									"type": "文本型",
 									"description": "格式文本"
 								},
 								{
-									"name": "args",
+									"name": "参数",
 									"type": "变体型",
 									"description": "格式文本中由格式说明符引用的参数，可以是数组"
 								}
@@ -8089,7 +8089,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "expression",
+									"name": "表达式",
 									"type": "变体型",
 									"description": "要测试的表达式"
 								}
@@ -8101,7 +8101,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "expression",
+									"name": "表达式",
 									"type": "变体型",
 									"description": "expression to test"
 								}
@@ -8121,7 +8121,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "moduleName",
+									"name": "模块名",
 									"type": "文本型",
 									"description": "模块名称"
 								}
@@ -8138,12 +8138,12 @@
 							"global": true,
 							"params": [
 								{
-									"name": "moduleName",
+									"name": "模块名",
 									"type": "文本型",
 									"description": "报告消息的模块的名称（例如“Simple运行库”）"
 								},
 								{
-									"name": "message",
+									"name": "信息",
 									"type": "文本型",
 									"description": "要记录的日志"
 								}
@@ -8155,7 +8155,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "message",
+									"name": "信息",
 									"type": "文本型",
 									"description": "要记录的日志"
 								}
@@ -8167,12 +8167,12 @@
 							"global": true,
 							"params": [
 								{
-									"name": "moduleName",
+									"name": "模块名",
 									"type": "文本型",
 									"description": "报告消息的模块的名称（例如“Simple运行库”）"
 								},
 								{
-									"name": "message",
+									"name": "信息",
 									"type": "文本型",
 									"description": "要记录的日志"
 								}
@@ -8184,7 +8184,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "message",
+									"name": "信息",
 									"type": "文本型",
 									"description": "要记录的日志"
 								}
@@ -8196,12 +8196,12 @@
 							"global": true,
 							"params": [
 								{
-									"name": "moduleName",
+									"name": "模块名",
 									"type": "文本型",
 									"description": "报告消息的模块的名称（例如“Simple运行库”）"
 								},
 								{
-									"name": "message",
+									"name": "信息",
 									"type": "文本型",
 									"description": "要记录的日志"
 								}
@@ -8213,7 +8213,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "message",
+									"name": "信息",
 									"type": "文本型",
 									"description": "要记录的日志"
 								}
@@ -8225,12 +8225,12 @@
 							"global": true,
 							"params": [
 								{
-									"name": "moduleName",
+									"name": "模块名",
 									"type": "文本型",
 									"description": "报告消息的模块的名称（例如“Simple运行库”）"
 								},
 								{
-									"name": "message",
+									"name": "信息",
 									"type": "文本型",
 									"description": "要记录的日志"
 								}
@@ -8242,7 +8242,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "message",
+									"name": "信息",
 									"type": "文本型",
 									"description": "要记录的日志"
 								}
@@ -8435,17 +8435,17 @@
 							"global": true,
 							"params": [
 								{
-									"name": "date",
+									"name": "时间",
 									"type": "日期时间型",
 									"description": "要添加到的日期"
 								},
 								{
-									"name": "intervalKind",
+									"name": "间隔类型",
 									"type": "整数型",
 									"description": "间隔类型，可选值请参考“日期_年”等常量"
 								},
 								{
-									"name": "interval",
+									"name": "增量",
 									"type": "整数型",
 									"description": "要添加的日期或时间量"
 								}
@@ -8457,7 +8457,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "value",
+									"name": "文本",
 									"type": "文本型",
 									"description": "日期时间文本" 
 								}
@@ -8470,7 +8470,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "date",
+									"name": "时间",
 									"type": "日期时间型",
 									"description": "取日的日期时间"
 								}
@@ -8483,12 +8483,12 @@
 							"global": true,
 							"params": [
 								{
-									"name": "date",
+									"name": "时间",
 									"type": "日期时间型",
 									"description": "欲格式化时间"
 								},
 								{
-									"name": "pattern",
+									"name": "格式",
 									"type": "文本型",
 									"description": "描述日期时间格式，例如yyyy/MM/dd HH:mm:ss"
 								}
@@ -8501,7 +8501,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "date",
+									"name": "时间",
 									"type": "日期时间型",
 									"description": "取小时的日期时间"
 								}
@@ -8514,7 +8514,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "date",
+									"name": "时间",
 									"type": "日期时间型",
 									"description": "取分钟的日期时间"
 								}
@@ -8527,7 +8527,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "date",
+									"name": "时间",
 									"type": "日期时间型",
 									"description": "取日期时间的月"
 								}
@@ -8540,7 +8540,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "date",
+									"name": "时间",
 									"type": "日期时间型",
 									"description": "使用月份的日期"
 								}
@@ -8559,7 +8559,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "date",
+									"name": "时间",
 									"type": "日期时间型",
 									"description": "取秒的日期时间"
 								}
@@ -8578,7 +8578,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "date",
+									"name": "时间",
 									"type": "日期时间型",
 									"description": "取日期时间的星期"
 								}
@@ -8591,7 +8591,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "date",
+									"name": "时间",
 									"type": "日期时间型",
 									"description": "使用星期的日期"
 								}
@@ -8604,7 +8604,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "date",
+									"name": "时间",
 									"type": "日期时间型",
 									"description": "取日期时间的年"
 								}
@@ -8617,17 +8617,17 @@
 							"global": true,
 							"params": [
 								{
-									"name": "value",
+									"name": "文本",
 									"type": "文本型",
 									"description": "日期时间文本，例如2008/04/21 09:29:48。"
 								},
 								{
-									"name": "format",
+									"name": "格式",
 									"type": "文本型",
 									"description": "日期时间格式，例如yyyy/MM/dd HH:mm:ss。"
 								},
 								{
-									"name": "timeZoneId",
+									"name": "时区",
 									"type": "文本型",
 									"description": "时区标识，无效将为时区_格林尼治。"
 								}
@@ -8640,7 +8640,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "timestamp",
+									"name": "时间戳",
 									"type": "长整数型",
 									"description": "毫秒时间戳（13位）。"
 								}
@@ -8653,7 +8653,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "date",
+									"name": "时间",
 									"type": "日期时间型",
 									"description": "日期时间。"
 								}
@@ -8672,7 +8672,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "timeZoneId",
+									"name": "时区",
 									"type": "文本型",
 									"description": "时区标识，无效将为“时区_格林尼治”。"
 								}
@@ -8685,7 +8685,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "date",
+									"name": "时间",
 									"type": "日期时间型",
 									"description": "日期时间。"
 								}
@@ -8698,12 +8698,12 @@
 							"global": true,
 							"params": [
 								{
-									"name": "date",
+									"name": "时间",
 									"type": "日期时间型",
 									"description": "日期时间。"
 								},
 								{
-									"name": "timeZoneId",
+									"name": "时区",
 									"type": "文本型"
 								}
 							]
@@ -8734,7 +8734,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "object",
+									"name": "对象",
 									"type": "对象",
 									"description": "对象实例。"
 								}
@@ -8747,7 +8747,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "object",
+									"name": "对象",
 									"type": "对象",
 									"description": "对象实例。"
 								}
@@ -8760,7 +8760,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "object",
+									"name": "对象",
 									"type": "对象",
 									"description": "对象实例。"
 								}
@@ -8773,7 +8773,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "className",
+									"name": "类名",
 									"type": "文本型",
 									"description": "单元的完全限定类名。"
 								}
@@ -8786,12 +8786,12 @@
 							"global": true,
 							"params": [
 								{
-									"name": "unit",
+									"name": "对象",
 									"type": "对象",
 									"description": "单元对象实例。"
 								},
 								{
-									"name": "name",
+									"name": "方法名",
 									"type": "文本型",
 									"description": "对象方法名，函数名或过程名。"
 								}
@@ -8804,17 +8804,17 @@
 							"global": true,
 							"params": [
 								{
-									"name": "unit",
+									"name": "对象",
 									"type": "对象",
 									"description": "单元对象实例。"
 								},
 								{
-									"name": "name",
+									"name": "方法名",
 									"type": "文本型",
 									"description": "对象方法名，函数名或过程名。"
 								},
 								{
-									"name": "args",
+									"name": "参数",
 									"type": "变体型()",
 									"description": "传递给方法的参数；成员与参数对应，没有参数可传递空或没有成员的数组。"
 								}
@@ -8827,12 +8827,12 @@
 							"global": true,
 							"params": [
 								{
-									"name": "unit",
+									"name": "对象",
 									"type": "对象",
 									"description": "单元对象实例。"
 								},
 								{
-									"name": "name",
+									"name": "成员名",
 									"type": "文本型",
 									"description": "对象成员名。"
 								}
@@ -8845,17 +8845,17 @@
 							"global": true,
 							"params": [
 								{
-									"name": "unit",
+									"name": "对象",
 									"type": "对象",
 									"description": "单元对象实例。"
 								},
 								{
-									"name": "name",
+									"name": "成员名",
 									"type": "文本型",
 									"description": "对象成员名。"
 								},
 								{
-									"name": "variant",
+									"name": "值",
 									"type": "变体型",
 									"description": "成员值。"
 								}
@@ -8874,7 +8874,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "theString",
+									"name": "文本",
 									"type": "文本型"
 								}
 							],
@@ -8885,7 +8885,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "dataStr",
+									"name": "文本",
 									"type": "文本型"
 								}
 							],
@@ -8905,7 +8905,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "fileName",
+									"name": "路径",
 									"type": "文本型",
 									"description": "资产文件名，格式为文件名。"
 								}
@@ -8918,7 +8918,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "fileName",
+									"name": "路径",
 									"type": "文本型",
 									"description": "资产文件名，格式为文件名。"
 								}
@@ -8939,7 +8939,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "path",
+									"name": "路径",
 									"type": "文本型",
 									"description": "资源路径，格式为@defType/name。"
 								}
@@ -8952,12 +8952,12 @@
 							"global": true,
 							"params": [
 								{
-									"name": "name",
+									"name": "资源名",
 									"type": "文本型",
 									"description": "资源名称，例如：icon、button1"
 								},
 								{
-									"name": "type",
+									"name": "类型",
 									"type": "文本型",
 									"description": "资源类型，例如：drawable、layout、id、string、anim、color。"
 								}
@@ -8970,7 +8970,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "resid",
+									"name": "资源标识",
 									"type": "整数型",
 									"description": "资源标识。"
 								}
@@ -8983,7 +8983,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "resid",
+									"name": "资源标识",
 									"type": "整数型",
 									"description": "资源标识。"
 								}
@@ -8996,7 +8996,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "resid",
+									"name": "资源标识",
 									"type": "整数型",
 									"description": "资源标识。"
 								}
@@ -9009,7 +9009,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "resid",
+									"name": "资源标识",
 									"type": "整数型",
 									"description": "资源索引。"
 								}
@@ -9030,7 +9030,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "str",
+									"name": "文本",
 									"type": "文本型",
 									"description": "用于转换第一个字符的字符串"
 								}
@@ -9043,7 +9043,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "value",
+									"name": "字符码",
 									"type": "整数型",
 									"description": "要转换为字符串的unicode值"
 								}
@@ -9056,7 +9056,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "v",
+									"name": "值",
 									"type": "变体型",
 									"description": "值"
 								}
@@ -9069,7 +9069,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "value",
+									"name": "值",
 									"type": "变体型",
 									"description": "值。"
 								}
@@ -9082,7 +9082,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "value",
+									"name": "值",
 									"type": "变体型",
 									"description": "值。"
 								}
@@ -9095,7 +9095,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "value",
+									"name": "值",
 									"type": "变体型",
 									"description": "值。"
 								}
@@ -9108,7 +9108,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "value",
+									"name": "值",
 									"type": "变体型",
 									"description": "值。"
 								}
@@ -9121,7 +9121,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "value",
+									"name": "值",
 									"type": "变体型",
 									"description": "值。"
 								}
@@ -9134,7 +9134,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "value",
+									"name": "值",
 									"type": "变体型",
 									"description": "值。"
 								}
@@ -9147,7 +9147,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "value",
+									"name": "值",
 									"type": "变体型",
 									"description": "值。"
 								}
@@ -9160,7 +9160,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "value",
+									"name": "值",
 									"type": "变体型",
 									"description": "值。"
 								}
@@ -9173,7 +9173,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "value",
+									"name": "值",
 									"type": "变体型",
 									"description": "值。"
 								}
@@ -9186,7 +9186,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "value",
+									"name": "值",
 									"type": "变体型",
 									"description": "值。"
 								}
@@ -9223,7 +9223,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "v",
+									"name": "数值",
 									"type": "变体型",
 									"description": "值"
 								}
@@ -9236,7 +9236,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "v",
+									"name": "数值",
 									"type": "双精度小数型",
 									"description": "值"
 								}
@@ -9249,12 +9249,12 @@
 							"global": true,
 							"params": [
 								{
-									"name": "y",
+									"name": "纵坐标",
 									"type": "双精度小数型",
 									"description": "纵坐标"
 								},
 								{
-									"name": "x",
+									"name": "横坐标",
 									"type": "双精度小数型",
 									"description": "横坐标"
 								}
@@ -9267,7 +9267,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "v",
+									"name": "数值",
 									"type": "双精度小数型",
 									"description": "值"
 								}
@@ -9280,7 +9280,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "v",
+									"name": "数值",
 									"type": "双精度小数型",
 									"description": "值"
 								}
@@ -9293,7 +9293,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "v",
+									"name": "数值",
 									"type": "变体型",
 									"description": "值"
 								}
@@ -9306,7 +9306,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "v",
+									"name": "数值",
 									"type": "双精度小数型",
 									"description": "值"
 								}
@@ -9319,12 +9319,12 @@
 							"global": true,
 							"params": [
 								{
-									"name": "v1",
+									"name": "数值1",
 									"type": "变体型",
 									"description": "第一值"
 								},
 								{
-									"name": "v2",
+									"name": "数值2",
 									"type": "变体型",
 									"description": "第二值"
 								}
@@ -9337,12 +9337,12 @@
 							"global": true,
 							"params": [
 								{
-									"name": "v1",
+									"name": "数值1",
 									"type": "变体型",
 									"description": "第一值"
 								},
 								{
-									"name": "v2",
+									"name": "数值2",
 									"type": "变体型",
 									"description": "第二值"
 								}
@@ -9361,7 +9361,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "v",
+									"name": "数值",
 									"type": "双精度小数型",
 									"description": "值"
 								}
@@ -9374,7 +9374,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "v",
+									"name": "数值",
 									"type": "双精度小数型",
 									"description": "值"
 								}
@@ -9387,7 +9387,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "v",
+									"name": "数值",
 									"type": "双精度小数型",
 									"description": "值"
 								}
@@ -9400,7 +9400,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "v",
+									"name": "数值",
 									"type": "双精度小数型",
 									"description": "值"
 								}
@@ -9413,7 +9413,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "d",
+									"name": "角度",
 									"type": "双精度小数型",
 									"description": "以度为单位的值"
 								}
@@ -9426,7 +9426,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "r",
+									"name": "弧度",
 									"type": "双精度小数型",
 									"description": "以弧度表示的值"
 								}
@@ -9447,7 +9447,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "color",
+									"name": "颜色",
 									"type": "文本型",
 									"description": "argb/rgb颜色文本。"
 								}
@@ -9460,22 +9460,22 @@
 							"global": true,
 							"params": [
 								{
-									"name": "a",
+									"name": "透明度",
 									"type": "整数型",
 									"description": "透明度。"
 								},
 								{
-									"name": "r",
+									"name": "红色",
 									"type": "整数型",
 									"description": "红色。"
 								},
 								{
-									"name": "g",
+									"name": "绿色",
 									"type": "整数型",
 									"description": "绿色。"
 								},
 								{
-									"name": "b",
+									"name": "蓝色",
 									"type": "整数型",
 									"description": "蓝色。"
 								}
@@ -9488,7 +9488,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "color",
+									"name": "颜色",
 									"type": "整数型",
 									"description": "ARGB颜色值"
 								}
@@ -9501,7 +9501,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "color",
+									"name": "颜色",
 									"type": "整数型",
 									"description": "ARGB颜色值"
 								}
@@ -9514,7 +9514,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "color",
+									"name": "颜色",
 									"type": "整数型",
 									"description": "ARGB颜色值"
 								}
@@ -9527,7 +9527,7 @@
 							"global": true,
 							"params": [
 								{
-									"name": "color",
+									"name": "颜色",
 									"type": "整数型",
 									"description": "ARGB颜色值"
 								}

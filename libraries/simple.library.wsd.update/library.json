@@ -65,12 +65,12 @@
 							"description": "添加检查更新请求使用的自定义参数。",
 							"params": [
 								{
-									"name": "name",
+									"name": "参数名",
 									"type": "文本型",
 									"description": "参数名称。"
 								},
 								{
-									"name": "value",
+									"name": "值",
 									"type": "文本型",
 									"description": "参数值。"
 								}
@@ -81,7 +81,7 @@
 							"description": "请求指定地址并检查是否存在新版本。",
 							"params": [
 								{
-									"name": "updateUrl",
+									"name": "更新地址",
 									"type": "文本型",
 									"description": "更新信息接口地址。"
 								}
@@ -106,27 +106,27 @@
 							"description": "检测到新版本时触发。",
 							"params": [
 								{
-									"name": "update",
+									"name": "更新标识",
 									"type": "文本型",
 									"description": "服务端返回的更新标识。"
 								},
 								{
-									"name": "newVersion",
+									"name": "新版本",
 									"type": "文本型",
 									"description": "新版本号。"
 								},
 								{
-									"name": "apkFileUrl",
+									"name": "下载地址",
 									"type": "文本型",
 									"description": "安装包下载地址。"
 								},
 								{
-									"name": "updateLog",
+									"name": "更新日志",
 									"type": "文本型",
 									"description": "更新日志。"
 								},
 								{
-									"name": "targetSize",
+									"name": "包大小",
 									"type": "文本型",
 									"description": "安装包大小。"
 								}
