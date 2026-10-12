@@ -1,12 +1,24 @@
 # Simple 项目开发
 
-文档类型：应用开发指南。核对日期：2026-10-09。适用范围：使用当前 SDK 和已有类库开发 Android 应用。依据：SDK 模板、能力脚本、演示项目，并核对当前编译器与 ES4A 项目操作源码。
+文档类型：应用开发指南。核对日期：2026-10-12。适用范围：使用当前 SDK 和已有类库开发 Android 应用。依据：SDK 模板、能力脚本、演示项目，并核对当前编译器与 ES4A 项目操作源码。
 
 本文说明项目结构、窗口与事件、资源、已有类库调用及编译运行。语言规则按需查阅 [Simple 语言定义](Simple%20语言定义.md)。
 
+开发 Simple 应用使用 SDK 已提供的编译器、运行库和扩展库，不需要编写 Java、重建类库或维护类库清单。应用源码放在自己的项目中，与 SDK 类库的可选 Java 源码无关。
+
 ## 准备开发环境
 
-准备 Windows、Visual Studio Code、ES4A 扩展及完整 SDK。工具下载与放置位置见 [SDK 说明](../README.md#工具准备)。编译应用需要 JDK、随附 Android 工具链，以及 `simple/SimpleCompiler.jar` 和 `simple/SimpleAndroidRuntime.jar`。
+准备 Windows 和 Visual Studio Code，下载并安装 [ES4A 扩展](https://dwz.wsd.cx/es4a-vsix)，再下载并解压[打包版 SDK](https://dwz.wsd.cx/es4a-sdk)。SDK 已包含 JDK、Android 工具及 Simple 编译器和运行库，不需另外下载 Ant，也不需先编译 Java 源码。
+
+当前随附能力脚本使用以下 SDK 内路径，解压后保持工具目录结构：
+
+| 路径 | 用途 |
+| --- | --- |
+| `sdk.json` | ES4A 的 SDK 入口 |
+| `tools/jdk1.8.0_503/` | JDK 8 |
+| `tools/android/` | Android 编译、打包、安装和启动工具，随附脚本使用 API 26 |
+| `simple/SimpleCompiler.jar`、`simple/SimpleAndroidRuntime.jar` | 编译器与 Android 运行库 |
+| `libraries/<类库目录>/` | 已编译扩展库，包含 `classes.jar`、清单及所需依赖和资源；不要求包含 `src/` |
 
 在 ES4A“类库”标题栏选择 SDK 根目录的 `sdk.json`，确认编译器、运行库和需要的扩展库已加载。更新 SDK 后刷新类库；移动 SDK 后重新选择入口。
 
@@ -45,7 +57,7 @@ build=./build
 | `build` | 编译输出目录 |
 | `icon`、`orientation`、`theme` | 应用图标、方向与主题 |
 
-其他属性及缺省值见随附 [项目模板](../templates/project.properties)。`src/com/example/hello/主窗口.simple` 的限定名为 `com.example.hello.主窗口`，不在代码中另写包名声明。
+`main` 和 `source` 应明确填写；上例的 `res`、`assets`、`build` 分别采用常用目录 `./res`、`./assets`、`./build`。属性文件使用 UTF-8。其他可选属性可参考随附项目模板。`src/com/example/hello/主窗口.simple` 的限定名为 `com.example.hello.主窗口`，不在代码中另写包名声明。
 
 ## 第一个按钮应用
 
@@ -64,11 +76,13 @@ build=./build
 
 ## 项目与单元
 
-已有项目通过“添加项目”选择 `project.properties`。可直接添加 SDK 类库的 `sample/project.properties`，从可运行的示例开始开发。
+已有项目通过“添加项目”选择 `project.properties`。SDK 类库附带样例时，可直接添加其中的 `sample/project.properties`，从可运行的示例开始开发。
 
 窗口用于界面，对象用于组织实例或静态成员，接口声明约定，服务用于 Android 服务。各类单元的声明和属性区格式见 [程序单元](Simple%20语言定义.md#程序单元)。
 
-限定名随单元在源码根目录下的路径变化。ES4A 项目树中的文件夹或主窗口单元改名会自动同步受影响的 `main`；窗口改名同步根组件名称，单元改名同步自身已有的加载、初始化事件对象名。其他单元中的引用仍须检查，改名或移动后重新编译。
+限定名随单元在源码根目录下的路径变化。ES4A 的单元、包自动重构默认启用：单元或源码文件夹改名、同项目移动时，更新可确认的关联引用及受影响的 `main`；单元改名还更新自身生命周期事件的对象名，窗口改名更新根组件名称。自动重构不猜测普通字符串或动态名称，操作后检查修改并保存，再重新编译。
+
+`es4a.automaticSync.unit` 控制单个单元，`es4a.automaticSync.package` 控制整个源码文件夹；关闭对应设置后，名称或路径变化不自动重构关联引用。拖拽单元移动只支持同一项目。
 
 “移除项目”只从列表移出；“删除项目”会删除项目目录。生成的 `build` 内容不作为源码维护。
 
@@ -92,7 +106,7 @@ build=./build
 
 在 ES4A 类库树中查阅当前 SDK 的类型、属性、函数、事件及参数。需要完整定义时打开对应 `library.json`；运行库成员见 [SimpleAndroidRuntime.json](../simple/SimpleAndroidRuntime.json)。
 
-普通对象使用完整限定名或别名。例如随附演示类库：
+普通对象可以使用当前作用域可见的短名称、相对限定名、完整限定名或别名。以下示例使用 `com.example.demo.演示对象`，需要所选 SDK 已安装该演示类库的 `classes.jar` 并注册清单；SDK 未附带该库时，使用已安装类库的实际类型与 API：
 
 ```simple
 别名 演示对象 = com.example.demo.演示对象
@@ -107,7 +121,7 @@ build=./build
 
 实例函数通过对象调用，静态函数通过类型调用。扩展库的静态函数不会自动变成全局函数。组件通过设计器添加，或按语言定义的属性区格式声明，再编写其事件处理过程。
 
-优先阅读目标库的样例；入门示例见 [演示项目](../libraries/com.example.demo/sample/project.properties) 和 [主窗口](../libraries/com.example.demo/sample/src/com/example/demo/sample/主窗口.simple)。类库要求清单宏时，在项目属性中按“对象简名.宏名”设置；声明 Android 权限和运行时请求权限是不同步骤。
+目标库提供 Simple 样例时，可添加其 `sample/project.properties`；样例目录是可选交付内容，不要求存在 Java `src/`。类库要求清单宏时，在项目属性中按“对象简名.宏名”设置，例如 `示例对象.应用标识=my-app-id`。声明 Android 权限和运行时请求权限是不同步骤。
 
 ## 编译与运行
 

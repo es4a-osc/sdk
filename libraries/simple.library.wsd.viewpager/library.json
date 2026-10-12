@@ -4,7 +4,7 @@
 	"version": "0.1.0",
 	"authors": [
 		{
-			"name": "东子",
+			"name": "树先生",
 			"email": "xhwsd@qq.com"
 		}
 	],
@@ -12,7 +12,6 @@
 	"categories": [
 		{
 			"name": "扩展可视组件",
-			"description": "在设计器可用组件列表中，同名分类名会合并为一个分组",
 			"definitions": [
 				{
 					"name": "滑动页面框",

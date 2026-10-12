@@ -1,8 +1,10 @@
 # Simple 类库开发
 
-文档类型：Java 实现与交付指南。核对日期：2026-10-09。适用范围：当前 SDK 的扩展对象和 Android 组件。依据：随附演示源码、类库构建脚本与清单，并核对当前 RuntimeLoader、Compiler 和运行库注解实现。
+文档类型：Java 实现与交付指南。核对日期：2026-10-12。适用范围：当前 SDK 的扩展对象和 Android 组件。依据：随附演示源码、类库构建脚本与清单，并核对当前 RuntimeLoader、Compiler 和运行库注解实现。
 
-本文负责 Java 实现、构建和交付。IDE 元数据单独查阅 [类库清单定义](类库清单定义.md)，注册与能力配置查阅 [SDK 清单定义](SDK%20清单定义.md)。应用侧调用见 [Simple 项目开发](Simple%20项目开发.md#引用已有类库)。
+本文按“准备工程 → 编写 Java → 生成 JAR → 填写清单 → 注册与验证”组织，包含完成基本扩展类库所需的步骤和示例，可独立阅读。
+
+Simple 类库包括运行库和扩展库。运行库提供基础对象、组件与注解，随 SDK 提供 `SimpleAndroidRuntime.jar`；扩展库在此基础上提供自己的 `classes.jar`。本文的注解与类型规则也适用于运行库成员，但目录、构建和交付流程针对扩展库，不是运行库源码构建说明。
 
 | 当前任务 | 阅读章节 |
 | --- | --- |
@@ -10,7 +12,59 @@
 | 编写普通对象、函数、属性或事件 | [注解映射](#注解映射)、[普通对象](#普通对象) |
 | 编写可视组件或容器 | [Android 组件](#android-组件) |
 | 声明权限或额外 Android 节点 | [Android 权限](#android-权限)、[Android 清单节点](#android-清单节点) |
-| 生成 JAR、接入 SDK 并交付 | [构建 classes.jar](#构建-classesjar)、[验证与发布](#验证与发布) |
+| 生成 JAR、接入 SDK 并交付 | [构建 classes.jar](#构建-classesjar)、[填写类库清单](#填写类库清单)、[安装与接入 SDK](#安装与接入-sdk)、[验证与发布](#验证与发布) |
+
+## 准备类库工程
+
+### 环境与依赖
+
+下载并解压[打包版 SDK](https://dwz.wsd.cx/es4a-sdk)，其中已包含 JDK 和 Android 工具。当前公共类库构建脚本在 Windows 上运行，直接使用 `javac` 和 `jar`，无需 Ant。执行前确认以下文件存在：
+
+| SDK 内路径 | 用途 |
+| --- | --- |
+| `tools/jdk1.8.0_503/bin/javac.exe`、`jar.exe` | JDK 8 编译和打包工具 |
+| `tools/android/platforms/android-26/android.jar` | Android API 26 编译依赖 |
+| `simple/SimpleAndroidRuntime.jar` | Simple 注解、类型与组件基础实现 |
+| `libraries/build.bat` | 公共类库构建脚本 |
+
+Java 源文件使用 UTF-8，路径与包名对应。例如 `com.example.demo.演示对象` 放在类库目录的 `src/com/example/demo/演示对象.java`。本篇命令中的 `sdk` 表示解压后的 SDK 目录；名称或位置不同时，替换为实际路径。
+
+### 开发工程
+
+类库开发工程可以放在任意目录，不要求位于 `sdk/libraries`。例如：
+
+```text
+D:/LibraryWork/com.example.demo/
+├─ src/com/example/demo/演示对象.java
+├─ library.json
+├─ libs/
+├─ res/
+├─ assets/
+├─ jni/
+├─ icons/
+├─ sample/
+├─ build/       构建后生成
+└─ classes.jar  构建后生成
+```
+
+| 路径 | 必需 | 说明 |
+| --- | --- | --- |
+| `library.json` | 是 | ES4A 类库清单 |
+| `classes.jar` | 是 | 编译器加载并打入应用的类库代码 |
+| `src/` | 使用公共脚本开发时 | Java 源码；使用已编译类库不需要 |
+| `libs/` | 否 | 类库依赖的 JAR |
+| `res/` | 否 | Android 资源 |
+| `assets/` | 否 | Android 资产文件 |
+| `jni/` | 否 | 按 ABI 组织的原生库 |
+| `icons/` | 否 | `library.json` 引用的 SVG 图标 |
+| `sample/` | 开发时推荐 | 用于验证类库的 Simple 项目，可按需交付 |
+| `build/` | 生成目录 | 公共构建脚本的中间输出 |
+
+`com.example.demo` 是示例包名。实际类库使用自己的命名空间和独立目录，不放入 `simple.runtime` 包。
+
+使用 SDK 开发 Simple 应用只需要已编译的类库。`src/` 和 `build/` 属于类库开发工程，不是 SDK 中每个类库都必须携带的目录；SDK 安装布局见本篇“安装与接入 SDK”。
+
+组件图标首选 [Tabler Icons](https://tabler.io/icons) 的描边 SVG，保存到类库的 `icons/`。保持 `24×24`、`viewBox="0 0 24 24"`、`currentColor` 和 `2px` 描边；清单中的 `icon` 相对于 `library.json` 所在目录，例如 `icons/square-rounded-check.svg`。普通对象可以不提供图标。
 
 ## 注解映射
 
@@ -24,8 +78,8 @@
 | `@SimpleProperty` 方法 | 属性获取器或设置器 |
 | `@SimpleEvent` 方法 | 事件 |
 | `@SimpleDataElement` 字段 | 常量或变量 |
-| `@UsesPermissions` | [Android 权限声明](Simple%20类库开发.md#android-权限) |
-| `@ManifestNodes` | [Android 清单节点](Simple%20类库开发.md#android-清单节点) |
+| `@UsesPermissions` | [Android 权限声明](#android-权限) |
+| `@ManifestNodes` | [Android 清单节点](#android-清单节点) |
 
 ## 数据类型对应
 
@@ -91,6 +145,7 @@ public final class 演示对象 {
 
 	变量 长度 为 整数型
 	长度 = 演示对象.取长度("你好")
+	显示提示框(结果 & "，长度：" & 长度)
 结束 事件
 ```
 
@@ -325,63 +380,117 @@ public final class 示例对象 {
 
 可选宏的缺省值可以为空文本；仅项目实际引用对象的节点参与注入。宏值中的美元符号和反斜杠按字面替换，仍须保证替换后的 XML 合法。
 
-## 准备类库工程
-
-### 目录结构
-
-每个类库占用 `sdk/libraries` 下的一个直接子目录。
-
-```text
-sdk/libraries/
-├─ build.bat
-└─ com.example.demo/
-   ├─ library.json
-   ├─ classes.jar
-   ├─ src/
-   ├─ libs/
-   ├─ res/
-   ├─ assets/
-   ├─ jni/
-   ├─ icons/
-   ├─ sample/
-   └─ build/
-```
-
-| 路径 | 必需 | 说明 |
-| --- | --- | --- |
-| `library.json` | 是 | ES4A 类库清单 |
-| `classes.jar` | 是 | 编译器加载并打入应用的类库代码 |
-| `src/` | 开发时 | Java 源码 |
-| `libs/` | 否 | 类库依赖的 JAR |
-| `res/` | 否 | Android 资源 |
-| `assets/` | 否 | Android 资产文件 |
-| `jni/` | 否 | 按 ABI 组织的原生库 |
-| `icons/` | 否 | `library.json` 引用的 SVG 图标 |
-| `sample/` | 推荐 | 用于验证类库的 Simple 项目 |
-| `build/` | 生成目录 | 公共构建脚本的中间输出 |
-
-`com.example.demo` 是示例包名。实际类库使用自己的命名空间和独立目录，不放入 `simple.runtime` 包。
-
 ## 构建 classes.jar
 
-以下命令在含 `sdk/` 的上级目录运行；也可把类库文件夹拖到公共 `build.bat` 上。完整工具包准备见 [SDK 工具准备](../README.md#工具准备)，这个类库脚本直接调用 `javac` 和 `jar`，无需 Ant。
-
-所有 SDK 类库共用 `sdk/libraries/build.bat`：
+当前 SDK 提供 `libraries/build.bat`，接受任意位置的类库开发工程目录。以下示例在 Windows 命令提示符中运行，假设 SDK 位于 `D:\SDK`，工程位于 `D:\LibraryWork\com.example.demo`；使用时替换为实际路径，也可把工程文件夹拖到该脚本上。所需工具与路径见本篇“环境与依赖”。
 
 ```bat
-sdk\libraries\build.bat "sdk\libraries\com.example.demo"
+"D:\SDK\libraries\build.bat" "D:\LibraryWork\com.example.demo"
 ```
+
+工程中的 `src/` 是该脚本的源码输入约定，不限制工程必须存放在 SDK 内；自行使用其它构建工具时，按自己的工程布局构建兼容的 JAR。
 
 公共脚本会：
 
-1. 使用按[SDK 工具准备](../README.md#工具准备)放置的 JDK 8 编译 `src`。
+1. 使用 SDK 内的 JDK 8，以 UTF-8 编译类库 `src` 中的 Java 源码。
 2. 将 Android API 26、`SimpleAndroidRuntime.jar` 和 `libs/*` 加入编译类路径。
 3. 清理类库自己的 `build/classes`。
 4. 把编译结果打包到类库根目录的 `classes.jar`。
 
-## 接入 SDK
+脚本只构建传入的工程，不自动将成果复制到 SDK，也不自动注册清单。
 
-按[SDK 配置参考的类库注册](SDK%20清单定义.md#类库注册)登记 `library.json`，在 ES4A 中选择这个 `sdk.json` 并刷新类库。字段说明见[清单定义](类库清单定义.md)。
+## 填写类库清单
+
+Java 注解决定编译器能调用哪些成员；`library.json` 为 ES4A 提供分类、补全、悬停和设计器元数据。两者分别维护，清单不能代替 Java 实现。
+
+将以下内容保存为类库根目录的 `library.json`，对应本篇“普通对象”的两个函数：
+
+```json
+{
+	"name": "演示扩展库",
+	"kind": "library",
+	"categories": [
+		{
+			"name": "扩展对象",
+			"definitions": [
+				{
+					"name": "演示对象",
+					"kind": "object",
+					"type": "com.example.demo.演示对象",
+					"functions": [
+						{
+							"name": "加前缀",
+							"return": "文本型",
+							"params": [{ "name": "文本", "type": "文本型" }]
+						},
+						{
+							"name": "取长度",
+							"static": true,
+							"return": "整数型",
+							"params": [{ "name": "文本", "type": "文本型" }]
+						}
+					]
+				}
+			]
+		}
+	]
+}
+```
+
+普通对象使用 `kind: "object"`，接口使用 `interface`，组件使用 `component`。`type` 填公开 Java 类型的完整名称；组件填接口名称，不填 `Impl` 类名。`inherits` 填直接父类型的完整名称，成员名称、类型、参数顺序和静态标记须与 Java 公开声明一致。
+
+可视组件还需声明属性和事件。本篇演示按钮对应的定义如下，将它加入某个分类的 `definitions` 数组即可；继承的属性无需重复列出：
+
+```json
+{
+	"name": "演示按钮",
+	"kind": "component",
+	"type": "com.example.demo.演示按钮",
+	"inherits": ["simple.runtime.components.可视组件"],
+	"properties": [
+		{
+			"name": "标题",
+			"type": "文本型",
+			"initializer": "\"\"",
+			"projection": "text"
+		}
+	],
+	"events": [{ "name": "被单击" }]
+}
+```
+
+`initializer` 提供设计期缺省显示，不自动写入单元属性；应与 Java 设置器注解中的运行时初值保持一致。`projection: "text"` 让设计器用“标题”属性显示按钮文本。容器组件还须有 `组件容器` 继承关系，不能仅凭投影字段获得容器能力。
+
+## 安装与接入 SDK
+
+使用当前 SDK 随附的编译能力时，将构建成果安装到 `sdk/libraries` 的一个直接子目录。以下是交付目录，`library.json` 和 `classes.jar` 必需，其它目录只在类库实际使用时提供：
+
+```text
+sdk/libraries/com.example.demo/
+├─ library.json
+├─ classes.jar
+├─ libs/        可选依赖 JAR
+├─ res/         可选 Android 资源
+├─ assets/      可选资产
+├─ jni/         可选原生库
+└─ icons/       可选清单图标
+```
+
+从开发工程复制上述交付文件即可，不要求复制 `src/`、`build/`。样例和源码可以另外提供；应用开发者无需重建该类库。
+
+在已有 `sdk.json` 的 `libraries` 数组中追加清单路径，保留原有注册项、能力和模板。以下仅展示相关入口字段：
+
+```json
+{
+	"compiler": "simple/SimpleCompiler.json",
+	"runtime": "simple/SimpleAndroidRuntime.json",
+	"libraries": ["libraries/com.example.demo/library.json"]
+}
+```
+
+注册路径相对于 `sdk.json`，只加载明确列出的清单，不使用通配符。扩展库按数组顺序显示。清单注册控制 IDE 元数据，编译器的 JAR 发现规则见本篇“编译与打包”。
+
+安装 ES4A 扩展后，在 VS Code 命令面板执行“ES4A: 选择 SDK”，选择这个 `sdk.json`；已经选过时执行“ES4A: 刷新类库”。确认类库树出现新分类，代码中能补全对象及其成员。
 
 ## 编译与打包
 
@@ -404,17 +513,17 @@ SDK 编译入口将 `sdk/libraries` 传入 `LIBRARIES_HOME`。编译器扫描直
 ### 验证类库
 
 1. 检查 `library.json` 为 UTF-8 JSON，`kind` 为 `library`，类型、成员和继承关系与 Java 实现一致；图标路径存在。
-2. 从干净的构建目录生成 `classes.jar`，确认组件接口与实现类、依赖和资源完整。
-3. 在 ES4A 中[选择 SDK 并刷新类库](Simple%20项目开发.md#准备开发环境)，检查分类、定义、补全、悬停和参数提示。
-4. 对组件，按[窗口设计](Simple%20项目开发.md#窗口与事件)验证添加、属性、缺省值、候选项、专用编辑器与事件生成；普通对象或接口在代码中验证，调用示例见[普通对象](Simple%20类库开发.md#普通对象)。
-5. 编译并打包真实 Simple 样例，在 Android 设备验证函数、属性、事件、权限、资源与生命周期。
-6. 使用 `@ManifestNodes` 时，验证有引用、无引用、缺少必填宏和宏含特殊字符的情况，规则见[Android 清单节点](Simple%20类库开发.md#android-清单节点)。
+2. 从干净的构建目录生成 `classes.jar`，安装到 SDK 的类库交付目录，确认组件接口与实现类、依赖和资源完整；不要求交付源码。
+3. 执行“ES4A: 选择 SDK”或“ES4A: 刷新类库”，检查分类、定义、补全、悬停和参数提示。
+4. 使用随附 Simple 样例，或在 ES4A 项目视图中新建项目。普通对象按本篇“普通对象”的代码创建并调用；组件在窗口设计器中添加，检查属性、缺省值、候选项、专用编辑器和事件生成，并保存单元。
+5. 选择样例项目，执行“ES4A: 编译应用”；连接已启用 USB 调试的 Android 设备后执行“ES4A: 调试应用”，验证函数、属性、事件、权限、资源与生命周期。命令由所选 SDK 的能力声明提供。
+6. 使用 `@ManifestNodes` 时，按本篇宏规则验证有引用、无引用、缺少必填宏和宏含特殊字符的情况。
 
 类库树和代码提示只能证明清单已加载，不能代替编译与设备验证。组件未出现在设计器时，检查 `kind`、`type` 与继承关系，不手写属性区绕过清单问题。
 
 ### 交付内容
 
-提供完整类库目录、稳定包名与版本、依赖和许可证说明，以及可复现的 Simple 样例和使用说明。说明最低设备条件、权限及未验证能力。
+提供可直接使用的类库交付目录、稳定包名与版本、依赖和许可证说明，以及可复现的 Simple 样例和使用说明。说明最低设备条件、权限及未验证能力。Java 源码工程可独立发布或按需附带，不是应用使用该类库的必备内容。
 
 ## 常见问题
 
@@ -432,8 +541,12 @@ SDK 编译入口将 `sdk/libraries` 传入 `LIBRARIES_HOME`。编译器扫描直
 
 ### 修改 Java 后行为没有变化
 
-重新运行公共构建脚本，并确认类库根目录的 `classes.jar` 修改时间已经更新。只修改 `src` 不会影响编译器实际加载的代码。
+重新构建 Java 工程，并把新的 `classes.jar` 更新到所选 SDK 的类库交付目录。只修改源码或更新工程中的 JAR，不会改变另一个 SDK 目录中的已安装版本。
 
 ### 补全信息与编译结果不一致
 
 `library.json` 与 Java 注解是两个独立输入。清单不会校验或生成 Java 成员；修改接口、参数或返回类型时应同步更新两边。
+
+## 延伸参考
+
+本篇已经包含基本实现、构建、清单和注册流程。需要查更多属性编辑器、候选值或设计器投影字段时，再阅读 [类库清单定义](类库清单定义.md)；需要修改 SDK 能力或模板时，阅读 [SDK 清单定义](SDK%20清单定义.md)。

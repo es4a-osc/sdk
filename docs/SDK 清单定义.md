@@ -1,10 +1,12 @@
 # SDK 清单定义
 
-文档类型：SDK 入口字段参考。核对日期：2026-10-09。适用范围：当前 SDK 与 ES4A 扩展。依据：随附 sdk.json、模板与能力脚本，并核对扩展 SDK 加载、参数解析及编译器源码。
+文档类型：SDK 入口字段参考。核对日期：2026-10-12。适用范围：当前 SDK 与 ES4A 扩展。依据：随附 sdk.json、模板与能力脚本，并核对扩展 SDK 加载、参数解析及编译器源码。
 
 [`sdk.json`](../sdk.json) 注册编译器、运行库和扩展类库，并声明工具能力与项目模板。
 
-SDK 根目录包括 `sdk.json`、`capabilities/`、`simple/`、`libraries/`、`templates/` 和 `tools/`。ES4A 仅加载用户通过“选择 SDK”明确指定的入口；未配置或入口路径失效时保持未加载状态，不推断工作区中的 SDK。
+随附 SDK 使用 `sdk.json`、`capabilities/`、`simple/`、`libraries/`、`templates/` 和 `tools/` 目录布局。类库的 Java 源码不是 SDK 使用所需内容，开发工程可另行存放。
+
+本文面向配置 SDK 的维护者，包含入口、路径、能力与模板的字段和示例。ES4A 仅加载用户通过“选择 SDK”明确指定的入口；未配置或入口路径失效时保持未加载状态，不推断工作区中的 SDK，也不根据目录名自动注册类库。
 
 ## 入口字段
 
@@ -43,7 +45,9 @@ SDK 根目录包括 `sdk.json`、`capabilities/`、`simple/`、`libraries/`、`t
 
 分类、定义及设计器分组规则见[清单定义参考](类库清单定义.md#分类与定义)。
 
-此处登记控制 IDE 元数据。Simple 编译器通过 `LIBRARIES_HOME` 扫描类库代码，具体规则见[编译与打包](Simple%20类库开发.md#编译与打包)。
+此处登记控制 IDE 元数据，清单路径可位于维护者明确指定的位置。实际 Java 代码另由编译器通过 `LIBRARIES_HOME` 发现：当前随附能力脚本将其设为 SDK 的 `libraries` 目录，编译器扫描直接子目录中的 `classes.jar`。因此，只注册外部清单并不会让该目录的 JAR 自动参与编译。
+
+使用随附脚本时，安装已编译的类库到 `libraries/<类库目录>/`，携带清单、`classes.jar` 及所需依赖和资源即可，无需 Java `src/` 或开发工程的 `build/`。开发工程本身可以在其它目录；使用不同安装布局时，需要相应能力脚本提供正确的 `LIBRARIES_HOME`。
 
 ## 能力调用
 
@@ -76,7 +80,7 @@ SDK 根目录包括 `sdk.json`、`capabilities/`、`simple/`、`libraries/`、`t
 | `PROJECT_FILE` | 项目的 `project.properties` 绝对路径。 |
 | `APK_FILE` | 项目构建目录下 `deploy/<应用名称>.apk` 的绝对路径。 |
 
-当前 `compile` 使用按 [SDK 工具准备](../README.md#工具准备) 放置的 JDK、Android API 26 和 Simple 工具链编译项目；`debug` 先编译，再通过 ADB 安装 APK 并启动应用。脚本负责工具路径、环境变量和执行流程。
+当前随附 `compile` 脚本使用 SDK 内的 `tools/jdk1.8.0_503/`、`tools/android/`（API 26）、`simple/SimpleCompiler.jar` 和 `simple/SimpleAndroidRuntime.jar`；打包版 SDK 已提供这些工具，无需 Ant。`debug` 先编译，再通过 ADB 安装 APK 并启动应用，不提供断点或单步调试。脚本负责工具路径、环境变量和执行流程，扩展只按清单调用。
 
 ### 编译能力与签名
 
@@ -116,3 +120,7 @@ SDK 根目录包括 `sdk.json`、`capabilities/`、`simple/`、`libraries/`、`t
 2. 能力命令存在，参数标识和顺序与脚本一致。
 3. 模板文件存在，占位符与 `variables` 一致。
 4. 在 ES4A 中刷新类库，确认 SDK 无加载问题，并验证本次修改涉及的功能。
+
+## 延伸参考
+
+分类、成员、图标及设计器元数据的完整字段见 [类库清单定义](类库清单定义.md)；Java 实现与类库构建交付见 [Simple 类库开发](Simple%20类库开发.md)。仅使用 SDK 开发应用时，无需修改这些配置。

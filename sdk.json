@@ -69,10 +69,11 @@
 	"runtime": "simple/SimpleAndroidRuntime.json",
 	"libraries": [
 		"libraries/com.example.demo/library.json",
+		"libraries/simple.library.wsd.viewpager/library.json",
+		"libraries/simple.library.wsd.grouplist/library.json",
+		"libraries/simple.library.wsd.httpserver/library.json",
 		"libraries/simple.library.wsd.accessibility/library.json",
 		"libraries/simple.library.wsd.notification/library.json",
-		"libraries/simple.library.wsd.update/library.json",
-		"libraries/simple.library.wsd.viewpager/library.json",
-		"libraries/simple.library.wsd.httpserver/library.json"
+		"libraries/simple.library.wsd.update/library.json"
 	]
 }
