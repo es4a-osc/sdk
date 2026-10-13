@@ -15,11 +15,15 @@ import simple.runtime.components.可视组件;
 @SimpleObject
 public interface 演示按钮 extends 可视组件 {
 
+	/* 事件 */
+
 	/**
 	 * 用户单击按钮时触发，由 Android 实现类分派。
 	 */
 	@SimpleEvent
 	void 被单击();
+
+	/* 属性 */
 
 	/**
 	 * 读取按钮显示的文本。

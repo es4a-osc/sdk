@@ -25,6 +25,7 @@ import android.os.Bundle;
  * 负责通知渠道、发布与当前窗口存活期间的点击广播分发。
  */
 public final class 通知管理器Impl extends 组件Impl implements 通知管理器 {
+
 	/* 有声与静音通知使用不同渠道；渠道声音设置创建后不可更改。 */
 	private static final String ALERT_CHANNEL_ID = "es4a.notification.alert";
 	private static final String SILENT_CHANNEL_ID = "es4a.notification.silent";
@@ -66,6 +67,7 @@ public final class 通知管理器Impl extends 组件Impl implements 通知管�
 			}
 		};
 		IntentFilter filter = new IntentFilter(clickAction);
+
 		filter.addAction(operationAction);
 		activity.registerReceiver(clickReceiver, filter);
 		receiverRegistered = true;
@@ -78,6 +80,68 @@ public final class 通知管理器Impl extends 组件Impl implements 通知管�
 		};
 		activity.addOnDestroyListener(destroyListener);
 	}
+
+	/* 事件 */
+
+	@Override
+	public void 通知被单击(int notificationId) {
+		EventDispatcher.dispatchEvent(this, "通知被单击", notificationId);
+	}
+
+	@Override
+	public void 按钮被单击(int notificationId, String mark) {
+		EventDispatcher.dispatchEvent(this, "按钮被单击", notificationId, mark);
+	}
+
+	@Override
+	public void 收到回复(int notificationId, String mark, String reply) {
+		EventDispatcher.dispatchEvent(this, "收到回复", notificationId, mark, reply);
+	}
+
+	/* 方法 */
+
+	@Override
+	public 通知构建器 创建通知() {
+		return new 通知构建器(createNotificationBuilder(), activity);
+	}
+
+	@Override
+	public void 发送通知(int notificationId, 通知构建器 notification) {
+		if (notification == null) {
+			throw new IllegalArgumentException("通知构建器不能为空");
+		}
+
+		// 先绑定渠道和按钮，再设置通知点击意图并发布。
+		Notification.Builder builder = notification.getBuilder();
+
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+			builder.setChannelId(ensureNotificationChannel(notification.getPlaysSound(), notification.getPriority()));
+		}
+
+		notification.bindActions(notificationId, operationAction);
+
+		builder.setWhen(System.currentTimeMillis()).setContentIntent(createClickPendingIntent(notificationId));
+		notificationManager.notify(notificationId, buildNotification(builder));
+	}
+
+	@Override
+	public void 删除通知(int notificationId) {
+		notificationManager.cancel(notificationId);
+	}
+
+	@Override
+	public void 清空通知() {
+		notificationManager.cancelAll();
+	}
+
+	@Override
+	public void 销毁() {
+		activity.removeOnDestroyListener(destroyListener);
+		unregisterClickReceiver();
+		super.销毁();
+	}
+
+	/* 内部辅助方法 */
 
 	/**
 	 * 只分发当前组件实例发出的广播，避免不同通知管理器互相接收操作。
@@ -92,6 +156,7 @@ public final class 通知管理器Impl extends 组件Impl implements 通知管�
 		}
 
 		Bundle extras = intent.getExtras();
+
 		if (extras == null || !extras.containsKey(通知构建器.EXTRA_NOTIFICATION_ID)) {
 			return;
 		}
@@ -99,12 +164,14 @@ public final class 通知管理器Impl extends 组件Impl implements 通知管�
 		// 按操作类型分发，回复正文从 RemoteInput 取得。
 		int notificationId = extras.getInt(通知构建器.EXTRA_NOTIFICATION_ID);
 		int kind = extras.getInt(通知构建器.EXTRA_ACTION_KIND, 通知构建器.ACTION_CONTENT);
+
 		if (kind == 通知构建器.ACTION_BUTTON) {
 			按钮被单击(notificationId, extras.getString(通知构建器.EXTRA_ACTION_MARK));
 		} else if (kind == 通知构建器.ACTION_REPLY && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
 			// 回复可能没有文字结果，统一作为空文本交给事件。
 			Bundle results = RemoteInput.getResultsFromIntent(intent);
 			CharSequence reply = results == null ? null : results.getCharSequence(通知构建器.REPLY_RESULT_KEY);
+
 			收到回复(
 				notificationId,
 				extras.getString(通知构建器.EXTRA_ACTION_MARK),
@@ -134,11 +201,13 @@ public final class 通知管理器Impl extends 组件Impl implements 通知管�
 	private PendingIntent createClickPendingIntent(int notificationId) {
 		// 请求码以通知编号区分，更新通知时复用并刷新原有意图。
 		Intent intent = new Intent(clickAction);
+
 		intent.setPackage(activity.getPackageName());
 		intent.putExtra(通知构建器.EXTRA_NOTIFICATION_ID, notificationId);
 
 		// Android 12 起要求明确指定可变性；通知主体点击不需要修改意图。
 		int flags = PendingIntent.FLAG_UPDATE_CURRENT;
+
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 			flags |= PendingIntent.FLAG_IMMUTABLE;
 		}
@@ -151,9 +220,12 @@ public final class 通知管理器Impl extends 组件Impl implements 通知管�
 	 *
 	 * @return 尚未设置小图标的 Android 构建器
 	 */
-	@SuppressWarnings("deprecation")
+	@SuppressWarnings(
+		"deprecation"
+	)
 	private Notification.Builder createNotificationBuilder() {
 		Notification.Builder builder;
+
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 			builder = new Notification.Builder(activity, SILENT_CHANNEL_ID);
 		} else {
@@ -161,6 +233,7 @@ public final class 通知管理器Impl extends 组件Impl implements 通知管�
 			builder = new Notification.Builder(activity);
 			builder.setSound(null);
 		}
+
 		return builder.setAutoCancel(true).setOnlyAlertOnce(true);
 	}
 
@@ -171,11 +244,14 @@ public final class 通知管理器Impl extends 组件Impl implements 通知管�
 	 * @param priority 通知优先级
 	 * @return 当前通知使用的渠道编号
 	 */
-	@TargetApi(Build.VERSION_CODES.O)
+	@TargetApi(
+		Build.VERSION_CODES.O
+	)
 	private String ensureNotificationChannel(boolean playSound, int priority) {
 		// 声音和优先级决定渠道身份；已创建渠道的设置不能直接改写。
 		String baseId = playSound ? ALERT_CHANNEL_ID : SILENT_CHANNEL_ID;
 		String channelId = priority == 通知构建器.优先级_默认 ? baseId : baseId + "." + priority;
+
 		if (notificationManager.getNotificationChannel(channelId) != null) {
 			return channelId;
 		}
@@ -186,10 +262,12 @@ public final class 通知管理器Impl extends 组件Impl implements 通知管�
 			channelName(playSound, priority),
 			channelImportance(priority)
 		);
+
 		if (!playSound) {
 			channel.setSound(null, null);
 			channel.enableVibration(false);
 		}
+
 		notificationManager.createNotificationChannel(channel);
 		return channelId;
 	}
@@ -200,7 +278,9 @@ public final class 通知管理器Impl extends 组件Impl implements 通知管�
 	 * @param priority 通知优先级
 	 * @return Android 渠道重要程度
 	 */
-	@TargetApi(Build.VERSION_CODES.O)
+	@TargetApi(
+		Build.VERSION_CODES.O
+	)
 	private static int channelImportance(int priority) {
 		switch (priority) {
 			case 通知构建器.优先级_最低:
@@ -224,6 +304,7 @@ public final class 通知管理器Impl extends 组件Impl implements 通知管�
 	 */
 	private static String channelName(boolean playSound, int priority) {
 		String prefix = playSound ? "通知" : "静音通知";
+
 		switch (priority) {
 			case 通知构建器.优先级_最低:
 				return prefix + " · 最低";
@@ -244,66 +325,14 @@ public final class 通知管理器Impl extends 组件Impl implements 通知管�
 	 * @param builder 已设置内容的通知构建器
 	 * @return 可交给 NotificationManager 发布的通知
 	 */
-	@SuppressWarnings("deprecation")
+	@SuppressWarnings(
+		"deprecation"
+	)
 	private Notification buildNotification(Notification.Builder builder) {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
 			return builder.build();
 		}
 		// API 14 至 15 没有 build，使用旧版完成方法。
 		return builder.getNotification();
-	}
-
-	@Override
-	public 通知构建器 创建通知() {
-		return new 通知构建器(createNotificationBuilder(), activity);
-	}
-
-	@Override
-	public void 发送通知(int notificationId, 通知构建器 notification) {
-		if (notification == null) {
-			throw new IllegalArgumentException("通知构建器不能为空");
-		}
-
-		// 先绑定渠道和按钮，再设置通知点击意图并发布。
-		Notification.Builder builder = notification.getBuilder();
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-			builder.setChannelId(ensureNotificationChannel(notification.getPlaysSound(), notification.getPriority()));
-		}
-		notification.bindActions(notificationId, operationAction);
-
-		builder.setWhen(System.currentTimeMillis()).setContentIntent(createClickPendingIntent(notificationId));
-		notificationManager.notify(notificationId, buildNotification(builder));
-	}
-
-	@Override
-	public void 删除通知(int notificationId) {
-		notificationManager.cancel(notificationId);
-	}
-
-	@Override
-	public void 清空通知() {
-		notificationManager.cancelAll();
-	}
-
-	@Override
-	public void 通知被单击(int notificationId) {
-		EventDispatcher.dispatchEvent(this, "通知被单击", notificationId);
-	}
-
-	@Override
-	public void 按钮被单击(int notificationId, String mark) {
-		EventDispatcher.dispatchEvent(this, "按钮被单击", notificationId, mark);
-	}
-
-	@Override
-	public void 收到回复(int notificationId, String mark, String reply) {
-		EventDispatcher.dispatchEvent(this, "收到回复", notificationId, mark, reply);
-	}
-
-	@Override
-	public void 销毁() {
-		activity.removeOnDestroyListener(destroyListener);
-		unregisterClickReceiver();
-		super.销毁();
 	}
 }

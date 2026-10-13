@@ -22,14 +22,17 @@ public final class HTTP服务套接字 {
 		this.socket = socket;
 	}
 
+	/* 方法 */
+
 	/**
 	 * 发送数据
-	 * 
+	 *
 	 * @param data 数据，支持文本型和字节数组。
 	 */
 	@SimpleFunction
 	public void 发送(Variant data) {
 		Object object = ConvHelpers.variant2object(data);
+
 		if (object instanceof String) {
 			socket.send((String) object);
 		} else if (object instanceof byte[]) {
@@ -41,7 +44,7 @@ public final class HTTP服务套接字 {
 
 	/**
 	 * 发送数据
-	 * 
+	 *
 	 * @param bytes 字节数组
 	 * @param offset 偏移位置
 	 * @param length 数据长度
@@ -53,7 +56,7 @@ public final class HTTP服务套接字 {
 
 	/**
 	 * 向客户端发送探测
-	 * 
+	 *
 	 * @param message 消息
 	 */
 	@SimpleFunction
@@ -63,7 +66,7 @@ public final class HTTP服务套接字 {
 
 	/**
 	 * 向客户端答复探测
-	 * 
+	 *
 	 * @param message 消息
 	 */
 	@SimpleFunction
@@ -73,7 +76,7 @@ public final class HTTP服务套接字 {
 
 	/**
 	 * 是否正在缓存
-	 * 
+	 *
 	 * @return 正在缓存返回真，否则返回假
 	 */
 	@SimpleFunction

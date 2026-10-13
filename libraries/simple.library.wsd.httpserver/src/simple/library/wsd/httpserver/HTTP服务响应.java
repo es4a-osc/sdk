@@ -24,6 +24,8 @@ public class HTTP服务响应 {
 		this.response = response;
 	}
 
+	/* 方法 */
+
 	/**
 	 * 结束本次HTTP响应
 	 */
@@ -34,12 +36,13 @@ public class HTTP服务响应 {
 
 	/**
 	 * 向客户端发送数据
-	 * 
+	 *
 	 * @param data 数据，支持文本型和JSON值。
 	 */
 	@SimpleFunction
 	public void 发送(Variant data) {
 		Object object = ConvHelpers.variant2object(data);
+
 		if (object instanceof String) {
 			response.send((String) object);
 		} else if (object instanceof JSON值) {
@@ -56,13 +59,14 @@ public class HTTP服务响应 {
 
 	/**
 	 * 向客户端发送数据
-	 * 
+	 *
 	 * @param contentType 内容类型，如“application/json”、“ext/plain”、“text/html”等
 	 * @param data 数据，支持文本型和字节数组。
 	 */
 	@SimpleFunction
 	public void 发送(String contentType, Variant data) {
 		Object object = ConvHelpers.variant2object(data);
+
 		if (object instanceof String) {
 			response.send(contentType, (String) object);
 		} else if (object instanceof byte[]) {
@@ -82,7 +86,7 @@ public class HTTP服务响应 {
 
 	/**
 	 * 置响应代码
-	 * 
+	 *
 	 * @param code 代码
 	 */
 	@SimpleFunction
@@ -92,7 +96,7 @@ public class HTTP服务响应 {
 
 	/**
 	 * 有无协议头
-	 * 
+	 *
 	 * @return 有无
 	 */
 	@SimpleFunction
@@ -103,17 +107,17 @@ public class HTTP服务响应 {
 
 	/**
 	 * 取协议头名
-	 * 
+	 *
 	 * @return 协议头名
 	 */
 	@SimpleFunction
 	public String[] 取协议头名() {
 		return response.getHeaders().getMultiMap().keySet().toArray(new String[0]);
 	}
-	
+
 	/**
 	 * 取协议头值
-	 * 
+	 *
 	 * @param header 协议头名
 	 * @return 首个值
 	 */
@@ -124,7 +128,7 @@ public class HTTP服务响应 {
 
 	/**
 	 * 取协议头所有值
-	 * 
+	 *
 	 * @param header 协议头名
 	 * @return 所有值
 	 */
@@ -135,7 +139,7 @@ public class HTTP服务响应 {
 
 	/**
 	 * 置协议头值
-	 * 
+	 *
 	 * @param header 协议头名
 	 * @param value 协议头值
 	 */
@@ -146,7 +150,7 @@ public class HTTP服务响应 {
 
 	/**
 	 * 添加协议头值
-	 * 
+	 *
 	 * @param header 协议头名
 	 * @param value 协议头值
 	 */
@@ -157,7 +161,7 @@ public class HTTP服务响应 {
 
 	/**
 	 * 删除协议头
-	 * 
+	 *
 	 * @param header 协议头名
 	 */
 	@SimpleFunction
@@ -167,17 +171,17 @@ public class HTTP服务响应 {
 
 	/**
 	 * 置内容类型
-	 * 
+	 *
 	 * @param contentType 内容类型，如“application/json”、“ext/plain”、“text/html”等
 	 */
 	@SimpleFunction
-    public void 置内容类型(String contentType) {
+	public void 置内容类型(String contentType) {
 		response.setContentType(contentType);
 	}
 
 	/**
 	 * 重定向
-	 * 
+	 *
 	 * @param location 位置
 	 */
 	@SimpleFunction

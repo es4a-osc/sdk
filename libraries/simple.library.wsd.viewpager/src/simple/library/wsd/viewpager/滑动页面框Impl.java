@@ -10,13 +10,13 @@ import simple.runtime.components.impl.android.视图组件容器;
 import simple.runtime.android.MainActivity;
 import simple.runtime.events.EventDispatcher;
 
-/* Android类 */ 
+/* Android类 */
 import android.os.Parcelable;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
-/* Android扩展类库V4类 */ 
+/* Android扩展类库V4类 */
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 
@@ -58,28 +58,28 @@ public final class 滑动页面框Impl extends 视图组件 implements 滑动页
 			public int getCount() {
 				return pageViews.size();
 			}
-			
+
 			@Override
 			public boolean isViewFromObject(View view, Object object) {
 				return view == object;
 			}
-			
+
 			@Override
 			public int getItemPosition(Object object) {
 				return -2;
 			}
-			
+
 			@Override
 			public void destroyItem(ViewGroup container, int position, Object object) {
 				container.removeView((View) object);
 			}
-			
+
 			@Override
 			public Object instantiateItem(ViewGroup container, int position) {
 				container.addView((View) pageViews.get(position));
 				return pageViews.get(position);
 			}
-			
+
 			@Override
 			public Parcelable saveState() {
 				return null;
@@ -93,14 +93,16 @@ public final class 滑动页面框Impl extends 视图组件 implements 滑动页
 				if (noScroll) {
 					return false;
 				}
+
 				return super.onTouchEvent(ev);
 			}
-		
+
 			@Override
 			public boolean onInterceptTouchEvent(MotionEvent ev) {
 				if (noScroll) {
 					return false;
 				}
+
 				return super.onInterceptTouchEvent(ev);
 			}
 		};
@@ -111,12 +113,12 @@ public final class 滑动页面框Impl extends 视图组件 implements 滑动页
 			public void onPageScrollStateChanged(int state) {
 				滑动状态改变(state);
 			}
-		
+
 			@Override
 			public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 				页面被滑动(position, positionOffset, positionOffsetPixels);
 			}
-		
+
 			@Override
 			public void onPageSelected(int position) {
 				页面被选择(position);
@@ -127,62 +129,24 @@ public final class 滑动页面框Impl extends 视图组件 implements 滑动页
 		return view;
 	}
 
-	@Override
-	public ViewGroup getLayoutManager() {
-		return (ViewGroup) getView();
-	}
-
-	@Override
-	public void addComponent(组件 component) {
-		// 把可视组件接口转为实现接口视图组件，并取视图组件的视图
-		View view = ((视图组件) component).getView();
-		addPageView(view);
-	}
-
-	/**
-	 * 页面由适配器延迟挂载，须先建立布局参数，供 Simple 初始化宽高属性使用。
-	 */
-	private void addPageView(View view) {
-		// 页面尚未挂载到 ViewPager，布局参数可能为空。
-		// 必须提前建立参数，否则 Simple 初始化宽高时会发生空指针异常。
-		ViewGroup.LayoutParams current = view.getLayoutParams();
-		// 已有 ViewPager 参数直接沿用，避免丢失其状态。
-		if (!(current instanceof ViewPager.LayoutParams)) {
-			// 使用 ViewPager 专用参数，默认宽高均为匹配父级。
-			ViewPager.LayoutParams params = new ViewPager.LayoutParams();
-			if (current != null) {
-				// 从其他容器移入的页面保留已有宽高。
-				params.width = current.width;
-				params.height = current.height;
-			}
-			view.setLayoutParams(params);
-		}
-		// 先准备布局参数，再登记页面并通知适配器。
-		pageViews.add(view);
-		adapter.notifyDataSetChanged();
-	}
-
-	@Override
-	public 布局 getLayout() {
-		return null;
-	}
-
-	/* 滑动页面框 实现 */
+	/* 事件 */
 
 	@Override
 	public void 页面被滑动(int position, float positionOffset, int positionOffsetPixels) {
 		EventDispatcher.dispatchEvent(this, "页面被滑动", position, positionOffset, positionOffsetPixels);
 	}
-	
+
 	@Override
 	public void 滑动状态改变(int state) {
 		EventDispatcher.dispatchEvent(this, "滑动状态改变", state);
 	}
-	
+
 	@Override
 	public void 页面被选择(int position) {
 		EventDispatcher.dispatchEvent(this, "页面被选择", position);
 	}
+
+	/* 属性 */
 
 	@Override
 	public boolean 禁止滑动() {
@@ -209,15 +173,20 @@ public final class 滑动页面框Impl extends 视图组件 implements 滑动页
 		if (pageViews.size() == 0) {
 			return -1;
 		}
+
 		ViewPager view = (ViewPager) getView();
+
 		return view.getCurrentItem();
 	}
 
 	@Override
 	public void 现行页面(int position) {
 		ViewPager view = (ViewPager) getView();
+
 		view.setCurrentItem(position, switchEffects);
 	}
+
+	/* 方法 */
 
 	@Override
 	public void 添加页面(可视组件 visibleComponent) {
@@ -228,10 +197,11 @@ public final class 滑动页面框Impl extends 视图组件 implements 滑动页
 			// 将视图从父级布局中移除
 			View view = viewComponent.getView();
 			ViewGroup group = (ViewGroup) view.getParent();
+
 			if (group != null) {
 				group.removeView(view);
 			}
-			
+
 			// 将欲添加组件添加到页面视图
 			addPageView(view);
 		} catch (Exception e) {
@@ -256,5 +226,52 @@ public final class 滑动页面框Impl extends 视图组件 implements 滑动页
 	@Override
 	public int 取页面数() {
 		return pageViews.size();
+	}
+
+	/* 内部接口与平台回调 */
+
+	@Override
+	public ViewGroup getLayoutManager() {
+		return (ViewGroup) getView();
+	}
+
+	@Override
+	public void addComponent(组件 component) {
+		// 把可视组件接口转为实现接口视图组件，并取视图组件的视图
+		View view = ((视图组件) component).getView();
+
+		addPageView(view);
+	}
+
+	@Override
+	public 布局 getLayout() {
+		return null;
+	}
+
+	/* 内部辅助方法 */
+
+	/**
+	 * 页面由适配器延迟挂载，须先建立布局参数，供 Simple 初始化宽高属性使用。
+	 */
+	private void addPageView(View view) {
+		// 页面尚未挂载到 ViewPager，布局参数可能为空。
+		// 必须提前建立参数，否则 Simple 初始化宽高时会发生空指针异常。
+		ViewGroup.LayoutParams current = view.getLayoutParams();
+		// 已有 ViewPager 参数直接沿用，避免丢失其状态。
+		if (!(current instanceof ViewPager.LayoutParams)) {
+			// 使用 ViewPager 专用参数，默认宽高均为匹配父级。
+			ViewPager.LayoutParams params = new ViewPager.LayoutParams();
+
+			if (current != null) {
+				// 从其他容器移入的页面保留已有宽高。
+				params.width = current.width;
+				params.height = current.height;
+			}
+
+			view.setLayoutParams(params);
+		}
+		// 先准备布局参数，再登记页面并通知适配器。
+		pageViews.add(view);
+		adapter.notifyDataSetChanged();
 	}
 }

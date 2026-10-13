@@ -1480,6 +1480,716 @@
 							]
 						}
 					]
+				},
+				{
+					"name": "NFC读写器",
+					"icon": "icons/nfc.svg",
+					"description": "读取和写入 NFC 标签。",
+					"kind": "component",
+					"type": "simple.runtime.components.NFC读写器",
+					"inherits": [
+						"simple.runtime.components.组件"
+					],
+					"permissions": [
+						"android.permission.NFC"
+					],
+					"events": [
+						{
+							"name": "读取到信息",
+							"description": "读取到 NFC 标签内容时触发。",
+							"params": [
+								{
+									"name": "内容",
+									"type": "文本型"
+								}
+							]
+						},
+						{
+							"name": "读取到卡号",
+							"description": "卡号为标签标识按小端字节序转换的无符号十进制文本。",
+							"params": [
+								{
+									"name": "卡号",
+									"type": "文本型"
+								}
+							]
+						}
+					],
+					"functions": [
+						{
+							"name": "初始化NFC",
+							"description": "初始化 NFC：1 不支持，2 未开启，3 就绪；可重复调用。",
+							"return": "整数型"
+						},
+						{
+							"name": "置读取模式",
+							"description": "切换为读取模式，读取首条 NDEF 记录。"
+						},
+						{
+							"name": "置写入模式",
+							"description": "切换为写入模式，以 UTF-8 文本保存内容。",
+							"params": [
+								{
+									"name": "内容",
+									"type": "文本型"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "WIFI管理器",
+					"icon": "icons/wifi.svg",
+					"description": "管理 Wi-Fi 网络、扫描和热点；网络修改能力受系统权限及版本限制。",
+					"kind": "component",
+					"type": "simple.runtime.components.WIFI管理器",
+					"inherits": [
+						"simple.runtime.components.组件"
+					],
+					"permissions": [
+						"android.permission.ACCESS_WIFI_STATE",
+						"android.permission.ACCESS_NETWORK_STATE",
+						"android.permission.CHANGE_WIFI_STATE",
+						"android.permission.CHANGE_NETWORK_STATE",
+						"android.permission.WAKE_LOCK",
+						"android.permission.ACCESS_FINE_LOCATION",
+						"android.permission.ACCESS_COARSE_LOCATION"
+					],
+					"events": [
+						{
+							"name": "扫描完毕",
+							"description": "本组件请求的扫描结果就绪时触发。"
+						},
+						{
+							"name": "开启状态改变",
+							"description": "Wi-Fi 开启状态变化时触发。",
+							"params": [
+								{
+									"name": "启用",
+									"type": "逻辑型"
+								}
+							]
+						},
+						{
+							"name": "网络状态改变",
+							"description": "状态：1 已连接，2 连接中，3 已断开，4 断开中，5 暂停，6 未知。",
+							"params": [
+								{
+									"name": "状态",
+									"type": "整数型"
+								}
+							]
+						},
+						{
+							"name": "密码错误",
+							"description": "网络认证失败时触发。"
+						}
+					],
+					"functions": [
+						{
+							"name": "取已保存网络列表",
+							"description": "每项为“名称|*|网络标识”。",
+							"return": "文本型()"
+						},
+						{
+							"name": "取已保存网络",
+							"description": "返回匹配网络的标识，未找到时返回 -1。",
+							"params": [
+								{
+									"name": "网络名",
+									"type": "文本型"
+								}
+							],
+							"return": "整数型"
+						},
+						{
+							"name": "打开WIFI设置",
+							"description": "打开系统 Wi-Fi 设置界面。"
+						},
+						{
+							"name": "置WIFI状态",
+							"description": "请求开启或关闭 Wi-Fi，返回系统是否接受请求。",
+							"params": [
+								{
+									"name": "启用",
+									"type": "逻辑型"
+								}
+							],
+							"return": "逻辑型"
+						},
+						{
+							"name": "是否已开启",
+							"description": "返回 Wi-Fi 是否已开启。",
+							"return": "逻辑型"
+						},
+						{
+							"name": "置静态IP",
+							"description": "旧系统静态 IPv4 配置，前缀固定为 24；依赖系统隐藏接口支持。",
+							"params": [
+								{
+									"name": "网络名",
+									"type": "文本型"
+								},
+								{
+									"name": "地址",
+									"type": "文本型"
+								},
+								{
+									"name": "网关",
+									"type": "文本型"
+								},
+								{
+									"name": "域名服务器",
+									"type": "文本型"
+								}
+							]
+						},
+						{
+							"name": "置指定WIFI状态",
+							"description": "连接指定网络；禁用其它为真时同时禁用其它已保存网络。",
+							"params": [
+								{
+									"name": "网络标识",
+									"type": "整数型"
+								},
+								{
+									"name": "禁用其它",
+									"type": "逻辑型"
+								}
+							],
+							"return": "逻辑型"
+						},
+						{
+							"name": "取连接状态",
+							"description": "返回系统状态：0 当前连接，1 禁用或不存在，2 启用。",
+							"params": [
+								{
+									"name": "网络标识",
+									"type": "整数型"
+								}
+							],
+							"return": "整数型"
+						},
+						{
+							"name": "开始扫描",
+							"description": "请求扫描周围网络；返回是否成功启动扫描。",
+							"return": "逻辑型"
+						},
+						{
+							"name": "获取扫描结果",
+							"description": "以“名称*地址*加密信息*信号*频率”返回结果，网络之间以 / 分隔。",
+							"return": "文本型"
+						},
+						{
+							"name": "添加网络",
+							"description": "添加网络并返回标识；类型：1 开放，2 WEP，3 WPA。",
+							"params": [
+								{
+									"name": "网络名",
+									"type": "文本型"
+								},
+								{
+									"name": "密码",
+									"type": "文本型"
+								},
+								{
+									"name": "类型",
+									"type": "整数型",
+									"description": "1 为开放网络，2 为 WEP，3 为 WPA。"
+								}
+							],
+							"return": "整数型"
+						},
+						{
+							"name": "删除网络",
+							"description": "删除指定的已保存网络，返回是否成功。",
+							"params": [
+								{
+									"name": "网络标识",
+									"type": "整数型"
+								}
+							],
+							"return": "逻辑型"
+						},
+						{
+							"name": "锁定WIFI",
+							"description": "获取本组件的 Wi-Fi 唤醒锁。"
+						},
+						{
+							"name": "解锁WIFI",
+							"description": "释放本组件的 Wi-Fi 唤醒锁。"
+						},
+						{
+							"name": "创建热点",
+							"description": "按名称和密码启动热点；依赖系统隐藏接口支持。",
+							"params": [
+								{
+									"name": "网络名",
+									"type": "文本型"
+								},
+								{
+									"name": "密码",
+									"type": "文本型"
+								}
+							]
+						},
+						{
+							"name": "关闭热点",
+							"description": "关闭热点；依赖系统隐藏接口支持。"
+						},
+						{
+							"name": "取当前BSSID",
+							"description": "返回当前连接的接入点地址。",
+							"return": "文本型"
+						},
+						{
+							"name": "取当前SSID",
+							"description": "返回当前连接的网络名称。",
+							"return": "文本型"
+						},
+						{
+							"name": "取当前networkid",
+							"description": "返回当前连接的网络标识。",
+							"return": "整数型"
+						},
+						{
+							"name": "取内网IP",
+							"description": "返回当前设备的内网 IPv4 地址。",
+							"return": "文本型"
+						},
+						{
+							"name": "取MAC地址",
+							"description": "返回系统提供的设备 Wi-Fi 地址。",
+							"return": "文本型"
+						},
+						{
+							"name": "取当前信号强度",
+							"description": "返回 0～4 的信号档位；没有连接信息时为 0。",
+							"return": "整数型"
+						},
+						{
+							"name": "取当前连接速度",
+							"description": "返回系统提供的连接速度，单位为 Mbps。",
+							"return": "整数型"
+						},
+						{
+							"name": "取网关",
+							"description": "返回 DHCP 提供的网关地址。",
+							"return": "文本型"
+						},
+						{
+							"name": "取网络前缀",
+							"description": "返回 DHCP 提供的子网掩码地址。",
+							"return": "文本型"
+						},
+						{
+							"name": "取DNS1",
+							"description": "返回 DHCP 提供的首选域名服务器地址。",
+							"return": "文本型"
+						},
+						{
+							"name": "取DNS2",
+							"description": "返回 DHCP 提供的备用域名服务器地址。",
+							"return": "文本型"
+						}
+					]
+				},
+				{
+					"name": "相机",
+					"icon": "icons/camera.svg",
+					"description": "调用系统相机和相册，提供拍照、录像及闪光灯控制。",
+					"kind": "component",
+					"type": "simple.runtime.components.相机",
+					"inherits": [
+						"simple.runtime.components.组件"
+					],
+					"permissions": [
+						"android.permission.FLASHLIGHT",
+						"android.permission.CAMERA",
+						"android.permission.READ_EXTERNAL_STORAGE",
+						"android.permission.WRITE_EXTERNAL_STORAGE"
+					],
+					"events": [
+						{
+							"name": "拍摄完毕",
+							"description": "系统拍照结果成功保存后触发。"
+						},
+						{
+							"name": "录像完毕",
+							"description": "系统录像结果成功保存后触发。"
+						},
+						{
+							"name": "浏览完毕",
+							"description": "返回文件路径；媒体提供器未提供路径时复制到应用缓存。",
+							"params": [
+								{
+									"name": "路径",
+									"type": "文本型"
+								}
+							]
+						},
+						{
+							"name": "剪裁完毕",
+							"description": "裁剪结果成功保存后触发，返回文件路径。",
+							"params": [
+								{
+									"name": "路径",
+									"type": "文本型"
+								}
+							]
+						}
+					],
+					"functions": [
+						{
+							"name": "开始拍照",
+							"description": "调用系统相机，将结果复制到指定文件路径。",
+							"params": [
+								{
+									"name": "路径",
+									"type": "文本型"
+								}
+							]
+						},
+						{
+							"name": "开始录像",
+							"description": "调用系统录像；质量 0 为低质量，1 为高质量。",
+							"params": [
+								{
+									"name": "路径",
+									"type": "文本型"
+								},
+								{
+									"name": "质量",
+									"type": "整数型",
+									"description": "0 为低质量，1 为高质量。"
+								}
+							]
+						},
+						{
+							"name": "更新系统相册",
+							"description": "扫描指定文件，通知系统更新媒体索引。",
+							"params": [
+								{
+									"name": "路径",
+									"type": "文本型"
+								}
+							]
+						},
+						{
+							"name": "浏览相册",
+							"description": "打开系统界面选择照片。"
+						},
+						{
+							"name": "浏览相册视频",
+							"description": "打开系统界面选择视频。"
+						},
+						{
+							"name": "浏览相册并剪裁",
+							"description": "依赖设备提供裁剪应用；结果保存在应用缓存，通过剪裁完毕返回路径。"
+						},
+						{
+							"name": "取照片旋转角度",
+							"description": "读取照片方向，返回 0、90、180 或 270 度；无法读取时返回 0。",
+							"params": [
+								{
+									"name": "路径",
+									"type": "文本型"
+								}
+							],
+							"return": "整数型"
+						},
+						{
+							"name": "是否存在闪光灯",
+							"description": "返回设备是否声明闪光灯能力。",
+							"return": "逻辑型"
+						},
+						{
+							"name": "开启闪光灯",
+							"description": "开启持续照明，设备不支持时不执行。"
+						},
+						{
+							"name": "关闭闪光灯",
+							"description": "关闭持续照明并释放摄像头资源。"
+						}
+					]
+				},
+				{
+					"name": "蓝牙通信器",
+					"icon": "icons/bluetooth.svg",
+					"description": "发现经典蓝牙设备并进行 RFCOMM 通信。",
+					"kind": "component",
+					"type": "simple.runtime.components.蓝牙通信器",
+					"inherits": [
+						"simple.runtime.components.组件"
+					],
+					"permissions": [
+						"android.permission.BLUETOOTH",
+						"android.permission.BLUETOOTH_ADMIN",
+						"android.permission.ACCESS_FINE_LOCATION",
+						"android.permission.ACCESS_COARSE_LOCATION"
+					],
+					"events": [
+						{
+							"name": "蓝牙设置完毕",
+							"description": "结果：1 开启成功，2 开启取消或失败，3 可发现设置成功，4 可发现设置取消或失败。",
+							"params": [
+								{
+									"name": "结果",
+									"type": "整数型",
+									"description": "1 开启成功，2 开启取消或失败，3 可发现设置成功，4 可发现设置取消或失败。"
+								}
+							]
+						},
+						{
+							"name": "发现设备",
+							"description": "发现设备时触发，返回名称、地址及配对状态。",
+							"params": [
+								{
+									"name": "名称",
+									"type": "文本型"
+								},
+								{
+									"name": "地址",
+									"type": "文本型"
+								},
+								{
+									"name": "已配对",
+									"type": "逻辑型"
+								}
+							]
+						},
+						{
+							"name": "连接完毕",
+							"description": "成功时模式 1 为主动连接、2 为接收连接；失败时模式为 0。",
+							"params": [
+								{
+									"name": "成功",
+									"type": "逻辑型"
+								},
+								{
+									"name": "名称",
+									"type": "文本型"
+								},
+								{
+									"name": "地址",
+									"type": "文本型"
+								},
+								{
+									"name": "模式",
+									"type": "整数型",
+									"description": "1 为主动连接，2 为接收连接，失败时为 0。"
+								}
+							]
+						},
+						{
+							"name": "收到数据",
+							"description": "返回本次读取的数据块；字节流不保证一次事件对应一条完整业务消息。",
+							"params": [
+								{
+									"name": "数据",
+									"type": "字节型()"
+								},
+								{
+									"name": "名称",
+									"type": "文本型"
+								},
+								{
+									"name": "地址",
+									"type": "文本型"
+								}
+							]
+						},
+						{
+							"name": "发送完毕",
+							"description": "数据成功写入连接后触发。",
+							"params": [
+								{
+									"name": "数据",
+									"type": "字节型()"
+								},
+								{
+									"name": "名称",
+									"type": "文本型"
+								},
+								{
+									"name": "地址",
+									"type": "文本型"
+								}
+							]
+						},
+						{
+							"name": "连接断开",
+							"description": "当前连接断开时触发。"
+						}
+					],
+					"functions": [
+						{
+							"name": "打开蓝牙设置",
+							"description": "打开系统蓝牙设置界面。"
+						},
+						{
+							"name": "是否存在",
+							"description": "返回设备是否具有蓝牙适配器。",
+							"return": "逻辑型"
+						},
+						{
+							"name": "是否已开启",
+							"description": "返回蓝牙是否已开启。",
+							"return": "逻辑型"
+						},
+						{
+							"name": "开启蓝牙",
+							"description": "请求用户开启蓝牙。"
+						},
+						{
+							"name": "关闭蓝牙",
+							"description": "请求关闭蓝牙。"
+						},
+						{
+							"name": "置可被发现",
+							"description": "请求让其它设备发现本设备。"
+						},
+						{
+							"name": "置工作模式",
+							"description": "模式 1 为聊天模式并监听连接；其它值使用串口服务进行主动连接。",
+							"params": [
+								{
+									"name": "模式",
+									"type": "整数型",
+									"description": "1 为聊天模式，其它值为串口模式。"
+								}
+							]
+						},
+						{
+							"name": "置UUID",
+							"description": "设置本组件后续连接的服务 UUID；空文本恢复当前模式的默认值。",
+							"params": [
+								{
+									"name": "服务标识",
+									"type": "文本型"
+								}
+							]
+						},
+						{
+							"name": "置本机名称",
+							"description": "设置本机蓝牙名称，返回是否成功。",
+							"params": [
+								{
+									"name": "名称",
+									"type": "文本型"
+								}
+							],
+							"return": "逻辑型"
+						},
+						{
+							"name": "取本机名称",
+							"description": "返回本机蓝牙名称。",
+							"return": "文本型"
+						},
+						{
+							"name": "取本机地址",
+							"description": "返回系统提供的本机蓝牙地址。",
+							"return": "文本型"
+						},
+						{
+							"name": "取已配对设备",
+							"description": "返回已配对设备集合，每项为包含名称和地址的文本数组。",
+							"return": "集合"
+						},
+						{
+							"name": "搜索设备",
+							"description": "开始发现附近的经典蓝牙设备。"
+						},
+						{
+							"name": "停止搜索",
+							"description": "取消设备发现。"
+						},
+						{
+							"name": "连接设备",
+							"description": "按地址发起 RFCOMM 连接。",
+							"params": [
+								{
+									"name": "地址",
+									"type": "文本型"
+								}
+							]
+						},
+						{
+							"name": "发送数据",
+							"description": "通过当前连接发送字节数组。",
+							"params": [
+								{
+									"name": "数据",
+									"type": "字节型()"
+								}
+							]
+						},
+						{
+							"name": "断开连接",
+							"description": "关闭当前连接并停止连接任务。"
+						},
+						{
+							"name": "取已连接设备名称",
+							"description": "返回当前连接的设备名称。",
+							"return": "文本型"
+						},
+						{
+							"name": "取已连接设备地址",
+							"description": "返回当前连接的设备地址。",
+							"return": "文本型"
+						}
+					]
+				},
+				{
+					"name": "语音处理器",
+					"icon": "icons/microphone.svg",
+					"description": "调用系统语音识别与朗读引擎。",
+					"kind": "component",
+					"type": "simple.runtime.components.语音处理器",
+					"inherits": [
+						"simple.runtime.components.组件"
+					],
+					"events": [
+						{
+							"name": "语音识别完毕",
+							"description": "识别完成时触发，返回识别文本。",
+							"params": [
+								{
+									"name": "文本",
+									"type": "文本型"
+								}
+							]
+						}
+					],
+					"functions": [
+						{
+							"name": "是否已安装语音引擎",
+							"description": "保留原名称，实际检查系统是否有可接收语音识别请求的应用。",
+							"return": "逻辑型"
+						},
+						{
+							"name": "语音识别",
+							"description": "打开系统语音识别界面。"
+						},
+						{
+							"name": "初始化语音朗读",
+							"description": "初始化系统朗读引擎，可重复调用。"
+						},
+						{
+							"name": "语音朗读",
+							"description": "使用系统默认语言朗读；初始化期间保留最后一次请求，就绪后开始朗读。",
+							"params": [
+								{
+									"name": "内容",
+									"type": "文本型"
+								}
+							]
+						},
+						{
+							"name": "释放语音朗读",
+							"description": "停止并释放朗读引擎；后续朗读可重新初始化。"
+						}
+					]
 				}
 			]
 		},
@@ -5039,6 +5749,183 @@
 							"name": "播放完毕"
 						}
 					]
+				},
+				{
+					"name": "摄像框",
+					"icon": "icons/video.svg",
+					"description": "嵌入窗口的摄像头预览组件，支持拍照和录像。",
+					"kind": "component",
+					"type": "simple.runtime.components.摄像框",
+					"inherits": [
+						"simple.runtime.components.可视组件"
+					],
+					"permissions": [
+						"android.permission.RECORD_AUDIO",
+						"android.permission.CAMERA",
+						"android.permission.FLASHLIGHT",
+						"android.permission.READ_EXTERNAL_STORAGE",
+						"android.permission.WRITE_EXTERNAL_STORAGE"
+					],
+					"events": [
+						{
+							"name": "对焦完毕",
+							"description": "自动对焦完成时触发，参数表示是否成功。",
+							"params": [
+								{
+									"name": "成功",
+									"type": "逻辑型"
+								}
+							]
+						},
+						{
+							"name": "被单击",
+							"description": "摄像头预览被单击时触发。"
+						},
+						{
+							"name": "拍照完毕",
+							"description": "照片保存完成时触发，返回文件路径。",
+							"params": [
+								{
+									"name": "路径",
+									"type": "文本型"
+								}
+							]
+						},
+						{
+							"name": "拍照完毕2",
+							"description": "照片编码完成时触发，返回照片字节数组。",
+							"params": [
+								{
+									"name": "数据",
+									"type": "字节型()"
+								}
+							]
+						},
+						{
+							"name": "获得预览尺寸列表",
+							"description": "按高×宽逐行报告支持的预览尺寸。",
+							"params": [
+								{
+									"name": "尺寸",
+									"type": "文本型"
+								}
+							]
+						},
+						{
+							"name": "获得照片尺寸列表",
+							"description": "按高×宽逐行报告支持的照片尺寸。",
+							"params": [
+								{
+									"name": "尺寸",
+									"type": "文本型"
+								}
+							]
+						}
+					],
+					"functions": [
+						{
+							"name": "开启摄像头",
+							"description": "类型：1 前置，2 后置；宽高用于选择竖屏拍摄和预览尺寸。",
+							"params": [
+								{
+									"name": "类型",
+									"type": "整数型",
+									"description": "1 为前置，2 为后置。"
+								},
+								{
+									"name": "宽度",
+									"type": "整数型",
+									"description": "请求的预览宽度。"
+								},
+								{
+									"name": "高度",
+									"type": "整数型",
+									"description": "请求的预览高度。"
+								}
+							]
+						},
+						{
+							"name": "开始对焦",
+							"description": "请求自动对焦。"
+						},
+						{
+							"name": "拍摄照片",
+							"description": "保存照片；格式：1 JPEG，2 PNG；质量范围 0～100。",
+							"params": [
+								{
+									"name": "路径",
+									"type": "文本型"
+								},
+								{
+									"name": "格式",
+									"type": "整数型",
+									"description": "1 为 JPEG，2 为 PNG。"
+								},
+								{
+									"name": "质量",
+									"type": "整数型",
+									"description": "编码质量，范围 0～100。"
+								}
+							]
+						},
+						{
+							"name": "拍摄照片2",
+							"description": "返回照片字节；格式和质量规则与拍摄照片一致。",
+							"params": [
+								{
+									"name": "格式",
+									"type": "整数型",
+									"description": "1 为 JPEG，2 为 PNG。"
+								},
+								{
+									"name": "质量",
+									"type": "整数型",
+									"description": "编码质量，范围 0～100。"
+								}
+							]
+						},
+						{
+							"name": "开始录像",
+							"description": "质量 1～7：LOW、QVGA、CIF、480P、720P、1080P、HIGH。格式保留兼容，输出由设备档位决定。",
+							"params": [
+								{
+									"name": "路径",
+									"type": "文本型"
+								},
+								{
+									"name": "格式",
+									"type": "整数型",
+									"description": "保留兼容参数，输出格式由设备档位决定。"
+								},
+								{
+									"name": "质量",
+									"type": "整数型",
+									"description": "1～7：LOW、QVGA、CIF、480P、720P、1080P、HIGH。"
+								},
+								{
+									"name": "录音",
+									"type": "逻辑型",
+									"description": "是否录制声音。"
+								}
+							]
+						},
+						{
+							"name": "停止录像",
+							"description": "停止录像并释放录制资源。"
+						},
+						{
+							"name": "开启闪光灯",
+							"description": "开启当前摄像头的持续照明模式。"
+						},
+						{
+							"name": "关闭闪光灯",
+							"description": "关闭当前摄像头的持续照明模式。"
+						},
+						{
+							"name": "关闭摄像头",
+							"description": "关闭摄像头预览并释放拍摄资源。"
+						}
+					]
 				}
 			]
 		},
@@ -5289,6 +6176,94 @@
 									"description": "rotation around Y axis (-90 to 90), with positive values when the x-axis moves away from the z-axis."
 								}
 							]
+						}
+					]
+				},
+				{
+					"name": "光线传感器",
+					"icon": "icons/sun.svg",
+					"description": "读取环境照度，单位为勒克斯（lx）。",
+					"kind": "component",
+					"type": "simple.runtime.components.光线传感器",
+					"inherits": [
+						"simple.runtime.components.传感器组件"
+					],
+					"events": [
+						{
+							"name": "光线改变",
+							"description": "取得有效环境照度时触发，单位为 lx。",
+							"params": [
+								{
+									"name": "照度",
+									"type": "单精度小数型",
+									"description": "照度，单位为勒克斯（lx）。"
+								}
+							]
+						}
+					],
+					"properties": [
+						{
+							"name": "是否有效",
+							"type": "逻辑型",
+							"description": "设备是否具有光线传感器。",
+							"writable": false
+						}
+					]
+				},
+				{
+					"name": "距离传感器",
+					"icon": "icons/radar.svg",
+					"description": "检测物体与设备之间的距离，单位为厘米。",
+					"kind": "component",
+					"type": "simple.runtime.components.距离传感器",
+					"inherits": [
+						"simple.runtime.components.传感器组件"
+					],
+					"events": [
+						{
+							"name": "距离改变",
+							"description": "首次取得有效读数或距离变化时触发。",
+							"params": [
+								{
+									"name": "距离",
+									"type": "单精度小数型",
+									"description": "距离，单位为厘米。"
+								}
+							]
+						},
+						{
+							"name": "物体靠近",
+							"description": "收到小于最小距离的读数时触发；相同读数也可重复触发。"
+						},
+						{
+							"name": "物体离开",
+							"description": "收到大于或等于最小距离的读数时触发；相同读数也可重复触发。"
+						}
+					],
+					"properties": [
+						{
+							"name": "距离",
+							"type": "单精度小数型",
+							"description": "最近一次有效距离，单位为厘米；尚未取得读数时为零。",
+							"writable": false
+						},
+						{
+							"name": "可用",
+							"type": "逻辑型",
+							"description": "是否正在监听距离。保留原有可读写名称“可用”，关闭监听或设备不支持时为假。",
+							"initializer": "真"
+						},
+						{
+							"name": "最小距离",
+							"type": "整数型",
+							"description": "靠近与离开的判断阈值，单位为厘米。",
+							"initializer": "1"
+						},
+						{
+							"name": "检测间隔",
+							"type": "整数型",
+							"description": "Android 采样参数：0～3 为系统采样档位，其它正整数为微秒周期，不保证实际采样频率。",
+							"initializer": "3"
 						}
 					]
 				}

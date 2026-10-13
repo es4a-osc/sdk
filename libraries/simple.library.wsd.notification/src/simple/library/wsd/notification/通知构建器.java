@@ -25,6 +25,7 @@ import android.os.Build;
  */
 @SimpleObject
 public final class 通知构建器 {
+
 	/** 未自定义小图标时使用 Android 内置通知图标。 */
 	private static final int DEFAULT_NOTIFICATION_ICON = android.R.drawable.stat_notify_more;
 
@@ -83,38 +84,7 @@ public final class 通知构建器 {
 	private String boundBroadcastAction;
 	private int addedActionCount;
 
-	/**
-	 * 一条尚未绑定通知编号的操作按钮配置。
-	 * 管理器发送通知时才确定编号，并据此生成互不覆盖的点击意图。
-	 */
-	private static final class ActionSpec {
-		private final int kind;
-		private final int icon;
-		private final String title;
-		private final String mark;
-		private final String hint;
-		// 请求码区分普通按钮和回复按钮的 PendingIntent。
-		private final int requestCode = NEXT_ACTION_REQUEST_CODE.getAndIncrement();
-
-		/**
-		 * 保存按钮配置；通知编号在发送时才确定。
-		 *
-		 * @param kind 按钮类型
-		 * @param icon 按钮图标资源编号
-		 * @param title 按钮文字
-		 * @param mark 回调标记
-		 * @param hint 回复输入提示，普通按钮为 null
-		 */
-		private ActionSpec(int kind, int icon, String title, String mark, String hint) {
-			this.kind = kind;
-			this.icon = icon;
-			this.title = title;
-			this.mark = mark;
-			this.hint = hint;
-		}
-	}
-
-	/* 以下构造器和方法仅供同包的通知管理器Impl调用，保留包内可见性。 */
+	/* 通知管理器创建通知时传入 Android 构建器与上下文。 */
 
 	/**
 	 * 构造方法
@@ -133,6 +103,278 @@ public final class 通知构建器 {
 		this.builder = builder.setSmallIcon(DEFAULT_NOTIFICATION_ICON);
 		this.context = context;
 	}
+
+	/* 方法 */
+
+	/**
+	 * 设置通知首次出现时的状态栏提示，不影响通知标题。
+	 *
+	 * @param hint 状态栏提示文字
+	 */
+	@SimpleFunction
+	public void 置状态栏提示(String hint) {
+		builder.setTicker(hint);
+	}
+
+	/**
+	 * 设置通知标题。
+	 *
+	 * @param title 通知标题
+	 */
+	@SimpleFunction
+	public void 置标题(String title) {
+		builder.setContentTitle(title);
+	}
+
+	/**
+	 * 设置通知正文。
+	 *
+	 * @param content 通知正文
+	 */
+	@SimpleFunction
+	public void 置内容(String content) {
+		builder.setContentText(content);
+	}
+
+	/**
+	 * 用指定资源更换当前通知小图标；未调用时保留内置图标。
+	 *
+	 * @param iconResource 非零的图片资源编号
+	 */
+	@SimpleFunction
+	public void 置小图标(int iconResource) {
+		if (iconResource == 0) {
+			throw new IllegalArgumentException("通知小图标资源编号不能为 0");
+		}
+
+		builder.setSmallIcon(iconResource);
+	}
+
+	/**
+	 * 选择是否播放系统默认提示音。API 26 起声音由通知渠道控制。
+	 *
+	 * @param playSound 是否使用有声通知渠道
+	 */
+	@SimpleFunction
+	public void 置提示音(boolean playSound) {
+		// 保存设置供发送时选渠道；旧系统直接配置构建器。
+		playSound = playSound;
+		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+			applyLegacySound(playSound);
+		}
+	}
+
+	/**
+	 * 设置提醒优先级。API 16 至 25 设置构建器，API 26 起对应通知渠道；更早版本不生效。
+	 *
+	 * @param priority 使用本对象的优先级常量
+	 */
+	@SimpleFunction
+	@TargetApi(
+		Build.VERSION_CODES.JELLY_BEAN
+	)
+	public void 置优先级(int priority) {
+		if (priority < 优先级_最低 || priority > 优先级_最高) {
+			throw new IllegalArgumentException("无效的通知优先级");
+		}
+
+		// 新系统在发送时按此值选渠道，旧系统直接设置通知优先级。
+		priority = priority;
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN
+				&& Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+			applyLegacyPriority(priority);
+		}
+	}
+
+	/**
+	 * 设置锁屏内容可见性；API 21 以下不支持此设置。
+	 *
+	 * @param visibility 使用本对象的公开范围常量
+	 */
+	@SimpleFunction
+	@TargetApi(
+		Build.VERSION_CODES.LOLLIPOP
+	)
+	public void 置公开范围(int visibility) {
+		if (visibility != 公开范围_公开 && visibility != 公开范围_私密 && visibility != 公开范围_保密) {
+			throw new IllegalArgumentException("无效的通知公开范围");
+		}
+
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+			builder.setVisibility(visibility);
+		}
+	}
+
+	/**
+	 * 设置通知是否不能通过滑动清除。
+	 *
+	 * @param ongoing 是否保持常驻
+	 */
+	@SimpleFunction
+	public void 置常驻(boolean ongoing) {
+		builder.setOngoing(ongoing).setAutoCancel(!ongoing);
+	}
+
+	/**
+	 * 设置展开后的长文本样式；需要 API 16。
+	 *
+	 * @param longText 展开后显示的正文
+	 */
+	@SimpleFunction
+	@TargetApi(
+		Build.VERSION_CODES.JELLY_BEAN
+	)
+	public void 置长文本样式(String longText) {
+		requireStyleSupport();
+		builder.setStyle(new Notification.BigTextStyle().bigText(longText));
+	}
+
+	/**
+	 * 设置展开后的多行样式；需要 API 16。
+	 *
+	 * @param lines 各行内容，不能为 null
+	 */
+	@SimpleFunction
+	@TargetApi(
+		Build.VERSION_CODES.JELLY_BEAN
+	)
+	public void 置多行样式(String[] lines) {
+		requireStyleSupport();
+		if (lines == null) {
+			throw new IllegalArgumentException("内容行不能为空");
+		}
+
+		// 每个数组元素对应展开区域中的一行。
+		Notification.InboxStyle style = new Notification.InboxStyle();
+
+		for (String line : lines) {
+			style.addLine(line);
+		}
+
+		builder.setStyle(style);
+	}
+
+	/**
+	 * 设置展开后的大图片样式；需要 API 16。
+	 *
+	 * @param imageResource 可解码为位图的图片资源编号
+	 */
+	@SimpleFunction
+	@TargetApi(
+		Build.VERSION_CODES.JELLY_BEAN
+	)
+	public void 置大图片样式(int imageResource) {
+		requireStyleSupport();
+
+		// 解码失败时立即报错，避免生成缺少图片的展开样式。
+		Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), imageResource);
+
+		if (bitmap == null) {
+			throw new IllegalArgumentException("无法读取通知图片资源");
+		}
+
+		builder.setStyle(new Notification.BigPictureStyle().bigPicture(bitmap));
+	}
+
+	/**
+	 * 添加文本操作按钮。点击后由通知管理器发出按钮事件。
+	 *
+	 * @param title 按钮上显示的文字
+	 * @param mark 区分不同按钮的自定义标记
+	 */
+	@SimpleFunction
+	@TargetApi(
+		Build.VERSION_CODES.JELLY_BEAN
+	)
+	public void 添加按钮(String title, String mark) {
+		添加按钮(0, title, mark);
+	}
+
+	/**
+	 * 添加带图标的操作按钮，最多三个。
+	 *
+	 * @param iconResource 按钮图标资源编号，0 表示使用内置操作图标
+	 * @param title 按钮上显示的文字
+	 * @param mark 区分不同按钮的自定义标记
+	 */
+	@SimpleFunction
+	@TargetApi(
+		Build.VERSION_CODES.JELLY_BEAN
+	)
+	public void 添加按钮(int iconResource, String title, String mark) {
+		addAction(ACTION_BUTTON, iconResource, title, mark, null);
+	}
+
+	/**
+	 * 添加内联回复操作；需要 API 24。
+	 *
+	 * @param title 回复按钮的文字
+	 * @param mark 区分不同回复操作的自定义标记
+	 * @param inputHint 回复输入框的提示文字
+	 */
+	@SimpleFunction
+	@TargetApi(
+		Build.VERSION_CODES.N
+	)
+	public void 添加回复(String title, String mark, String inputHint) {
+		添加回复(0, title, mark, inputHint);
+	}
+
+	/**
+	 * 添加带图标的内联回复操作；需要 API 24。
+	 *
+	 * @param iconResource 回复按钮图标资源编号，0 表示使用内置回复图标
+	 * @param title 回复按钮的文字
+	 * @param mark 区分不同回复操作的自定义标记
+	 * @param inputHint 回复输入框的提示文字
+	 */
+	@SimpleFunction
+	@TargetApi(
+		Build.VERSION_CODES.N
+	)
+	public void 添加回复(int iconResource, String title, String mark, String inputHint) {
+		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+			throw new UnsupportedOperationException("通知内联回复需要 Android API 24");
+		}
+
+		addAction(ACTION_REPLY, iconResource, title, mark, inputHint);
+	}
+
+	/**
+	 * 按 0 到 100 的百分比设置通知进度。
+	 *
+	 * @param progress 当前完成百分比
+	 */
+	@SimpleFunction
+	public void 置进度(int progress) {
+		置进度(100, progress);
+	}
+
+	/**
+	 * 设置最大进度和当前进度；当前值会限制在有效范围内。
+	 *
+	 * @param maximum 必须大于 0 的最大值
+	 * @param current 当前值
+	 */
+	@SimpleFunction
+	public void 置进度(int maximum, int current) {
+		if (maximum <= 0) {
+			throw new IllegalArgumentException("最大进度必须大于 0");
+		}
+
+		// 限制当前值；进度变化不改动当前小图标。
+		builder.setProgress(maximum, Math.max(0, Math.min(maximum, current)), false);
+	}
+
+	/**
+	 * 移除之前设置的进度条，保留当前小图标。
+	 */
+	@SimpleFunction
+	public void 清除进度() {
+		builder.setProgress(0, 0, false);
+	}
+
+	/* 内部接口与平台回调 */
 
 	/**
 	 * 取得持有的 Android 构建器，供通知管理器发布。
@@ -183,10 +425,13 @@ public final class 通知构建器 {
 		boundBroadcastAction = broadcastAction;
 		for (int i = addedActionCount; i < actions.size(); i++) {
 			ActionSpec action = actions.get(i);
+
 			appendAction(action, createActionPendingIntent(notificationId, broadcastAction, action));
 			addedActionCount++;
 		}
 	}
+
+	/* 内部辅助方法 */
 
 	/**
 	 * 使用按钮独立的请求码区分 PendingIntent；不设置数据 URI，以匹配按动作注册的接收器。
@@ -199,6 +444,7 @@ public final class 通知构建器 {
 	private PendingIntent createActionPendingIntent(int notificationId, String broadcastAction, ActionSpec action) {
 		// 请求码区分同一通知上的不同按钮；extras 保存回调所需的数据。
 		Intent intent = new Intent(broadcastAction);
+
 		intent.setPackage(context.getPackageName());
 		intent.putExtra(EXTRA_NOTIFICATION_ID, notificationId);
 		intent.putExtra(EXTRA_ACTION_KIND, action.kind);
@@ -206,6 +452,7 @@ public final class 通知构建器 {
 
 		// 回复意图必须可变：API 24 至 30 默认可变，API 31 起显式声明；普通按钮保持不可变。
 		int flags = PendingIntent.FLAG_UPDATE_CURRENT;
+
 		if (action.kind == ACTION_REPLY) {
 			if (Build.VERSION.SDK_INT >= ANDROID_12_API_LEVEL) {
 				flags |= FLAG_MUTABLE;
@@ -240,9 +487,12 @@ public final class 通知构建器 {
 	 * @param action 回复按钮定义
 	 * @param pendingIntent 提交回复时发送的意图
 	 */
-	@TargetApi(Build.VERSION_CODES.N)
+	@TargetApi(
+		Build.VERSION_CODES.N
+	)
 	private void appendReplyAction(ActionSpec action, PendingIntent pendingIntent) {
 		RemoteInput input = new RemoteInput.Builder(REPLY_RESULT_KEY).setLabel(action.hint).build();
+
 		builder.addAction(createModernActionBuilder(action, pendingIntent).addRemoteInput(input).build());
 	}
 
@@ -254,10 +504,13 @@ public final class 通知构建器 {
 	 * @param pendingIntent 点击按钮时发送的意图
 	 * @return 可继续添加内联输入的操作构建器
 	 */
-	@TargetApi(Build.VERSION_CODES.M)
+	@TargetApi(
+		Build.VERSION_CODES.M
+	)
 	private Notification.Action.Builder createModernActionBuilder(ActionSpec action, PendingIntent pendingIntent) {
 		String resourcePackage = context.getResources().getResourcePackageName(action.icon);
 		Icon icon = Icon.createWithResource(resourcePackage, action.icon);
+
 		return new Notification.Action.Builder(icon, action.title, pendingIntent);
 	}
 
@@ -267,8 +520,12 @@ public final class 通知构建器 {
 	 * @param action 要添加的按钮定义
 	 * @param pendingIntent 点击按钮时发送的意图
 	 */
-	@SuppressWarnings("deprecation")
-	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+	@SuppressWarnings(
+		"deprecation"
+	)
+	@TargetApi(
+		Build.VERSION_CODES.JELLY_BEAN
+	)
 	private void appendLegacyAction(ActionSpec action, PendingIntent pendingIntent) {
 		builder.addAction(action.icon, action.title, pendingIntent);
 	}
@@ -278,7 +535,9 @@ public final class 通知构建器 {
 	 *
 	 * @param playSound 是否播放系统默认通知提示音
 	 */
-	@SuppressWarnings("deprecation")
+	@SuppressWarnings(
+		"deprecation"
+	)
 	private void applyLegacySound(boolean playSound) {
 		builder.setDefaults(playSound ? Notification.DEFAULT_SOUND : 0);
 		if (!playSound) {
@@ -291,8 +550,12 @@ public final class 通知构建器 {
 	 *
 	 * @param value 通知优先级常量
 	 */
-	@SuppressWarnings("deprecation")
-	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+	@SuppressWarnings(
+		"deprecation"
+	)
+	@TargetApi(
+		Build.VERSION_CODES.JELLY_BEAN
+	)
 	private void applyLegacyPriority(int value) {
 		builder.setPriority(value);
 	}
@@ -320,258 +583,49 @@ public final class 通知构建器 {
 		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
 			throw new UnsupportedOperationException("通知操作按钮需要 Android API 16");
 		}
+
 		if (actions.size() >= MAX_ACTIONS) {
 			throw new IllegalStateException("每条通知最多添加三个操作按钮");
 		}
+
 		if (icon < 0 || title == null || title.length() == 0 || mark == null || mark.length() == 0) {
 			throw new IllegalArgumentException("操作图标、标题或标记无效");
 		}
 
 		// 未指定图标时按按钮类型选用不同的系统图标。
 		int actionIcon = icon == 0 ? (kind == ACTION_REPLY ? DEFAULT_REPLY_ACTION_ICON : DEFAULT_ACTION_ICON) : icon;
+
 		actions.add(new ActionSpec(kind, actionIcon, title, mark, hint));
 	}
 
 	/**
-	 * 设置通知首次出现时的状态栏提示，不影响通知标题。
-	 *
-	 * @param 提示 状态栏提示文字
+	 * 一条尚未绑定通知编号的操作按钮配置。
+	 * 管理器发送通知时才确定编号，并据此生成互不覆盖的点击意图。
 	 */
-	@SimpleFunction
-	public void 置状态栏提示(String 提示) {
-		builder.setTicker(提示);
-	}
+	private static final class ActionSpec {
+		private final int kind;
+		private final int icon;
+		private final String title;
+		private final String mark;
+		private final String hint;
+		// 请求码区分普通按钮和回复按钮的 PendingIntent。
+		private final int requestCode = NEXT_ACTION_REQUEST_CODE.getAndIncrement();
 
-	/**
-	 * 设置通知标题。
-	 *
-	 * @param 标题 通知标题
-	 */
-	@SimpleFunction
-	public void 置标题(String 标题) {
-		builder.setContentTitle(标题);
-	}
-
-	/**
-	 * 设置通知正文。
-	 *
-	 * @param 内容 通知正文
-	 */
-	@SimpleFunction
-	public void 置内容(String 内容) {
-		builder.setContentText(内容);
-	}
-
-	/**
-	 * 用指定资源更换当前通知小图标；未调用时保留内置图标。
-	 *
-	 * @param 图标资源 非零的图片资源编号
-	 */
-	@SimpleFunction
-	public void 置小图标(int 图标资源) {
-		if (图标资源 == 0) {
-			throw new IllegalArgumentException("通知小图标资源编号不能为 0");
+		/**
+		 * 保存按钮配置；通知编号在发送时才确定。
+		 *
+		 * @param kind 按钮类型
+		 * @param icon 按钮图标资源编号
+		 * @param title 按钮文字
+		 * @param mark 回调标记
+		 * @param hint 回复输入提示，普通按钮为 null
+		 */
+		private ActionSpec(int kind, int icon, String title, String mark, String hint) {
+			this.kind = kind;
+			this.icon = icon;
+			this.title = title;
+			this.mark = mark;
+			this.hint = hint;
 		}
-		builder.setSmallIcon(图标资源);
-	}
-
-	/**
-	 * 选择是否播放系统默认提示音。API 26 起声音由通知渠道控制。
-	 *
-	 * @param 播放提示音 是否使用有声通知渠道
-	 */
-	@SimpleFunction
-	public void 置提示音(boolean 播放提示音) {
-		// 保存设置供发送时选渠道；旧系统直接配置构建器。
-		playSound = 播放提示音;
-		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-			applyLegacySound(播放提示音);
-		}
-	}
-
-	/**
-	 * 设置提醒优先级。API 16 至 25 设置构建器，API 26 起对应通知渠道；更早版本不生效。
-	 *
-	 * @param 优先级 使用本对象的优先级常量
-	 */
-	@SimpleFunction
-	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-	public void 置优先级(int 优先级) {
-		if (优先级 < 优先级_最低 || 优先级 > 优先级_最高) {
-			throw new IllegalArgumentException("无效的通知优先级");
-		}
-
-		// 新系统在发送时按此值选渠道，旧系统直接设置通知优先级。
-		priority = 优先级;
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN
-				&& Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-			applyLegacyPriority(优先级);
-		}
-	}
-
-	/**
-	 * 设置锁屏内容可见性；API 21 以下不支持此设置。
-	 *
-	 * @param 公开范围 使用本对象的公开范围常量
-	 */
-	@SimpleFunction
-	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-	public void 置公开范围(int 公开范围) {
-		if (公开范围 != 公开范围_公开 && 公开范围 != 公开范围_私密 && 公开范围 != 公开范围_保密) {
-			throw new IllegalArgumentException("无效的通知公开范围");
-		}
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-			builder.setVisibility(公开范围);
-		}
-	}
-
-	/**
-	 * 设置通知是否不能通过滑动清除。
-	 *
-	 * @param 常驻 是否保持常驻
-	 */
-	@SimpleFunction
-	public void 置常驻(boolean 常驻) {
-		builder.setOngoing(常驻).setAutoCancel(!常驻);
-	}
-
-	/**
-	 * 设置展开后的长文本样式；需要 API 16。
-	 *
-	 * @param 长文本 展开后显示的正文
-	 */
-	@SimpleFunction
-	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-	public void 置长文本样式(String 长文本) {
-		requireStyleSupport();
-		builder.setStyle(new Notification.BigTextStyle().bigText(长文本));
-	}
-
-	/**
-	 * 设置展开后的多行样式；需要 API 16。
-	 *
-	 * @param 内容行 各行内容，不能为 null
-	 */
-	@SimpleFunction
-	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-	public void 置多行样式(String[] 内容行) {
-		requireStyleSupport();
-		if (内容行 == null) {
-			throw new IllegalArgumentException("内容行不能为空");
-		}
-
-		// 每个数组元素对应展开区域中的一行。
-		Notification.InboxStyle style = new Notification.InboxStyle();
-		for (String line : 内容行) {
-			style.addLine(line);
-		}
-		builder.setStyle(style);
-	}
-
-	/**
-	 * 设置展开后的大图片样式；需要 API 16。
-	 *
-	 * @param 图片资源 可解码为位图的图片资源编号
-	 */
-	@SimpleFunction
-	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-	public void 置大图片样式(int 图片资源) {
-		requireStyleSupport();
-
-		// 解码失败时立即报错，避免生成缺少图片的展开样式。
-		Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), 图片资源);
-		if (bitmap == null) {
-			throw new IllegalArgumentException("无法读取通知图片资源");
-		}
-		builder.setStyle(new Notification.BigPictureStyle().bigPicture(bitmap));
-	}
-
-	/**
-	 * 添加文本操作按钮。点击后由通知管理器发出按钮事件。
-	 *
-	 * @param 标题 按钮上显示的文字
-	 * @param 标记 区分不同按钮的自定义标记
-	 */
-	@SimpleFunction
-	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-	public void 添加按钮(String 标题, String 标记) {
-		添加按钮(0, 标题, 标记);
-	}
-
-	/**
-	 * 添加带图标的操作按钮，最多三个。
-	 *
-	 * @param 图标资源 按钮图标资源编号，0 表示使用内置操作图标
-	 * @param 标题 按钮上显示的文字
-	 * @param 标记 区分不同按钮的自定义标记
-	 */
-	@SimpleFunction
-	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-	public void 添加按钮(int 图标资源, String 标题, String 标记) {
-		addAction(ACTION_BUTTON, 图标资源, 标题, 标记, null);
-	}
-
-	/**
-	 * 添加内联回复操作；需要 API 24。
-	 *
-	 * @param 标题 回复按钮的文字
-	 * @param 标记 区分不同回复操作的自定义标记
-	 * @param 输入提示 回复输入框的提示文字
-	 */
-	@SimpleFunction
-	@TargetApi(Build.VERSION_CODES.N)
-	public void 添加回复(String 标题, String 标记, String 输入提示) {
-		添加回复(0, 标题, 标记, 输入提示);
-	}
-
-	/**
-	 * 添加带图标的内联回复操作；需要 API 24。
-	 *
-	 * @param 图标资源 回复按钮图标资源编号，0 表示使用内置回复图标
-	 * @param 标题 回复按钮的文字
-	 * @param 标记 区分不同回复操作的自定义标记
-	 * @param 输入提示 回复输入框的提示文字
-	 */
-	@SimpleFunction
-	@TargetApi(Build.VERSION_CODES.N)
-	public void 添加回复(int 图标资源, String 标题, String 标记, String 输入提示) {
-		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-			throw new UnsupportedOperationException("通知内联回复需要 Android API 24");
-		}
-		addAction(ACTION_REPLY, 图标资源, 标题, 标记, 输入提示);
-	}
-
-	/**
-	 * 按 0 到 100 的百分比设置通知进度。
-	 *
-	 * @param 进度 当前完成百分比
-	 */
-	@SimpleFunction
-	public void 置进度(int 进度) {
-		置进度(100, 进度);
-	}
-
-	/**
-	 * 设置最大进度和当前进度；当前值会限制在有效范围内。
-	 *
-	 * @param 最大进度 必须大于 0 的最大值
-	 * @param 当前进度 当前值
-	 */
-	@SimpleFunction
-	public void 置进度(int 最大进度, int 当前进度) {
-		if (最大进度 <= 0) {
-			throw new IllegalArgumentException("最大进度必须大于 0");
-		}
-
-		// 限制当前值；进度变化不改动当前小图标。
-		builder.setProgress(最大进度, Math.max(0, Math.min(最大进度, 当前进度)), false);
-	}
-
-	/**
-	 * 移除之前设置的进度条，保留当前小图标。
-	 */
-	@SimpleFunction
-	public void 清除进度() {
-		builder.setProgress(0, 0, false);
 	}
 }

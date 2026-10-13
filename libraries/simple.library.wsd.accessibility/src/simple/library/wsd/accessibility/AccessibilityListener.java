@@ -68,9 +68,12 @@ public final class AccessibilityListener extends AccessibilityService {
 	 *
 	 * @return 根节点；服务或 API 不可用时为空值
 	 */
-	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+	@TargetApi(
+		Build.VERSION_CODES.JELLY_BEAN
+	)
 	static AccessibilityNodeInfo getActiveRoot() {
 		AccessibilityListener service = activeService;
+
 		return service != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN
 				? service.getRootInActiveWindow() : null;
 	}
@@ -81,21 +84,27 @@ public final class AccessibilityListener extends AccessibilityService {
 	 * @param action Android 无障碍全局操作编号
 	 * @return 操作已被服务接受时为真；服务或 API 不可用时为假
 	 */
-	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+	@TargetApi(
+		Build.VERSION_CODES.JELLY_BEAN
+	)
 	static boolean performAction(int action) {
 		AccessibilityListener service = activeService;
+
 		return service != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN
 				&& service.performGlobalAction(action);
 	}
 
 	@Override
-	@TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
+	@TargetApi(
+		Build.VERSION_CODES.JELLY_BEAN_MR2
+	)
 	protected void onServiceConnected() {
 		super.onServiceConnected();
 
 		// 资源 ID 查询需要显式请求上报视图 ID；保留系统配置的其它标志。
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
 			AccessibilityServiceInfo serviceInfo = getServiceInfo();
+
 			if (serviceInfo != null
 					&& (serviceInfo.flags & AccessibilityServiceInfo.FLAG_REPORT_VIEW_IDS) == 0) {
 				serviceInfo.flags |= AccessibilityServiceInfo.FLAG_REPORT_VIEW_IDS;
@@ -113,6 +122,7 @@ public final class AccessibilityListener extends AccessibilityService {
 		if (activeService == this) {
 			activeService = null;
 		}
+
 		return super.onUnbind(intent);
 	}
 
@@ -121,6 +131,7 @@ public final class AccessibilityListener extends AccessibilityService {
 		if (activeService == this) {
 			activeService = null;
 		}
+
 		super.onDestroy();
 	}
 
@@ -145,6 +156,7 @@ public final class AccessibilityListener extends AccessibilityService {
 		// 仅报告音量键按下，不消费按键，让系统继续处理音量。
 		if (event != null && event.getAction() == KeyEvent.ACTION_DOWN) {
 			int code = event.getKeyCode();
+
 			if (code == KeyEvent.KEYCODE_VOLUME_UP || code == KeyEvent.KEYCODE_VOLUME_DOWN) {
 				for (Listener listener : LISTENERS) {
 					try {
@@ -155,6 +167,7 @@ public final class AccessibilityListener extends AccessibilityService {
 				}
 			}
 		}
+
 		return false;
 	}
 

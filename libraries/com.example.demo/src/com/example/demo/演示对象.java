@@ -17,25 +17,27 @@ public final class 演示对象 {
 	public 演示对象() {
 	}
 
+	/* 方法 */
+
 	/**
 	 * 实例函数：先创建对象，再通过实例调用。
 	 *
-	 * @param 文本 要添加前缀的文本
+	 * @param text 要添加前缀的文本
 	 * @return 带有 [Simple] 前缀的文本
 	 */
 	@SimpleFunction
-	public String 加前缀(String 文本) {
-		return "[Simple] " + 文本;
+	public String 加前缀(String text) {
+		return "[Simple] " + text;
 	}
 
 	/**
 	 * 静态函数：通过类型调用，无需创建对象。
 	 *
-	 * @param 文本 要计算长度的文本
+	 * @param text 要计算长度的文本
 	 * @return 文本的 UTF-16 代码单元数
 	 */
 	@SimpleFunction
-	public static int 取长度(String 文本) {
-		return 文本.length();
+	public static int 取长度(String text) {
+		return text.length();
 	}
 }

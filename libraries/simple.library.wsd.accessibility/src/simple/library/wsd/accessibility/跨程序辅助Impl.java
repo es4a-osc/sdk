@@ -65,6 +65,45 @@ public final class 跨程序辅助Impl extends 组件Impl implements 跨程序�
 		activity.addOnDestroyListener(this);
 	}
 
+	/* 事件 */
+
+	@Override
+	public void 控件被滑动() {
+		EventDispatcher.dispatchEvent(this, "控件被滑动");
+	}
+
+	@Override
+	public void 控件被单击() {
+		EventDispatcher.dispatchEvent(this, "控件被单击");
+	}
+
+	@Override
+	public void 控件被长按() {
+		EventDispatcher.dispatchEvent(this, "控件被长按");
+	}
+
+	@Override
+	public void 音量被改变(boolean increased) {
+		EventDispatcher.dispatchEvent(this, "音量被改变", increased);
+	}
+
+	@Override
+	public void 窗口被切换() {
+		EventDispatcher.dispatchEvent(this, "窗口被切换");
+	}
+
+	@Override
+	public void 窗口发生变化() {
+		EventDispatcher.dispatchEvent(this, "窗口发生变化");
+	}
+
+	@Override
+	public void 通知栏消息被改变(String message, String packageName) {
+		EventDispatcher.dispatchEvent(this, "通知栏消息被改变", message, packageName);
+	}
+
+	/* 方法 */
+
 	@Override
 	public void 初始化() {
 		// 重复调用只注册一次；系统授权与组件订阅是两个独立步骤。
@@ -83,119 +122,29 @@ public final class 跨程序辅助Impl extends 组件Impl implements 跨程序�
 	}
 
 	@Override
-	public void onDestroy() {
-		// MainActivity 正在遍历销毁监听器，此处不能从该列表移除自身。
-		AccessibilityListener.removeListener(this);
-		savedNodes.clear();
-		notificationIntent = null;
-		listening = false;
-	}
-
-	@Override
 	public boolean 是否已开启() {
 		if (Settings.Secure.getInt(activity.getContentResolver(),
 				Settings.Secure.ACCESSIBILITY_ENABLED, 0) != 1) {
 			return false;
 		}
+
 		String enabled = Settings.Secure.getString(activity.getContentResolver(),
 				Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES);
+
 		if (enabled == null) {
 			return false;
 		}
 
 		// 系统设置记录的是组件名；不把总开关当作本服务已授权。
 		String serviceName = new ComponentName(activity, AccessibilityListener.class).flattenToString();
+
 		for (String name : enabled.split(":")) {
 			if (serviceName.equalsIgnoreCase(name)) {
 				return true;
 			}
 		}
+
 		return false;
-	}
-
-	@Override
-	public void onAccessibilityEvent(AccessibilityEvent event) {
-		// 每类系统事件只映射到相应的 Simple 事件。
-		switch (event.getEventType()) {
-			case AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED:
-				// 旧窗口的节点引用已经失效，不继续向调用者返回它们。
-				savedNodes.clear();
-				currentClassName = asString(event.getClassName());
-				窗口被切换();
-				break;
-			case AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED:
-				窗口发生变化();
-				break;
-			case AccessibilityEvent.TYPE_VIEW_SCROLLED:
-				控件被滑动();
-				break;
-			case AccessibilityEvent.TYPE_VIEW_CLICKED:
-				控件被单击();
-				break;
-			case AccessibilityEvent.TYPE_VIEW_LONG_CLICKED:
-				控件被长按();
-				break;
-			case AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED:
-				onNotificationChanged(event);
-				break;
-			default:
-				break;
-		}
-	}
-
-	@Override
-	public void onVolumeChanged(boolean increased) {
-		音量被改变(increased);
-	}
-
-	/**
-	 * 提取通知文本和可执行的内容操作，再转发给组件事件。
-	 *
-	 * @param event 通知状态变化事件
-	 */
-	@TargetApi(Build.VERSION_CODES.KITKAT)
-	private void onNotificationChanged(AccessibilityEvent event) {
-		Parcelable data = event.getParcelableData();
-		Notification notification = data instanceof Notification ? (Notification) data : null;
-		if (notification != null) {
-			notificationIntent = notification.contentIntent;
-		}
-
-		// 事件来源才是发送通知的应用；点击意图可能由另一应用创建。
-		String packageName = asString(event.getPackageName());
-
-		// 通知正文通常位于 Notification.extras；事件文本可能为空或只含摘要。
-		String message = "";
-		if (notification != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT
-				&& notification.extras != null) {
-			Bundle extras = notification.extras;
-			message = asString(extras.getCharSequence(Notification.EXTRA_BIG_TEXT));
-			if (message.isEmpty()) {
-				message = asString(extras.getCharSequence(Notification.EXTRA_TEXT));
-			}
-		}
-
-		// 旧版通知或未提供正文的通知仍可从无障碍事件中提取文本。
-		if (message.isEmpty()) {
-			List<CharSequence> text = event.getText();
-			for (int index = text.size() - 1; index >= 0; index--) {
-				message = asString(text.get(index));
-				if (!message.isEmpty()) {
-					break;
-				}
-			}
-		}
-		通知栏消息被改变(message, packageName);
-	}
-
-	/**
-	 * 统一把 Android 可空文本转换为 Simple 可用的非空文本。
-	 *
-	 * @param value Android 文本，可为空值
-	 * @return 原文本的字符串形式，空值转为空文本
-	 */
-	private static String asString(CharSequence value) {
-		return value == null ? "" : value.toString();
 	}
 
 	@Override
@@ -212,9 +161,11 @@ public final class 跨程序辅助Impl extends 组件Impl implements 跨程序�
 	public boolean 打开最近通知() {
 		// 执行最近一次通知的内容意图，不负责展开系统通知栏。
 		PendingIntent intent = notificationIntent;
+
 		if (intent == null) {
 			return false;
 		}
+
 		try {
 			intent.send();
 			return true;
@@ -257,7 +208,9 @@ public final class 跨程序辅助Impl extends 组件Impl implements 跨程序�
 	}
 
 	@Override
-	@TargetApi(Build.VERSION_CODES.KITKAT)
+	@TargetApi(
+		Build.VERSION_CODES.KITKAT
+	)
 	public void 设置标记(String mark, AccessibilityNodeInfo node) {
 		if (node != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 			node.getExtras().putString(MARK_KEY, mark);
@@ -265,12 +218,16 @@ public final class 跨程序辅助Impl extends 组件Impl implements 跨程序�
 	}
 
 	@Override
-	@TargetApi(Build.VERSION_CODES.KITKAT)
+	@TargetApi(
+		Build.VERSION_CODES.KITKAT
+	)
 	public String 取标记(AccessibilityNodeInfo node) {
 		if (node == null || Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
 			return "";
 		}
+
 		String mark = node.getExtras().getString(MARK_KEY);
+
 		return mark == null ? "" : mark;
 	}
 
@@ -287,25 +244,6 @@ public final class 跨程序辅助Impl extends 组件Impl implements 跨程序�
 	@Override
 	public boolean 是否可长按(AccessibilityNodeInfo node) {
 		return node != null && node.isLongClickable();
-	}
-
-	/**
-	 * 执行节点动作并隔离已失效节点带来的运行时异常。
-	 *
-	 * @param node 目标节点
-	 * @param action Android 节点操作编号
-	 * @return 节点接受操作时为真，节点为空或操作失败时为假
-	 */
-	private static boolean performAction(AccessibilityNodeInfo node, int action) {
-		if (node == null) {
-			return false;
-		}
-		try {
-			return node.performAction(action);
-		} catch (RuntimeException error) {
-			Log.w(TAG, "控件操作失败", error);
-			return false;
-		}
 	}
 
 	@Override
@@ -344,21 +282,9 @@ public final class 跨程序辅助Impl extends 组件Impl implements 跨程序�
 	}
 
 	@Override
-	@TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
-	public boolean 粘贴(AccessibilityNodeInfo node) {
-		return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2
-				&& performAction(node, AccessibilityNodeInfo.ACTION_PASTE);
-	}
-
-	@Override
-	@TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
-	public boolean 复制(AccessibilityNodeInfo node) {
-		return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2
-				&& performAction(node, AccessibilityNodeInfo.ACTION_COPY);
-	}
-
-	@Override
-	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
+	@TargetApi(
+		Build.VERSION_CODES.LOLLIPOP
+	)
 	public boolean 置控件内容(AccessibilityNodeInfo node, String content) {
 		if (node == null || Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
 			return false;
@@ -366,6 +292,7 @@ public final class 跨程序辅助Impl extends 组件Impl implements 跨程序�
 
 		// 设置文本需要带参数的动作，不能与无参数动作共用 performAction。
 		Bundle arguments = new Bundle();
+
 		arguments.putCharSequence(
 				AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE, content);
 		try {
@@ -376,64 +303,28 @@ public final class 跨程序辅助Impl extends 组件Impl implements 跨程序�
 		}
 	}
 
-	/** 仅在遍历过程中使用的节点访问操作。 */
-	private interface NodeVisitor {
-		/**
-		 * 处理当前节点；异常由遍历器隔离。
-		 *
-		 * @param node 当前节点
-		 */
-		void visit(AccessibilityNodeInfo node);
-	}
-
-	/**
-	 * 按子节点原有顺序深度优先遍历。
-	 * 节点处理失败不应阻断其子树或其他节点；是否访问起点由调用者决定。
-	 *
-	 * @param start 遍历起点，为空时不调用访问器
-	 * @param includeStart 是否访问起点本身
-	 * @param visitor 节点访问器
-	 */
-	private static void visitTree(AccessibilityNodeInfo start, boolean includeStart,
-			NodeVisitor visitor) {
-		if (start == null) {
-			return;
-		}
-		ArrayDeque<AccessibilityNodeInfo> stack = new ArrayDeque<AccessibilityNodeInfo>();
-		stack.push(start);
-		while (!stack.isEmpty()) {
-			AccessibilityNodeInfo node = stack.pop();
-			if (includeStart || node != start) {
-				try {
-					visitor.visit(node);
-				} catch (RuntimeException error) {
-					Log.w(TAG, "处理控件失败", error);
-				}
-			}
-
-			// 逆序入栈，使访问顺序仍与界面上的子节点顺序一致。
-			int childCount;
-			try {
-				childCount = node.getChildCount();
-			} catch (RuntimeException error) {
-				Log.w(TAG, "读取控件子节点数失败", error);
-				continue;
-			}
-			for (int index = childCount - 1; index >= 0; index--) {
-				try {
-					AccessibilityNodeInfo child = node.getChild(index);
-					if (child != null) {
-						stack.push(child);
-					}
-				} catch (RuntimeException error) {
-					Log.w(TAG, "读取控件子节点失败", error);
-				}
-			}
-		}
+	@Override
+	@TargetApi(
+		Build.VERSION_CODES.JELLY_BEAN_MR2
+	)
+	public boolean 粘贴(AccessibilityNodeInfo node) {
+		return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2
+				&& performAction(node, AccessibilityNodeInfo.ACTION_PASTE);
 	}
 
 	@Override
-	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
+	@TargetApi(
+		Build.VERSION_CODES.JELLY_BEAN_MR2
+	)
+	public boolean 复制(AccessibilityNodeInfo node) {
+		return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2
+				&& performAction(node, AccessibilityNodeInfo.ACTION_COPY);
+	}
+
+	@Override
+	@TargetApi(
+		Build.VERSION_CODES.LOLLIPOP
+	)
 	public void 清空所有编辑框() {
 		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
 			return;
@@ -444,32 +335,13 @@ public final class 跨程序辅助Impl extends 组件Impl implements 跨程序�
 			@Override
 			public void visit(AccessibilityNodeInfo node) {
 				CharSequence className = node.getClassName();
+
 				if (node.isEditable()
 						|| className != null && className.toString().contains("EditText")) {
 					置控件内容(node, "");
 				}
 			}
 		});
-	}
-
-	@Override
-	public List<AccessibilityNodeInfo> 按内容描述查找控件(AccessibilityNodeInfo start,
-			final String content) {
-		final List<AccessibilityNodeInfo> matches = new ArrayList<AccessibilityNodeInfo>();
-		if (content == null) {
-			return matches;
-		}
-
-		visitTree(start, false, new NodeVisitor() {
-			@Override
-			public void visit(AccessibilityNodeInfo node) {
-				CharSequence description = node.getContentDescription();
-				if (description != null && description.toString().contains(content)) {
-					matches.add(node);
-				}
-			}
-		});
-		return matches;
 	}
 
 	@Override
@@ -487,6 +359,28 @@ public final class 跨程序辅助Impl extends 组件Impl implements 跨程序�
 	}
 
 	@Override
+	public List<AccessibilityNodeInfo> 按内容描述查找控件(AccessibilityNodeInfo start,
+			final String content) {
+		final List<AccessibilityNodeInfo> matches = new ArrayList<AccessibilityNodeInfo>();
+
+		if (content == null) {
+			return matches;
+		}
+
+		visitTree(start, false, new NodeVisitor() {
+			@Override
+			public void visit(AccessibilityNodeInfo node) {
+				CharSequence description = node.getContentDescription();
+
+				if (description != null && description.toString().contains(content)) {
+					matches.add(node);
+				}
+			}
+		});
+		return matches;
+	}
+
+	@Override
 	public List<AccessibilityNodeInfo> 按资源ID查找控件(String viewId) {
 		return 在控件内按资源ID查找控件(viewId, 取根控件());
 	}
@@ -494,12 +388,15 @@ public final class 跨程序辅助Impl extends 组件Impl implements 跨程序�
 	@Override
 	public List<AccessibilityNodeInfo> 按文本查找控件(String text) {
 		AccessibilityNodeInfo root = 取根控件();
+
 		return root == null || text == null
 				? null : root.findAccessibilityNodeInfosByText(text);
 	}
 
 	@Override
-	@TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
+	@TargetApi(
+		Build.VERSION_CODES.JELLY_BEAN_MR2
+	)
 	public List<AccessibilityNodeInfo> 在控件内按资源ID查找控件(String viewId,
 			AccessibilityNodeInfo node) {
 		return node == null || viewId == null || Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2
@@ -518,7 +415,9 @@ public final class 跨程序辅助Impl extends 组件Impl implements 跨程序�
 	}
 
 	@Override
-	@TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
+	@TargetApi(
+		Build.VERSION_CODES.JELLY_BEAN_MR2
+	)
 	public String 取控件资源ID(AccessibilityNodeInfo node) {
 		return node == null || Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2
 				? "" : asString(node.getViewIdResourceName());
@@ -537,9 +436,11 @@ public final class 跨程序辅助Impl extends 组件Impl implements 跨程序�
 	@Override
 	public Rect 取控件坐标(AccessibilityNodeInfo node) {
 		Rect bounds = new Rect();
+
 		if (node != null) {
 			node.getBoundsInScreen(bounds);
 		}
+
 		return bounds;
 	}
 
@@ -563,6 +464,223 @@ public final class 跨程序辅助Impl extends 组件Impl implements 跨程序�
 		return bounds == null ? 0 : bounds.bottom;
 	}
 
+	@Override
+	public String 取控件信息(AccessibilityNodeInfo node) {
+		if (node == null) {
+			return "";
+		}
+
+		try {
+			return describeNode(node).toString();
+		} catch (JSONException error) {
+			Log.w(TAG, "生成控件信息失败", error);
+			return "";
+		} catch (RuntimeException error) {
+			Log.w(TAG, "读取控件信息失败", error);
+			return "";
+		}
+	}
+
+	@Override
+	public String 取所有控件信息() {
+		AccessibilityNodeInfo root = 取根控件();
+
+		if (root == null) {
+			return "";
+		}
+
+		final JSONArray result = new JSONArray();
+
+		visitTree(root, false, new NodeVisitor() {
+			@Override
+			public void visit(AccessibilityNodeInfo node) {
+				try {
+					result.put(describeNode(node));
+				} catch (JSONException error) {
+					Log.w(TAG, "生成控件信息失败", error);
+				}
+			}
+		});
+		return result.toString();
+	}
+
+	/* 内部接口与平台回调 */
+
+	@Override
+	public void onDestroy() {
+		// MainActivity 正在遍历销毁监听器，此处不能从该列表移除自身。
+		AccessibilityListener.removeListener(this);
+		savedNodes.clear();
+		notificationIntent = null;
+		listening = false;
+	}
+
+	@Override
+	public void onAccessibilityEvent(AccessibilityEvent event) {
+		// 每类系统事件只映射到相应的 Simple 事件。
+		switch (event.getEventType()) {
+			case AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED:
+				// 旧窗口的节点引用已经失效，不继续向调用者返回它们。
+				savedNodes.clear();
+				currentClassName = asString(event.getClassName());
+				窗口被切换();
+				break;
+			case AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED:
+				窗口发生变化();
+				break;
+			case AccessibilityEvent.TYPE_VIEW_SCROLLED:
+				控件被滑动();
+				break;
+			case AccessibilityEvent.TYPE_VIEW_CLICKED:
+				控件被单击();
+				break;
+			case AccessibilityEvent.TYPE_VIEW_LONG_CLICKED:
+				控件被长按();
+				break;
+			case AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED:
+				onNotificationChanged(event);
+				break;
+			default:
+				break;
+		}
+	}
+
+	@Override
+	public void onVolumeChanged(boolean increased) {
+		音量被改变(increased);
+	}
+
+	/* 内部辅助方法 */
+
+	/**
+	 * 提取通知文本和可执行的内容操作，再转发给组件事件。
+	 *
+	 * @param event 通知状态变化事件
+	 */
+	@TargetApi(
+		Build.VERSION_CODES.KITKAT
+	)
+	private void onNotificationChanged(AccessibilityEvent event) {
+		Parcelable data = event.getParcelableData();
+		Notification notification = data instanceof Notification ? (Notification) data : null;
+
+		if (notification != null) {
+			notificationIntent = notification.contentIntent;
+		}
+
+		// 事件来源才是发送通知的应用；点击意图可能由另一应用创建。
+		String packageName = asString(event.getPackageName());
+
+		// 通知正文通常位于 Notification.extras；事件文本可能为空或只含摘要。
+		String message = "";
+
+		if (notification != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT
+				&& notification.extras != null) {
+			Bundle extras = notification.extras;
+
+			message = asString(extras.getCharSequence(Notification.EXTRA_BIG_TEXT));
+			if (message.isEmpty()) {
+				message = asString(extras.getCharSequence(Notification.EXTRA_TEXT));
+			}
+		}
+
+		// 旧版通知或未提供正文的通知仍可从无障碍事件中提取文本。
+		if (message.isEmpty()) {
+			List<CharSequence> text = event.getText();
+
+			for (int index = text.size() - 1; index >= 0; index--) {
+				message = asString(text.get(index));
+				if (!message.isEmpty()) {
+					break;
+				}
+			}
+		}
+
+		通知栏消息被改变(message, packageName);
+	}
+
+	/**
+	 * 统一把 Android 可空文本转换为 Simple 可用的非空文本。
+	 *
+	 * @param value Android 文本，可为空值
+	 * @return 原文本的字符串形式，空值转为空文本
+	 */
+	private static String asString(CharSequence value) {
+		return value == null ? "" : value.toString();
+	}
+
+	/**
+	 * 执行节点动作并隔离已失效节点带来的运行时异常。
+	 *
+	 * @param node 目标节点
+	 * @param action Android 节点操作编号
+	 * @return 节点接受操作时为真，节点为空或操作失败时为假
+	 */
+	private static boolean performAction(AccessibilityNodeInfo node, int action) {
+		if (node == null) {
+			return false;
+		}
+
+		try {
+			return node.performAction(action);
+		} catch (RuntimeException error) {
+			Log.w(TAG, "控件操作失败", error);
+			return false;
+		}
+	}
+
+	/**
+	 * 按子节点原有顺序深度优先遍历。
+	 * 节点处理失败不应阻断其子树或其他节点；是否访问起点由调用者决定。
+	 *
+	 * @param start 遍历起点，为空时不调用访问器
+	 * @param includeStart 是否访问起点本身
+	 * @param visitor 节点访问器
+	 */
+	private static void visitTree(AccessibilityNodeInfo start, boolean includeStart,
+			NodeVisitor visitor) {
+		if (start == null) {
+			return;
+		}
+
+		ArrayDeque<AccessibilityNodeInfo> stack = new ArrayDeque<AccessibilityNodeInfo>();
+
+		stack.push(start);
+		while (!stack.isEmpty()) {
+			AccessibilityNodeInfo node = stack.pop();
+
+			if (includeStart || node != start) {
+				try {
+					visitor.visit(node);
+				} catch (RuntimeException error) {
+					Log.w(TAG, "处理控件失败", error);
+				}
+			}
+
+			// 逆序入栈，使访问顺序仍与界面上的子节点顺序一致。
+			int childCount;
+
+			try {
+				childCount = node.getChildCount();
+			} catch (RuntimeException error) {
+				Log.w(TAG, "读取控件子节点数失败", error);
+				continue;
+			}
+
+			for (int index = childCount - 1; index >= 0; index--) {
+				try {
+					AccessibilityNodeInfo child = node.getChild(index);
+
+					if (child != null) {
+						stack.push(child);
+					}
+				} catch (RuntimeException error) {
+					Log.w(TAG, "读取控件子节点失败", error);
+				}
+			}
+		}
+	}
+
 	/**
 	 * 把节点身份、边界、状态及当前系统支持的扩展字段编码成 JSON。
 	 *
@@ -570,12 +688,16 @@ public final class 跨程序辅助Impl extends 组件Impl implements 跨程序�
 	 * @return 节点信息对象
 	 * @throws JSONException 写入 JSON 字段失败时抛出
 	 */
-	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
+	@TargetApi(
+		Build.VERSION_CODES.LOLLIPOP
+	)
 	private static JSONObject describeNode(AccessibilityNodeInfo node) throws JSONException {
 		Rect bounds = new Rect();
+
 		node.getBoundsInScreen(bounds);
 
 		JSONObject result = new JSONObject();
+
 		result.put("Content-DESC", node.getContentDescription());
 		result.put("Package", node.getPackageName());
 		result.put("Class", node.getClassName());
@@ -611,75 +733,13 @@ public final class 跨程序辅助Impl extends 组件Impl implements 跨程序�
 		return result;
 	}
 
-	@Override
-	public String 取控件信息(AccessibilityNodeInfo node) {
-		if (node == null) {
-			return "";
-		}
-		try {
-			return describeNode(node).toString();
-		} catch (JSONException error) {
-			Log.w(TAG, "生成控件信息失败", error);
-			return "";
-		} catch (RuntimeException error) {
-			Log.w(TAG, "读取控件信息失败", error);
-			return "";
-		}
-	}
-
-	@Override
-	public String 取所有控件信息() {
-		AccessibilityNodeInfo root = 取根控件();
-		if (root == null) {
-			return "";
-		}
-
-		final JSONArray result = new JSONArray();
-		visitTree(root, false, new NodeVisitor() {
-			@Override
-			public void visit(AccessibilityNodeInfo node) {
-				try {
-					result.put(describeNode(node));
-				} catch (JSONException error) {
-					Log.w(TAG, "生成控件信息失败", error);
-				}
-			}
-		});
-		return result.toString();
-	}
-
-	@Override
-	public void 控件被滑动() {
-		EventDispatcher.dispatchEvent(this, "控件被滑动");
-	}
-
-	@Override
-	public void 控件被单击() {
-		EventDispatcher.dispatchEvent(this, "控件被单击");
-	}
-
-	@Override
-	public void 控件被长按() {
-		EventDispatcher.dispatchEvent(this, "控件被长按");
-	}
-
-	@Override
-	public void 音量被改变(boolean increased) {
-		EventDispatcher.dispatchEvent(this, "音量被改变", increased);
-	}
-
-	@Override
-	public void 窗口被切换() {
-		EventDispatcher.dispatchEvent(this, "窗口被切换");
-	}
-
-	@Override
-	public void 窗口发生变化() {
-		EventDispatcher.dispatchEvent(this, "窗口发生变化");
-	}
-
-	@Override
-	public void 通知栏消息被改变(String message, String packageName) {
-		EventDispatcher.dispatchEvent(this, "通知栏消息被改变", message, packageName);
+	/** 仅在遍历过程中使用的节点访问操作。 */
+	private interface NodeVisitor {
+		/**
+		 * 处理当前节点；异常由遍历器隔离。
+		 *
+		 * @param node 当前节点
+		 */
+		void visit(AccessibilityNodeInfo node);
 	}
 }

@@ -1,5 +1,6 @@
 package simple.library.wsd.grouplist;
 
+import simple.runtime.components.组件;
 import simple.runtime.components.列表组件;
 import simple.runtime.annotations.SimpleComponent;
 import simple.runtime.annotations.SimpleEvent;
@@ -9,37 +10,34 @@ import simple.runtime.annotations.SimpleProperty;
 
 /**
  * 分组列表框组件。
- * 
- * @author 小刀(Siyu1840)
+ *
  * @author 树先生 xhwsd@qq.com
  */
 @SimpleComponent
 @SimpleObject
 public interface 分组列表框 extends 列表组件 {
 
-	@SimpleEvent
-	void 子项被单击(int groupid, int childid);
+	/* 事件 */
 
 	@SimpleEvent
-	void 子项被长按(int groupid, int childid);
+	void 子项被单击(int groupId, int childId);
 
 	@SimpleEvent
-	void 子项按钮被单击(int groupid, int childid);
+	void 子项被长按(int groupId, int childId);
 
 	@SimpleEvent
-	void 分组被展开(int groupid);
+	void 子项按钮被单击(int groupId, int childId);
 
 	@SimpleEvent
-	void 分组被收起(int groupid);
+	void 分组被展开(int groupId);
 
 	@SimpleEvent
-	void 分组被单击(int groupid);
+	void 分组被收起(int groupId);
 
-	@SimpleFunction
-	boolean 获取焦点();
+	@SimpleEvent
+	void 分组被单击(int groupId);
 
-	@SimpleFunction
-	void 清除焦点();
+	/* 属性 */
 
 	@SimpleProperty
 	int 分组标题字体大小();
@@ -55,7 +53,7 @@ public interface 分组列表框 extends 列表组件 {
 
 	@SimpleProperty(
 		type = SimpleProperty.PROPERTY_TYPE_COLOR,
-		initializer = "-16777216"
+		initializer = 组件.颜色_黑 + ""
 	)
 	void 分组标题字体颜色(int argb);
 
@@ -73,7 +71,7 @@ public interface 分组列表框 extends 列表组件 {
 
 	@SimpleProperty(
 		type = SimpleProperty.PROPERTY_TYPE_COLOR,
-		initializer = "-7829368"
+		initializer = 组件.颜色_灰 + ""
 	)
 	void 分组信息字体颜色(int argb);
 
@@ -91,7 +89,7 @@ public interface 分组列表框 extends 列表组件 {
 
 	@SimpleProperty(
 		type = SimpleProperty.PROPERTY_TYPE_COLOR,
-		initializer = "-16777216"
+		initializer = 组件.颜色_黑 + ""
 	)
 	void 子项标题字体颜色(int argb);
 
@@ -109,7 +107,7 @@ public interface 分组列表框 extends 列表组件 {
 
 	@SimpleProperty(
 		type = SimpleProperty.PROPERTY_TYPE_COLOR,
-		initializer = "-7829368"
+		initializer = 组件.颜色_灰 + ""
 	)
 	void 子项信息字体颜色(int argb);
 
@@ -127,7 +125,7 @@ public interface 分组列表框 extends 列表组件 {
 
 	@SimpleProperty(
 		type = SimpleProperty.PROPERTY_TYPE_COLOR,
-		initializer = "-16777216"
+		initializer = 组件.颜色_黑 + ""
 	)
 	void 子项按钮字体颜色(int argb);
 
@@ -135,7 +133,7 @@ public interface 分组列表框 extends 列表组件 {
 	String 背景图片();
 
 	@SimpleProperty(
-		type = "simple.asset",
+		type = SimpleProperty.PROPERTY_TYPE_ASSET,
 		initializer = "\"\""
 	)
 	void 背景图片(String imagePath);
@@ -155,6 +153,14 @@ public interface 分组列表框 extends 列表组件 {
 	)
 	void 显示子项按钮(boolean value);
 
+	/* 方法 */
+
+	@SimpleFunction
+	boolean 获取焦点();
+
+	@SimpleFunction
+	void 清除焦点();
+
 	@SimpleFunction
 	int 添加分组(String title, String info);
 
@@ -168,88 +174,88 @@ public interface 分组列表框 extends 列表组件 {
 	void 置分组标记(int position, String tag);
 
 	@SimpleFunction
-	String 取分组标题(int groupid);
+	String 取分组标题(int groupId);
 
 	@SimpleFunction
-	void 置分组标题(int groupid, String title);
+	void 置分组标题(int groupId, String title);
 
 	@SimpleFunction
-	String 取分组信息(int groupid);
+	String 取分组信息(int groupId);
 
 	@SimpleFunction
-	void 置分组信息(int groupid, String info);
+	void 置分组信息(int groupId, String info);
 
 	@SimpleFunction
 	int 取分组总数();
 
 	@SimpleFunction
-	void 展开分组(int groupid);
+	void 展开分组(int groupId);
 
 	@SimpleFunction
-	void 收起分组(int groupid);
+	void 收起分组(int groupId);
 
 	@SimpleFunction
-	boolean 取分组状态(int groupid);
+	boolean 取分组状态(int groupId);
 
 	@SimpleFunction
 	void 选中分组(int groupPosition);
 
 	@SimpleFunction
-	void 删除分组(int groupid);
+	void 删除分组(int groupId);
 
 	@SimpleFunction
 	void 清空所有数据();
 
 	@SimpleFunction
-	void 添加子项(int groupid, String image, String title, String info, String buttonimage, String buttontitle);
+	void 添加子项(int groupId, String image, String title, String info, String buttonImage, String buttonTitle);
 
 	@SimpleFunction
-	void 添加子项(int groupid, String title);
+	void 添加子项(int groupId, String title);
 
 	@SimpleFunction
-	String 取子项标记(int groupid, int childid);
+	String 取子项标记(int groupId, int childId);
 
 	@SimpleFunction
-	void 置子项标记(int groupid, int childid, String tag);
+	void 置子项标记(int groupId, int childId, String tag);
 
 	@SimpleFunction
-	String 取子项图片(int groupid, int childid);
+	String 取子项图片(int groupId, int childId);
 
 	@SimpleFunction
-	void 置子项图片(int groupid, int childid, String image);
+	void 置子项图片(int groupId, int childId, String image);
 
 	@SimpleFunction
-	String 取子项标题(int groupid, int childid);
+	String 取子项标题(int groupId, int childId);
 
 	@SimpleFunction
-	void 置子项标题(int groupid, int childid, String title);
+	void 置子项标题(int groupId, int childId, String title);
 
 	@SimpleFunction
-	String 取子项信息(int groupid, int childid);
+	String 取子项信息(int groupId, int childId);
 
 	@SimpleFunction
-	void 置子项信息(int groupid, int childid, String info);
+	void 置子项信息(int groupId, int childId, String info);
 
 	@SimpleFunction
-	String 取子项按钮图片(int groupid, int childid);
+	String 取子项按钮图片(int groupId, int childId);
 
 	@SimpleFunction
-	void 置子项按钮图片(int groupid, int childid, String buttonimage);
+	void 置子项按钮图片(int groupId, int childId, String buttonImage);
 
 	@SimpleFunction
-	String 取子项按钮标题(int groupid, int childid);
+	String 取子项按钮标题(int groupId, int childId);
 
 	@SimpleFunction
-	void 置子项按钮标题(int groupid, int childid, String buttontitle);
+	void 置子项按钮标题(int groupId, int childId, String buttonTitle);
 
 	@SimpleFunction
-	int 取子项总数(int groupid);
+	int 取子项总数(int groupId);
 
 	@SimpleFunction
-	void 删除子项(int groupid, int childid);
+	void 删除子项(int groupId, int childId);
 
 	@SimpleFunction
-	void 清空子项(int groupid);
+	void 清空子项(int groupId);
 
 	@SimpleFunction
 	void 选中子项(int groupPosition, int childPosition, boolean shouldExpandGroup);

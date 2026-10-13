@@ -28,22 +28,29 @@ public final class 演示按钮Impl extends 视图组件 implements 演示按钮
 	protected View createView() {
 		// 此方法由父类构造器调用，不依赖子类尚未初始化的字段。
 		Button button = new Button(MainActivity.getContext());
+
 		// 保留标题的大小写，避免主题自动转换英文文本。
 		button.setAllCaps(false);
+
 		button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				被单击();
 			}
 		});
+
 		return button;
 	}
+
+	/* 事件 */
 
 	@Override
 	public void 被单击() {
 		// 事件名必须与接口中声明的 @SimpleEvent 方法一致。
 		EventDispatcher.dispatchEvent(this, "被单击");
 	}
+
+	/* 属性 */
 
 	@Override
 	public String 标题() {

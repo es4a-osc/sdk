@@ -18,10 +18,11 @@ import com.vector.update_app.listener.ExceptionHandler;
 
 /**
  * 应用更新组件的实现。
- * 
+ *
  * @author 树先生 xhwsd@qq.com
  */
 public final class 应用更新Impl extends 组件Impl implements 应用更新 {
+
 	/*
 	WVector/AppUpdate
 	仓库地址：https://github.com/WVector/AppUpdate
@@ -37,7 +38,7 @@ public final class 应用更新Impl extends 组件Impl implements 应用更新 {
 	/**
 	 * 创建一个新的应用更新组件。
 	 *
-	 * @param container  容纳组件的容器（对于不可见的组件必须是窗口，不可为 {@code null}）
+	 * @param container 容纳组件的容器（对于不可见的组件必须是窗口，不可为 {@code null}）
 	 */
 	public 应用更新Impl(组件容器 container) {
 		super(container);
@@ -52,13 +53,13 @@ public final class 应用更新Impl extends 组件Impl implements 应用更新 {
 		});
 	}
 
-	/* 应用更新 实现 */
+	/* 事件 */
 
-    public void 检测更新前() {
+	public void 检测更新前() {
 		EventDispatcher.dispatchEvent(this, "检测更新前");
 	}
 
-    public void 检测更新后() {
+	public void 检测更新后() {
 		EventDispatcher.dispatchEvent(this, "检测更新后");
 	}
 
@@ -69,6 +70,8 @@ public final class 应用更新Impl extends 组件Impl implements 应用更新 {
 	public void 未检测到更新() {
 		EventDispatcher.dispatchEvent(this, "未检测到更新");
 	}
+
+	/* 属性 */
 
 	public boolean 提交请求方式() {
 		return builder.isPost();
@@ -126,12 +129,16 @@ public final class 应用更新Impl extends 组件Impl implements 应用更新 {
 		builder.showIgnoreVersion(showIgnoreVersion);
 	}
 
+	/* 方法 */
+
 	public void 添加请求参数(String name, String value) {
 		Map<String, String> params = builder.getParams();
+
 		if (params == null) {
 			params = new HashMap<String, String>();
 			builder.setParams(params);
 		}
+
 		params.put(name, value);
 	}
 
@@ -152,10 +159,10 @@ public final class 应用更新Impl extends 组件Impl implements 应用更新 {
 			public void onBefore() {
 				检测更新前();
 			}
-			
-            /**
-             * 网路请求之后
-             */
+
+			/**
+			 * 网路请求之后
+			 */
 			public void onAfter() {
 				检测更新后();
 			}
@@ -169,6 +176,7 @@ public final class 应用更新Impl extends 组件Impl implements 应用更新 {
 			@Override
 			protected UpdateAppBean parseJson(String json) {
 				UpdateAppBean updateAppBean = new UpdateAppBean();
+
 				try {
 					JSONObject jsonObject  = new JSONObject(json);
 					// （必须）是否更新 Yes,No
@@ -190,6 +198,7 @@ public final class 应用更新Impl extends 组件Impl implements 应用更新 {
 				} catch (Exception exception) {
 					exception.printStackTrace();
 				}
+
 				return updateAppBean;
 			}
 
@@ -210,7 +219,7 @@ public final class 应用更新Impl extends 组件Impl implements 应用更新 {
 					updateApp.getTargetSize()
 				);
 			}
-			
+
 			/**
 			 * 没有新版本
 			 */
@@ -228,7 +237,7 @@ public final class 应用更新Impl extends 组件Impl implements 应用更新 {
 	}
 
 	/**
-	 * UpdateAppManager.Builder 中某些方法不友好，重写下！
+	 * 补充第三方构建器的读取接口，并保存本组件的下载选项。
 	 */
 	private class MyBuilder extends UpdateAppManager.Builder {
 		// 是否仅WIFI下载
@@ -239,33 +248,33 @@ public final class 应用更新Impl extends 组件Impl implements 应用更新 {
 		private boolean showIgnoreVersion;
 
 		public MyBuilder setOnlyWifi(boolean onlyWifi) {
-            this.onlyWifi = onlyWifi;
-            return this;
-        }
+			this.onlyWifi = onlyWifi;
+			return this;
+		}
 
 		@Override
-        public boolean isOnlyWifi() {
-            return onlyWifi;
+		public boolean isOnlyWifi() {
+			return onlyWifi;
 		}
-		
+
 		public MyBuilder dismissNotificationProgress(boolean dismissNotificationProgress) {
-            this.dismissNotificationProgress = dismissNotificationProgress;
-            return this;
+			this.dismissNotificationProgress = dismissNotificationProgress;
+			return this;
 		}
-		
+
 		@Override
-        public boolean isDismissNotificationProgress() {
-            return dismissNotificationProgress;
+		public boolean isDismissNotificationProgress() {
+			return dismissNotificationProgress;
 		}
-		
-        public MyBuilder showIgnoreVersion(boolean showIgnoreVersion) {
+
+		public MyBuilder showIgnoreVersion(boolean showIgnoreVersion) {
 			this.showIgnoreVersion = showIgnoreVersion;
 			return this;
 		}
-		
+
 		@Override
-        public boolean isShowIgnoreVersion() {
-            return showIgnoreVersion;
-        }
+		public boolean isShowIgnoreVersion() {
+			return showIgnoreVersion;
+		}
 	}
 }

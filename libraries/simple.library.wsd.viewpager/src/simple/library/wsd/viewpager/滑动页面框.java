@@ -20,8 +20,6 @@ import simple.runtime.components.组件容器;
 @SimpleObject
 public interface 滑动页面框 extends 可视组件, 组件容器 {
 
-	/* 组件定义 */
-
 	@SimpleDataElement
 	static final int 滑动状态_未滑动 = 0;
 	@SimpleDataElement
@@ -29,35 +27,39 @@ public interface 滑动页面框 extends 可视组件, 组件容器 {
 	@SimpleDataElement
 	static final int 滑动状态_滑动完毕 = 2;
 
+	/* 事件 */
+
 	/**
 	 * 当页面被滑动时触发此事件。
-	 * 
-	 * @param 位置 页面索引。
-	 * @param 位置偏移 偏移百分比。
-	 * @param 位置偏移像素 偏移像素位置。
+	 *
+	 * @param position 页面索引。
+	 * @param positionOffset 偏移百分比。
+	 * @param positionOffsetPixels 偏移像素位置。
 	 */
 	@SimpleEvent
-	void 页面被滑动(int 位置, float 位置偏移, int 位置偏移像素);
+	void 页面被滑动(int position, float positionOffset, int positionOffsetPixels);
 
 	/**
 	 * 当页面滑动状态改变时触发此事件，返回滑动状态：0、未滑动 1、正在滑动 2、滑动完毕。
-	 * 
-	 * @param 状态 滑动状态。
+	 *
+	 * @param state 滑动状态。
 	 */
 	@SimpleEvent
-	void 滑动状态改变(int 状态);
+	void 滑动状态改变(int state);
 
 	/**
 	 * 当滑动页面后选中某个页面时触发此事件。
-	 * 
-	 * @param 位置 页面索引。
+	 *
+	 * @param position 页面索引。
 	 */
 	@SimpleEvent
-	void 页面被选择(int 位置);
+	void 页面被选择(int position);
+
+	/* 属性 */
 
 	@SimpleProperty
 	boolean 禁止滑动();
-	
+
 	@SimpleProperty(
 		type = SimpleProperty.PROPERTY_TYPE_BOOLEAN,
 		initializer = "False"
@@ -77,13 +79,15 @@ public interface 滑动页面框 extends 可视组件, 组件容器 {
 	int 现行页面();
 
 	@SimpleProperty
-	void 现行页面(int 位置);
+	void 现行页面(int position);
+
+	/* 方法 */
 
 	@SimpleFunction
-	void 添加页面(可视组件 组件);
+	void 添加页面(可视组件 component);
 
 	@SimpleFunction
-	void 删除页面(int 位置);
+	void 删除页面(int position);
 
 	@SimpleFunction
 	void 清空页面();
