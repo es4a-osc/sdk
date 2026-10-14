@@ -4,3 +4,8 @@ build/
 
 # 忽略JDK
 /tools/jdk1.8.0_503
+
+# 忽略本地清单
+/sdk.local.json
+
+ 

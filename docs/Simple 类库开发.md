@@ -1,6 +1,6 @@
 # Simple 类库开发
 
-文档类型：Java 实现与交付指南。核对日期：2026-10-12。适用范围：当前 SDK 的扩展对象和 Android 组件。依据：随附演示源码、类库构建脚本与清单，并核对当前 RuntimeLoader、Compiler 和运行库注解实现。
+文档类型：Java 实现与交付指南。核对日期：2026-10-12；仓库结构与本地清单补充核对：2026-10-14。适用范围：当前 SDK 的扩展对象和 Android 组件。依据：独立类库仓库的演示源码、构建发布脚本与清单，并核对当前 RuntimeLoader、Compiler 和运行库注解实现。
 
 本文按“准备工程 → 编写 Java → 生成 JAR → 填写清单 → 注册与验证”组织，包含完成基本扩展类库所需的步骤和示例，可独立阅读。
 
@@ -18,16 +18,15 @@ Simple 类库包括运行库和扩展库。运行库提供基础对象、组件�
 
 ### 环境与依赖
 
-下载并解压[打包版 SDK](https://dwz.wsd.cx/es4a-sdk)，其中已包含 JDK 和 Android 工具。当前公共类库构建脚本在 Windows 上运行，直接使用 `javac` 和 `jar`，无需 Ant。执行前确认以下文件存在：
+获取 [SDK 仓库](https://gitee.com/es4a/sdk) 与 [类库仓库](https://gitee.com/es4a/libraries)，将两者同级放置，按 [SDK README](../README.md) 准备 JDK 和 Android 工具。构建脚本由类库仓库提供，在 Windows 上使用 `javac` 和 `jar`，无需 Ant。执行前确认以下 SDK 文件存在：
 
 | SDK 内路径 | 用途 |
 | --- | --- |
 | `tools/jdk1.8.0_503/bin/javac.exe`、`jar.exe` | JDK 8 编译和打包工具 |
 | `tools/android/platforms/android-26/android.jar` | Android API 26 编译依赖 |
 | `simple/SimpleAndroidRuntime.jar` | Simple 注解、类型与组件基础实现 |
-| `libraries/build.bat` | 公共类库构建脚本 |
 
-Java 源文件使用 UTF-8，路径与包名对应。例如 `com.example.demo.演示对象` 放在类库目录的 `src/com/example/demo/演示对象.java`。本篇命令中的 `sdk` 表示解压后的 SDK 目录；名称或位置不同时，替换为实际路径。
+Java 源文件使用 UTF-8，路径与包名对应。例如 `com.example.demo.演示对象` 放在类库目录的 `src/com/example/demo/演示对象.java`。本篇命令中的 `sdk` 表示准备好工具的 SDK 目录；名称或位置不同时，替换为实际路径。
 
 ### 开发工程
 
@@ -382,10 +381,10 @@ public final class 示例对象 {
 
 ## 构建 classes.jar
 
-当前 SDK 提供 `libraries/build.bat`，接受任意位置的类库开发工程目录。以下示例在 Windows 命令提示符中运行，假设 SDK 位于 `D:\SDK`，工程位于 `D:\LibraryWork\com.example.demo`；使用时替换为实际路径，也可把工程文件夹拖到该脚本上。所需工具与路径见本篇“环境与依赖”。
+类库仓库的 `build.bat` 接受一个类库开发工程目录。以下示例在 Windows 命令提示符中运行，假设类库仓库位于 `D:\ES4A\libraries`，SDK 位于同级的 `D:\ES4A\sdk`，待构建工程位于 `D:\LibraryWork\com.example.demo`。工程可以另行存放，但公共脚本仍从类库仓库的同级 `sdk` 取得工具与运行库；也可把工程文件夹拖到脚本上。
 
 ```bat
-"D:\SDK\libraries\build.bat" "D:\LibraryWork\com.example.demo"
+"D:\ES4A\libraries\build.bat" "D:\LibraryWork\com.example.demo"
 ```
 
 工程中的 `src/` 是该脚本的源码输入约定，不限制工程必须存放在 SDK 内；自行使用其它构建工具时，按自己的工程布局构建兼容的 JAR。
@@ -398,6 +397,12 @@ public final class 示例对象 {
 4. 把编译结果打包到类库根目录的 `classes.jar`。
 
 脚本只构建传入的工程，不自动将成果复制到 SDK，也不自动注册清单。
+
+构建成功后运行同一仓库的 `release.bat` 安装已有产物并注册清单，发布不会重新编译：
+
+```bat
+"D:\ES4A\libraries\release.bat" "D:\LibraryWork\com.example.demo"
+```
 
 ## 填写类库清单
 
@@ -478,7 +483,7 @@ sdk/libraries/com.example.demo/
 
 从开发工程复制上述交付文件即可，不要求复制 `src/`、`build/`。样例和源码可以另外提供；应用开发者无需重建该类库。
 
-在已有 `sdk.json` 的 `libraries` 数组中追加清单路径，保留原有注册项、能力和模板。以下仅展示相关入口字段：
+手动安装时，在所用 SDK 入口清单的 `libraries` 数组中追加路径，保留原有注册项、能力和模板。使用类库仓库的 `release.bat` 时自动注册，优先更新 `sdk.local.json`，不存在时更新 `sdk.json`；本地开发可先将标准清单复制为同目录的 `sdk.local.json`。SDK 仓库不预置演示库，以下展示安装后的相关入口字段：
 
 ```json
 {
@@ -488,9 +493,9 @@ sdk/libraries/com.example.demo/
 }
 ```
 
-注册路径相对于 `sdk.json`，只加载明确列出的清单，不使用通配符。扩展库按数组顺序显示。清单注册控制 IDE 元数据，编译器的 JAR 发现规则见本篇“编译与打包”。
+注册路径相对于实际所选 SDK 入口清单，只加载明确列出的清单，不使用通配符。扩展库按数组顺序显示。清单注册控制 IDE 元数据，编译器的 JAR 发现规则见本篇“编译与打包”。
 
-安装 ES4A 扩展后，在 VS Code 命令面板执行“ES4A: 选择 SDK”，选择这个 `sdk.json`；已经选过时执行“ES4A: 刷新类库”。确认类库树出现新分类，代码中能补全对象及其成员。
+安装 ES4A 扩展后，在 VS Code 命令面板执行“ES4A: 选择 SDK”，选择实际使用的入口清单（`sdk.json` 或 `sdk.local.json`）；已经选过时执行“ES4A: 刷新类库”。确认类库树出现新分类，代码中能补全对象及其成员。
 
 ## 编译与打包
 
@@ -533,7 +538,7 @@ SDK 编译入口将 `sdk/libraries` 传入 `LIBRARIES_HOME`。编译器扫描直
 
 ### 编译器能识别类型，但 ES4A 中没有显示
 
-先确认 ES4A 已通过 **选择 SDK** 载入正确的 `sdk.json`，再运行 **刷新类库**。侧边栏“类库”中看不到分类时，检查 `hidden: true`；窗口设计器“可用”区看不到组件时，检查定义的 `kind` 是否为 `component` 或其子类型，以及窗口组件是否被误当作普通子组件。
+先确认 ES4A 已通过 **选择 SDK** 载入正确的 SDK 入口清单，再运行 **刷新类库**。侧边栏“类库”中看不到分类时，检查 `hidden: true`；窗口设计器“可用”区看不到组件时，检查定义的 `kind` 是否为 `component` 或其子类型，以及窗口组件是否被误当作普通子组件。
 
 ### 报告“缺少组件实现”
 

@@ -1,26 +1,26 @@
 # Simple 项目开发
 
-文档类型：应用开发指南。核对日期：2026-10-12。适用范围：使用当前 SDK 和已有类库开发 Android 应用。依据：SDK 模板、能力脚本、演示项目，并核对当前编译器与 ES4A 项目操作源码。
+文档类型：应用开发指南。核对日期：2026-10-12；仓库结构与本地清单补充核对：2026-10-14。适用范围：使用当前 SDK 和已有类库开发 Android 应用。依据：SDK 模板、能力脚本、演示项目，并核对当前编译器与 ES4A 项目操作源码。
 
 本文说明项目结构、窗口与事件、资源、已有类库调用及编译运行。语言规则按需查阅 [Simple 语言定义](Simple%20语言定义.md)。
 
-开发 Simple 应用使用 SDK 已提供的编译器、运行库和扩展库，不需要编写 Java、重建类库或维护类库清单。应用源码放在自己的项目中，与 SDK 类库的可选 Java 源码无关。
+开发 Simple 应用使用 SDK 的编译器、运行库及按需安装的扩展库，不需要编写 Java 或重建已有类库。应用源码放在自己的项目中，与 SDK 类库的可选 Java 源码无关。
 
 ## 准备开发环境
 
-准备 Windows 和 Visual Studio Code，下载并安装 [ES4A 扩展](https://dwz.wsd.cx/es4a-vsix)，再下载并解压[打包版 SDK](https://dwz.wsd.cx/es4a-sdk)。SDK 已包含 JDK、Android 工具及 Simple 编译器和运行库，不需另外下载 Ant，也不需先编译 Java 源码。
+准备 Windows 和 Visual Studio Code，下载并安装 [ES4A 扩展](https://dwz.wsd.cx/es4a-vsix)，再下载并解压[打包版 SDK](https://dwz.wsd.cx/es4a-sdk)；从 [SDK 仓库](https://gitee.com/es4a/sdk) 获取时，按 [SDK README](../README.md) 准备 JDK 和工具。开发应用无需 Ant，也无需先编译 Java 源码。
 
 当前随附能力脚本使用以下 SDK 内路径，解压后保持工具目录结构：
 
 | 路径 | 用途 |
 | --- | --- |
-| `sdk.json` | ES4A 的 SDK 入口 |
+| `sdk.json` 或 `sdk.local.json` | 所选 SDK 的入口清单；本地清单按需创建 |
 | `tools/jdk1.8.0_503/` | JDK 8 |
 | `tools/android/` | Android 编译、打包、安装和启动工具，随附脚本使用 API 26 |
 | `simple/SimpleCompiler.jar`、`simple/SimpleAndroidRuntime.jar` | 编译器与 Android 运行库 |
 | `libraries/<类库目录>/` | 已编译扩展库，包含 `classes.jar`、清单及所需依赖和资源；不要求包含 `src/` |
 
-在 ES4A“类库”标题栏选择 SDK 根目录的 `sdk.json`，确认编译器、运行库和需要的扩展库已加载。更新 SDK 后刷新类库；移动 SDK 后重新选择入口。
+在 ES4A“类库”标题栏选择所用 SDK 入口清单，确认编译器、运行库和需要的扩展库已加载。本地使用额外类库时，可复制 `sdk.json` 为同目录的 `sdk.local.json`，注册所需清单后选择它。SDK 仓库不预置扩展库（含演示库），按需从 [类库仓库](https://gitee.com/es4a/libraries) 安装；更新 SDK 后刷新类库，移动 SDK 后重新选择入口。
 
 ## 项目结构
 

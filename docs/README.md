@@ -1,6 +1,6 @@
 # SDK 开发文档
 
-文档类型：阅读导航。核对日期：2026-10-12。适用范围：当前 SDK、中文 Simple 与 ES4A 扩展。依据：随附清单、模板、能力脚本、演示工程，并与当前编译器、运行库和扩展源码核对。
+文档类型：阅读导航。核对日期：2026-10-12；仓库结构与本地清单补充核对：2026-10-14。适用范围：当前 SDK、中文 Simple 与 ES4A 扩展。依据：SDK 清单、模板、能力脚本、独立类库仓库的演示工程，并与当前编译器、运行库和扩展源码核对。
 
 这些文档随 SDK 提供，AI 和用户可以直接在本地阅读。按任务选择文档，不必先通读所有内容，也不需要访问内部开发知识库或源码工作区。
 
@@ -18,7 +18,7 @@
 
 ## 开发前核对
 
-- 先确认正在使用的 SDK 版本和 `sdk.json`。文档示例中的路径以各篇说明的运行目录为准。
+- 先确认正在使用的 SDK 版本及入口清单（`sdk.json` 或本地 `sdk.local.json`）。文档示例中的路径以各篇说明的运行目录为准。
 - 中文 Simple 的规则见语言定义，不按 Visual Basic 或其他 BASIC 方言推断语法。
 - `SimpleCompiler.json`、`SimpleAndroidRuntime.json` 和 `library.json` 描述语言提示与设计器元数据；编译和运行使用实际 JAR。清单加载成功不等于代码已经编译或在设备验证。
 - 开发扩展类库时，同时核对 Java 公开注解与 `library.json`，重新生成并安装 `classes.jar`，再使用真实 Simple 样例验证；这不是应用开发的前置步骤。
@@ -33,4 +33,4 @@
 | Android 运行库清单 | [SimpleAndroidRuntime.json](../simple/SimpleAndroidRuntime.json) |
 | 项目模板 | [project.properties](../templates/project.properties) |
 
-类库源码与 `sample/` 是可选内容；SDK 提供样例时可直接添加其中的 `project.properties`。文档内的基本示例不要求另行打开演示源码。
+扩展类库源码与样例在 [类库仓库](https://gitee.com/es4a/libraries) 独立维护，演示库也在其中。SDK 仓库的标准清单不预注册扩展库；按需安装到 SDK 后，在所用入口清单中注册。样例项目通过其 `project.properties` 添加，文档内的基本示例可独立阅读。

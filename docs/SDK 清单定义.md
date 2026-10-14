@@ -1,10 +1,12 @@
 # SDK 清单定义
 
-文档类型：SDK 入口字段参考。核对日期：2026-10-12。适用范围：当前 SDK 与 ES4A 扩展。依据：随附 sdk.json、模板与能力脚本，并核对扩展 SDK 加载、参数解析及编译器源码。
+文档类型：SDK 入口字段参考。核对日期：2026-10-12；仓库结构与本地清单补充核对：2026-10-14。适用范围：当前 SDK 与 ES4A 扩展。依据：随附 sdk.json、模板与能力脚本，并核对扩展 SDK 加载、参数解析及编译器源码。
 
 [`sdk.json`](../sdk.json) 注册编译器、运行库和扩展类库，并声明工具能力与项目模板。
 
 随附 SDK 使用 `sdk.json`、`capabilities/`、`simple/`、`libraries/`、`templates/` 和 `tools/` 目录布局。类库的 Java 源码不是 SDK 使用所需内容，开发工程可另行存放。
+
+SDK 仓库的标准 `sdk.json` 使用空的 `libraries` 数组，扩展库及演示库由 [类库仓库](https://gitee.com/es4a/libraries) 维护。需要本地配置时，可将标准清单复制为同目录的 `sdk.local.json` 并在 ES4A 中选择它；该本地清单不提交 SDK 仓库。入口文件名不固定，相对路径以实际所选清单所在目录为准。
 
 本文面向配置 SDK 的维护者，包含入口、路径、能力与模板的字段和示例。ES4A 仅加载用户通过“选择 SDK”明确指定的入口；未配置或入口路径失效时保持未加载状态，不推断工作区中的 SDK，也不根据目录名自动注册类库。
 
@@ -16,9 +18,7 @@
 {
 	"compiler": "simple/SimpleCompiler.json",
 	"runtime": "simple/SimpleAndroidRuntime.json",
-	"libraries": [
-		"libraries/com.example.demo/library.json"
-	]
+	"libraries": []
 }
 ```
 
@@ -33,7 +33,7 @@
 | `capabilities` | 可选项目能力与独立工具声明。 |
 | `templates` | 可选项目与单元模板声明。 |
 
-相对路径统一以声明它的清单所在目录为基准。入口中的清单、命令和模板路径相对于 `sdk.json`；子清单中的图标路径相对于该子清单。
+相对路径统一以声明它的清单所在目录为基准。入口中的清单、命令和模板路径相对于所选 SDK 入口清单；子清单中的图标路径相对于该子清单。
 
 编译器和运行库是完整 SDK 的必备项。入口无法读取或结构无效时加载失败；编译器、运行库或单个类库清单有误时记录 SDK 问题，保留其他有效清单。
 
@@ -48,6 +48,8 @@
 此处登记控制 IDE 元数据，清单路径可位于维护者明确指定的位置。实际 Java 代码另由编译器通过 `LIBRARIES_HOME` 发现：当前随附能力脚本将其设为 SDK 的 `libraries` 目录，编译器扫描直接子目录中的 `classes.jar`。因此，只注册外部清单并不会让该目录的 JAR 自动参与编译。
 
 使用随附脚本时，安装已编译的类库到 `libraries/<类库目录>/`，携带清单、`classes.jar` 及所需依赖和资源即可，无需 Java `src/` 或开发工程的 `build/`。开发工程本身可以在其它目录；使用不同安装布局时，需要相应能力脚本提供正确的 `LIBRARIES_HOME`。
+
+类库仓库的 `release.bat` 安装已有交付文件后自动注册清单，优先更新 `sdk.local.json`，不存在时更新 `sdk.json`；不会自动创建本地清单。构建与发布的用法见 [类库仓库说明](https://gitee.com/es4a/libraries)。
 
 ## 能力调用
 
@@ -80,7 +82,7 @@
 | `PROJECT_FILE` | 项目的 `project.properties` 绝对路径。 |
 | `APK_FILE` | 项目构建目录下 `deploy/<应用名称>.apk` 的绝对路径。 |
 
-当前随附 `compile` 脚本使用 SDK 内的 `tools/jdk1.8.0_503/`、`tools/android/`（API 26）、`simple/SimpleCompiler.jar` 和 `simple/SimpleAndroidRuntime.jar`；打包版 SDK 已提供这些工具，无需 Ant。`debug` 先编译，再通过 ADB 安装 APK 并启动应用，不提供断点或单步调试。脚本负责工具路径、环境变量和执行流程，扩展只按清单调用。
+当前随附 `compile` 脚本使用 SDK 内的 `tools/jdk1.8.0_503/`、`tools/android/`（API 26）、`simple/SimpleCompiler.jar` 和 `simple/SimpleAndroidRuntime.jar`；工具准备见 [SDK README](../README.md)，执行项目能力无需 Ant。`debug` 先编译，再通过 ADB 安装 APK 并启动应用，不提供断点或单步调试。脚本负责工具路径、环境变量和执行流程，扩展只按清单调用。
 
 ### 编译能力与签名
 
