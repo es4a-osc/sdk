@@ -68,6 +68,7 @@ SET classpath=.;%JAVA_HOME%\lib\tools.jar;%JAVA_HOME%\lib\dt.jar
 REM --------------------------------------------------
 
 :编译应用
+ECHO [编译应用]
 REM 通过 java.exe 使用编译器编译指定项目
 "%JAVA_HOME%\bin\java.exe" -classpath "%ANDROID_HOME%\tools\lib\apkbuilder.jar;%ANDROID_HOME%\platforms\android-%API_LEVEL%\tools\lib\dx.jar;%ANDROID_HOME%\tools\lib\androidprefs.jar;%ANDROID_HOME%\tools\lib\jarutils.jar;%SIMPLE_HOME%\SimpleCompiler.jar" simple.compiler.Main "%PROJECT_FILE%"
 IF NOT %ERRORLEVEL% == 0 (
@@ -78,6 +79,8 @@ IF NOT %ERRORLEVEL% == 0 (
 REM --------------------------------------------------
 
 :安装应用
+ECHO.
+ECHO [安装应用]
 REM 检验.apk文件
 IF NOT EXIST "%APK_FILE%" (
 	ECHO - 未找到应用文件: "%APK_FILE%"
@@ -85,7 +88,7 @@ IF NOT EXIST "%APK_FILE%" (
 )
 
 REM 检验adb.exe文件
-SET "%ANDROID_HOME%\tools\adb.exe"
+SET "ADB_FILE=%ANDROID_HOME%\tools\adb.exe"
 IF NOT EXIST "%ADB_FILE%" (
 	ECHO - 未找到ADB工具: "%ADB_FILE%"
 	GOTO 失败退出
@@ -101,6 +104,8 @@ IF NOT %ERRORLEVEL% == 0 (
 REM --------------------------------------------------
 
 :启动应用
+ECHO.
+ECHO [启动应用]
 REM 检验aapt.exe文件
 SET "AAPT_FILE=%ANDROID_HOME%\platforms\android-%API_LEVEL%\tools\aapt.exe"
 IF NOT EXIST "%AAPT_FILE%" (
