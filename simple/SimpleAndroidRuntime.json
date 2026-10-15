@@ -5706,7 +5706,7 @@
 				{
 					"name": "视频播放器",
 					"description": "视频播放器组件。",
-					"icon": "icons/video.svg",
+					"icon": "icons/movie.svg",
 					"kind": "component",
 					"type": "simple.runtime.components.视频播放器",
 					"inherits": [
@@ -5774,7 +5774,7 @@
 				},
 				{
 					"name": "摄像框",
-					"icon": "icons/video.svg",
+					"icon": "icons/augmented-reality.svg",
 					"description": "嵌入窗口的摄像头预览组件，支持拍照和录像。",
 					"kind": "component",
 					"type": "simple.runtime.components.摄像框",

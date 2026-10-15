@@ -9,3 +9,9 @@
 扩展类库（含演示库）及样例在 [ES4A 类库仓库](https://gitee.com/es4a/libraries) 独立维护，按需编译并发布到本地 SDK。
 
 Simple 语法、项目开发、类库开发及清单说明见 [docs/README.md](docs/README.md)。
+
+
+## 相关链接
+
+- [开源仓库](https://gitee.com/es4a)
+- [留言反馈](https://dwz.wsd.cx/wsd-ly)
