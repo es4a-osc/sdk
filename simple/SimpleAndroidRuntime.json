@@ -6257,6 +6257,357 @@
 					]
 				},
 				{
+					"name": "富文本框",
+					"description": "可编辑的带格式文本，支持区间样式、段落项目符、本地图片和链接点击。继承编辑框；索引为从 0 开始的 UTF-16 半开区间 [开始,结束)，结束位置不包含。读取文本只取得纯文本，不提供 HTML 导入导出或格式持久化。",
+					"icon": "icons/typography.svg",
+					"kind": "component",
+					"type": "simple.runtime.components.富文本框",
+					"inherits": [
+						"simple.runtime.components.编辑框"
+					],
+					"constants": [
+						{
+							"name": "字体样式_正常",
+							"type": "整数型",
+							"value": "1"
+						},
+						{
+							"name": "字体样式_粗体",
+							"type": "整数型",
+							"value": "2"
+						},
+						{
+							"name": "字体样式_斜体",
+							"type": "整数型",
+							"value": "3"
+						},
+						{
+							"name": "字体样式_粗斜体",
+							"type": "整数型",
+							"value": "4"
+						}
+					],
+					"events": [
+						{
+							"name": "超链接被单击",
+							"description": "链接可点击为真时触发；不自动打开浏览器或其它应用。",
+							"params": [
+								{
+									"name": "网址",
+									"type": "文本型"
+								}
+							]
+						}
+					],
+					"properties": [
+						{
+							"name": "选区开始",
+							"type": "整数型",
+							"writable": false,
+							"description": "选区起点或光标的 UTF-16 索引，尚未定位时为 -1。"
+						},
+						{
+							"name": "选区结束",
+							"type": "整数型",
+							"writable": false,
+							"description": "选区的排除终点，尚未定位时为 -1。"
+						},
+						{
+							"name": "链接可点击",
+							"type": "逻辑型",
+							"initializer": "假",
+							"description": "允许触摸激活链接；关闭时恢复普通编辑光标定位。"
+						}
+					],
+					"functions": [
+						{
+							"name": "创建风格文本",
+							"description": "替换当前内容并清除原格式，新内容立即可编辑。",
+							"params": [
+								{
+									"name": "文本",
+									"type": "文本型",
+									"description": "新的纯文本，空引用按空文本处理。"
+								}
+							]
+						},
+						{
+							"name": "追加风格文本",
+							"description": "在当前内容末尾追加文本，保留已有格式。",
+							"params": [
+								{
+									"name": "文本",
+									"type": "文本型",
+									"description": "追加的纯文本，空引用按空文本处理。"
+								}
+							]
+						},
+						{
+							"name": "置风格文本前景色",
+							"description": "设置指定字符区间的文字颜色。",
+							"params": [
+								{
+									"name": "颜色",
+									"type": "整数型",
+									"description": "文字的 ARGB 颜色。"
+								},
+								{
+									"name": "开始",
+									"type": "整数型",
+									"description": "从 0 开始的 UTF-16 起点，包含该位置。"
+								},
+								{
+									"name": "结束",
+									"type": "整数型",
+									"description": "UTF-16 终点，不包含该位置，允许等于文本长度。"
+								}
+							]
+						},
+						{
+							"name": "置风格文本背景色",
+							"description": "设置指定字符区间的背景颜色。",
+							"params": [
+								{
+									"name": "颜色",
+									"type": "整数型",
+									"description": "文字背景的 ARGB 颜色。"
+								},
+								{
+									"name": "开始",
+									"type": "整数型",
+									"description": "从 0 开始的 UTF-16 起点，包含该位置。"
+								},
+								{
+									"name": "结束",
+									"type": "整数型",
+									"description": "UTF-16 终点，不包含该位置，允许等于文本长度。"
+								}
+							]
+						},
+						{
+							"name": "置风格文本字体大小",
+							"description": "设置指定字符区间的字号。",
+							"params": [
+								{
+									"name": "大小",
+									"type": "整数型",
+									"description": "大于 0 的字号，单位 SP。"
+								},
+								{
+									"name": "开始",
+									"type": "整数型",
+									"description": "从 0 开始的 UTF-16 起点，包含该位置。"
+								},
+								{
+									"name": "结束",
+									"type": "整数型",
+									"description": "UTF-16 终点，不包含该位置，允许等于文本长度。"
+								}
+							]
+						},
+						{
+							"name": "置风格文本字体样式",
+							"description": "设置指定字符区间的字体样式。",
+							"params": [
+								{
+									"name": "样式",
+									"type": "整数型",
+									"description": "使用字体样式_正常、字体样式_粗体、字体样式_斜体或字体样式_粗斜体。"
+								},
+								{
+									"name": "开始",
+									"type": "整数型",
+									"description": "从 0 开始的 UTF-16 起点，包含该位置。"
+								},
+								{
+									"name": "结束",
+									"type": "整数型",
+									"description": "UTF-16 终点，不包含该位置，允许等于文本长度。"
+								}
+							]
+						},
+						{
+							"name": "置风格文本下划线",
+							"description": "为指定字符区间设置下划线。",
+							"params": [
+								{
+									"name": "开始",
+									"type": "整数型",
+									"description": "从 0 开始的 UTF-16 起点，包含该位置。"
+								},
+								{
+									"name": "结束",
+									"type": "整数型",
+									"description": "UTF-16 终点，不包含该位置，允许等于文本长度。"
+								}
+							]
+						},
+						{
+							"name": "置风格文本删除线",
+							"description": "为指定字符区间设置删除线。",
+							"params": [
+								{
+									"name": "开始",
+									"type": "整数型",
+									"description": "从 0 开始的 UTF-16 起点，包含该位置。"
+								},
+								{
+									"name": "结束",
+									"type": "整数型",
+									"description": "UTF-16 终点，不包含该位置，允许等于文本长度。"
+								}
+							]
+						},
+						{
+							"name": "置风格文本上标",
+							"description": "为指定字符区间设置上标。",
+							"params": [
+								{
+									"name": "开始",
+									"type": "整数型",
+									"description": "从 0 开始的 UTF-16 起点，包含该位置。"
+								},
+								{
+									"name": "结束",
+									"type": "整数型",
+									"description": "UTF-16 终点，不包含该位置，允许等于文本长度。"
+								}
+							]
+						},
+						{
+							"name": "置风格文本下标",
+							"description": "为指定字符区间设置下标。",
+							"params": [
+								{
+									"name": "开始",
+									"type": "整数型",
+									"description": "从 0 开始的 UTF-16 起点，包含该位置。"
+								},
+								{
+									"name": "结束",
+									"type": "整数型",
+									"description": "UTF-16 终点，不包含该位置，允许等于文本长度。"
+								}
+							]
+						},
+						{
+							"name": "置风格文本超链接",
+							"description": "将指定字符区间设置为链接。",
+							"params": [
+								{
+									"name": "网址",
+									"type": "文本型",
+									"description": "非空链接标识；点击仅派发事件，不自动打开外部应用。"
+								},
+								{
+									"name": "开始",
+									"type": "整数型",
+									"description": "从 0 开始的 UTF-16 起点，包含该位置。"
+								},
+								{
+									"name": "结束",
+									"type": "整数型",
+									"description": "UTF-16 终点，不包含该位置，允许等于文本长度。"
+								}
+							]
+						},
+						{
+							"name": "置风格文本项目符",
+							"description": "为选中内容覆盖的完整段落添加项目符。",
+							"params": [
+								{
+									"name": "颜色",
+									"type": "整数型",
+									"description": "项目符的 ARGB 颜色。"
+								},
+								{
+									"name": "开始",
+									"type": "整数型",
+									"description": "从 0 开始的 UTF-16 起点，包含该位置。"
+								},
+								{
+									"name": "结束",
+									"type": "整数型",
+									"description": "UTF-16 终点，不包含该位置，允许等于文本长度。"
+								}
+							]
+						},
+						{
+							"name": "置风格文本图片",
+							"description": "以 24 DIP 方形图片显示非空字符区间，原始文本仍可读取。",
+							"params": [
+								{
+									"name": "图片",
+									"type": "文本型",
+									"description": "资源、资产或可访问文件的本地图片标识。"
+								},
+								{
+									"name": "开始",
+									"type": "整数型",
+									"description": "从 0 开始的 UTF-16 起点，包含该位置。"
+								},
+								{
+									"name": "结束",
+									"type": "整数型",
+									"description": "UTF-16 终点，不包含该位置，允许等于文本长度。"
+								}
+							]
+						},
+						{
+							"name": "置风格文本图片",
+							"description": "以指定尺寸的图片显示非空字符区间。",
+							"params": [
+								{
+									"name": "图片",
+									"type": "文本型",
+									"description": "资源、资产或可访问文件的本地图片标识。"
+								},
+								{
+									"name": "宽度",
+									"type": "整数型",
+									"description": "大于 0 的图片显示宽度，单位 DIP。"
+								},
+								{
+									"name": "高度",
+									"type": "整数型",
+									"description": "大于 0 的图片显示高度，单位 DIP。"
+								},
+								{
+									"name": "开始",
+									"type": "整数型",
+									"description": "从 0 开始的 UTF-16 起点，包含该位置。"
+								},
+								{
+									"name": "结束",
+									"type": "整数型",
+									"description": "UTF-16 终点，不包含该位置，允许等于文本长度。"
+								}
+							]
+						},
+						{
+							"name": "清除文本格式",
+							"description": "清除区间内的文字格式和链接，保留图片及区间外格式；项目符按完整段落移除。",
+							"params": [
+								{
+									"name": "开始",
+									"type": "整数型",
+									"description": "从 0 开始的 UTF-16 起点，包含该位置。"
+								},
+								{
+									"name": "结束",
+									"type": "整数型",
+									"description": "UTF-16 终点，不包含该位置，允许等于文本长度。"
+								}
+							]
+						},
+						{
+							"name": "取选中文本",
+							"description": "取得当前选区的纯文本。",
+							"return": "文本型"
+						}
+					]
+				},
+				{
 					"name": "密码编辑框",
 					"description": "用于输入密码的文本框。",
 					"icon": "icons/lock.svg",
@@ -7160,6 +7511,249 @@
 									"type": "整数型"
 								}
 							]
+						}
+					]
+				},
+				{
+					"name": "数据表格",
+					"description": "带表头的行列数据展示，支持增删行、单元格修改、行标记和本地图片首列；索引从 0 开始，表头不计入行数。在界面线程操作，适用于中小规模数据。",
+					"icon": "icons/table.svg",
+					"kind": "component",
+					"type": "simple.runtime.components.数据表格",
+					"inherits": [
+						"simple.runtime.components.可视组件"
+					],
+					"properties": [
+						{
+							"name": "表头背景颜色",
+							"type": "整数型",
+							"description": "表头背景的 ARGB 颜色。",
+							"initializer": "&HFFE8EEF7"
+						},
+						{
+							"name": "表头字体颜色",
+							"type": "整数型",
+							"description": "表头文字的 ARGB 颜色。",
+							"initializer": "&HFF000000"
+						},
+						{
+							"name": "表头字体大小",
+							"type": "单精度小数型",
+							"description": "表头文字大小，单位 SP，必须为有限正数。",
+							"initializer": "14"
+						},
+						{
+							"name": "最大字长",
+							"type": "整数型",
+							"description": "文字单元格最大宽度，单位 em，必须大于 0；实际宽度受列拉伸影响。",
+							"initializer": "10"
+						},
+						{
+							"name": "分割线颜色",
+							"type": "整数型",
+							"description": "单元格边框的 ARGB 颜色。",
+							"initializer": "&HFFD0D7DE"
+						},
+						{
+							"name": "分割线宽度",
+							"type": "整数型",
+							"description": "单元格边框宽度，单位 DIP；0 隐藏边框，不能为负数。",
+							"initializer": "1"
+						},
+						{
+							"name": "拉伸列",
+							"type": "整数型",
+							"description": "填满剩余宽度的列索引，从 0 开始；-1 不拉伸，可在添加数据前设置。",
+							"initializer": "-1"
+						},
+						{
+							"name": "显示图片",
+							"type": "逻辑型",
+							"description": "是否将数据行的第一列显示为本地图片；表头仍为文本，不下载网络图片。",
+							"initializer": "假"
+						},
+						{
+							"name": "单元格字体颜色",
+							"type": "整数型",
+							"description": "数据单元格文字的 ARGB 颜色。",
+							"initializer": "&HFF000000"
+						},
+						{
+							"name": "单元格字体大小",
+							"type": "单精度小数型",
+							"description": "数据单元格文字大小，单位 SP，必须为有限正数。",
+							"initializer": "14"
+						}
+					],
+					"events": [
+						{
+							"name": "表格行被单击",
+							"description": "点击数据行时触发，表头不触发。删除行后按当前顺序计算索引。",
+							"params": [
+								{
+									"name": "行",
+									"type": "整数型",
+									"description": "从 0 开始的数据行索引。"
+								}
+							]
+						}
+					],
+					"functions": [
+						{
+							"name": "添加表头",
+							"description": "设置或替换表头，不将表头计入数据行。",
+							"params": [
+								{
+									"name": "内容",
+									"type": "文本型()",
+									"description": "至少一列的表头文本；已有数据时，列数必须一致。"
+								}
+							]
+						},
+						{
+							"name": "添加一行",
+							"description": "以白色背景追加一行数据。 数组成员数必须与列数一致，空数组无效。",
+							"params": [
+								{
+									"name": "内容",
+									"type": "文本型()",
+									"description": "与表格列数一致的文本数组；显示图片时首项为图片标识。"
+								}
+							]
+						},
+						{
+							"name": "添加一行",
+							"description": "以指定背景色追加一行数据。 数组成员数必须与列数一致，空数组无效。",
+							"params": [
+								{
+									"name": "内容",
+									"type": "文本型()",
+									"description": "与表格列数一致的文本数组；未设置表头时由首行确定列数。"
+								},
+								{
+									"name": "背景色",
+									"type": "整数型",
+									"description": "该行的 ARGB 背景色。"
+								}
+							]
+						},
+						{
+							"name": "删除一行",
+							"description": "删除指定数据行，后续行的内容、背景色和标记一起前移。 索引越界抛出索引超出界限错误。",
+							"params": [
+								{
+									"name": "行",
+									"type": "整数型",
+									"description": "从 0 开始的数据行索引，不包含表头。"
+								}
+							]
+						},
+						{
+							"name": "清空表格",
+							"description": "清空全部数据和表头，行列数归零；保留样式设置。"
+						},
+						{
+							"name": "取行数",
+							"description": "取得数据行数，不包含表头。",
+							"return": "整数型"
+						},
+						{
+							"name": "取列数",
+							"description": "取得列数，由表头或第一行确定。",
+							"return": "整数型"
+						},
+						{
+							"name": "取单元格内容",
+							"description": "读取单元格原始文本，图片列返回图片标识。 索引越界抛出索引超出界限错误。",
+							"params": [
+								{
+									"name": "行",
+									"type": "整数型",
+									"description": "从 0 开始的数据行索引。"
+								},
+								{
+									"name": "列",
+									"type": "整数型",
+									"description": "从 0 开始的列索引。"
+								}
+							],
+							"return": "文本型"
+						},
+						{
+							"name": "置单元格内容",
+							"description": "更新指定单元格并刷新显示。 索引越界抛出索引超出界限错误。",
+							"params": [
+								{
+									"name": "行",
+									"type": "整数型",
+									"description": "从 0 开始的数据行索引。"
+								},
+								{
+									"name": "列",
+									"type": "整数型",
+									"description": "从 0 开始的列索引。"
+								},
+								{
+									"name": "内容",
+									"type": "文本型",
+									"description": "新的文本，空引用按空文本处理；图片列须为有效本地图片。"
+								}
+							]
+						},
+						{
+							"name": "置表格行背景色",
+							"description": "设置一行的背景色。",
+							"params": [
+								{
+									"name": "行",
+									"type": "整数型",
+									"description": "从 0 开始的数据行索引。"
+								},
+								{
+									"name": "背景色",
+									"type": "整数型",
+									"description": "该行的 ARGB 背景色。"
+								}
+							]
+						},
+						{
+							"name": "置缩略显示内容",
+							"description": "设置内容超宽时的显示方式，同时刷新已有行。",
+							"params": [
+								{
+									"name": "缩略",
+									"type": "逻辑型",
+									"description": "真为单行省略显示，假为允许文字换行。"
+								}
+							]
+						},
+						{
+							"name": "置表格行标记",
+							"description": "为一行保存独立业务标记，不改变显示内容。 索引越界抛出索引超出界限错误。",
+							"params": [
+								{
+									"name": "行",
+									"type": "整数型",
+									"description": "从 0 开始的数据行索引。"
+								},
+								{
+									"name": "标记",
+									"type": "文本型",
+									"description": "业务标记，空引用按空文本处理。"
+								}
+							]
+						},
+						{
+							"name": "取表格行标记",
+							"description": "读取一行的业务标记。 索引越界抛出索引超出界限错误。",
+							"params": [
+								{
+									"name": "行",
+									"type": "整数型",
+									"description": "从 0 开始的数据行索引。"
+								}
+							],
+							"return": "文本型"
 						}
 					]
 				},
@@ -10742,6 +11336,46 @@
 							"return": "文本型()"
 						},
 						{
+							"name": "取存储总空间",
+							"description": "查询应用私有 files 目录所在存储卷的总字节数。系统无法提供统计值时可能返回 0。",
+							"global": true,
+							"params": [],
+							"return": "长整数型"
+						},
+						{
+							"name": "取存储总空间",
+							"description": "查询指定已有文件或目录所在存储卷的总字节数，不累计目录文件大小。系统无法提供统计值时可能返回 0。",
+							"global": true,
+							"params": [
+								{
+									"name": "路径",
+									"type": "文本型",
+									"description": "已有文件或目录的相对或绝对路径，不支持 content URI。"
+								}
+							],
+							"return": "长整数型"
+						},
+						{
+							"name": "取存储可用空间",
+							"description": "查询应用私有 files 目录所在卷向普通应用报告的可用字节数。0 也可能表示系统无法提供统计；结果不保证写入成功。",
+							"global": true,
+							"params": [],
+							"return": "长整数型"
+						},
+						{
+							"name": "取存储可用空间",
+							"description": "查询指定已有文件或目录所在卷的普通应用可用字节数，不含 root 保留空间。配额与写权限未必反映在数值中；0 也可能表示系统无法提供统计。",
+							"global": true,
+							"params": [
+								{
+									"name": "路径",
+									"type": "文本型",
+									"description": "已有文件或目录的相对或绝对路径，不支持 content URI。"
+								}
+							],
+							"return": "长整数型"
+						},
+						{
 							"name": "取文件编码",
 							"description": "根据文件开头的 BOM 判断 UTF-8、UTF-16 或 UTF-32 编码。",
 							"global": true,
@@ -11691,6 +12325,121 @@
 					"kind": "object",
 					"type": "simple.runtime.对话框操作",
 					"functions": [
+						{
+							"name": "弹出日期选择框",
+							"description": "以设备当前日期时间显示原生日期选择框，确认返回真并写入新日期时间对象，保留时间和时区；取消按钮、返回或框外点击返回假且保持输出不变。须在界面线程调用，不在错误处理语句中调用。",
+							"global": true,
+							"params": [
+								{
+									"name": "标题",
+									"type": "文本型",
+									"description": "对话框标题。"
+								},
+								{
+									"name": "结果",
+									"type": "日期时间型",
+									"description": "传址输出；仅确认时替换为新对象，取消保持原值，可与初值使用同一变量。",
+									"byRef": true
+								}
+							],
+							"return": "逻辑型"
+						},
+						{
+							"name": "弹出日期选择框",
+							"description": "以指定初值显示原生日期选择框，确认返回真并仅替换输出的年月日，保留初值的时间和时区；不修改初值，取消返回假且保持输出不变。初始日期须有效且在平台支持范围内。须在界面线程调用，不在错误处理语句中调用。",
+							"global": true,
+							"params": [
+								{
+									"name": "标题",
+									"type": "文本型",
+									"description": "对话框标题。"
+								},
+								{
+									"name": "初值",
+									"type": "日期时间型",
+									"description": "不得为空；传入对象保持不变。"
+								},
+								{
+									"name": "结果",
+									"type": "日期时间型",
+									"description": "传址输出；仅确认时替换为新对象，取消保持原值，可与初值使用同一变量。",
+									"byRef": true
+								}
+							],
+							"return": "逻辑型"
+						},
+						{
+							"name": "弹出时间选择框",
+							"description": "以设备当前时间和系统 12／24 小时制显示原生时间选择框；确认返回真并写入新日期时间对象，保留日期和时区，秒及毫秒归零，取消返回假且保持输出不变。须在界面线程调用，不在错误处理语句中调用。",
+							"global": true,
+							"params": [
+								{
+									"name": "标题",
+									"type": "文本型",
+									"description": "对话框标题。"
+								},
+								{
+									"name": "结果",
+									"type": "日期时间型",
+									"description": "传址输出；仅确认时替换为新对象，取消保持原值，可与初值使用同一变量。",
+									"byRef": true
+								}
+							],
+							"return": "逻辑型"
+						},
+						{
+							"name": "弹出时间选择框",
+							"description": "以指定初值和系统 12／24 小时制显示时间选择框；确认返回真并写入输出，保留日期和时区，秒及毫秒归零，不修改初值，取消返回假且保持输出不变。须在界面线程调用，不在错误处理语句中调用。",
+							"global": true,
+							"params": [
+								{
+									"name": "标题",
+									"type": "文本型",
+									"description": "对话框标题。"
+								},
+								{
+									"name": "初值",
+									"type": "日期时间型",
+									"description": "不得为空；传入对象保持不变。"
+								},
+								{
+									"name": "结果",
+									"type": "日期时间型",
+									"description": "传址输出；仅确认时替换为新对象，取消保持原值，可与初值使用同一变量。",
+									"byRef": true
+								}
+							],
+							"return": "逻辑型"
+						},
+						{
+							"name": "弹出时间选择框",
+							"description": "以指定初值和 12／24 小时制显示时间选择框；小时按 0–23 读取，确认返回真并写入输出，保留日期和时区，秒及毫秒归零。取消按钮、返回或框外点击返回假且保持输出不变，不修改初值。须在界面线程调用，不在错误处理语句中调用。",
+							"global": true,
+							"params": [
+								{
+									"name": "标题",
+									"type": "文本型",
+									"description": "对话框标题。"
+								},
+								{
+									"name": "初值",
+									"type": "日期时间型",
+									"description": "不得为空；传入对象保持不变。"
+								},
+								{
+									"name": "使用24小时制",
+									"type": "逻辑型",
+									"description": "真使用 24 小时制，假使用 12 小时制；不改变设备系统设置。"
+								},
+								{
+									"name": "结果",
+									"type": "日期时间型",
+									"description": "传址输出；仅确认时替换为新对象，取消保持原值，可与初值使用同一变量。",
+									"byRef": true
+								}
+							],
+							"return": "逻辑型"
+						},
 						{
 							"name": "弹出提示框",
 							"description": "显示一个无焦点的提示框。",
@@ -13888,6 +14637,12 @@
 					"type": "simple.runtime.程序操作",
 					"functions": [
 						{
+							"name": "生成GUID",
+							"description": "生成随机的第 4 版 UUID（GUID），返回带连字符的 36 字符小写文本；重复概率极低，不保证绝对唯一，不代表设备身份或递增编号。",
+							"global": true,
+							"return": "文本型"
+						},
+						{
 							"name": "取单元名",
 							"description": "返回当前单元名。",
 							"global": true,
@@ -15047,6 +15802,40 @@
 								}
 							],
 							"return": "文本型"
+						}
+					]
+				},
+				{
+					"name": "剪贴板操作",
+					"description": "主动读写系统剪贴板第一项纯文本；无需额外权限，读取受系统焦点和隐私限制。",
+					"kind": "object",
+					"type": "simple.runtime.剪贴板操作",
+					"functions": [
+						{
+							"name": "置剪贴板文本",
+							"description": "用一项纯文本替换剪贴板当前内容。空文本只写入空项目，不等同于清除剪贴板。",
+							"global": true,
+							"params": [
+								{
+									"name": "文本",
+									"type": "文本型",
+									"description": "要复制的文本，保留空白与换行。"
+								}
+							]
+						},
+						{
+							"name": "取剪贴板文本",
+							"description": "读取第一项现成文本。无文本或系统限制读取时返回空文本；不转换 URI、图片或意图，不记录或缓存读取内容。",
+							"global": true,
+							"params": [],
+							"return": "文本型"
+						},
+						{
+							"name": "剪贴板是否有文本",
+							"description": "第一项有当前可读取的非空文本时返回真；空格和换行属于文本。会实际读取内容，返回假不能区分空内容、非文本项目与系统限制。",
+							"global": true,
+							"params": [],
+							"return": "逻辑型"
 						}
 					]
 				},
