@@ -10,12 +10,12 @@ REM 参数值无效
 IF "%PROJECT_FILE%" == "" (
 	ECHO - 请指定要编译的 .properties 项目文件
 	ECHO - 用法: %~nx0 "项目文件.properties"
-	GOTO 失败退出
+	GOTO 结束退出
 )
 REM 检验项目文件
 IF NOT EXIST "%PROJECT_FILE%" (
 	ECHO - 未找到项目文件: "%PROJECT_FILE%"
-	GOTO 失败退出
+	GOTO 结束退出
 )
 
 REM APK文件
@@ -24,7 +24,7 @@ REM 参数值无效
 IF "%APK_FILE%" == "" (
 	ECHO - 请指定要调试的 .apk 应用文件
 	ECHO - 用法: %~nx0 "项目文件.properties" "应用文件.apk"
-	GOTO 失败退出
+	GOTO 结束退出
 )
 
 REM --------------------------------------------------
@@ -73,7 +73,7 @@ REM 通过 java.exe 使用编译器编译指定项目
 "%JAVA_HOME%\bin\java.exe" -classpath "%ANDROID_HOME%\tools\lib\apkbuilder.jar;%ANDROID_HOME%\platforms\android-%API_LEVEL%\tools\lib\dx.jar;%ANDROID_HOME%\tools\lib\androidprefs.jar;%ANDROID_HOME%\tools\lib\jarutils.jar;%SIMPLE_HOME%\SimpleCompiler.jar" simple.compiler.Main "%PROJECT_FILE%"
 IF NOT %ERRORLEVEL% == 0 (
 	ECHO - 编译应用失败！
-	GOTO 失败退出
+	GOTO 结束退出
 )
 
 REM --------------------------------------------------
@@ -84,21 +84,21 @@ ECHO [安装应用]
 REM 检验.apk文件
 IF NOT EXIST "%APK_FILE%" (
 	ECHO - 未找到应用文件: "%APK_FILE%"
-	GOTO 失败退出
+	GOTO 结束退出
 )
 
 REM 检验adb.exe文件
 SET "ADB_FILE=%ANDROID_HOME%\tools\adb.exe"
 IF NOT EXIST "%ADB_FILE%" (
 	ECHO - 未找到ADB工具: "%ADB_FILE%"
-	GOTO 失败退出
+	GOTO 结束退出
 )
 
 REM ADB安装应用
 "%ADB_FILE%" install -r "%APK_FILE%"
 IF NOT %ERRORLEVEL% == 0 (
 	ECHO - 应用安装失败！
-	GOTO 失败退出
+	GOTO 结束退出
 )
 
 REM --------------------------------------------------
@@ -110,7 +110,7 @@ REM 检验aapt.exe文件
 SET "AAPT_FILE=%ANDROID_HOME%\platforms\android-%API_LEVEL%\tools\aapt.exe"
 IF NOT EXIST "%AAPT_FILE%" (
 	ECHO - 未找到AAPT工具: "%AAPT_FILE%"
-	GOTO 失败退出
+	GOTO 结束退出
 )
 
 REM 从APK取包名
@@ -118,26 +118,18 @@ SET "PACKAGE_NAME="
 FOR /F "tokens=2 delims='" %%I IN ('CALL "%AAPT_FILE%" dump badging "%APK_FILE%" 2^>NUL ^| FINDSTR /B /C:"package: name="') DO SET "PACKAGE_NAME=%%I"
 IF NOT DEFINED PACKAGE_NAME (
 	ECHO - 未能从APK取得应用包名: "%APK_FILE%"
-	GOTO 失败退出
+	GOTO 结束退出
 )
 
 REM ADB启动应用
 "%ADB_FILE%" shell am start -n %PACKAGE_NAME%/simple.runtime.android.MainActivity
 IF NOT %ERRORLEVEL% == 0 (
 	ECHO - 应用启动失败！
-	GOTO 失败退出
+	GOTO 结束退出
 )
 
 REM --------------------------------------------------
 
-:成功退出
+:结束退出
 ECHO.
-REM 仅供工具调用，请勿 PAUSE
-EXIT /B 0
-
-REM --------------------------------------------------
-
-:失败退出
-ECHO.
-REM 仅供工具调用，请勿 PAUSE
-EXIT /B 1
+REM 仅供工具调用，请勿 PAUSE 和 EXIT /B 1

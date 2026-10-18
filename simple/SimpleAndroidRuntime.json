@@ -985,6 +985,218 @@
 					]
 				},
 				{
+					"name": "定时任务",
+					"description": "使用系统非精确调度启动本应用的服务或主界面，支持单次、重复及显式取消；窗口销毁不取消，执行受后台和省电限制。",
+					"icon": "icons/calendar-clock.svg",
+					"kind": "component",
+					"type": "simple.runtime.components.定时任务",
+					"inherits": [
+						"simple.runtime.components.组件"
+					],
+					"constants": [
+						{
+							"name": "十五分钟",
+							"type": "长整数型",
+							"value": "900000",
+							"description": "时长，单位毫秒。"
+						},
+						{
+							"name": "半个小时",
+							"type": "长整数型",
+							"value": "1800000",
+							"description": "时长，单位毫秒。"
+						},
+						{
+							"name": "一个小时",
+							"type": "长整数型",
+							"value": "3600000",
+							"description": "时长，单位毫秒。"
+						},
+						{
+							"name": "半天",
+							"type": "长整数型",
+							"value": "43200000",
+							"description": "时长，单位毫秒。"
+						},
+						{
+							"name": "一天",
+							"type": "长整数型",
+							"value": "86400000",
+							"description": "时长，单位毫秒。"
+						}
+					],
+					"functions": [
+						{
+							"name": "设置服务任务",
+							"description": "设置不带文本参数的单次服务任务。重复间隔为 0，省略文本参数时传递空文本；限制与完整接口相同。",
+							"params": [
+								{
+									"name": "任务编号",
+									"type": "整数型",
+									"description": "非负编号；与服务限定名共同标识任务。"
+								},
+								{
+									"name": "服务限定名",
+									"type": "文本型",
+									"description": "本应用清单中已声明的服务单元完整限定名。"
+								},
+								{
+									"name": "首次延迟",
+									"type": "长整数型",
+									"description": "首次执行延迟，单位毫秒，0 表示尽快执行。"
+								}
+							]
+						},
+						{
+							"name": "设置服务任务",
+							"description": "设置携带文本参数的单次服务任务。重复间隔为 0，省略文本参数时传递空文本；限制与完整接口相同。",
+							"params": [
+								{
+									"name": "任务编号",
+									"type": "整数型",
+									"description": "非负编号；与服务限定名共同标识任务。"
+								},
+								{
+									"name": "服务限定名",
+									"type": "文本型",
+									"description": "本应用清单中已声明的服务单元完整限定名。"
+								},
+								{
+									"name": "首次延迟",
+									"type": "长整数型",
+									"description": "首次执行延迟，单位毫秒，0 表示尽快执行。"
+								},
+								{
+									"name": "参数",
+									"type": "文本型",
+									"description": "传入服务的文本，空引用按空文本处理。"
+								}
+							]
+						},
+						{
+							"name": "设置服务任务",
+							"description": "设置或覆盖本应用指定服务和编号的任务。正常返回表示已提交调度；服务通过意图附加值“任务编号”和“参数”读取数据。",
+							"params": [
+								{
+									"name": "任务编号",
+									"type": "整数型",
+									"description": "非负编号；与服务限定名共同标识任务。"
+								},
+								{
+									"name": "服务限定名",
+									"type": "文本型",
+									"description": "本应用清单中已声明的服务单元完整限定名。"
+								},
+								{
+									"name": "首次延迟",
+									"type": "长整数型",
+									"description": "首次执行延迟，单位毫秒，0 表示尽快执行。"
+								},
+								{
+									"name": "重复间隔",
+									"type": "长整数型",
+									"description": "单位毫秒；0 为单次，正数为非精确重复，实际间隔可能被系统延长。"
+								},
+								{
+									"name": "参数",
+									"type": "文本型",
+									"description": "传入服务的文本，空引用按空文本处理。"
+								}
+							]
+						},
+						{
+							"name": "设置启动任务",
+							"description": "设置不带文本参数的单次应用启动任务。重复间隔为 0，省略文本参数时传递空文本；限制与完整接口相同。",
+							"params": [
+								{
+									"name": "任务编号",
+									"type": "整数型",
+									"description": "非负编号；启动任务与服务任务分别标识。"
+								},
+								{
+									"name": "首次延迟",
+									"type": "长整数型",
+									"description": "首次执行延迟，单位毫秒，不能为负。"
+								}
+							]
+						},
+						{
+							"name": "设置启动任务",
+							"description": "设置携带文本参数的单次应用启动任务。重复间隔为 0，省略文本参数时传递空文本；限制与完整接口相同。",
+							"params": [
+								{
+									"name": "任务编号",
+									"type": "整数型",
+									"description": "非负编号；启动任务与服务任务分别标识。"
+								},
+								{
+									"name": "首次延迟",
+									"type": "长整数型",
+									"description": "首次执行延迟，单位毫秒，不能为负。"
+								},
+								{
+									"name": "参数",
+									"type": "文本型",
+									"description": "传给应用的文本，空引用按空文本处理。"
+								}
+							]
+						},
+						{
+							"name": "设置启动任务",
+							"description": "设置或覆盖指定编号的主界面启动任务；在程序被启动事件的意图中读取“任务编号”和“参数”。后台界面启动可能被系统限制。",
+							"params": [
+								{
+									"name": "任务编号",
+									"type": "整数型",
+									"description": "非负编号；启动任务与服务任务分别标识。"
+								},
+								{
+									"name": "首次延迟",
+									"type": "长整数型",
+									"description": "首次执行延迟，单位毫秒，不能为负。"
+								},
+								{
+									"name": "重复间隔",
+									"type": "长整数型",
+									"description": "单位毫秒；0 为单次，正数为非精确重复。"
+								},
+								{
+									"name": "参数",
+									"type": "文本型",
+									"description": "传给应用的文本，空引用按空文本处理。"
+								}
+							]
+						},
+						{
+							"name": "取消服务任务",
+							"description": "取消指定服务和编号的任务；不存在时不报错，不中断已经开始处理的服务，应用进程重建后也可取消。",
+							"params": [
+								{
+									"name": "任务编号",
+									"type": "整数型",
+									"description": "设置任务时使用的非负编号。"
+								},
+								{
+									"name": "服务限定名",
+									"type": "文本型",
+									"description": "设置任务时使用的服务完整限定名。"
+								}
+							]
+						},
+						{
+							"name": "取消启动任务",
+							"description": "取消指定编号的应用启动任务；不存在时不报错。",
+							"params": [
+								{
+									"name": "任务编号",
+									"type": "整数型",
+									"description": "设置任务时使用的非负编号。"
+								}
+							]
+						}
+					]
+				},
+				{
 					"name": "计时器",
 					"description": "按照指定时间间隔触发计时事件的组件。",
 					"icon": "icons/stopwatch.svg",
@@ -1017,7 +1229,7 @@
 				{
 					"name": "音频播放器",
 					"description": "音频播放器组件。",
-					"icon": "icons/player-play.svg",
+					"icon": "icons/music.svg",
 					"kind": "component",
 					"type": "simple.runtime.components.音频播放器",
 					"inherits": [
@@ -1143,6 +1355,17 @@
 						},
 						{
 							"name": "置音量",
+							"description": "统一设置左右声道音量，不改变原有音量取值约定。",
+							"params": [
+								{
+									"name": "音量",
+									"type": "单精度小数型",
+									"description": "左右声道统一的音量，范围 0 至 1。"
+								}
+							]
+						},
+						{
+							"name": "置音量",
 							"description": "设置音量。（范围0.0~1.0之间）",
 							"params": [
 								{
@@ -1215,8 +1438,420 @@
 					]
 				},
 				{
+					"name": "音效播放器",
+					"description": "预加载短音效并支持多路播放。载入返回音效编号，播放返回播放编号；资产与应用私有文件无需额外权限。",
+					"icon": "icons/wave-sine.svg",
+					"kind": "component",
+					"type": "simple.runtime.components.音效播放器",
+					"inherits": [
+						"simple.runtime.components.组件"
+					],
+					"events": [
+						{
+							"name": "载入完毕",
+							"description": "音效异步载入成功后在主线程触发，随后可以播放。",
+							"params": [
+								{
+									"name": "音效编号",
+									"type": "整数型"
+								}
+							]
+						},
+						{
+							"name": "载入失败",
+							"description": "音效异步解码失败后在主线程触发，不再触发载入完毕。",
+							"params": [
+								{
+									"name": "音效编号",
+									"type": "整数型"
+								},
+								{
+									"name": "失败状态",
+									"type": "整数型",
+									"description": "系统返回的非零失败状态。"
+								}
+							]
+						}
+					],
+					"functions": [
+						{
+							"name": "初始化播放器",
+							"description": "创建播放器并设置最大并发播放数；重建会释放旧音效及播放流。",
+							"params": [
+								{
+									"name": "最大并发数",
+									"type": "整数型",
+									"description": "必须大于 0。"
+								}
+							]
+						},
+						{
+							"name": "载入音效",
+							"description": "异步载入资产文件名或可访问的绝对路径，须等待载入完毕。不接收网络地址或 content URI；同步失败返回 -1，异步失败通过事件通知。",
+							"params": [
+								{
+									"name": "音效文件",
+									"type": "文本型"
+								}
+							],
+							"return": "整数型"
+						},
+						{
+							"name": "播放音效",
+							"description": "播放已就绪音效一次，返回正播放编号，未就绪或播放失败为 0。",
+							"params": [
+								{
+									"name": "音效编号",
+									"type": "整数型"
+								}
+							],
+							"return": "整数型"
+						},
+						{
+							"name": "播放音效",
+							"description": "播放已就绪音效，返回正播放编号，未就绪或播放失败为 0。",
+							"params": [
+								{
+									"name": "音效编号",
+									"type": "整数型"
+								},
+								{
+									"name": "循环次数",
+									"type": "整数型",
+									"description": "0 播放一次，-1 持续循环，正数表示额外重复次数，不得小于 -1。"
+								}
+							],
+							"return": "整数型"
+						},
+						{
+							"name": "暂停播放",
+							"description": "暂停指定播放流，已经结束或无效的编号由系统忽略。",
+							"params": [
+								{
+									"name": "播放编号",
+									"type": "整数型",
+									"description": "播放音效返回的编号，不是音效编号。"
+								}
+							]
+						},
+						{
+							"name": "继续播放",
+							"description": "继续指定播放流，已经结束或无效的编号由系统忽略。",
+							"params": [
+								{
+									"name": "播放编号",
+									"type": "整数型",
+									"description": "播放音效返回的编号，不是音效编号。"
+								}
+							]
+						},
+						{
+							"name": "停止播放",
+							"description": "停止指定播放流，已经结束或无效的编号由系统忽略。",
+							"params": [
+								{
+									"name": "播放编号",
+									"type": "整数型",
+									"description": "播放音效返回的编号，不是音效编号。"
+								}
+							]
+						},
+						{
+							"name": "卸载音效",
+							"description": "卸载音效并取消尚未派发的载入回调，系统确认卸载返回真。",
+							"params": [
+								{
+									"name": "音效编号",
+									"type": "整数型"
+								}
+							],
+							"return": "逻辑型"
+						},
+						{
+							"name": "释放播放器",
+							"description": "释放全部音效、播放流及待派发回调，可重复调用并重新初始化。"
+						}
+					]
+				},
+				{
+					"name": "音量管理器",
+					"description": "读取、设置系统音频流的整数音量档位，并检测有线耳机连接状态。普通音频权限由组件声明；固定音量及勿扰策略可能限制设置，调用后应读取实际档位。",
+					"icon": "icons/volume.svg",
+					"kind": "component",
+					"type": "simple.runtime.components.音量管理器",
+					"inherits": [
+						"simple.runtime.components.组件"
+					],
+					"permissions": [
+						"android.permission.MODIFY_AUDIO_SETTINGS"
+					],
+					"constants": [
+						{
+							"name": "音量_系统",
+							"type": "整数型",
+							"value": "1"
+						},
+						{
+							"name": "音量_通话",
+							"type": "整数型",
+							"value": "2"
+						},
+						{
+							"name": "音量_铃声",
+							"type": "整数型",
+							"value": "3"
+						},
+						{
+							"name": "音量_媒体",
+							"type": "整数型",
+							"value": "4"
+						},
+						{
+							"name": "音量_闹钟",
+							"type": "整数型",
+							"value": "5"
+						}
+					],
+					"functions": [
+						{
+							"name": "取音量",
+							"description": "读取指定类型的当前系统音量档位，不是百分比。",
+							"params": [
+								{
+									"name": "类型",
+									"type": "整数型",
+									"description": "组件的音量类型常量，其它值回退到系统提示音。"
+								}
+							],
+							"return": "整数型"
+						},
+						{
+							"name": "取最大音量",
+							"description": "读取指定类型的最大音量档位，各类型及设备的范围可能不同。",
+							"params": [
+								{
+									"name": "类型",
+									"type": "整数型",
+									"description": "组件的音量类型常量，其它值回退到系统提示音。"
+								}
+							],
+							"return": "整数型"
+						},
+						{
+							"name": "置音量",
+							"description": "设置指定类型的系统音量，不显示系统面板；影响其它应用。系统可能忽略设置，应读取确认；拒绝时抛出可捕获的运行错误，不自动取得通知策略访问权限。",
+							"params": [
+								{
+									"name": "类型",
+									"type": "整数型",
+									"description": "组件的音量类型常量，其它值回退到系统提示音。"
+								},
+								{
+									"name": "音量",
+									"type": "整数型",
+									"description": "目标整数档位，应在 0 至该类型最大音量之间，实际限制由系统决定。"
+								}
+							]
+						},
+						{
+							"name": "有线耳机是否连接",
+							"description": "检测系统识别的有线耳麦、有线耳机及明确标识的 USB 耳机，不包含蓝牙；不代表当前播放路由。无需录音或蓝牙运行时权限。",
+							"return": "逻辑型"
+						}
+					]
+				},
+				{
+					"name": "通讯录",
+					"description": "访问和管理设备系统通讯录中的联系人及分组。联系人结果每项为文本数组：[原始联系人编号、姓名、电话号码、聚合联系人编号]。修改使用原始联系人编号，不直接访问 SIM 卡。",
+					"icon": "icons/address-book.svg",
+					"kind": "component",
+					"type": "simple.runtime.components.通讯录",
+					"inherits": [
+						"simple.runtime.components.组件"
+					],
+					"permissions": [
+						"android.permission.READ_CONTACTS",
+						"android.permission.WRITE_CONTACTS"
+					],
+					"properties": [
+						{
+							"name": "最近错误",
+							"description": "最近一次完成操作的错误信息，空文本表示成功；异步结果优先以事件参数为准。",
+							"type": "文本型",
+							"writable": false
+						},
+						{
+							"name": "读取中",
+							"description": "是否正在异步读取；同时只接受一个读取任务。",
+							"type": "逻辑型",
+							"writable": false
+						}
+					],
+					"events": [
+						{
+							"name": "取联系人完毕",
+							"description": "异步读取结束后在主线程通知；失败时结果为空集合，错误信息非空。",
+							"params": [
+								{
+									"name": "联系人列表",
+									"type": "集合",
+									"description": "每项为四列文本数组，列顺序见组件说明。"
+								},
+								{
+									"name": "请求标记",
+									"type": "文本型",
+									"description": "调用时传入的请求标记。"
+								},
+								{
+									"name": "错误信息",
+									"type": "文本型",
+									"description": "空文本表示成功。"
+								}
+							]
+						}
+					],
+					"functions": [
+						{
+							"name": "取联系人",
+							"description": "当前可访问的原始联系人及号码；大通讯录应使用异步读取。",
+							"return": "集合"
+						},
+						{
+							"name": "异步取联系人",
+							"description": "后台读取联系人，请求标记为空文本；沿用重复请求和销毁后的拒绝规则。 接受请求返回真，不表示读取成功。",
+							"return": "逻辑型"
+						},
+						{
+							"name": "异步取联系人",
+							"description": "后台读取联系人；重复请求或组件已销毁时拒绝，不触发完成事件。 接受请求返回真，不表示读取成功。",
+							"params": [
+								{
+									"name": "请求标记",
+									"type": "文本型",
+									"description": "随完成事件返回的请求标记。"
+								}
+							],
+							"return": "逻辑型"
+						},
+						{
+							"name": "添加联系人",
+							"description": "以一次批量事务创建无指定账号的本地原始联系人、姓名和号码。 新原始联系人编号；失败为空文本。不会更新同名联系人。",
+							"params": [
+								{
+									"name": "名称",
+									"type": "文本型",
+									"description": "联系人姓名，不得为空。"
+								},
+								{
+									"name": "电话号码",
+									"type": "文本型",
+									"description": "电话号码，不得为空。"
+								}
+							],
+							"return": "文本型"
+						},
+						{
+							"name": "删除联系人",
+							"description": "删除一个原始联系人及其数据；系统可能向所属账号同步这次删除。 实际删除一条原始联系人返回真；不存在或失败返回假。",
+							"params": [
+								{
+									"name": "原始联系人编号",
+									"type": "文本型",
+									"description": "本组件返回的原始联系人编号，不能传姓名或聚合联系人编号。"
+								}
+							],
+							"return": "逻辑型"
+						},
+						{
+							"name": "取联系人分组",
+							"description": "分组集合，每项为文本数组：[分组编号、名称、账号名称、账号类型、数据集]。",
+							"return": "集合"
+						},
+						{
+							"name": "取分组联系人",
+							"description": "该分组中的联系人，四列结构与取联系人相同。",
+							"params": [
+								{
+									"name": "分组编号",
+									"type": "文本型",
+									"description": "分组编号。"
+								}
+							],
+							"return": "集合"
+						},
+						{
+							"name": "新建联系人分组",
+							"description": "创建指定账号的分组；本地分组的账号名称和类型均传空文本，设备可能不支持。 分组编号；失败为空文本。不会创建或注册系统账号。",
+							"params": [
+								{
+									"name": "名称",
+									"type": "文本型",
+									"description": "分组名称，不得为空。"
+								},
+								{
+									"name": "账号名称",
+									"type": "文本型",
+									"description": "已存在账号的名称。"
+								},
+								{
+									"name": "账号类型",
+									"type": "文本型",
+									"description": "已存在账号的类型，必须与账号名称同时为空或同时非空。"
+								}
+							],
+							"return": "文本型"
+						},
+						{
+							"name": "添加分组联系人",
+							"description": "添加成功或已属于该分组返回真；失败返回假。",
+							"params": [
+								{
+									"name": "分组编号",
+									"type": "文本型",
+									"description": "分组编号。"
+								},
+								{
+									"name": "原始联系人编号",
+									"type": "文本型",
+									"description": "同账号、同数据集的原始联系人编号。"
+								}
+							],
+							"return": "逻辑型"
+						},
+						{
+							"name": "移除分组联系人",
+							"description": "仅移除分组关系，保留联系人。 实际移除关系返回真，不存在或失败返回假。",
+							"params": [
+								{
+									"name": "分组编号",
+									"type": "文本型",
+									"description": "分组编号。"
+								},
+								{
+									"name": "原始联系人编号",
+									"type": "文本型",
+									"description": "原始联系人编号。"
+								}
+							],
+							"return": "逻辑型"
+						},
+						{
+							"name": "删除联系人分组",
+							"description": "仅删除分组，保留联系人。 实际删除分组返回真，不存在或失败返回假。",
+							"params": [
+								{
+									"name": "分组编号",
+									"type": "文本型",
+									"description": "分组编号。"
+								}
+							],
+							"return": "逻辑型"
+						}
+					]
+				},
+				{
 					"name": "电话",
-					"description": "Simple的电话组件。允许访问手机功能。",
+					"description": "访问设备电话、SIM 卡、通话记录和振动功能。权限按操作申请；通话记录权限受系统及安装来源限制。",
 					"icon": "icons/phone.svg",
 					"kind": "component",
 					"type": "simple.runtime.components.电话",
@@ -1224,38 +1859,131 @@
 						"simple.runtime.components.组件"
 					],
 					"permissions": [
-						"android.permission.CALL_PHONE"
+						"android.permission.CALL_PHONE",
+						"android.permission.VIBRATE",
+						"android.permission.READ_PHONE_STATE",
+						"android.permission.READ_PHONE_NUMBERS",
+						"android.permission.READ_CALL_LOG",
+						"android.permission.WRITE_CALL_LOG"
+					],
+					"events": [
+						{
+							"name": "通话状态改变",
+							"description": "开始监听后在主线程通知当前状态及后续变化。0 空闲、1 响铃、2 摘机（包括拨号和通话），不代表对方已接听。",
+							"params": [
+								{
+									"name": "状态",
+									"type": "整数型",
+									"description": "系统通话状态。"
+								},
+								{
+									"name": "电话号码",
+									"type": "文本型",
+									"description": "来电号码；未获读取通话记录权限或系统不提供时可能为空。"
+								}
+							]
+						}
 					],
 					"properties": [
 						{
 							"name": "可用",
 							"type": "逻辑型",
-							"description": "真表示电话功能可用，假表示电话功能不可用",
+							"description": "设备声明电话硬件且能取得电话服务；不代表 SIM 卡就绪、权限已授予或呼叫一定成功。",
+							"writable": false
+						},
+						{
+							"name": "监听中",
+							"type": "逻辑型",
+							"description": "此组件是否正在监听通话状态。",
+							"writable": false
+						},
+						{
+							"name": "通话状态",
+							"type": "整数型",
+							"description": "需要电话状态权限。0 空闲、1 响铃、2 摘机；无电话能力时为 -1。",
 							"writable": false
 						}
 					],
 					"functions": [
 						{
 							"name": "呼叫",
-							"description": "呼叫给定电话号码的电话。",
+							"description": "直接拨打指定号码，需要呼叫权限，可能产生费用。",
 							"params": [
 								{
 									"name": "电话号码",
 									"type": "文本型",
-									"description": "仅数字形式的电话号码（无空格、破折号等）"
+									"description": "电话号码，不得为空。"
+								}
+							]
+						},
+						{
+							"name": "启动拨号界面",
+							"description": "打开系统拨号界面，由用户确认拨打，不需要呼叫权限。",
+							"params": [
+								{
+									"name": "电话号码",
+									"type": "文本型",
+									"description": "预填号码，空文本表示不预填。"
 								}
 							]
 						},
 						{
 							"name": "振动",
-							"description": "振动手机。",
+							"description": "控制设备振动，需要振动权限。",
 							"params": [
 								{
-									"name": "持续",
+									"name": "持续时间",
 									"type": "整数型",
-									"description": "持续时间（以毫秒为单位）"
+									"description": "持续毫秒数，0 表示停止振动，不得为负数。"
 								}
 							]
+						},
+						{
+							"name": "开始监听",
+							"description": "在主线程开始监听通话状态，需要电话状态权限；重复调用不重复注册。"
+						},
+						{
+							"name": "停止监听",
+							"description": "停止监听；未开始时无需处理，停止后不再派发旧监听器的回调。"
+						},
+						{
+							"name": "取SIM卡状态",
+							"description": "查询默认 SIM 卡状态。0 未知、1 无卡、2 需要 PIN、3 需要 PUK、4 网络锁、5 就绪等。",
+							"return": "整数型"
+						},
+						{
+							"name": "取SIM卡状态",
+							"description": "查询指定卡槽的系统 SIM 卡状态，需要 Android 8.0 或更高版本。",
+							"params": [
+								{
+									"name": "卡槽索引",
+									"type": "整数型",
+									"description": "从 0 开始的卡槽索引，不是订阅编号。"
+								}
+							],
+							"return": "整数型"
+						},
+						{
+							"name": "取本机号码",
+							"description": "需要读取号码权限；旧目标版本也可使用电话状态权限。SIM 卡未写入号码或系统不提供时返回空文本。",
+							"return": "文本型"
+						},
+						{
+							"name": "取通话记录",
+							"description": "同步读取最近最多 100 条记录，需要 Android 4.1 及读取通话记录权限。每项为文本数组：[记录编号、号码、缓存联系人名、类型、时间戳毫秒、时长秒]，按时间及编号倒序排列；类型采用系统值，如 1 来电、2 去电、3 未接。",
+							"return": "集合"
+						},
+						{
+							"name": "删除通话记录",
+							"description": "精确删除一条记录，需要 Android 4.1 及写入通话记录权限。删除成功返回真，记录不存在返回假。",
+							"params": [
+								{
+									"name": "记录编号",
+									"type": "文本型",
+									"description": "查询结果中的正整数编号，不是电话号码。"
+								}
+							],
+							"return": "逻辑型"
 						}
 					]
 				},
@@ -1431,6 +2159,11 @@
 									"description": "请求权限名。"
 								}
 							],
+							"return": "逻辑型"
+						},
+						{
+							"name": "请求权限",
+							"description": "请求清单中尚未授权的权限，请求标记为空文本；结果通过原有事件返回。 发起请求返回真，否则返回假。",
 							"return": "逻辑型"
 						},
 						{
@@ -1817,6 +2550,47 @@
 					]
 				},
 				{
+					"name": "红外发射器",
+					"description": "使用设备内置红外发射器发送遥控信号；需要 Android 4.4（API 19）及以上系统和红外发射硬件。",
+					"kind": "component",
+					"type": "simple.runtime.components.红外发射器",
+					"inherits": [
+						"simple.runtime.components.组件"
+					],
+					"permissions": [
+						"android.permission.TRANSMIT_IR"
+					],
+					"functions": [
+						{
+							"name": "是否支持红外",
+							"description": "判断系统和硬件是否支持红外发射。",
+							"return": "逻辑型"
+						},
+						{
+							"name": "取发射器支持频率",
+							"description": "获取支持的载波频率范围，单位 Hz；每项格式为“最小频率-最大频率”，包含两个端点。不支持或没有频率信息时返回空数组。",
+							"return": "文本型()"
+						},
+						{
+							"name": "发射信号",
+							"description": "同步发送红外脉冲，依次交替发射和停顿；不支持红外时不发射，参数无效时抛出异常。",
+							"params": [
+								{
+									"name": "频率",
+									"type": "整数型",
+									"description": "载波频率，单位 Hz，须为正数并位于设备支持范围内。"
+								},
+								{
+									"name": "脉冲时长",
+									"type": "整数型()",
+									"description": "依次交替的发射、停顿时长，单位微秒；数组不能为空，每项须为正数，总时长不得超过 2 秒。"
+								}
+							]
+						}
+					],
+					"icon": "icons/device-remote.svg"
+				},
+				{
 					"name": "相机",
 					"icon": "icons/camera.svg",
 					"description": "调用系统相机和相册，提供拍照、录像及闪光灯控制。",
@@ -1932,6 +2706,353 @@
 						{
 							"name": "关闭闪光灯",
 							"description": "关闭持续照明并释放摄像头资源。"
+						}
+					]
+				},
+				{
+					"name": "文件选择器",
+					"description": "调用系统文档选择界面，返回授权 content URI，支持文档读写及复制到私有文件路径。文件功能要求 Android 4.4，目录要求 Android 5.0。",
+					"kind": "component",
+					"icon": "icons/folder-open.svg",
+					"type": "simple.runtime.components.文件选择器",
+					"inherits": [
+						"simple.runtime.components.组件"
+					],
+					"events": [
+						{
+							"name": "文件选择完毕",
+							"description": "用户选择文件成功时在主线程触发，URI 不是物理文件路径。",
+							"params": [
+								{
+									"name": "文件列表",
+									"type": "文本型()",
+									"description": "选中文件的 content URI 数组，按返回顺序去重。"
+								}
+							]
+						},
+						{
+							"name": "文件创建完毕",
+							"description": "用户确定保存位置并创建空文件后触发。",
+							"params": [
+								{
+									"name": "文件",
+									"type": "文本型",
+									"description": "系统创建的新文件 URI，尚未写入业务数据。"
+								}
+							]
+						},
+						{
+							"name": "目录选择完毕",
+							"description": "用户确认目录授权后触发，后续仅可访问授权目录及其子项。",
+							"params": [
+								{
+									"name": "目录",
+									"type": "文本型",
+									"description": "用户授权的目录树 URI。"
+								}
+							]
+						},
+						{
+							"name": "取消选择",
+							"description": "用户取消文件、创建或目录选择时触发，不作为失败处理。"
+						},
+						{
+							"name": "选择失败",
+							"description": "无法发起选择或返回结果无效时在主线程触发。",
+							"params": [
+								{
+									"name": "错误信息",
+									"type": "文本型",
+									"description": "不支持的系统、参数、启动或结果错误说明。"
+								}
+							]
+						}
+					],
+					"properties": [
+						{
+							"name": "正在选择",
+							"type": "逻辑型",
+							"description": "当前是否有尚未返回的系统选择请求。",
+							"writable": false
+						},
+						{
+							"name": "错误信息",
+							"type": "文本型",
+							"description": "最近一次失败的说明；成功开始选择或完成同步操作时清空。",
+							"writable": false
+						}
+					],
+					"functions": [
+						{
+							"name": "选择文件",
+							"description": "选择单个任意类型文件，要求 Android 4.4 或更高版本。"
+						},
+						{
+							"name": "选择文件",
+							"description": "按 MIME 类型选择单个文件。",
+							"params": [
+								{
+									"name": "文件类型",
+									"type": "文本型",
+									"description": "MIME 类型，例如 text/plain、image/* 或 任意类型。"
+								}
+							]
+						},
+						{
+							"name": "选择文件",
+							"description": "选择一个或多个同类文件，结果通过文件选择完毕返回。",
+							"params": [
+								{
+									"name": "文件类型",
+									"type": "文本型",
+									"description": "允许的 MIME 类型。"
+								},
+								{
+									"name": "允许多选",
+									"type": "逻辑型",
+									"description": "是否允许返回多个文件。"
+								}
+							]
+						},
+						{
+							"name": "选择文件",
+							"description": "打开系统文件选择器，可提示初始位置，不承诺系统一定采用。",
+							"params": [
+								{
+									"name": "文件类型",
+									"type": "文本型",
+									"description": "允许的 MIME 类型。"
+								},
+								{
+									"name": "允许多选",
+									"type": "逻辑型",
+									"description": "是否允许多选，系统提供方可能只返回一个文件。"
+								},
+								{
+									"name": "初始位置",
+									"type": "文本型",
+									"description": "文档或目录 content URI；空文本不指定，Android 8.0 起仅作为提示。"
+								}
+							]
+						},
+						{
+							"name": "创建文件",
+							"description": "让用户选择保存位置并创建文件，默认 MIME 类型为 application/octet-stream。",
+							"params": [
+								{
+									"name": "文件名",
+									"type": "文本型",
+									"description": "建议文件名；同名文件由系统处理，不承诺覆盖。"
+								}
+							]
+						},
+						{
+							"name": "创建文件",
+							"description": "创建指定类型的文件，返回 URI 后再写入数据。",
+							"params": [
+								{
+									"name": "文件名",
+									"type": "文本型",
+									"description": "建议文件名。"
+								},
+								{
+									"name": "文件类型",
+									"type": "文本型",
+									"description": "准确的 MIME 类型，例如 application/xml。"
+								}
+							]
+						},
+						{
+							"name": "创建文件",
+							"description": "打开系统保存界面；取消时不会由组件额外写入数据。",
+							"params": [
+								{
+									"name": "文件名",
+									"type": "文本型",
+									"description": "不含路径分隔符的建议文件名。"
+								},
+								{
+									"name": "文件类型",
+									"type": "文本型",
+									"description": "不能包含通配符的 MIME 类型。"
+								},
+								{
+									"name": "初始位置",
+									"type": "文本型",
+									"description": "空文本或 content URI，Android 8.0 起作为初始位置提示。"
+								}
+							]
+						},
+						{
+							"name": "选择目录",
+							"description": "让用户授权一个目录及其子项，要求 Android 5.0 或更高版本。"
+						},
+						{
+							"name": "选择目录",
+							"description": "打开系统目录授权界面，系统禁止访问的目录仍不能选择。",
+							"params": [
+								{
+									"name": "初始位置",
+									"type": "文本型",
+									"description": "空文本或目录 content URI，系统可忽略此提示。"
+								}
+							]
+						},
+						{
+							"name": "取名称",
+							"description": "查询提供方给出的显示名称，目录树 URI 会转换为对应文档 URI。 提供方的显示名称；未提供时为空文本。",
+							"params": [
+								{
+									"name": "位置",
+									"type": "文本型",
+									"description": "文件或目录的 content URI。"
+								}
+							],
+							"return": "文本型"
+						},
+						{
+							"name": "取文件大小",
+							"description": "查询提供方报告的字节大小，云文件等可能无法提供大小。 字节大小；未知时为 -1，不代表空文件。",
+							"params": [
+								{
+									"name": "文件",
+									"type": "文本型",
+									"description": "文件 content URI。"
+								}
+							],
+							"return": "长整数型"
+						},
+						{
+							"name": "取文件类型",
+							"description": "查询 MIME 类型，目录类型为 vnd.android.document/directory。 MIME 类型；提供方未提供时为空文本。",
+							"params": [
+								{
+									"name": "位置",
+									"type": "文本型",
+									"description": "文件或目录 content URI。"
+								}
+							],
+							"return": "文本型"
+						},
+						{
+							"name": "读入字节集",
+							"description": "将文件完整读入内存；大文件优先复制到文件，云文件读取可能阻塞。 文件的完整字节内容。",
+							"params": [
+								{
+									"name": "文件",
+									"type": "文本型",
+									"description": "已经获得读权限的文件 content URI。"
+								}
+							],
+							"return": "字节型()"
+						},
+						{
+							"name": "写出字节集",
+							"description": "以覆盖截断模式写入文件，失败可能已经写入部分内容，不保证跨提供方原子提交。",
+							"params": [
+								{
+									"name": "文件",
+									"type": "文本型",
+									"description": "已经获得写权限的文件 content URI。"
+								},
+								{
+									"name": "数据",
+									"type": "字节型()",
+									"description": "要写入的字节集，不得为空引用。"
+								}
+							]
+						},
+						{
+							"name": "复制到文件",
+							"description": "将文档流式复制到本地文件并返回绝对路径，供 EXCEL 等路径接口直接使用；目标目录须已存在。 完成复制后的本地绝对路径。",
+							"params": [
+								{
+									"name": "文件",
+									"type": "文本型",
+									"description": "已经获得读权限的文件 content URI。"
+								},
+								{
+									"name": "目标路径",
+									"type": "文本型",
+									"description": "相对路径以应用私有 files 目录为基准，也可传入有权限的绝对路径。"
+								}
+							],
+							"return": "文本型"
+						},
+						{
+							"name": "保留访问授权",
+							"description": "保留 URI 的读权限；用户移动、删除文档或撤销授权后仍可能失效。 成功保留返回真，否则返回假并设置错误信息。",
+							"params": [
+								{
+									"name": "位置",
+									"type": "文本型",
+									"description": "系统选择返回的可持久授权 URI。"
+								}
+							],
+							"return": "逻辑型"
+						},
+						{
+							"name": "保留访问授权",
+							"description": "保留读权限或读写权限，不会扩大系统选择时获得的授权范围。 成功返回真；提供方不支持或权限不足返回假。",
+							"params": [
+								{
+									"name": "位置",
+									"type": "文本型",
+									"description": "系统选择返回的可持久授权 URI。"
+								},
+								{
+									"name": "允许写入",
+									"type": "逻辑型",
+									"description": "是否同时保留写权限，必须已经获得相应授权。"
+								}
+							],
+							"return": "逻辑型"
+						},
+						{
+							"name": "释放访问授权",
+							"description": "释放该 URI 自身的持久读写授权，不删除文件或目录。 成功释放返回真，没有对应记录或失败返回假。",
+							"params": [
+								{
+									"name": "位置",
+									"type": "文本型",
+									"description": "先前保留授权的原始 URI。"
+								}
+							],
+							"return": "逻辑型"
+						},
+						{
+							"name": "取子项",
+							"description": "列出已授权目录的直接子项 URI，不递归、不保证提供方返回顺序，要求 Android 5.0。 直接子项的 content URI 数组，空目录返回空数组。",
+							"params": [
+								{
+									"name": "目录",
+									"type": "文本型",
+									"description": "已授权目录树或其目录文档 URI。"
+								}
+							],
+							"return": "文本型()"
+						},
+						{
+							"name": "创建子文件",
+							"description": "在已授权目录内创建子文件，不额外弹出选择界面，要求 Android 5.0。 新文件 URI；同名文件是否重命名由提供方决定。",
+							"params": [
+								{
+									"name": "目录",
+									"type": "文本型",
+									"description": "已获得写权限的目录树或其目录文档 URI。"
+								},
+								{
+									"name": "文件名",
+									"type": "文本型",
+									"description": "建议显示名称。"
+								},
+								{
+									"name": "文件类型",
+									"type": "文本型",
+									"description": "不能包含通配符的准确 MIME 类型。"
+								}
+							],
+							"return": "文本型"
 						}
 					]
 				},
@@ -2212,6 +3333,303 @@
 							"description": "停止并释放朗读引擎；后续朗读可重新初始化。"
 						}
 					]
+				},
+				{
+					"name": "TCP服务端",
+					"description": "监听 TCP 端口，接收客户连接并按地址和端口收发字节流。",
+					"icon": "icons/server.svg",
+					"kind": "component",
+					"type": "simple.runtime.components.TCP服务端",
+					"inherits": [
+						"simple.runtime.components.组件"
+					],
+					"permissions": [
+						"android.permission.INTERNET"
+					],
+					"events": [
+						{
+							"name": "客户进入",
+							"description": "接受客户连接后，通过组件创建线程的消息队列派发。",
+							"params": [
+								{
+									"name": "地址",
+									"type": "文本型",
+									"description": "对端 IP 地址。"
+								},
+								{
+									"name": "端口",
+									"type": "整数型",
+									"description": "对端端口号。"
+								}
+							]
+						},
+						{
+							"name": "收到数据",
+							"description": "读取到客户发送的字节时触发；一次事件不保证对应一条完整消息。",
+							"params": [
+								{
+									"name": "数据",
+									"type": "字节型()",
+									"description": "要发送或本次收到的字节数组。"
+								},
+								{
+									"name": "地址",
+									"type": "文本型",
+									"description": "对端 IP 地址。"
+								},
+								{
+									"name": "端口",
+									"type": "整数型",
+									"description": "对端端口号。"
+								}
+							]
+						},
+						{
+							"name": "客户离开",
+							"description": "客户离开通知事件，派发行为沿用原组件实现。",
+							"params": [
+								{
+									"name": "地址",
+									"type": "文本型",
+									"description": "对端 IP 地址。"
+								},
+								{
+									"name": "端口",
+									"type": "整数型",
+									"description": "对端端口号。"
+								}
+							]
+						}
+					],
+					"functions": [
+						{
+							"name": "置接收数据包大小",
+							"description": "设置后续读取使用的缓冲区大小，不添加分包或组包协议。",
+							"params": [
+								{
+									"name": "大小",
+									"type": "整数型",
+									"description": "接收缓冲区大小，单位字节，初始为 1024；TCP 不以此划分消息边界。"
+								}
+							]
+						},
+						{
+							"name": "启动服务器",
+							"description": "在后台线程绑定并监听端口；方法返回不代表绑定已经成功。",
+							"params": [
+								{
+									"name": "端口",
+									"type": "整数型",
+									"description": "本地监听端口号；0 表示由系统分配。"
+								}
+							]
+						},
+						{
+							"name": "发送数据",
+							"description": "同步向地址和端口匹配的已连接客户发送字节；应在工作线程调用。",
+							"params": [
+								{
+									"name": "数据",
+									"type": "字节型()",
+									"description": "要发送或本次收到的字节数组。"
+								},
+								{
+									"name": "地址",
+									"type": "文本型",
+									"description": "对端 IP 地址。"
+								},
+								{
+									"name": "端口",
+									"type": "整数型",
+									"description": "对端端口号。"
+								}
+							]
+						},
+						{
+							"name": "关闭服务器",
+							"description": "关闭监听 Socket 并清空客户列表，已有客户连接的清理行为沿用原组件。"
+						}
+					]
+				},
+				{
+					"name": "TCP客户端",
+					"description": "异步连接 TCP 服务端，通过事件接收字节流并同步发送字节。",
+					"icon": "icons/plug-connected.svg",
+					"kind": "component",
+					"type": "simple.runtime.components.TCP客户端",
+					"inherits": [
+						"simple.runtime.components.组件"
+					],
+					"permissions": [
+						"android.permission.INTERNET"
+					],
+					"events": [
+						{
+							"name": "连接完毕",
+							"description": "后台连接尝试结束后，通过组件创建线程的消息队列派发。",
+							"params": [
+								{
+									"name": "结果",
+									"type": "逻辑型",
+									"description": "连接成功为真，连接失败为假。"
+								}
+							]
+						},
+						{
+							"name": "收到数据",
+							"description": "读取到服务端发送的字节时触发；一次事件不保证对应一条完整消息。",
+							"params": [
+								{
+									"name": "数据",
+									"type": "字节型()",
+									"description": "要发送或本次收到的字节数组。"
+								}
+							]
+						},
+						{
+							"name": "连接断开",
+							"description": "连接读写异常产生断开通知时触发，正常结束和主动关闭行为沿用原组件。"
+						}
+					],
+					"functions": [
+						{
+							"name": "置接收数据包大小",
+							"description": "设置读取缓冲区大小，并用于之后连接的 Socket 收发缓冲区设置。",
+							"params": [
+								{
+									"name": "大小",
+									"type": "整数型",
+									"description": "接收缓冲区大小，单位字节，初始为 1024；TCP 不以此划分消息边界。"
+								}
+							]
+						},
+						{
+							"name": "连接服务器",
+							"description": "在后台线程连接服务端，结果通过连接完毕事件通知。",
+							"params": [
+								{
+									"name": "地址",
+									"type": "文本型",
+									"description": "服务端 IP 地址或主机名。"
+								},
+								{
+									"name": "端口",
+									"type": "整数型",
+									"description": "对端端口号。"
+								},
+								{
+									"name": "超时",
+									"type": "整数型",
+									"description": "连接超时时间，单位毫秒；0 表示不限制等待时间。"
+								}
+							]
+						},
+						{
+							"name": "取连接状态",
+							"description": "通过发送 TCP 紧急数据探测连接，沿用原组件的探测方式。 紧急数据发送未抛出 IO 异常时返回真，不表示对端应用已处理数据。",
+							"return": "逻辑型"
+						},
+						{
+							"name": "发送数据",
+							"description": "同步发送字节并刷新输出流；应在连接成功后由工作线程调用。",
+							"params": [
+								{
+									"name": "数据",
+									"type": "字节型()",
+									"description": "要发送或本次收到的字节数组。"
+								}
+							]
+						},
+						{
+							"name": "断开连接",
+							"description": "设置停止标记，关闭连接并中断连接和接收线程，关闭顺序沿用原组件。"
+						}
+					]
+				},
+				{
+					"name": "UDP数据报",
+					"description": "绑定 UDP 端口接收数据报，使用同一 Socket 定向发送或发送广播。",
+					"icon": "icons/arrows-transfer-up-down.svg",
+					"kind": "component",
+					"type": "simple.runtime.components.UDP数据报",
+					"inherits": [
+						"simple.runtime.components.组件"
+					],
+					"permissions": [
+						"android.permission.INTERNET"
+					],
+					"events": [
+						{
+							"name": "收到数据",
+							"description": "收到一个 UDP 数据报时，通过组件创建线程的消息队列派发。",
+							"params": [
+								{
+									"name": "数据",
+									"type": "字节型()",
+									"description": "要发送或本次收到的字节数组。"
+								},
+								{
+									"name": "地址",
+									"type": "文本型",
+									"description": "对端 IP 地址。"
+								},
+								{
+									"name": "端口",
+									"type": "整数型",
+									"description": "对端端口号。"
+								}
+							]
+						}
+					],
+					"functions": [
+						{
+							"name": "置接收数据包大小",
+							"description": "设置后续接收的缓冲区大小；超过缓冲区容量的数据报会被截断。",
+							"params": [
+								{
+									"name": "大小",
+									"type": "整数型",
+									"description": "接收缓冲区大小，单位字节，初始为 1024。"
+								}
+							]
+						},
+						{
+							"name": "开始监听",
+							"description": "在后台线程绑定 UDP 端口；方法返回不代表绑定已经成功。",
+							"params": [
+								{
+									"name": "端口",
+									"type": "整数型",
+									"description": "本地监听端口号；0 表示由系统分配。"
+								}
+							]
+						},
+						{
+							"name": "发送数据",
+							"description": "使用监听 Socket 同步发送数据报；须先开始监听，应在工作线程调用。",
+							"params": [
+								{
+									"name": "数据",
+									"type": "字节型()",
+									"description": "要发送或本次收到的字节数组。"
+								},
+								{
+									"name": "地址",
+									"type": "文本型",
+									"description": "目标 IP 地址或主机名；空文本使用广播地址 255.255.255.255。"
+								},
+								{
+									"name": "端口",
+									"type": "整数型",
+									"description": "对端端口号。"
+								}
+							]
+						},
+						{
+							"name": "停止监听",
+							"description": "清除监听标记、关闭 UDP Socket 并中断监听线程。"
+						}
+					]
 				}
 			]
 		},
@@ -2234,11 +3652,20 @@
 						{
 							"name": "方向",
 							"type": "整数型",
-							"initializer": {"label": "垂直", "value": "布局_方向_垂直"},
+							"initializer": {
+								"label": "垂直",
+								"value": "布局_方向_垂直"
+							},
 							"select": {
 								"options": [
-									{"label": "水平", "value": "布局_方向_水平"},
-									{"label": "垂直", "value": "布局_方向_垂直"}
+									{
+										"label": "水平",
+										"value": "布局_方向_水平"
+									},
+									{
+										"label": "垂直",
+										"value": "布局_方向_垂直"
+									}
 								]
 							},
 							"projection": "orientation"
@@ -2246,24 +3673,72 @@
 						{
 							"name": "内容对齐",
 							"type": "整数型",
-							"initializer": {"label": "左", "value": "对齐_左"},
+							"initializer": {
+								"label": "左",
+								"value": "对齐_左"
+							},
 							"select": {
 								"options": [
-									{"label": "左", "value": "对齐_左"},
-									{"label": "水平居中", "value": "对齐_水平居中"},
-									{"label": "右", "value": "对齐_右"},
-									{"label": "上", "value": "对齐_上"},
-									{"label": "垂直居中", "value": "对齐_垂直居中"},
-									{"label": "下", "value": "对齐_下"},
-									{"label": "左上", "value": "对齐_左上"},
-									{"label": "左中", "value": "对齐_左中"},
-									{"label": "左下", "value": "对齐_左下"},
-									{"label": "中上", "value": "对齐_中上"},
-									{"label": "居中", "value": "对齐_居中"},
-									{"label": "中下", "value": "对齐_中下"},
-									{"label": "右上", "value": "对齐_右上"},
-									{"label": "右中", "value": "对齐_右中"},
-									{"label": "右下", "value": "对齐_右下"}
+									{
+										"label": "左",
+										"value": "对齐_左"
+									},
+									{
+										"label": "水平居中",
+										"value": "对齐_水平居中"
+									},
+									{
+										"label": "右",
+										"value": "对齐_右"
+									},
+									{
+										"label": "上",
+										"value": "对齐_上"
+									},
+									{
+										"label": "垂直居中",
+										"value": "对齐_垂直居中"
+									},
+									{
+										"label": "下",
+										"value": "对齐_下"
+									},
+									{
+										"label": "左上",
+										"value": "对齐_左上"
+									},
+									{
+										"label": "左中",
+										"value": "对齐_左中"
+									},
+									{
+										"label": "左下",
+										"value": "对齐_左下"
+									},
+									{
+										"label": "中上",
+										"value": "对齐_中上"
+									},
+									{
+										"label": "居中",
+										"value": "对齐_居中"
+									},
+									{
+										"label": "中下",
+										"value": "对齐_中下"
+									},
+									{
+										"label": "右上",
+										"value": "对齐_右上"
+									},
+									{
+										"label": "右中",
+										"value": "对齐_右中"
+									},
+									{
+										"label": "右下",
+										"value": "对齐_右下"
+									}
 								]
 							},
 							"projection": "gravity"
@@ -2310,24 +3785,72 @@
 						{
 							"name": "内容对齐",
 							"type": "整数型",
-							"initializer": {"label": "上", "value": "对齐_上"},
+							"initializer": {
+								"label": "上",
+								"value": "对齐_上"
+							},
 							"select": {
 								"options": [
-									{"label": "左", "value": "对齐_左"},
-									{"label": "水平居中", "value": "对齐_水平居中"},
-									{"label": "右", "value": "对齐_右"},
-									{"label": "上", "value": "对齐_上"},
-									{"label": "垂直居中", "value": "对齐_垂直居中"},
-									{"label": "下", "value": "对齐_下"},
-									{"label": "左上", "value": "对齐_左上"},
-									{"label": "左中", "value": "对齐_左中"},
-									{"label": "左下", "value": "对齐_左下"},
-									{"label": "中上", "value": "对齐_中上"},
-									{"label": "居中", "value": "对齐_居中"},
-									{"label": "中下", "value": "对齐_中下"},
-									{"label": "右上", "value": "对齐_右上"},
-									{"label": "右中", "value": "对齐_右中"},
-									{"label": "右下", "value": "对齐_右下"}
+									{
+										"label": "左",
+										"value": "对齐_左"
+									},
+									{
+										"label": "水平居中",
+										"value": "对齐_水平居中"
+									},
+									{
+										"label": "右",
+										"value": "对齐_右"
+									},
+									{
+										"label": "上",
+										"value": "对齐_上"
+									},
+									{
+										"label": "垂直居中",
+										"value": "对齐_垂直居中"
+									},
+									{
+										"label": "下",
+										"value": "对齐_下"
+									},
+									{
+										"label": "左上",
+										"value": "对齐_左上"
+									},
+									{
+										"label": "左中",
+										"value": "对齐_左中"
+									},
+									{
+										"label": "左下",
+										"value": "对齐_左下"
+									},
+									{
+										"label": "中上",
+										"value": "对齐_中上"
+									},
+									{
+										"label": "居中",
+										"value": "对齐_居中"
+									},
+									{
+										"label": "中下",
+										"value": "对齐_中下"
+									},
+									{
+										"label": "右上",
+										"value": "对齐_右上"
+									},
+									{
+										"label": "右中",
+										"value": "对齐_右中"
+									},
+									{
+										"label": "右下",
+										"value": "对齐_右下"
+									}
 								]
 							},
 							"projection": "gravity"
@@ -2498,15 +4021,33 @@
 							"name": "布局",
 							"type": "变体型",
 							"description": "设置子组件的布局方式。\n不同布局对应布局属性不同。\n添加子组件后布局无法改变。",
-							"initializer": {"label": "线性", "value": "布局_线性"},
+							"initializer": {
+								"label": "线性",
+								"value": "布局_线性"
+							},
 							"editor": "simple.layout",
 							"select": {
 								"options": [
-									{"label": "线性", "value": "布局_线性"},
-									{"label": "表格", "value": "布局_表格"},
-									{"label": "单帧", "value": "布局_单帧"},
-									{"label": "相对", "value": "布局_相对"},
-									{"label": "绝对", "value": "布局_绝对"}
+									{
+										"label": "线性",
+										"value": "布局_线性"
+									},
+									{
+										"label": "表格",
+										"value": "布局_表格"
+									},
+									{
+										"label": "单帧",
+										"value": "布局_单帧"
+									},
+									{
+										"label": "相对",
+										"value": "布局_相对"
+									},
+									{
+										"label": "绝对",
+										"value": "布局_绝对"
+									}
 								]
 							},
 							"projection": "layout"
@@ -2543,23 +4084,62 @@
 							"name": "背景颜色",
 							"type": "整数型",
 							"readable": false,
-							"initializer": {"label": "白", "value": "颜色_白"},
+							"initializer": {
+								"label": "白",
+								"value": "颜色_白"
+							},
 							"editor": "simple.color",
 							"select": {
 								"input": true,
 								"options": [
-									{"label": "无", "value": "颜色_无"},
-									{"label": "黑", "value": "颜色_黑"},
-									{"label": "蓝", "value": "颜色_蓝"},
-									{"label": "青绿", "value": "颜色_青绿"},
-									{"label": "深灰", "value": "颜色_深灰"},
-									{"label": "灰", "value": "颜色_灰"},
-									{"label": "绿", "value": "颜色_绿"},
-									{"label": "浅灰", "value": "颜色_浅灰"},
-									{"label": "品红", "value": "颜色_品红"},
-									{"label": "红", "value": "颜色_红"},
-									{"label": "白", "value": "颜色_白"},
-									{"label": "黄", "value": "颜色_黄"}
+									{
+										"label": "无",
+										"value": "颜色_无"
+									},
+									{
+										"label": "黑",
+										"value": "颜色_黑"
+									},
+									{
+										"label": "蓝",
+										"value": "颜色_蓝"
+									},
+									{
+										"label": "青绿",
+										"value": "颜色_青绿"
+									},
+									{
+										"label": "深灰",
+										"value": "颜色_深灰"
+									},
+									{
+										"label": "灰",
+										"value": "颜色_灰"
+									},
+									{
+										"label": "绿",
+										"value": "颜色_绿"
+									},
+									{
+										"label": "浅灰",
+										"value": "颜色_浅灰"
+									},
+									{
+										"label": "品红",
+										"value": "颜色_品红"
+									},
+									{
+										"label": "红",
+										"value": "颜色_红"
+									},
+									{
+										"label": "白",
+										"value": "颜色_白"
+									},
+									{
+										"label": "黄",
+										"value": "颜色_黄"
+									}
 								]
 							},
 							"projection": "backgroundColor"
@@ -2708,15 +4288,33 @@
 							"name": "布局",
 							"type": "变体型",
 							"description": "设置子组件的布局方式。\n不同布局对应布局属性不同。\n添加子组件后布局无法改变。",
-							"initializer": {"label": "线性", "value": "布局_线性"},
+							"initializer": {
+								"label": "线性",
+								"value": "布局_线性"
+							},
 							"editor": "simple.layout",
 							"select": {
 								"options": [
-									{"label": "线性", "value": "布局_线性"},
-									{"label": "表格", "value": "布局_表格"},
-									{"label": "单帧", "value": "布局_单帧"},
-									{"label": "相对", "value": "布局_相对"},
-									{"label": "绝对", "value": "布局_绝对"}
+									{
+										"label": "线性",
+										"value": "布局_线性"
+									},
+									{
+										"label": "表格",
+										"value": "布局_表格"
+									},
+									{
+										"label": "单帧",
+										"value": "布局_单帧"
+									},
+									{
+										"label": "相对",
+										"value": "布局_相对"
+									},
+									{
+										"label": "绝对",
+										"value": "布局_绝对"
+									}
 								]
 							},
 							"projection": "layout"
@@ -2725,23 +4323,62 @@
 							"name": "背景颜色",
 							"type": "整数型",
 							"readable": false,
-							"initializer": {"label": "白", "value": "颜色_白"},
+							"initializer": {
+								"label": "白",
+								"value": "颜色_白"
+							},
 							"editor": "simple.color",
 							"select": {
 								"input": true,
 								"options": [
-									{"label": "无", "value": "颜色_无"},
-									{"label": "黑", "value": "颜色_黑"},
-									{"label": "蓝", "value": "颜色_蓝"},
-									{"label": "青绿", "value": "颜色_青绿"},
-									{"label": "深灰", "value": "颜色_深灰"},
-									{"label": "灰", "value": "颜色_灰"},
-									{"label": "绿", "value": "颜色_绿"},
-									{"label": "浅灰", "value": "颜色_浅灰"},
-									{"label": "品红", "value": "颜色_品红"},
-									{"label": "红", "value": "颜色_红"},
-									{"label": "白", "value": "颜色_白"},
-									{"label": "黄", "value": "颜色_黄"}
+									{
+										"label": "无",
+										"value": "颜色_无"
+									},
+									{
+										"label": "黑",
+										"value": "颜色_黑"
+									},
+									{
+										"label": "蓝",
+										"value": "颜色_蓝"
+									},
+									{
+										"label": "青绿",
+										"value": "颜色_青绿"
+									},
+									{
+										"label": "深灰",
+										"value": "颜色_深灰"
+									},
+									{
+										"label": "灰",
+										"value": "颜色_灰"
+									},
+									{
+										"label": "绿",
+										"value": "颜色_绿"
+									},
+									{
+										"label": "浅灰",
+										"value": "颜色_浅灰"
+									},
+									{
+										"label": "品红",
+										"value": "颜色_品红"
+									},
+									{
+										"label": "红",
+										"value": "颜色_红"
+									},
+									{
+										"label": "白",
+										"value": "颜色_白"
+									},
+									{
+										"label": "黄",
+										"value": "颜色_黄"
+									}
 								]
 							},
 							"projection": "backgroundColor"
@@ -2918,8 +4555,14 @@
 							"select": {
 								"input": true,
 								"options": [
-									{"label": "适应内容", "value": "长度_适应内容"},
-									{"label": "匹配父级", "value": "长度_匹配父级"}
+									{
+										"label": "适应内容",
+										"value": "长度_适应内容"
+									},
+									{
+										"label": "匹配父级",
+										"value": "长度_匹配父级"
+									}
 								]
 							},
 							"projection": "width"
@@ -2932,8 +4575,14 @@
 							"select": {
 								"input": true,
 								"options": [
-									{"label": "适应内容", "value": "长度_适应内容"},
-									{"label": "匹配父级", "value": "长度_匹配父级"}
+									{
+										"label": "适应内容",
+										"value": "长度_适应内容"
+									},
+									{
+										"label": "匹配父级",
+										"value": "长度_匹配父级"
+									}
 								]
 							},
 							"projection": "height"
@@ -3002,18 +4651,54 @@
 							"select": {
 								"input": true,
 								"options": [
-									{"label": "无", "value": "颜色_无"},
-									{"label": "黑", "value": "颜色_黑"},
-									{"label": "蓝", "value": "颜色_蓝"},
-									{"label": "青绿", "value": "颜色_青绿"},
-									{"label": "深灰", "value": "颜色_深灰"},
-									{"label": "灰", "value": "颜色_灰"},
-									{"label": "绿", "value": "颜色_绿"},
-									{"label": "浅灰", "value": "颜色_浅灰"},
-									{"label": "品红", "value": "颜色_品红"},
-									{"label": "红", "value": "颜色_红"},
-									{"label": "白", "value": "颜色_白"},
-									{"label": "黄", "value": "颜色_黄"}
+									{
+										"label": "无",
+										"value": "颜色_无"
+									},
+									{
+										"label": "黑",
+										"value": "颜色_黑"
+									},
+									{
+										"label": "蓝",
+										"value": "颜色_蓝"
+									},
+									{
+										"label": "青绿",
+										"value": "颜色_青绿"
+									},
+									{
+										"label": "深灰",
+										"value": "颜色_深灰"
+									},
+									{
+										"label": "灰",
+										"value": "颜色_灰"
+									},
+									{
+										"label": "绿",
+										"value": "颜色_绿"
+									},
+									{
+										"label": "浅灰",
+										"value": "颜色_浅灰"
+									},
+									{
+										"label": "品红",
+										"value": "颜色_品红"
+									},
+									{
+										"label": "红",
+										"value": "颜色_红"
+									},
+									{
+										"label": "白",
+										"value": "颜色_白"
+									},
+									{
+										"label": "黄",
+										"value": "颜色_黄"
+									}
 								]
 							},
 							"projection": "backgroundColor"
@@ -3030,25 +4715,77 @@
 							"name": "对齐",
 							"type": "整数型",
 							"description": "仅自身组件位于线性布局、表格布局、单帧布局中时生效",
-							"layouts": ["布局_线性", "布局_表格", "布局_单帧"],
-							"initializer": {"label": "左", "value": "对齐_左"},
+							"layouts": [
+								"布局_线性",
+								"布局_表格",
+								"布局_单帧"
+							],
+							"initializer": {
+								"label": "左",
+								"value": "对齐_左"
+							},
 							"select": {
 								"options": [
-									{"label": "左", "value": "对齐_左"},
-									{"label": "水平居中", "value": "对齐_水平居中"},
-									{"label": "右", "value": "对齐_右"},
-									{"label": "上", "value": "对齐_上"},
-									{"label": "垂直居中", "value": "对齐_垂直居中"},
-									{"label": "下", "value": "对齐_下"},
-									{"label": "左上", "value": "对齐_左上"},
-									{"label": "左中", "value": "对齐_左中"},
-									{"label": "左下", "value": "对齐_左下"},
-									{"label": "中上", "value": "对齐_中上"},
-									{"label": "居中", "value": "对齐_居中"},
-									{"label": "中下", "value": "对齐_中下"},
-									{"label": "右上", "value": "对齐_右上"},
-									{"label": "右中", "value": "对齐_右中"},
-									{"label": "右下", "value": "对齐_右下"}
+									{
+										"label": "左",
+										"value": "对齐_左"
+									},
+									{
+										"label": "水平居中",
+										"value": "对齐_水平居中"
+									},
+									{
+										"label": "右",
+										"value": "对齐_右"
+									},
+									{
+										"label": "上",
+										"value": "对齐_上"
+									},
+									{
+										"label": "垂直居中",
+										"value": "对齐_垂直居中"
+									},
+									{
+										"label": "下",
+										"value": "对齐_下"
+									},
+									{
+										"label": "左上",
+										"value": "对齐_左上"
+									},
+									{
+										"label": "左中",
+										"value": "对齐_左中"
+									},
+									{
+										"label": "左下",
+										"value": "对齐_左下"
+									},
+									{
+										"label": "中上",
+										"value": "对齐_中上"
+									},
+									{
+										"label": "居中",
+										"value": "对齐_居中"
+									},
+									{
+										"label": "中下",
+										"value": "对齐_中下"
+									},
+									{
+										"label": "右上",
+										"value": "对齐_右上"
+									},
+									{
+										"label": "右中",
+										"value": "对齐_右中"
+									},
+									{
+										"label": "右下",
+										"value": "对齐_右下"
+									}
 								]
 							},
 							"projection": "layoutGravity"
@@ -3057,30 +4794,44 @@
 							"name": "权重",
 							"type": "单精度小数型",
 							"description": "仅自身组件位于线性布局中时生效。\n\n未设置或为 0：不参与剩余空间分配。\n大于 0：与其他有权重的同级组件按比例分配主方向剩余空间。\n\n水平布局：通常将宽度设置为 0。\n垂直布局：通常将高度设置为 0。",
-							"layouts": ["布局_线性"],
+							"layouts": [
+								"布局_线性"
+							],
 							"projection": "weight"
 						},
 						{
 							"name": "行",
 							"type": "整数型",
 							"description": "仅位于表格布局中时生效",
-							"layouts": ["布局_表格"],
-							"initializer": {"label": "无", "value": "布局_无_行"},
+							"layouts": [
+								"布局_表格"
+							],
+							"initializer": {
+								"label": "无",
+								"value": "布局_无_行"
+							},
 							"projection": "row"
 						},
 						{
 							"name": "列",
 							"type": "整数型",
 							"description": "仅位于表格布局中时生效",
-							"layouts": ["布局_表格"],
-							"initializer": {"label": "无", "value": "布局_无_列"},
+							"layouts": [
+								"布局_表格"
+							],
+							"initializer": {
+								"label": "无",
+								"value": "布局_无_列"
+							},
 							"projection": "column"
 						},
 						{
 							"name": "位于左边",
 							"type": "整数型",
 							"description": "位于指定视图的左边，仅位于相对布局中时生效。",
-							"layouts": ["布局_相对"],
+							"layouts": [
+								"布局_相对"
+							],
 							"group": "同级组件",
 							"editor": "simple.anchor",
 							"projection": "leftOf"
@@ -3089,7 +4840,9 @@
 							"name": "位于顶边",
 							"type": "整数型",
 							"description": "位于指定视图的上方，仅位于相对布局中时生效。",
-							"layouts": ["布局_相对"],
+							"layouts": [
+								"布局_相对"
+							],
 							"group": "同级组件",
 							"editor": "simple.anchor",
 							"projection": "above"
@@ -3098,7 +4851,9 @@
 							"name": "位于右边",
 							"type": "整数型",
 							"description": "位于指定视图的右边，仅位于相对布局中时生效。",
-							"layouts": ["布局_相对"],
+							"layouts": [
+								"布局_相对"
+							],
 							"group": "同级组件",
 							"editor": "simple.anchor",
 							"projection": "rightOf"
@@ -3107,7 +4862,9 @@
 							"name": "位于底边",
 							"type": "整数型",
 							"description": "位于指定视图的下方，仅位于相对布局中时生效。",
-							"layouts": ["布局_相对"],
+							"layouts": [
+								"布局_相对"
+							],
 							"group": "同级组件",
 							"editor": "simple.anchor",
 							"projection": "below"
@@ -3116,7 +4873,9 @@
 							"name": "位于开始",
 							"type": "整数型",
 							"description": "位于指定视图的开始方向，仅位于相对布局中时生效。",
-							"layouts": ["布局_相对"],
+							"layouts": [
+								"布局_相对"
+							],
 							"group": "同级组件",
 							"editor": "simple.anchor",
 							"projection": "startOf"
@@ -3125,7 +4884,9 @@
 							"name": "位于结束",
 							"type": "整数型",
 							"description": "位于指定视图的结束方向，仅位于相对布局中时生效。",
-							"layouts": ["布局_相对"],
+							"layouts": [
+								"布局_相对"
+							],
 							"group": "同级组件",
 							"editor": "simple.anchor",
 							"projection": "endOf"
@@ -3134,7 +4895,9 @@
 							"name": "对齐左边",
 							"type": "整数型",
 							"description": "与指定视图的左边对齐，仅位于相对布局中时生效。",
-							"layouts": ["布局_相对"],
+							"layouts": [
+								"布局_相对"
+							],
 							"group": "同级组件",
 							"editor": "simple.anchor",
 							"projection": "alignLeft"
@@ -3143,7 +4906,9 @@
 							"name": "对齐顶边",
 							"type": "整数型",
 							"description": "与指定视图的顶边对齐，仅位于相对布局中时生效。",
-							"layouts": ["布局_相对"],
+							"layouts": [
+								"布局_相对"
+							],
 							"group": "同级组件",
 							"editor": "simple.anchor",
 							"projection": "alignTop"
@@ -3152,7 +4917,9 @@
 							"name": "对齐右边",
 							"type": "整数型",
 							"description": "与指定视图的右边对齐，仅位于相对布局中时生效。",
-							"layouts": ["布局_相对"],
+							"layouts": [
+								"布局_相对"
+							],
 							"group": "同级组件",
 							"editor": "simple.anchor",
 							"projection": "alignRight"
@@ -3161,7 +4928,9 @@
 							"name": "对齐底边",
 							"type": "整数型",
 							"description": "与指定视图的底边对齐，仅位于相对布局中时生效。",
-							"layouts": ["布局_相对"],
+							"layouts": [
+								"布局_相对"
+							],
 							"group": "同级组件",
 							"editor": "simple.anchor",
 							"projection": "alignBottom"
@@ -3170,7 +4939,9 @@
 							"name": "对齐开始",
 							"type": "整数型",
 							"description": "与指定视图的开始方向对齐，仅位于相对布局中时生效。",
-							"layouts": ["布局_相对"],
+							"layouts": [
+								"布局_相对"
+							],
 							"group": "同级组件",
 							"editor": "simple.anchor",
 							"projection": "alignStart"
@@ -3179,7 +4950,9 @@
 							"name": "对齐结束",
 							"type": "整数型",
 							"description": "与指定视图的结束方向对齐，仅位于相对布局中时生效。",
-							"layouts": ["布局_相对"],
+							"layouts": [
+								"布局_相对"
+							],
 							"group": "同级组件",
 							"editor": "simple.anchor",
 							"projection": "alignEnd"
@@ -3188,7 +4961,9 @@
 							"name": "对齐基线",
 							"type": "整数型",
 							"description": "与指定视图的基线对齐，仅位于相对布局中时生效。",
-							"layouts": ["布局_相对"],
+							"layouts": [
+								"布局_相对"
+							],
 							"group": "同级组件",
 							"editor": "simple.anchor",
 							"projection": "alignBaseline"
@@ -3197,7 +4972,9 @@
 							"name": "居中于父",
 							"type": "逻辑型",
 							"description": "位于父级视图的中间，仅位于相对布局中时生效。",
-							"layouts": ["布局_相对"],
+							"layouts": [
+								"布局_相对"
+							],
 							"group": "父级容器",
 							"projection": "centerInParent"
 						},
@@ -3205,7 +4982,9 @@
 							"name": "居中水平",
 							"type": "逻辑型",
 							"description": "位于父级视图的水平中间，仅位于相对布局中时生效。",
-							"layouts": ["布局_相对"],
+							"layouts": [
+								"布局_相对"
+							],
 							"group": "父级容器",
 							"projection": "centerHorizontal"
 						},
@@ -3213,7 +4992,9 @@
 							"name": "居中垂直",
 							"type": "逻辑型",
 							"description": "位于父级视图的垂直中间，仅位于相对布局中时生效。",
-							"layouts": ["布局_相对"],
+							"layouts": [
+								"布局_相对"
+							],
 							"group": "父级容器",
 							"projection": "centerVertical"
 						},
@@ -3221,7 +5002,9 @@
 							"name": "对齐父左边",
 							"type": "逻辑型",
 							"description": "停靠于父级视图的左边，仅位于相对布局中时生效。",
-							"layouts": ["布局_相对"],
+							"layouts": [
+								"布局_相对"
+							],
 							"group": "父级容器",
 							"projection": "alignParentLeft"
 						},
@@ -3229,7 +5012,9 @@
 							"name": "对齐父顶边",
 							"type": "逻辑型",
 							"description": "停靠于父级视图的顶边，仅位于相对布局中时生效。",
-							"layouts": ["布局_相对"],
+							"layouts": [
+								"布局_相对"
+							],
 							"group": "父级容器",
 							"projection": "alignParentTop"
 						},
@@ -3237,7 +5022,9 @@
 							"name": "对齐父右边",
 							"type": "逻辑型",
 							"description": "停靠于父级视图的右边，仅位于相对布局中时生效。",
-							"layouts": ["布局_相对"],
+							"layouts": [
+								"布局_相对"
+							],
 							"group": "父级容器",
 							"projection": "alignParentRight"
 						},
@@ -3245,7 +5032,9 @@
 							"name": "对齐父底边",
 							"type": "逻辑型",
 							"description": "停靠于父级视图的底边，仅位于相对布局中时生效。",
-							"layouts": ["布局_相对"],
+							"layouts": [
+								"布局_相对"
+							],
 							"group": "父级容器",
 							"projection": "alignParentBottom"
 						},
@@ -3253,7 +5042,9 @@
 							"name": "对齐父开始",
 							"type": "逻辑型",
 							"description": "停靠于父级视图的开始方向，仅位于相对布局中时生效。",
-							"layouts": ["布局_相对"],
+							"layouts": [
+								"布局_相对"
+							],
 							"group": "父级容器",
 							"projection": "alignParentStart"
 						},
@@ -3261,7 +5052,9 @@
 							"name": "对齐父结束",
 							"type": "逻辑型",
 							"description": "停靠于父级视图的结束方向，仅位于相对布局中时生效。",
-							"layouts": ["布局_相对"],
+							"layouts": [
+								"布局_相对"
+							],
 							"group": "父级容器",
 							"projection": "alignParentEnd"
 						},
@@ -3269,7 +5062,9 @@
 							"name": "左边",
 							"type": "变体型",
 							"description": "仅位于绝对布局中时生效。\n兼容设置文本单位像素（如：30dp），始终返回整数绝对像素",
-							"layouts": ["布局_绝对"],
+							"layouts": [
+								"布局_绝对"
+							],
 							"editor": "simple.pixel",
 							"projection": "x"
 						},
@@ -3277,12 +5072,41 @@
 							"name": "顶边",
 							"type": "变体型",
 							"description": "仅位于绝对布局中时生效。\n兼容设置文本单位像素（如：30dp），始终返回整数绝对像素",
-							"layouts": ["布局_绝对"],
+							"layouts": [
+								"布局_绝对"
+							],
 							"editor": "simple.pixel",
 							"projection": "y"
 						}
 					],
 					"functions": [
+						{
+							"name": "置边距",
+							"description": "统一设置组件四边的边距，沿用原方法的单位解析。",
+							"params": [
+								{
+									"name": "间距",
+									"type": "变体型",
+									"description": "四边统一的边距；支持现有像素单位表示。"
+								}
+							]
+						},
+						{
+							"name": "置边距",
+							"description": "按水平、垂直两个方向设置组件边距，左右相同且上下相同。",
+							"params": [
+								{
+									"name": "水平间距",
+									"type": "变体型",
+									"description": "左右边距；支持现有像素单位表示。"
+								},
+								{
+									"name": "垂直间距",
+									"type": "变体型",
+									"description": "上下边距；支持现有像素单位表示。"
+								}
+							]
+						},
 						{
 							"name": "置边距",
 							"description": "设置组件的边距。",
@@ -3306,6 +5130,33 @@
 									"name": "底边距",
 									"type": "变体型",
 									"description": "兼容文本单位像素（如：30dp）"
+								}
+							]
+						},
+						{
+							"name": "置填充",
+							"description": "统一设置组件四边的填充，沿用原方法的单位解析。",
+							"params": [
+								{
+									"name": "间距",
+									"type": "变体型",
+									"description": "四边统一的填充；支持现有像素单位表示。"
+								}
+							]
+						},
+						{
+							"name": "置填充",
+							"description": "按水平、垂直两个方向设置组件填充，左右相同且上下相同。",
+							"params": [
+								{
+									"name": "水平间距",
+									"type": "变体型",
+									"description": "左右填充；支持现有像素单位表示。"
+								},
+								{
+									"name": "垂直间距",
+									"type": "变体型",
+									"description": "上下填充；支持现有像素单位表示。"
 								}
 							]
 						},
@@ -3384,6 +5235,32 @@
 								}
 							],
 							"return": "整数型"
+						},
+						{
+							"name": "移动",
+							"description": "设置组件的位置和尺寸，支持整数像素和带单位的文本；位于绝对布局中时立即更新布局。",
+							"params": [
+								{
+									"name": "左边",
+									"type": "变体型",
+									"description": "左边位置，整数绝对像素或带单位的文本。"
+								},
+								{
+									"name": "顶边",
+									"type": "变体型",
+									"description": "顶边位置，整数绝对像素或带单位的文本。"
+								},
+								{
+									"name": "宽度",
+									"type": "变体型",
+									"description": "组件宽度，整数绝对像素或带单位的文本。"
+								},
+								{
+									"name": "高度",
+									"type": "变体型",
+									"description": "组件高度，整数绝对像素或带单位的文本。"
+								}
+							]
 						}
 					]
 				},
@@ -3414,20 +5291,38 @@
 							"name": "字体大小",
 							"type": "单精度小数型",
 							"description": "字体大小（以缩放像素为单位）",
-							"initializer": {"label": "默认", "value": "字体_默认_大小"},
+							"initializer": {
+								"label": "默认",
+								"value": "字体_默认_大小"
+							},
 							"editor": "simple.single",
 							"projection": "textSize"
 						},
 						{
 							"name": "字体类型",
 							"type": "整数型",
-							"initializer": {"label": "默认", "value": "字体类型_默认"},
+							"initializer": {
+								"label": "默认",
+								"value": "字体类型_默认"
+							},
 							"select": {
 								"options": [
-									{"label": "默认", "value": "字体类型_默认"},
-									{"label": "无衬线", "value": "字体类型_无衬线"},
-									{"label": "衬线", "value": "字体类型_衬线"},
-									{"label": "等宽", "value": "字体类型_等宽"}
+									{
+										"label": "默认",
+										"value": "字体类型_默认"
+									},
+									{
+										"label": "无衬线",
+										"value": "字体类型_无衬线"
+									},
+									{
+										"label": "衬线",
+										"value": "字体类型_衬线"
+									},
+									{
+										"label": "等宽",
+										"value": "字体类型_等宽"
+									}
 								]
 							},
 							"projection": "fontFamily"
@@ -3435,28 +5330,72 @@
 						{
 							"name": "内容对齐",
 							"type": "整数型",
-							"initializer": {"label": "左", "value": "对齐_左"},
+							"initializer": {
+								"label": "左",
+								"value": "对齐_左"
+							},
 							"select": {
 								"options": [
-									{"label": "左", "value": "对齐_左"},
-									{"label": "水平居中", "value": "对齐_水平居中"},
-									{"label": "右", "value": "对齐_右"},
-
-									{"label": "上", "value": "对齐_上"},
-									{"label": "垂直居中", "value": "对齐_垂直居中"},
-									{"label": "下", "value": "对齐_下"},
-
-									{"label": "左上", "value": "对齐_左上"},
-									{"label": "左中", "value": "对齐_左中"},
-									{"label": "左下", "value": "对齐_左下"},
-
-									{"label": "中上", "value": "对齐_中上"},
-									{"label": "居中", "value": "对齐_居中"},
-									{"label": "中下", "value": "对齐_中下"},
-
-									{"label": "右上", "value": "对齐_右上"},
-									{"label": "右中", "value": "对齐_右中"},
-									{"label": "右下", "value": "对齐_右下"}
+									{
+										"label": "左",
+										"value": "对齐_左"
+									},
+									{
+										"label": "水平居中",
+										"value": "对齐_水平居中"
+									},
+									{
+										"label": "右",
+										"value": "对齐_右"
+									},
+									{
+										"label": "上",
+										"value": "对齐_上"
+									},
+									{
+										"label": "垂直居中",
+										"value": "对齐_垂直居中"
+									},
+									{
+										"label": "下",
+										"value": "对齐_下"
+									},
+									{
+										"label": "左上",
+										"value": "对齐_左上"
+									},
+									{
+										"label": "左中",
+										"value": "对齐_左中"
+									},
+									{
+										"label": "左下",
+										"value": "对齐_左下"
+									},
+									{
+										"label": "中上",
+										"value": "对齐_中上"
+									},
+									{
+										"label": "居中",
+										"value": "对齐_居中"
+									},
+									{
+										"label": "中下",
+										"value": "对齐_中下"
+									},
+									{
+										"label": "右上",
+										"value": "对齐_右上"
+									},
+									{
+										"label": "右中",
+										"value": "对齐_右中"
+									},
+									{
+										"label": "右下",
+										"value": "对齐_右下"
+									}
 								]
 							},
 							"projection": "gravity"
@@ -3472,23 +5411,62 @@
 							"name": "文本颜色",
 							"type": "整数型",
 							"description": "带有alpha的文本RGB颜色",
-							"initializer": {"label": "黑", "value": "颜色_黑"},
+							"initializer": {
+								"label": "黑",
+								"value": "颜色_黑"
+							},
 							"editor": "simple.color",
 							"select": {
 								"input": true,
 								"options": [
-									{"label": "无", "value": "颜色_无"},
-									{"label": "黑", "value": "颜色_黑"},
-									{"label": "蓝", "value": "颜色_蓝"},
-									{"label": "青绿", "value": "颜色_青绿"},
-									{"label": "深灰", "value": "颜色_深灰"},
-									{"label": "灰", "value": "颜色_灰"},
-									{"label": "绿", "value": "颜色_绿"},
-									{"label": "浅灰", "value": "颜色_浅灰"},
-									{"label": "品红", "value": "颜色_品红"},
-									{"label": "红", "value": "颜色_红"},
-									{"label": "白", "value": "颜色_白"},
-									{"label": "黄", "value": "颜色_黄"}
+									{
+										"label": "无",
+										"value": "颜色_无"
+									},
+									{
+										"label": "黑",
+										"value": "颜色_黑"
+									},
+									{
+										"label": "蓝",
+										"value": "颜色_蓝"
+									},
+									{
+										"label": "青绿",
+										"value": "颜色_青绿"
+									},
+									{
+										"label": "深灰",
+										"value": "颜色_深灰"
+									},
+									{
+										"label": "灰",
+										"value": "颜色_灰"
+									},
+									{
+										"label": "绿",
+										"value": "颜色_绿"
+									},
+									{
+										"label": "浅灰",
+										"value": "颜色_浅灰"
+									},
+									{
+										"label": "品红",
+										"value": "颜色_品红"
+									},
+									{
+										"label": "红",
+										"value": "颜色_红"
+									},
+									{
+										"label": "白",
+										"value": "颜色_白"
+									},
+									{
+										"label": "黄",
+										"value": "颜色_黄"
+									}
 								]
 							},
 							"projection": "textColor"
@@ -3502,6 +5480,22 @@
 						}
 					],
 					"functions": [
+						{
+							"name": "置左边图标",
+							"description": "以指定正方形尺寸设置图标，宽和高均为 size 个物理像素。",
+							"params": [
+								{
+									"name": "图片",
+									"type": "文本型",
+									"description": "图片路径或资源表示，与完整方法一致。"
+								},
+								{
+									"name": "尺寸",
+									"type": "整数型",
+									"description": "正方形图标的边长，单位为物理像素。"
+								}
+							]
+						},
 						{
 							"name": "置左边图标",
 							"description": "设置左边图标。",
@@ -3520,6 +5514,22 @@
 									"name": "高度",
 									"type": "整数型",
 									"description": "绘制高度，单位像素。"
+								}
+							]
+						},
+						{
+							"name": "置顶边图标",
+							"description": "以指定正方形尺寸设置图标，宽和高均为 size 个物理像素。",
+							"params": [
+								{
+									"name": "图片",
+									"type": "文本型",
+									"description": "图片路径或资源表示，与完整方法一致。"
+								},
+								{
+									"name": "尺寸",
+									"type": "整数型",
+									"description": "正方形图标的边长，单位为物理像素。"
 								}
 							]
 						},
@@ -3546,6 +5556,22 @@
 						},
 						{
 							"name": "置右边图标",
+							"description": "以指定正方形尺寸设置图标，宽和高均为 size 个物理像素。",
+							"params": [
+								{
+									"name": "图片",
+									"type": "文本型",
+									"description": "图片路径或资源表示，与完整方法一致。"
+								},
+								{
+									"name": "尺寸",
+									"type": "整数型",
+									"description": "正方形图标的边长，单位为物理像素。"
+								}
+							]
+						},
+						{
+							"name": "置右边图标",
 							"description": "设置右边图标。",
 							"params": [
 								{
@@ -3562,6 +5588,22 @@
 									"name": "高度",
 									"type": "整数型",
 									"description": "绘制高度，单位像素。"
+								}
+							]
+						},
+						{
+							"name": "置底边图标",
+							"description": "以指定正方形尺寸设置图标，宽和高均为 size 个物理像素。",
+							"params": [
+								{
+									"name": "图片",
+									"type": "文本型",
+									"description": "图片路径或资源表示，与完整方法一致。"
+								},
+								{
+									"name": "尺寸",
+									"type": "整数型",
+									"description": "正方形图标的边长，单位为物理像素。"
 								}
 							]
 						},
@@ -3805,24 +5847,72 @@
 						{
 							"name": "内容对齐",
 							"type": "整数型",
-							"initializer": {"label": "居中", "value": "对齐_居中"},
+							"initializer": {
+								"label": "居中",
+								"value": "对齐_居中"
+							},
 							"select": {
 								"options": [
-									{"label": "左", "value": "对齐_左"},
-									{"label": "水平居中", "value": "对齐_水平居中"},
-									{"label": "右", "value": "对齐_右"},
-									{"label": "上", "value": "对齐_上"},
-									{"label": "垂直居中", "value": "对齐_垂直居中"},
-									{"label": "下", "value": "对齐_下"},
-									{"label": "左上", "value": "对齐_左上"},
-									{"label": "左中", "value": "对齐_左中"},
-									{"label": "左下", "value": "对齐_左下"},
-									{"label": "中上", "value": "对齐_中上"},
-									{"label": "居中", "value": "对齐_居中"},
-									{"label": "中下", "value": "对齐_中下"},
-									{"label": "右上", "value": "对齐_右上"},
-									{"label": "右中", "value": "对齐_右中"},
-									{"label": "右下", "value": "对齐_右下"}
+									{
+										"label": "左",
+										"value": "对齐_左"
+									},
+									{
+										"label": "水平居中",
+										"value": "对齐_水平居中"
+									},
+									{
+										"label": "右",
+										"value": "对齐_右"
+									},
+									{
+										"label": "上",
+										"value": "对齐_上"
+									},
+									{
+										"label": "垂直居中",
+										"value": "对齐_垂直居中"
+									},
+									{
+										"label": "下",
+										"value": "对齐_下"
+									},
+									{
+										"label": "左上",
+										"value": "对齐_左上"
+									},
+									{
+										"label": "左中",
+										"value": "对齐_左中"
+									},
+									{
+										"label": "左下",
+										"value": "对齐_左下"
+									},
+									{
+										"label": "中上",
+										"value": "对齐_中上"
+									},
+									{
+										"label": "居中",
+										"value": "对齐_居中"
+									},
+									{
+										"label": "中下",
+										"value": "对齐_中下"
+									},
+									{
+										"label": "右上",
+										"value": "对齐_右上"
+									},
+									{
+										"label": "右中",
+										"value": "对齐_右中"
+									},
+									{
+										"label": "右下",
+										"value": "对齐_右下"
+									}
 								]
 							},
 							"projection": "gravity"
@@ -3958,18 +6048,54 @@
 							"select": {
 								"input": true,
 								"options": [
-									{"label": "无", "value": "颜色_无"},
-									{"label": "黑", "value": "颜色_黑"},
-									{"label": "蓝", "value": "颜色_蓝"},
-									{"label": "青绿", "value": "颜色_青绿"},
-									{"label": "深灰", "value": "颜色_深灰"},
-									{"label": "灰", "value": "颜色_灰"},
-									{"label": "绿", "value": "颜色_绿"},
-									{"label": "浅灰", "value": "颜色_浅灰"},
-									{"label": "品红", "value": "颜色_品红"},
-									{"label": "红", "value": "颜色_红"},
-									{"label": "白", "value": "颜色_白"},
-									{"label": "黄", "value": "颜色_黄"}
+									{
+										"label": "无",
+										"value": "颜色_无"
+									},
+									{
+										"label": "黑",
+										"value": "颜色_黑"
+									},
+									{
+										"label": "蓝",
+										"value": "颜色_蓝"
+									},
+									{
+										"label": "青绿",
+										"value": "颜色_青绿"
+									},
+									{
+										"label": "深灰",
+										"value": "颜色_深灰"
+									},
+									{
+										"label": "灰",
+										"value": "颜色_灰"
+									},
+									{
+										"label": "绿",
+										"value": "颜色_绿"
+									},
+									{
+										"label": "浅灰",
+										"value": "颜色_浅灰"
+									},
+									{
+										"label": "品红",
+										"value": "颜色_品红"
+									},
+									{
+										"label": "红",
+										"value": "颜色_红"
+									},
+									{
+										"label": "白",
+										"value": "颜色_白"
+									},
+									{
+										"label": "黄",
+										"value": "颜色_黄"
+									}
 								]
 							},
 							"projection": "hintTextColor"
@@ -3990,14 +6116,32 @@
 							"name": "输入模式",
 							"type": "整数型",
 							"description": "当前输入模式。",
-							"initializer": {"label": "文本", "value": "输入模式_文本"},
+							"initializer": {
+								"label": "文本",
+								"value": "输入模式_文本"
+							},
 							"select": {
 								"options": [
-									{"label": "文本", "value": "输入模式_文本"},
-									{"label": "数字", "value": "输入模式_数字"},
-									{"label": "邮箱", "value": "输入模式_邮箱"},
-									{"label": "密码", "value": "输入模式_密码"},
-									{"label": "链接", "value": "输入模式_链接"}
+									{
+										"label": "文本",
+										"value": "输入模式_文本"
+									},
+									{
+										"label": "数字",
+										"value": "输入模式_数字"
+									},
+									{
+										"label": "邮箱",
+										"value": "输入模式_邮箱"
+									},
+									{
+										"label": "密码",
+										"value": "输入模式_密码"
+									},
+									{
+										"label": "链接",
+										"value": "输入模式_链接"
+									}
 								]
 							}
 						}
@@ -4352,7 +6496,7 @@
 				{
 					"name": "图片按钮",
 					"description": "图片按钮组件。",
-					"icon": "icons/photo-square-rounded.svg",
+					"icon": "icons/photo-click.svg",
 					"kind": "component",
 					"type": "simple.runtime.components.图片按钮",
 					"inherits": [
@@ -4496,7 +6640,7 @@
 				{
 					"name": "水平滑块条",
 					"description": "水平滑块条组件",
-					"icon": "icons/adjustments-horizontal.svg",
+					"icon": "icons/slider-horizontal.svg",
 					"kind": "component",
 					"type": "simple.runtime.components.水平滑块条",
 					"inherits": [
@@ -4542,7 +6686,7 @@
 				{
 					"name": "垂直滑块条",
 					"description": "非完美版，后期会优化",
-					"icon": "icons/adjustments.svg",
+					"icon": "icons/slider-vertical.svg",
 					"kind": "component",
 					"type": "simple.runtime.components.垂直滑块条",
 					"inherits": [
@@ -4692,7 +6836,7 @@
 				{
 					"name": "单选列表框",
 					"description": "单选列表框组件。",
-					"icon": "icons/list-check.svg",
+					"icon": "icons/list-radio.svg",
 					"kind": "component",
 					"type": "simple.runtime.components.单选列表框",
 					"inherits": [
@@ -4855,7 +6999,7 @@
 				{
 					"name": "多选列表框",
 					"description": "多选列表框组件。",
-					"icon": "icons/checklist.svg",
+					"icon": "icons/list-check.svg",
 					"kind": "component",
 					"type": "simple.runtime.components.多选列表框",
 					"inherits": [
@@ -5135,23 +7279,62 @@
 							"name": "画笔颜色",
 							"type": "整数型",
 							"description": "画笔Alpha绘制RGB颜色。",
-							"initializer": {"label": "黑", "value": "颜色_黑"},
+							"initializer": {
+								"label": "黑",
+								"value": "颜色_黑"
+							},
 							"editor": "simple.color",
 							"select": {
 								"input": true,
 								"options": [
-									{"label": "无", "value": "颜色_无"},
-									{"label": "黑", "value": "颜色_黑"},
-									{"label": "蓝", "value": "颜色_蓝"},
-									{"label": "青绿", "value": "颜色_青绿"},
-									{"label": "深灰", "value": "颜色_深灰"},
-									{"label": "灰", "value": "颜色_灰"},
-									{"label": "绿", "value": "颜色_绿"},
-									{"label": "浅灰", "value": "颜色_浅灰"},
-									{"label": "品红", "value": "颜色_品红"},
-									{"label": "红", "value": "颜色_红"},
-									{"label": "白", "value": "颜色_白"},
-									{"label": "黄", "value": "颜色_黄"}
+									{
+										"label": "无",
+										"value": "颜色_无"
+									},
+									{
+										"label": "黑",
+										"value": "颜色_黑"
+									},
+									{
+										"label": "蓝",
+										"value": "颜色_蓝"
+									},
+									{
+										"label": "青绿",
+										"value": "颜色_青绿"
+									},
+									{
+										"label": "深灰",
+										"value": "颜色_深灰"
+									},
+									{
+										"label": "灰",
+										"value": "颜色_灰"
+									},
+									{
+										"label": "绿",
+										"value": "颜色_绿"
+									},
+									{
+										"label": "浅灰",
+										"value": "颜色_浅灰"
+									},
+									{
+										"label": "品红",
+										"value": "颜色_品红"
+									},
+									{
+										"label": "红",
+										"value": "颜色_红"
+									},
+									{
+										"label": "白",
+										"value": "颜色_白"
+									},
+									{
+										"label": "黄",
+										"value": "颜色_黄"
+									}
 								]
 							}
 						},
@@ -5166,23 +7349,62 @@
 							"name": "背景颜色",
 							"type": "整数型",
 							"readable": false,
-							"initializer": {"label": "白", "value": "颜色_白"},
+							"initializer": {
+								"label": "白",
+								"value": "颜色_白"
+							},
 							"editor": "simple.color",
 							"select": {
 								"input": true,
 								"options": [
-									{"label": "无", "value": "颜色_无"},
-									{"label": "黑", "value": "颜色_黑"},
-									{"label": "蓝", "value": "颜色_蓝"},
-									{"label": "青绿", "value": "颜色_青绿"},
-									{"label": "深灰", "value": "颜色_深灰"},
-									{"label": "灰", "value": "颜色_灰"},
-									{"label": "绿", "value": "颜色_绿"},
-									{"label": "浅灰", "value": "颜色_浅灰"},
-									{"label": "品红", "value": "颜色_品红"},
-									{"label": "红", "value": "颜色_红"},
-									{"label": "白", "value": "颜色_白"},
-									{"label": "黄", "value": "颜色_黄"}
+									{
+										"label": "无",
+										"value": "颜色_无"
+									},
+									{
+										"label": "黑",
+										"value": "颜色_黑"
+									},
+									{
+										"label": "蓝",
+										"value": "颜色_蓝"
+									},
+									{
+										"label": "青绿",
+										"value": "颜色_青绿"
+									},
+									{
+										"label": "深灰",
+										"value": "颜色_深灰"
+									},
+									{
+										"label": "灰",
+										"value": "颜色_灰"
+									},
+									{
+										"label": "绿",
+										"value": "颜色_绿"
+									},
+									{
+										"label": "浅灰",
+										"value": "颜色_浅灰"
+									},
+									{
+										"label": "品红",
+										"value": "颜色_品红"
+									},
+									{
+										"label": "红",
+										"value": "颜色_红"
+									},
+									{
+										"label": "白",
+										"value": "颜色_白"
+									},
+									{
+										"label": "黄",
+										"value": "颜色_黄"
+									}
 								]
 							},
 							"projection": "backgroundColor"
@@ -5415,13 +7637,28 @@
 							"name": "缓存模式",
 							"type": "整数型",
 							"description": "设置当前网页浏览器的缓存模式。",
-							"initializer": {"label": "默认", "value": "缓存模式_默认"},
+							"initializer": {
+								"label": "默认",
+								"value": "缓存模式_默认"
+							},
 							"select": {
 								"options": [
-									{"label": "默认", "value": "缓存模式_默认"},
-									{"label": "优先缓存", "value": "缓存模式_优先缓存"},
-									{"label": "仅网络", "value": "缓存模式_仅网络"},
-									{"label": "仅缓存", "value": "缓存模式_仅缓存"}
+									{
+										"label": "默认",
+										"value": "缓存模式_默认"
+									},
+									{
+										"label": "优先缓存",
+										"value": "缓存模式_优先缓存"
+									},
+									{
+										"label": "仅网络",
+										"value": "缓存模式_仅网络"
+									},
+									{
+										"label": "仅缓存",
+										"value": "缓存模式_仅缓存"
+									}
 								]
 							}
 						},
@@ -5485,6 +7722,18 @@
 									"description": "接口对象名"
 								}
 							]
+						},
+						{
+							"name": "调用接口",
+							"description": "执行脚本且不请求接口返回事件，沿用完整方法的系统兼容行为。 已发起执行返回真，否则返回假，不表示脚本业务成功。",
+							"params": [
+								{
+									"name": "脚本",
+									"type": "文本型",
+									"description": "要执行的脚本，与完整方法的脚本格式要求一致。"
+								}
+							],
+							"return": "逻辑型"
 						},
 						{
 							"name": "调用接口",
@@ -6058,7 +8307,7 @@
 				{
 					"name": "加速度传感器",
 					"description": "用于测量加速度3个维度的传感器。",
-					"icon": "icons/activity.svg",
+					"icon": "icons/axis-3d.svg",
 					"kind": "component",
 					"type": "simple.runtime.components.加速度传感器",
 					"inherits": [
@@ -6127,7 +8376,7 @@
 				{
 					"name": "方向传感器",
 					"description": "可以测量3个维度绝对方向的传感器。",
-					"icon": "icons/rotate-360.svg",
+					"icon": "icons/compass.svg",
 					"kind": "component",
 					"type": "simple.runtime.components.方向传感器",
 					"inherits": [
@@ -6437,6 +8686,18 @@
 						},
 						{
 							"name": "置提交哈希表",
+							"description": "按 UTF-8 编码表单键和值，在发送前设置并沿用 POST 提交方式。 设置成功返回真，否则返回假。",
+							"params": [
+								{
+									"name": "数据",
+									"type": "哈希表",
+									"description": "表单键值；按 UTF-8 编码后提交。"
+								}
+							],
+							"return": "逻辑型"
+						},
+						{
+							"name": "置提交哈希表",
 							"description": "设置提交哈希表，在发送()前设置生效。 将强制传为POST方式",
 							"params": [
 								{
@@ -6559,6 +8820,11 @@
 								}
 							],
 							"return": "逻辑型"
+						},
+						{
+							"name": "到文本",
+							"description": "使用两个空格缩进序列化当前 JSON 对象或数组。 格式化后的文本；无法序列化时返回空引用。",
+							"return": "文本型"
 						},
 						{
 							"name": "到文本",
@@ -6944,6 +9210,276 @@
 					]
 				},
 				{
+					"name": "SQLite数据库",
+					"description": "Android SQLite 普通对象；每实例独立连接，同实例操作串行，后台调用并显式关闭。",
+					"kind": "object",
+					"type": "simple.runtime.collections.SQLite数据库",
+					"functions": [
+						{
+							"name": "创建数据库",
+							"description": "创建并初始化新数据库；不改变本实例的连接。新建返回真，已存在返回假且不覆盖；失败抛出数据库错误。",
+							"params": [
+								{
+									"name": "数据库路径",
+									"type": "文本型",
+									"description": "应用私有数据库文件名，或可访问的绝对路径。"
+								}
+							],
+							"return": "逻辑型"
+						},
+						{
+							"name": "打开数据库",
+							"description": "打开或创建数据库。新库打开成功后关闭旧连接；失败保留旧连接。须在后台线程调用。",
+							"params": [
+								{
+									"name": "数据库路径",
+									"type": "文本型",
+									"description": "应用私有数据库文件名，或可访问的绝对路径。"
+								}
+							]
+						},
+						{
+							"name": "关闭数据库",
+							"description": "关闭本实例的数据库连接；允许重复关闭。"
+						},
+						{
+							"name": "创建数据表",
+							"description": "表不存在时创建，已存在保持原表；字段定义是 SQL 片段。",
+							"params": [
+								{
+									"name": "数据表名",
+									"type": "文本型",
+									"description": "单个数据表名，按字面标识符处理。"
+								},
+								{
+									"name": "字段信息",
+									"type": "文本型",
+									"description": "例如 编号 integer, 姓名 text。"
+								}
+							]
+						},
+						{
+							"name": "删除数据表",
+							"description": "删除指定数据表；不存在时抛出数据库错误。",
+							"params": [
+								{
+									"name": "数据表名",
+									"type": "文本型",
+									"description": "单个数据表名，按字面标识符处理。"
+								}
+							]
+						},
+						{
+							"name": "插入记录",
+							"description": "按字段顺序插入一条记录；值列表是 SQL 片段，文本需正确引用。",
+							"params": [
+								{
+									"name": "数据表名",
+									"type": "文本型",
+									"description": "单个数据表名，按字面标识符处理。"
+								},
+								{
+									"name": "字段记录信息",
+									"type": "文本型",
+									"description": "例如 1,'张三'；文本中的单引号按 SQL 规则转义。"
+								}
+							]
+						},
+						{
+							"name": "删除记录",
+							"description": "删除符合条件的记录；全部删除请明确使用条件 1=1。",
+							"params": [
+								{
+									"name": "数据表名",
+									"type": "文本型",
+									"description": "单个数据表名，按字面标识符处理。"
+								},
+								{
+									"name": "筛选条件",
+									"type": "文本型",
+									"description": "SQL 条件，不含 WHERE；不得为空。"
+								}
+							]
+						},
+						{
+							"name": "修改记录",
+							"description": "修改符合条件的记录，空条件拒绝执行。",
+							"params": [
+								{
+									"name": "数据表名",
+									"type": "文本型",
+									"description": "单个数据表名，按字面标识符处理。"
+								},
+								{
+									"name": "修改字段",
+									"type": "文本型",
+									"description": "SQL 赋值列表，例如 姓名='李四'。"
+								},
+								{
+									"name": "筛选条件",
+									"type": "文本型",
+									"description": "SQL 条件，不含 WHERE；不得为空。"
+								}
+							]
+						},
+						{
+							"name": "条件查询",
+							"description": "查询符合条件的全部列；保留末尾列、行分隔符，失败抛出数据库错误。",
+							"params": [
+								{
+									"name": "数据表名",
+									"type": "文本型",
+									"description": "单个数据表名，按字面标识符处理。"
+								},
+								{
+									"name": "筛选条件",
+									"type": "文本型",
+									"description": "SQL 条件，不含 WHERE；不得为空。"
+								},
+								{
+									"name": "列分隔符",
+									"type": "文本型",
+									"description": "每列末尾追加的分隔符，可为空文本。"
+								},
+								{
+									"name": "行分隔符",
+									"type": "文本型",
+									"description": "每行末尾追加的分隔符，可为空文本。"
+								}
+							],
+							"return": "文本型"
+						},
+						{
+							"name": "范围查询",
+							"description": "按从 0 开始的偏移查询指定条数；拒绝负数。未保证排序，稳定分页请使用含 ORDER BY 的 SQL。",
+							"params": [
+								{
+									"name": "数据表名",
+									"type": "文本型",
+									"description": "单个数据表名，按字面标识符处理。"
+								},
+								{
+									"name": "起始索引",
+									"type": "整数型",
+									"description": "从 0 开始的偏移。"
+								},
+								{
+									"name": "记录条数",
+									"type": "整数型",
+									"description": "非负数，0 返回空文本。"
+								},
+								{
+									"name": "列分隔符",
+									"type": "文本型",
+									"description": "每列末尾追加的分隔符，可为空文本。"
+								},
+								{
+									"name": "行分隔符",
+									"type": "文本型",
+									"description": "每行末尾追加的分隔符，可为空文本。"
+								}
+							],
+							"return": "文本型"
+						},
+						{
+							"name": "查询最大值",
+							"description": "查询整数列的最大值，返回 32 位整数；空表或全部 SQL NULL 返回 0。",
+							"params": [
+								{
+									"name": "数据表名",
+									"type": "文本型",
+									"description": "单个数据表名，按字面标识符处理。"
+								},
+								{
+									"name": "字段名",
+									"type": "文本型",
+									"description": "单个字段名。"
+								}
+							],
+							"return": "整数型"
+						},
+						{
+							"name": "数据库查询",
+							"description": "执行 SQL 查询并拼接文本，保留末尾列、行分隔符；SQL NULL 表示为 null；无记录为空文本，失败抛出数据库错误。",
+							"params": [
+								{
+									"name": "SQL命令",
+									"type": "文本型",
+									"description": "查询语句；需要稳定顺序时指定 ORDER BY。"
+								},
+								{
+									"name": "列分隔符",
+									"type": "文本型",
+									"description": "每列末尾追加的分隔符，可为空文本。"
+								},
+								{
+									"name": "行分隔符",
+									"type": "文本型",
+									"description": "每行末尾追加的分隔符，可为空文本。"
+								}
+							],
+							"return": "文本型"
+						},
+						{
+							"name": "数据库执行",
+							"description": "执行一条非查询 SQL；失败抛出数据库错误。",
+							"params": [
+								{
+									"name": "SQL命令",
+									"type": "文本型",
+									"description": "建表、插入、修改、删除等 SQL 语句。"
+								}
+							]
+						},
+						{
+							"name": "取记录数",
+							"description": "获取指定表的记录总数；失败抛出数据库错误。",
+							"params": [
+								{
+									"name": "数据表名",
+									"type": "文本型",
+									"description": "单个数据表名，按字面标识符处理。"
+								}
+							],
+							"return": "长整数型"
+						},
+						{
+							"name": "数据表是否存在",
+							"description": "精确匹配已保存的表名；不存在返回假，连接或 SQL 失败抛出数据库错误。",
+							"params": [
+								{
+									"name": "数据表名",
+									"type": "文本型",
+									"description": "单个数据表名，按字面标识符处理。"
+								}
+							],
+							"return": "逻辑型"
+						},
+						{
+							"name": "字段是否存在",
+							"description": "判断字段是否存在，不区分大小写；字段或表不存在返回假。",
+							"params": [
+								{
+									"name": "数据表名",
+									"type": "文本型",
+									"description": "单个数据表名，按字面标识符处理。"
+								},
+								{
+									"name": "字段名",
+									"type": "文本型",
+									"description": "要检查的字段名。"
+								}
+							],
+							"return": "逻辑型"
+						},
+						{
+							"name": "取所有数据表",
+							"description": "按名称排序返回全部表，包括存在的系统元数据表；空库返回空数组，无空占位项。",
+							"return": "文本型()"
+						}
+					]
+				},
+				{
 					"name": "哈希表",
 					"description": "Simple的哈希表对象 内部使用java.util.HashMap实现 注意：项目是无序的，并非线程安全",
 					"kind": "object",
@@ -7053,7 +9589,7 @@
 					"type": "simple.runtime.collections.录音器",
 					"permissions": [
 						"android.permission.RECORD_AUDIO",
-						"android.permission.WRITE_EXTERNAL_STORAG"
+						"android.permission.WRITE_EXTERNAL_STORAGE"
 					],
 					"functions": [
 						{
@@ -7226,6 +9762,17 @@
 					"functions": [
 						{
 							"name": "编译",
+							"description": "以默认匹配标志编译正则表达式，匹配标志为 0。",
+							"params": [
+								{
+									"name": "表达式",
+									"type": "文本型",
+									"description": "要编译的正则表达式。"
+								}
+							]
+						},
+						{
+							"name": "编译",
 							"description": "将给定的正则表达式编译到模式中。",
 							"params": [
 								{
@@ -7285,6 +9832,18 @@
 							"return": "文本型"
 						},
 						{
+							"name": "取全部匹配",
+							"description": "使用已编译的表达式查找全部完整匹配，沿用编译时的匹配标志。无需先调用匹配，不改变已有匹配器的状态；保留零长度匹配，无匹配时返回空数组。",
+							"params": [
+								{
+									"name": "文本",
+									"type": "文本型",
+									"description": "待查找文本，不得为空引用。"
+								}
+							],
+							"return": "文本型()"
+						},
+						{
 							"name": "取子匹配文本",
 							"description": "调用本命令取出匹配到的指定索引的子文本",
 							"params": [
@@ -7310,6 +9869,379 @@
 							"name": "取结束位置",
 							"description": "调用本命令取出匹配到的文本在整个文本中结束的位置。",
 							"return": "整数型"
+						}
+					]
+				},
+				{
+					"name": "XML解析器",
+					"description": "主动遍历内存中的 XML，读取字段不推进位置。每个对象独立保存状态，不访问文件或网络。",
+					"kind": "object",
+					"type": "simple.runtime.collections.XML解析器",
+					"constants": [
+						{
+							"name": "节点_文档开始",
+							"type": "整数型",
+							"value": "0"
+						},
+						{
+							"name": "节点_文档结束",
+							"type": "整数型",
+							"value": "1"
+						},
+						{
+							"name": "节点_开始",
+							"type": "整数型",
+							"value": "2"
+						},
+						{
+							"name": "节点_结束",
+							"type": "整数型",
+							"value": "3"
+						},
+						{
+							"name": "节点_文本",
+							"type": "整数型",
+							"value": "4"
+						}
+					],
+					"functions": [
+						{
+							"name": "解析文本",
+							"description": "从文本开始解析并停在文档开始位置；文本已经解码，不按 XML 声明再次转换编码。 ",
+							"params": [
+								{
+									"name": "文本",
+									"type": "文本型",
+									"description": "完整 XML 文本，不得为空引用。"
+								}
+							]
+						},
+						{
+							"name": "解析字节集",
+							"description": "按 BOM 或 XML 声明自动识别字节编码，并停在文档开始位置。 ",
+							"params": [
+								{
+									"name": "数据",
+									"type": "字节型()",
+									"description": "XML 原始字节，不得为空引用。"
+								}
+							]
+						},
+						{
+							"name": "解析字节集",
+							"description": "从字节集开始解析，可显式指定字符集；重新开始会替换原解析状态。 ",
+							"params": [
+								{
+									"name": "数据",
+									"type": "字节型()",
+									"description": "XML 原始字节，不得为空引用。"
+								},
+								{
+									"name": "编码",
+									"type": "文本型",
+									"description": "指定字符集；空文本表示自动识别。"
+								}
+							]
+						},
+						{
+							"name": "读取下一个",
+							"description": "推进到下一个节点，返回节点类型；文档结束后重复调用仍返回文档结束。 跳过注释和处理指令，CDATA 与实体解码后的文本按文本节点读取。 节点_文档开始、节点_文档结束、节点_开始、节点_结束或节点_文本。",
+							"return": "整数型"
+						},
+						{
+							"name": "取节点类型",
+							"description": "读取当前位置的节点类型，不推进解析器。 当前节点类型，开始解析后首先为节点_文档开始。",
+							"return": "整数型"
+						},
+						{
+							"name": "取节点名称",
+							"description": "读取元素的本地名称，不含命名空间前缀；其他位置返回空文本。 当前元素本地名称，非元素位置为空文本。",
+							"return": "文本型"
+						},
+						{
+							"name": "取节点内容",
+							"description": "读取当前文本节点的内容，不移动位置，也不汇总子节点文本。 文本节点的解码内容；非文本位置为空文本。",
+							"return": "文本型"
+						},
+						{
+							"name": "取前缀",
+							"description": "读取当前元素的命名空间前缀，不移动位置。 当前前缀，没有前缀或非元素位置为空文本。",
+							"return": "文本型"
+						},
+						{
+							"name": "取命名空间",
+							"description": "读取当前元素的命名空间 URI，不移动位置。 命名空间 URI，没有命名空间或非元素位置为空文本。",
+							"return": "文本型"
+						},
+						{
+							"name": "取节点深度",
+							"description": "读取当前节点深度，根元素深度为 1。 当前深度，文档开始及结束时为 0。",
+							"return": "整数型"
+						},
+						{
+							"name": "取行号",
+							"description": "读取当前解析位置的行号。 从 1 开始的行号，系统无法提供时为 -1。",
+							"return": "整数型"
+						},
+						{
+							"name": "取列号",
+							"description": "读取当前解析位置的列号。 从 1 开始的列号，系统无法提供时为 -1。",
+							"return": "整数型"
+						},
+						{
+							"name": "取属性个数",
+							"description": "读取开始节点的普通属性数，不包含命名空间声明。 开始节点的属性数；其他位置为 0。",
+							"return": "整数型"
+						},
+						{
+							"name": "取属性名称",
+							"description": "读取指定属性的本地名称。 对应属性值，没有前缀或命名空间时返回空文本。",
+							"params": [
+								{
+									"name": "索引",
+									"type": "整数型",
+									"description": "属性索引，从 0 开始，必须小于取属性个数。"
+								}
+							],
+							"return": "文本型"
+						},
+						{
+							"name": "取属性内容",
+							"description": "读取指定属性的解码内容。 对应属性值，没有前缀或命名空间时返回空文本。",
+							"params": [
+								{
+									"name": "索引",
+									"type": "整数型",
+									"description": "属性索引，从 0 开始，必须小于取属性个数。"
+								}
+							],
+							"return": "文本型"
+						},
+						{
+							"name": "取属性前缀",
+							"description": "读取指定属性的命名空间前缀。 对应属性值，没有前缀或命名空间时返回空文本。",
+							"params": [
+								{
+									"name": "索引",
+									"type": "整数型",
+									"description": "属性索引，从 0 开始，必须小于取属性个数。"
+								}
+							],
+							"return": "文本型"
+						},
+						{
+							"name": "取属性命名空间",
+							"description": "读取指定属性的命名空间 URI。 对应属性值，没有前缀或命名空间时返回空文本。",
+							"params": [
+								{
+									"name": "索引",
+									"type": "整数型",
+									"description": "属性索引，从 0 开始，必须小于取属性个数。"
+								}
+							],
+							"return": "文本型"
+						},
+						{
+							"name": "取指定属性内容",
+							"description": "按名称读取无命名空间的属性，不移动位置。 属性内容；不存在时为空文本。",
+							"params": [
+								{
+									"name": "名称",
+									"type": "文本型",
+									"description": "无命名空间的属性本地名称。"
+								}
+							],
+							"return": "文本型"
+						},
+						{
+							"name": "取指定属性内容",
+							"description": "按命名空间 URI 和本地名称读取属性，不以显示前缀作为身份。 属性内容；不存在时为空文本。",
+							"params": [
+								{
+									"name": "命名空间",
+									"type": "文本型",
+									"description": "属性命名空间 URI，无命名空间使用空文本。"
+								},
+								{
+									"name": "名称",
+									"type": "文本型",
+									"description": "属性本地名称，不含前缀。"
+								}
+							],
+							"return": "文本型"
+						},
+						{
+							"name": "取错误信息",
+							"description": "读取最近一次本对象抛出的 XML 错误说明，开始解析或重置时清空。 错误说明，没有错误时为空文本。",
+							"return": "文本型"
+						},
+						{
+							"name": "重置",
+							"description": "清除解析位置和错误信息，之后可开始解析另一份数据。 "
+						}
+					]
+				},
+				{
+					"name": "XML生成器",
+					"description": "按节点生成 XML，支持命名空间及编码一致的字节输出。完成文档后再导出。",
+					"kind": "object",
+					"type": "simple.runtime.collections.XML生成器",
+					"functions": [
+						{
+							"name": "开始文档",
+							"description": "以 UTF-8 开始新的 XML 文档，替换此前生成状态。 "
+						},
+						{
+							"name": "开始文档",
+							"description": "使用指定编码开始新文档，XML 声明与实际输出字节使用同一编码。 ",
+							"params": [
+								{
+									"name": "编码",
+									"type": "文本型",
+									"description": "实际输出字节采用的字符集，例如 UTF-8、UTF-16 或 GB18030。"
+								}
+							]
+						},
+						{
+							"name": "设置命名空间",
+							"description": "在目标开始节点之前设置命名空间前缀；预定义 xml 前缀只能绑定其标准 URI。 ",
+							"params": [
+								{
+									"name": "前缀",
+									"type": "文本型",
+									"description": "命名空间前缀，空文本表示默认命名空间。"
+								},
+								{
+									"name": "命名空间",
+									"type": "文本型",
+									"description": "命名空间 URI；空 URI 只允许使用空前缀。"
+								}
+							]
+						},
+						{
+							"name": "开始节点",
+							"description": "开始无命名空间节点，必须显式结束后才能结束文档。 ",
+							"params": [
+								{
+									"name": "名称",
+									"type": "文本型",
+									"description": "不含前缀的元素本地名称。"
+								}
+							]
+						},
+						{
+							"name": "开始节点",
+							"description": "开始指定命名空间的节点；可先设置前缀，未指定时由系统生成前缀。 ",
+							"params": [
+								{
+									"name": "命名空间",
+									"type": "文本型",
+									"description": "元素命名空间 URI，无命名空间使用空文本。"
+								},
+								{
+									"name": "名称",
+									"type": "文本型",
+									"description": "元素本地名称，不含前缀。"
+								}
+							]
+						},
+						{
+							"name": "设置属性",
+							"description": "为刚开始的节点写入无命名空间属性。 ",
+							"params": [
+								{
+									"name": "名称",
+									"type": "文本型",
+									"description": "无命名空间的属性名称。"
+								},
+								{
+									"name": "内容",
+									"type": "文本型",
+									"description": "属性文本，XML 特殊字符由系统转义。"
+								}
+							]
+						},
+						{
+							"name": "设置属性",
+							"description": "为刚开始的节点写属性，同一节点不允许重复的命名空间和名称组合。 ",
+							"params": [
+								{
+									"name": "命名空间",
+									"type": "文本型",
+									"description": "属性命名空间 URI，无命名空间使用空文本。"
+								},
+								{
+									"name": "名称",
+									"type": "文本型",
+									"description": "属性本地名称，不含前缀。"
+								},
+								{
+									"name": "内容",
+									"type": "文本型",
+									"description": "属性文本，XML 特殊字符由系统转义。"
+								}
+							]
+						},
+						{
+							"name": "设置内容",
+							"description": "向当前元素追加文本，自动转义 XML 特殊字符；可与子元素交替形成混合内容。 ",
+							"params": [
+								{
+									"name": "文本",
+									"type": "文本型",
+									"description": "当前元素中的文本，不是 XML 片段。"
+								}
+							]
+						},
+						{
+							"name": "结束节点",
+							"description": "结束当前无命名空间节点，必须与最近未结束节点对应。 ",
+							"params": [
+								{
+									"name": "名称",
+									"type": "文本型",
+									"description": "当前无命名空间元素的本地名称。"
+								}
+							]
+						},
+						{
+							"name": "结束节点",
+							"description": "按命名空间和本地名称结束当前节点，名称不匹配时拒绝修改。 ",
+							"params": [
+								{
+									"name": "命名空间",
+									"type": "文本型",
+									"description": "当前元素的命名空间 URI。"
+								},
+								{
+									"name": "名称",
+									"type": "文本型",
+									"description": "当前元素的本地名称，不含前缀。"
+								}
+							]
+						},
+						{
+							"name": "结束文档",
+							"description": "结束文档并完成编码输出；必须已有根节点且全部节点均已显式结束。 "
+						},
+						{
+							"name": "导出文本",
+							"description": "将已完成文档按生成时的编码解码为文本；保存该文本时仍需选择相同文件编码。 含 XML 声明的完整文本；实际编码字节请使用导出字节集。",
+							"return": "文本型"
+						},
+						{
+							"name": "导出字节集",
+							"description": "导出已完成文档的独立字节副本，实际字节编码与 XML 声明保持一致。 可直接交给文件写入或网络发送的 XML 字节集。",
+							"return": "字节型()"
+						},
+						{
+							"name": "取错误信息",
+							"description": "读取最近一次本对象抛出的 XML 错误说明，开始文档或重置时清空。 错误说明，没有错误时为空文本。",
+							"return": "文本型"
+						},
+						{
+							"name": "重置",
+							"description": "清除生成文档及错误信息，释放对输出数据的引用。 "
 						}
 					]
 				},
@@ -7377,6 +10309,11 @@
 						{
 							"name": "启动",
 							"description": "启动该线程开始执行，每个线程仅可启动一次。",
+							"return": "逻辑型"
+						},
+						{
+							"name": "参与",
+							"description": "等待目标线程执行完毕，不设置等待超时；阻塞当前调用线程。 等待结束返回真，被中断返回假。",
 							"return": "逻辑型"
 						},
 						{
@@ -7542,394 +10479,689 @@
 			"definitions": [
 				{
 					"name": "文件操作",
-					"description": "Implementation of various file related runtime functions.",
+					"description": "提供文件句柄读写及按路径操作文件、目录的便捷函数。相对路径以应用私有 files 目录为基准，无需存储权限；绝对路径仍受 Android 授权限制，暂不支持 content URI。",
 					"kind": "object",
 					"type": "simple.runtime.文件操作",
 					"functions": [
 						{
-							"name": "Rename",
-							"description": "Renames a file. Causes a runtime error if the file doesn't exist.",
+							"name": "文件是否存在",
+							"description": "判断指定路径是否存在。",
+							"global": true,
+							"params": [
+								{
+									"name": "路径",
+									"type": "文本型",
+									"description": "文件或目录路径。"
+								}
+							],
+							"return": "逻辑型"
+						},
+						{
+							"name": "路径是否存在",
+							"description": "判断文件或目录是否存在。",
+							"global": true,
+							"params": [
+								{
+									"name": "路径",
+									"type": "文本型",
+									"description": "文件或目录路径。"
+								}
+							],
+							"return": "逻辑型"
+						},
+						{
+							"name": "是否为目录",
+							"description": "判断指定路径是否为目录。",
+							"global": true,
+							"params": [
+								{
+									"name": "路径",
+									"type": "文本型",
+									"description": "文件或目录路径。"
+								}
+							],
+							"return": "逻辑型"
+						},
+						{
+							"name": "路径是否为目录",
+							"description": "判断已存在的路径是否为目录；路径不存在时抛出错误。",
+							"global": true,
+							"params": [
+								{
+									"name": "路径",
+									"type": "文本型",
+									"description": "文件或目录路径。"
+								}
+							],
+							"return": "逻辑型"
+						},
+						{
+							"name": "是否为隐藏文件",
+							"description": "判断现有文件或目录是否被文件系统标记为隐藏。",
+							"global": true,
+							"params": [
+								{
+									"name": "路径",
+									"type": "文本型",
+									"description": "文件或目录路径。"
+								}
+							],
+							"return": "逻辑型"
+						},
+						{
+							"name": "创建文件",
+							"description": "创建空文件，不覆盖已有内容，也不自动创建父目录。",
+							"global": true,
+							"params": [
+								{
+									"name": "路径",
+									"type": "文本型",
+									"description": "文件路径。"
+								}
+							],
+							"return": "逻辑型"
+						},
+						{
+							"name": "创建目录",
+							"description": "创建目录及缺少的父目录。",
+							"global": true,
+							"params": [
+								{
+									"name": "路径",
+									"type": "文本型",
+									"description": "目录路径。"
+								}
+							],
+							"return": "逻辑型"
+						},
+						{
+							"name": "创建单级目录",
+							"description": "创建一级目录；目标已存在或父目录不存在时抛出错误。",
+							"global": true,
+							"params": [
+								{
+									"name": "路径",
+									"type": "文本型",
+									"description": "新目录路径。"
+								}
+							]
+						},
+						{
+							"name": "删除文件",
+							"description": "删除指定普通文件，不递归删除目录。",
+							"global": true,
+							"params": [
+								{
+									"name": "路径",
+									"type": "文本型",
+									"description": "文件路径。"
+								}
+							],
+							"return": "逻辑型"
+						},
+						{
+							"name": "删除普通文件",
+							"description": "删除普通文件，目标不存在、是目录或删除失败时抛出错误。",
+							"global": true,
+							"params": [
+								{
+									"name": "路径",
+									"type": "文本型",
+									"description": "文件路径。"
+								}
+							]
+						},
+						{
+							"name": "删除目录",
+							"description": "递归删除目录内容及目录本身，不跟随目录符号链接。 不允许删除文件系统根目录、应用 files 根目录或其祖先目录。 删除中途失败时抛出错误，之前已删除的内容不能恢复。",
+							"global": true,
+							"params": [
+								{
+									"name": "路径",
+									"type": "文本型",
+									"description": "待删除目录路径，不得为空。"
+								}
+							],
+							"return": "逻辑型"
+						},
+						{
+							"name": "删除空目录",
+							"description": "删除空目录，不递归删除内容。",
+							"global": true,
+							"params": [
+								{
+									"name": "路径",
+									"type": "文本型",
+									"description": "待删除的空目录路径。"
+								}
+							]
+						},
+						{
+							"name": "修改文件名",
+							"description": "修改文件或目录名称，不覆盖已存在的目标。",
 							"global": true,
 							"params": [
 								{
 									"name": "原路径",
 									"type": "文本型",
-									"description": "file name before renaming"
+									"description": "原路径。"
+								},
+								{
+									"name": "目标路径",
+									"type": "文本型",
+									"description": "新路径。"
+								}
+							],
+							"return": "逻辑型"
+						},
+						{
+							"name": "重命名文件",
+							"description": "修改文件或目录名称，不覆盖已存在的目标。",
+							"global": true,
+							"params": [
+								{
+									"name": "原路径",
+									"type": "文本型",
+									"description": "原路径。"
 								},
 								{
 									"name": "新路径",
 									"type": "文本型",
-									"description": "file name after renaming"
+									"description": "新路径。"
 								}
 							]
 						},
 						{
-							"name": "Delete",
-							"description": "Deletes a file.",
+							"name": "复制文件",
+							"description": "分块复制普通文件，覆盖已有目标，不自动创建目标父目录。",
 							"global": true,
 							"params": [
 								{
-									"name": "路径",
+									"name": "原路径",
 									"type": "文本型",
-									"description": "name of file to delete"
-								}
-							]
-						},
-						{
-							"name": "Mkdir",
-							"description": "Creates a new directory.",
-							"global": true,
-							"params": [
-								{
-									"name": "路径",
-									"type": "文本型",
-									"description": "name of new directory"
-								}
-							]
-						},
-						{
-							"name": "Rmdir",
-							"description": "Deletes a directory.",
-							"global": true,
-							"params": [
-								{
-									"name": "路径",
-									"type": "文本型",
-									"description": "name of directory to delete"
-								}
-							]
-						},
-						{
-							"name": "IsDirectory",
-							"description": "Checks whether the given name is the name of an existing directory. Causes a runtime error if the directory doesn't exist.",
-							"global": true,
-							"params": [
-								{
-									"name": "路径",
-									"type": "文本型",
-									"description": "name to check"
-								}
-							],
-							"return": "逻辑型"
-						},
-						{
-							"name": "Exists",
-							"description": "Checks whether a file or directory exists.",
-							"global": true,
-							"params": [
-								{
-									"name": "路径",
-									"type": "文本型",
-									"description": "file to check"
-								}
-							],
-							"return": "逻辑型"
-						},
-						{
-							"name": "Open",
-							"description": "Opens an existing file or creates a new file for reading or writing.",
-							"global": true,
-							"params": [
-								{
-									"name": "路径",
-									"type": "文本型",
-									"description": "name of file to open or create"
-								}
-							],
-							"return": "整数型"
-						},
-						{
-							"name": "Close",
-							"description": "Closes a file previously opened.",
-							"global": true,
-							"params": [
-								{
-									"name": "句柄",
-									"type": "整数型",
-									"description": "handle of file to close"
-								}
-							]
-						},
-						{
-							"name": "Eof",
-							"description": "Checks whether the current file position is at the end of the file.",
-							"global": true,
-							"params": [
-								{
-									"name": "句柄",
-									"type": "整数型",
-									"description": "handle of file to check"
-								}
-							],
-							"return": "逻辑型"
-						},
-						{
-							"name": "Seek",
-							"description": "Positions the file pointer to an absolute position.",
-							"global": true,
-							"params": [
-								{
-									"name": "句柄",
-									"type": "整数型",
-									"description": "handle of file"
+									"description": "源文件路径。"
 								},
 								{
-									"name": "位置",
-									"type": "长整数型",
-									"description": "absolute position within file"
+									"name": "目标路径",
+									"type": "文本型",
+									"description": "目标文件路径，不得与源文件指向同一规范路径。"
+								}
+							],
+							"return": "逻辑型"
+						},
+						{
+							"name": "取文件尺寸",
+							"description": "返回普通文件字节数；目录则递归累计普通文件大小，不遍历目录符号链接。",
+							"global": true,
+							"params": [
+								{
+									"name": "路径",
+									"type": "文本型",
+									"description": "文件或目录路径。"
 								}
 							],
 							"return": "长整数型"
 						},
 						{
-							"name": "Size",
-							"description": "Returns the size of a file.",
+							"name": "取文件修改时间",
+							"description": "返回文件或目录的最后修改时间，按设备本地时区格式化。",
 							"global": true,
 							"params": [
 								{
-									"name": "句柄",
-									"type": "整数型",
-									"description": "handle of file"
-								}
-							],
-							"return": "长整数型"
-						},
-						{
-							"name": "WriteString",
-							"description": "Writes a String to a file.",
-							"global": true,
-							"params": [
-								{
-									"name": "句柄",
-									"type": "整数型",
-									"description": "handle of file"
-								},
-								{
-									"name": "值",
+									"name": "路径",
 									"type": "文本型",
-									"description": "value to write"
-								}
-							]
-						},
-						{
-							"name": "ReadString",
-							"description": "Reads a String value from a file.",
-							"global": true,
-							"params": [
-								{
-									"name": "句柄",
-									"type": "整数型",
-									"description": "handle of file"
+									"description": "文件或目录路径。"
 								}
 							],
 							"return": "文本型"
 						},
 						{
-							"name": "WriteBoolean",
-							"description": "Writes a Boolean value to a file.",
+							"name": "取文件列表",
+							"description": "枚举目录下一级普通文件，不递归。",
 							"global": true,
 							"params": [
 								{
-									"name": "句柄",
-									"type": "整数型",
-									"description": "handle of file"
-								},
-								{
-									"name": "值",
-									"type": "逻辑型",
-									"description": "value to write"
+									"name": "路径",
+									"type": "文本型",
+									"description": "目录路径。"
 								}
-							]
+							],
+							"return": "文本型()"
 						},
 						{
-							"name": "ReadBoolean",
-							"description": "Reads a Boolean value from a file.",
+							"name": "取子目录",
+							"description": "枚举目录下一级子目录，不递归。",
 							"global": true,
 							"params": [
 								{
-									"name": "句柄",
-									"type": "整数型",
-									"description": "handle of file"
+									"name": "路径",
+									"type": "文本型",
+									"description": "目录路径。"
+								}
+							],
+							"return": "文本型()"
+						},
+						{
+							"name": "取文件编码",
+							"description": "根据文件开头的 BOM 判断 UTF-8、UTF-16 或 UTF-32 编码。",
+							"global": true,
+							"params": [
+								{
+									"name": "路径",
+									"type": "文本型",
+									"description": "普通文件路径。"
+								}
+							],
+							"return": "文本型"
+						},
+						{
+							"name": "读入文本文件",
+							"description": "按 UTF-8 读取整个普通文本文件，不自动移除 BOM。",
+							"global": true,
+							"params": [
+								{
+									"name": "路径",
+									"type": "文本型",
+									"description": "普通文件路径。"
+								}
+							],
+							"return": "文本型"
+						},
+						{
+							"name": "读入文本文件",
+							"description": "按指定编码读取整个普通文本文件，不自动探测编码或移除 BOM。",
+							"global": true,
+							"params": [
+								{
+									"name": "路径",
+									"type": "文本型",
+									"description": "普通文件路径。"
+								},
+								{
+									"name": "编码",
+									"type": "文本型",
+									"description": "Java 字符集名称，例如 UTF-8、GBK。"
+								}
+							],
+							"return": "文本型"
+						},
+						{
+							"name": "写出文本文件",
+							"description": "以 UTF-8 覆盖写入普通文本文件，不自动添加 BOM 或创建父目录。",
+							"global": true,
+							"params": [
+								{
+									"name": "路径",
+									"type": "文本型",
+									"description": "目标文件路径。"
+								},
+								{
+									"name": "文本",
+									"type": "文本型",
+									"description": "待写入文本，不得为空引用，允许空文本。"
 								}
 							],
 							"return": "逻辑型"
 						},
 						{
-							"name": "WriteByte",
-							"description": "Writes a Byte value to a file.",
+							"name": "写出文本文件",
+							"description": "按指定编码覆盖写入普通文本文件，不自动创建父目录。",
 							"global": true,
 							"params": [
 								{
-									"name": "句柄",
-									"type": "整数型",
-									"description": "handle of file"
+									"name": "路径",
+									"type": "文本型",
+									"description": "目标文件路径。"
 								},
 								{
-									"name": "值",
-									"type": "字节型",
-									"description": "value to write"
-								}
-							]
-						},
-						{
-							"name": "ReadByte",
-							"description": "Reads a Byte value from a file.",
-							"global": true,
-							"params": [
+									"name": "文本",
+									"type": "文本型",
+									"description": "待写入文本，不得为空引用。"
+								},
 								{
-									"name": "句柄",
-									"type": "整数型",
-									"description": "handle of file"
+									"name": "编码",
+									"type": "文本型",
+									"description": "Java 字符集名称，例如 UTF-8、GBK。"
 								}
 							],
-							"return": "字节型"
+							"return": "逻辑型"
 						},
 						{
-							"name": "WriteShort",
-							"description": "Writes a Short value to a file.",
+							"name": "读入字节文件",
+							"description": "循环读取整个普通文件，适合能够放入内存的小文件。",
 							"global": true,
 							"params": [
 								{
-									"name": "句柄",
-									"type": "整数型",
-									"description": "handle of file"
-								},
-								{
-									"name": "值",
-									"type": "短整数型",
-									"description": "value to write"
-								}
-							]
-						},
-						{
-							"name": "ReadShort",
-							"description": "Reads a Short value from a file.",
-							"global": true,
-							"params": [
-								{
-									"name": "句柄",
-									"type": "整数型",
-									"description": "handle of file"
+									"name": "路径",
+									"type": "文本型",
+									"description": "普通文件路径。"
 								}
 							],
-							"return": "短整数型"
+							"return": "字节型()"
 						},
 						{
-							"name": "WriteInteger",
-							"description": "Writes an Integer boolean value to a file.",
+							"name": "写出字节文件",
+							"description": "覆盖写入字节文件，不自动创建父目录。",
 							"global": true,
 							"params": [
 								{
-									"name": "句柄",
-									"type": "整数型",
-									"description": "handle of file"
+									"name": "路径",
+									"type": "文本型",
+									"description": "目标文件路径。"
 								},
 								{
-									"name": "值",
-									"type": "整数型",
-									"description": "value to write"
+									"name": "字节数据",
+									"type": "字节型()",
+									"description": "待写入数据，不得为空引用，允许空数组。"
 								}
-							]
+							],
+							"return": "逻辑型"
 						},
 						{
-							"name": "ReadInteger",
-							"description": "Reads an Integer value from a file.",
+							"name": "打开文件",
+							"description": "以同步读写模式打开文件，文件不存在时创建，不清空已有内容。",
 							"global": true,
 							"params": [
 								{
-									"name": "句柄",
-									"type": "整数型",
-									"description": "handle of file"
+									"name": "路径",
+									"type": "文本型",
+									"description": "文件路径，父目录必须存在。"
 								}
 							],
 							"return": "整数型"
 						},
 						{
-							"name": "WriteLong",
-							"description": "Writes a Long value to a file.",
+							"name": "关闭文件",
+							"description": "关闭文件句柄并移除登记，未知或已关闭的句柄会抛出错误。",
 							"global": true,
 							"params": [
 								{
 									"name": "句柄",
 									"type": "整数型",
-									"description": "handle of file"
-								},
-								{
-									"name": "值",
-									"type": "长整数型",
-									"description": "value to write"
+									"description": "待关闭的文件句柄。"
 								}
 							]
 						},
 						{
-							"name": "ReadLong",
-							"description": "Reads a Long value from a file.",
+							"name": "移动文件指针",
+							"description": "将文件指针移动到从文件开头计算的字节位置。",
 							"global": true,
 							"params": [
 								{
 									"name": "句柄",
 									"type": "整数型",
-									"description": "handle of file"
+									"description": "文件句柄。"
+								},
+								{
+									"name": "位置",
+									"type": "长整数型",
+									"description": "字节位置，不得小于 0 或大于文件长度。"
 								}
 							],
 							"return": "长整数型"
 						},
 						{
-							"name": "WriteSingle",
-							"description": "Writes a Single value to a file.",
+							"name": "取文件长度",
+							"description": "取得句柄对应文件的字节长度。",
 							"global": true,
 							"params": [
 								{
 									"name": "句柄",
 									"type": "整数型",
-									"description": "handle of file"
+									"description": "文件句柄。"
+								}
+							],
+							"return": "长整数型"
+						},
+						{
+							"name": "是否到文件尾",
+							"description": "判断文件指针是否位于文件末尾。",
+							"global": true,
+							"params": [
+								{
+									"name": "句柄",
+									"type": "整数型",
+									"description": "文件句柄。"
+								}
+							],
+							"return": "逻辑型"
+						},
+						{
+							"name": "写入文本",
+							"description": "写入带长度信息的二进制 UTF 字符串，不是普通 UTF-8 文本。",
+							"global": true,
+							"params": [
+								{
+									"name": "句柄",
+									"type": "整数型",
+									"description": "文件句柄。"
 								},
 								{
 									"name": "值",
-									"type": "单精度小数型",
-									"description": "value to write"
+									"type": "文本型",
+									"description": "字符串，应使用 ReadString 按相同顺序读取。"
 								}
 							]
 						},
 						{
-							"name": "ReadSingle",
-							"description": "Reads a Single value from a file.",
+							"name": "读入文本",
+							"description": "读取由 WriteString 写入的二进制 UTF 字符串。",
 							"global": true,
 							"params": [
 								{
 									"name": "句柄",
 									"type": "整数型",
-									"description": "handle of file"
+									"description": "文件句柄。"
+								}
+							],
+							"return": "文本型"
+						},
+						{
+							"name": "写入逻辑值",
+							"description": "按二进制格式写入逻辑值。",
+							"global": true,
+							"params": [
+								{
+									"name": "句柄",
+									"type": "整数型",
+									"description": "文件句柄。"
+								},
+								{
+									"name": "值",
+									"type": "逻辑型",
+									"description": "待写入的逻辑值，应以对应读取函数按相同顺序读取。"
+								}
+							]
+						},
+						{
+							"name": "读入逻辑值",
+							"description": "读取对应二进制格式的逻辑值。",
+							"global": true,
+							"params": [
+								{
+									"name": "句柄",
+									"type": "整数型",
+									"description": "文件句柄。"
+								}
+							],
+							"return": "逻辑型"
+						},
+						{
+							"name": "写入字节",
+							"description": "按二进制格式写入字节。",
+							"global": true,
+							"params": [
+								{
+									"name": "句柄",
+									"type": "整数型",
+									"description": "文件句柄。"
+								},
+								{
+									"name": "值",
+									"type": "字节型",
+									"description": "待写入的字节，应以对应读取函数按相同顺序读取。"
+								}
+							]
+						},
+						{
+							"name": "读入字节",
+							"description": "读取对应二进制格式的字节。",
+							"global": true,
+							"params": [
+								{
+									"name": "句柄",
+									"type": "整数型",
+									"description": "文件句柄。"
+								}
+							],
+							"return": "字节型"
+						},
+						{
+							"name": "写入短整数",
+							"description": "按二进制格式写入短整数。",
+							"global": true,
+							"params": [
+								{
+									"name": "句柄",
+									"type": "整数型",
+									"description": "文件句柄。"
+								},
+								{
+									"name": "值",
+									"type": "短整数型",
+									"description": "待写入的短整数，应以对应读取函数按相同顺序读取。"
+								}
+							]
+						},
+						{
+							"name": "读入短整数",
+							"description": "读取对应二进制格式的短整数。",
+							"global": true,
+							"params": [
+								{
+									"name": "句柄",
+									"type": "整数型",
+									"description": "文件句柄。"
+								}
+							],
+							"return": "短整数型"
+						},
+						{
+							"name": "写入整数",
+							"description": "按二进制格式写入整数。",
+							"global": true,
+							"params": [
+								{
+									"name": "句柄",
+									"type": "整数型",
+									"description": "文件句柄。"
+								},
+								{
+									"name": "值",
+									"type": "整数型",
+									"description": "待写入的整数，应以对应读取函数按相同顺序读取。"
+								}
+							]
+						},
+						{
+							"name": "读入整数",
+							"description": "读取对应二进制格式的整数。",
+							"global": true,
+							"params": [
+								{
+									"name": "句柄",
+									"type": "整数型",
+									"description": "文件句柄。"
+								}
+							],
+							"return": "整数型"
+						},
+						{
+							"name": "写入长整数",
+							"description": "按二进制格式写入长整数。",
+							"global": true,
+							"params": [
+								{
+									"name": "句柄",
+									"type": "整数型",
+									"description": "文件句柄。"
+								},
+								{
+									"name": "值",
+									"type": "长整数型",
+									"description": "待写入的长整数，应以对应读取函数按相同顺序读取。"
+								}
+							]
+						},
+						{
+							"name": "读入长整数",
+							"description": "读取对应二进制格式的长整数。",
+							"global": true,
+							"params": [
+								{
+									"name": "句柄",
+									"type": "整数型",
+									"description": "文件句柄。"
+								}
+							],
+							"return": "长整数型"
+						},
+						{
+							"name": "写入单精度小数",
+							"description": "按二进制格式写入单精度小数。",
+							"global": true,
+							"params": [
+								{
+									"name": "句柄",
+									"type": "整数型",
+									"description": "文件句柄。"
+								},
+								{
+									"name": "值",
+									"type": "单精度小数型",
+									"description": "待写入的单精度小数，应以对应读取函数按相同顺序读取。"
+								}
+							]
+						},
+						{
+							"name": "读入单精度小数",
+							"description": "读取对应二进制格式的单精度小数。",
+							"global": true,
+							"params": [
+								{
+									"name": "句柄",
+									"type": "整数型",
+									"description": "文件句柄。"
 								}
 							],
 							"return": "单精度小数型"
 						},
 						{
-							"name": "WriteDouble",
-							"description": "Writes a Double value to a file.",
+							"name": "写入双精度小数",
+							"description": "按二进制格式写入双精度小数。",
 							"global": true,
 							"params": [
 								{
 									"name": "句柄",
 									"type": "整数型",
-									"description": "handle of file"
+									"description": "文件句柄。"
 								},
 								{
 									"name": "值",
 									"type": "双精度小数型",
-									"description": "value to write"
+									"description": "待写入的双精度小数，应以对应读取函数按相同顺序读取。"
 								}
 							]
 						},
 						{
-							"name": "ReadDouble",
-							"description": "Reads a Double value from a file.",
+							"name": "读入双精度小数",
+							"description": "读取对应二进制格式的双精度小数。",
 							"global": true,
 							"params": [
 								{
 									"name": "句柄",
 									"type": "整数型",
-									"description": "handle of file"
+									"description": "文件句柄。"
 								}
 							],
 							"return": "双精度小数型"
@@ -7972,6 +11204,19 @@
 								}
 							],
 							"return": "JSON值"
+						},
+						{
+							"name": "格式化JSON文本",
+							"description": "使用两个空格缩进格式化 JSON 对象或数组文本。 格式化后的 JSON 文本；沿用完整方法的解析失败行为。",
+							"global": true,
+							"params": [
+								{
+									"name": "文本",
+									"type": "文本型",
+									"description": "JSON 对象或数组文本。"
+								}
+							],
+							"return": "文本型"
 						},
 						{
 							"name": "格式化JSON文本",
@@ -8144,25 +11389,184 @@
 								}
 							],
 							"return": "整数型"
+						},
+						{
+							"name": "解析像素",
+							"description": "将整数或带单位的文本解析为绝对像素（px）；文本支持纯数值及 px、dp、dip、sp 后缀，单位不区分大小写，值或单位无效时抛出转换错误。",
+							"global": true,
+							"params": [
+								{
+									"name": "值",
+									"type": "变体型",
+									"description": "整数或文本，例如 10、\"10px\"、\"10dp\"、\"10dip\"、\"10sp\"。"
+								}
+							],
+							"return": "整数型"
 						}
 					]
 				},
 				{
 					"name": "加密操作",
-					"description": "加密相关函数。",
+					"description": "MD5 消息摘要和 RC4、DES、Authcode 加解密；编码操作由编码转换提供。",
 					"kind": "object",
 					"type": "simple.runtime.加密操作",
 					"functions": [
 						{
 							"name": "取MD5值",
-							"global": true,
+							"description": "计算 MD5 消息摘要，返回 32 位大写十六进制文本；空引用或计算失败返回空文本。",
 							"params": [
 								{
 									"name": "字节数组",
-									"type": "字节型()"
+									"type": "字节型()",
+									"description": "原始数据，不修改输入。"
 								}
 							],
-							"return": "文本型"
+							"return": "文本型",
+							"global": true
+						},
+						{
+							"name": "RC4加密",
+							"description": "明文和密钥按 GBK 编码后执行 RC4，返回大写十六进制密文；失败返回空文本。",
+							"params": [
+								{
+									"name": "文本",
+									"type": "文本型",
+									"description": "明文，GBK 无法表示的字符会被替换。"
+								},
+								{
+									"name": "密钥",
+									"type": "文本型",
+									"description": "按 GBK 编码的非空文本密钥。"
+								}
+							],
+							"return": "文本型",
+							"global": true
+						},
+						{
+							"name": "RC4解密",
+							"description": "解析十六进制密文并执行 RC4，按 GBK 返回明文；奇数长度的最后一位忽略，失败返回空文本，不验证完整性。",
+							"params": [
+								{
+									"name": "文本",
+									"type": "文本型",
+									"description": "不含分隔符的十六进制密文。"
+								},
+								{
+									"name": "密钥",
+									"type": "文本型",
+									"description": "加密时的 GBK 文本密钥。"
+								}
+							],
+							"return": "文本型",
+							"global": true
+						},
+						{
+							"name": "RC4加密2",
+							"description": "对字节数组执行 RC4，返回大写十六进制字符的 ASCII 字节，长度为原数据两倍；不能直接交给 RC4解密2，失败返回空数组。",
+							"params": [
+								{
+									"name": "数据",
+									"type": "字节型()",
+									"description": "原始字节数组，不修改输入。"
+								},
+								{
+									"name": "密钥",
+									"type": "文本型",
+									"description": "按 GBK 编码的文本密钥。"
+								}
+							],
+							"return": "字节型()",
+							"global": true
+						},
+						{
+							"name": "RC4解密2",
+							"description": "对原始密文字节执行 RC4，不解析十六进制字符；与 RC4加密2 的输出格式不对称，失败返回空数组，不验证完整性。",
+							"params": [
+								{
+									"name": "数据",
+									"type": "字节型()",
+									"description": "原始密文字节，不是十六进制文本的字节数组。"
+								},
+								{
+									"name": "密钥",
+									"type": "文本型",
+									"description": "加密时的 GBK 文本密钥。"
+								}
+							],
+							"return": "字节型()",
+							"global": true
+						},
+						{
+							"name": "DES加密",
+							"description": "按 DES/CBC/PKCS5Padding 加密 GBK 文本，固定 IV 为字节 1 至 8，返回标准 Base64 密文；失败返回空文本，仅用于既有格式互通。",
+							"params": [
+								{
+									"name": "文本",
+									"type": "文本型",
+									"description": "GBK 明文。"
+								},
+								{
+									"name": "密钥",
+									"type": "文本型",
+									"description": "GBK 编码后为 8 字节的密钥。"
+								}
+							],
+							"return": "文本型",
+							"global": true
+						},
+						{
+							"name": "DES解密",
+							"description": "解码 Base64 后按既有 DES 固定 IV 和 GBK 还原明文；密钥或填充错误等失败返回空文本，不验证完整性。",
+							"params": [
+								{
+									"name": "文本",
+									"type": "文本型",
+									"description": "Base64 密文。"
+								},
+								{
+									"name": "密钥",
+									"type": "文本型",
+									"description": "加密时使用的 8 字节 GBK 密钥。"
+								}
+							],
+							"return": "文本型",
+							"global": true
+						},
+						{
+							"name": "Authcode加密",
+							"description": "按既有 MD5、RC4 组合格式封装 UTF-8 文本，返回四位随机前缀和 Base64 内容；无有效期参数，失败返回空文本。",
+							"params": [
+								{
+									"name": "文本",
+									"type": "文本型",
+									"description": "UTF-8 明文。"
+								},
+								{
+									"name": "密钥",
+									"type": "文本型",
+									"description": "文本密钥，允许空文本。"
+								}
+							],
+							"return": "文本型",
+							"global": true
+						},
+						{
+							"name": "Authcode解密",
+							"description": "还原既有 Authcode UTF-8 文本并核对 MD5 校验片段；不解释有效期，校验失败返回文本“2”，解析异常返回空文本。“2”也可能是合法明文。",
+							"params": [
+								{
+									"name": "文本",
+									"type": "文本型",
+									"description": "四位前缀和 Base64 内容组成的密文。"
+								},
+								{
+									"name": "密钥",
+									"type": "文本型",
+									"description": "加密时的文本密钥，允许空文本。"
+								}
+							],
+							"return": "文本型",
+							"global": true
 						}
 					]
 				},
@@ -8313,6 +11717,23 @@
 						},
 						{
 							"name": "弹出确认框",
+							"description": "显示使用“确认”按钮的提示对话框。",
+							"global": true,
+							"params": [
+								{
+									"name": "标题",
+									"type": "文本型",
+									"description": "对话框标题。"
+								},
+								{
+									"name": "信息",
+									"type": "文本型",
+									"description": "对话框信息。"
+								}
+							]
+						},
+						{
+							"name": "弹出确认框",
 							"description": "弹出具备确认按钮的对话框。",
 							"global": true,
 							"params": [
@@ -8332,6 +11753,24 @@
 									"description": "确认按钮的标题。"
 								}
 							]
+						},
+						{
+							"name": "弹出是否框",
+							"description": "显示使用“是”和“否”按钮的对话框，沿用阻塞等待约定。 不能在 Simple 的错误处理语句中调用。 选择是返回真，选择否返回假。",
+							"global": true,
+							"params": [
+								{
+									"name": "标题",
+									"type": "文本型",
+									"description": "对话框标题。"
+								},
+								{
+									"name": "信息",
+									"type": "文本型",
+									"description": "对话框信息。"
+								}
+							],
+							"return": "逻辑型"
 						},
 						{
 							"name": "弹出是否框",
@@ -8363,6 +11802,24 @@
 						},
 						{
 							"name": "弹出单选框",
+							"description": "显示单选列表，初始不选中任何项目，沿用确认与取消约定。 不能在 Simple 的错误处理语句中调用。 确认返回所选索引；取消或未选择返回 -1。",
+							"global": true,
+							"params": [
+								{
+									"name": "标题",
+									"type": "文本型",
+									"description": "对话框标题。"
+								},
+								{
+									"name": "选项",
+									"type": "文本型()",
+									"description": "可选项目文本。"
+								}
+							],
+							"return": "整数型"
+						},
+						{
+							"name": "弹出单选框",
 							"description": "弹出具备单选列表的对话框。注意会堵塞等待结果，无法在“位于 错误”语句中使用。",
 							"global": true,
 							"params": [
@@ -8386,6 +11843,24 @@
 						},
 						{
 							"name": "弹出多选框",
+							"description": "显示多选列表，初始项目全部不选中，沿用确认与取消约定。 不能在 Simple 的错误处理语句中调用。 确认返回各项选中状态，取消返回空引用。",
+							"global": true,
+							"params": [
+								{
+									"name": "标题",
+									"type": "文本型",
+									"description": "对话框标题。"
+								},
+								{
+									"name": "选项",
+									"type": "文本型()",
+									"description": "可选项目文本。"
+								}
+							],
+							"return": "逻辑型()"
+						},
+						{
+							"name": "弹出多选框",
 							"description": "弹出具备多选列表的对话框。注意会堵塞等待结果，无法在“位于 错误”语句中使用。",
 							"global": true,
 							"params": [
@@ -8406,6 +11881,47 @@
 								}
 							],
 							"return": "逻辑型()"
+						},
+						{
+							"name": "弹出输入框",
+							"description": "显示单行文本输入框，使用文本输入模式。 沿用完整方法的阻塞等待约定。 确认返回输入内容，取消返回空引用。",
+							"global": true,
+							"params": [
+								{
+									"name": "标题",
+									"type": "文本型",
+									"description": "对话框标题。"
+								},
+								{
+									"name": "提示",
+									"type": "文本型",
+									"description": "输入框提示。"
+								}
+							],
+							"return": "文本型"
+						},
+						{
+							"name": "弹出输入框",
+							"description": "显示文本输入框，使用文本输入模式并显式指定是否允许多行。 沿用完整方法的阻塞等待约定。 确认返回输入内容，取消返回空引用。",
+							"global": true,
+							"params": [
+								{
+									"name": "标题",
+									"type": "文本型",
+									"description": "对话框标题。"
+								},
+								{
+									"name": "提示",
+									"type": "文本型",
+									"description": "输入框提示。"
+								},
+								{
+									"name": "多行",
+									"type": "逻辑型",
+									"description": "是否允许多行输入。"
+								}
+							],
+							"return": "文本型"
 						},
 						{
 							"name": "弹出输入框",
@@ -8480,6 +11996,24 @@
 									"type": "对象"
 								}
 							]
+						},
+						{
+							"name": "弹出对话框",
+							"description": "显示嵌入窗口的对话框，按钮为“确认”和“取消”。 不能在 Simple 的错误处理语句中调用。 确认返回真，取消返回假。",
+							"global": true,
+							"params": [
+								{
+									"name": "标题",
+									"type": "文本型",
+									"description": "对话框标题。"
+								},
+								{
+									"name": "窗口",
+									"type": "窗口",
+									"description": "嵌入对话框的窗口对象。"
+								}
+							],
+							"return": "逻辑型"
 						},
 						{
 							"name": "弹出对话框",
@@ -8700,374 +12234,907 @@
 				},
 				{
 					"name": "数组操作",
-					"description": "实现各种阵列相关的运行时函数。",
+					"description": "数组计数、复制、合并、成员增删、排序及文本分割。",
 					"kind": "object",
 					"type": "simple.runtime.数组操作",
 					"functions": [
 						{
-							"name": "过滤数组文本",
-							"description": "过滤数组的文本内容。",
-							"global": true,
-							"params": [
-								{
-									"name": "数组",
-									"type": "文本型()",
-									"description": "要搜索的数组"
-								},
-								{
-									"name": "文本",
-									"type": "文本型",
-									"description": "要在数组中搜索的子文本"
-								},
-								{
-									"name": "包含",
-									"type": "逻辑型",
-									"description": "如果真则在结果中包含匹配的子文本，否则排除它们"
-								}
-							],
-							"return": "文本型()"
-						},
-						{
-							"name": "连接数组文本",
-							"description": "将数组成员追加到单个文本中。",
-							"global": true,
-							"params": [
-								{
-									"name": "数组",
-									"type": "文本型()",
-									"description": "包含要连接文本的数组"
-								},
-								{
-									"name": "分隔符",
-									"type": "文本型",
-									"description": "在数组成员之间连接文本"
-								}
-							],
-							"return": "文本型"
-						},
-						{
-							"name": "分割文本",
-							"description": "查找指定文本来分割文本。",
-							"global": true,
-							"params": [
-								{
-									"name": "文本",
-									"type": "文本型",
-									"description": "欲分割的文本"
-								},
-								{
-									"name": "分隔符",
-									"type": "文本型",
-									"description": "欲查找的分割文本"
-								},
-								{
-									"name": "数量",
-									"type": "整数型",
-									"description": "分割次数"
-								}
-							],
-							"return": "文本型()"
-						},
-						{
 							"name": "取数组下标",
-							"description": "返回数组维度的大小。",
+							"description": "返回指定维度的成员数，沿用既有名称，不是最后一个成员的索引。",
 							"global": true,
 							"params": [
 								{
 									"name": "数组",
 									"type": "变体型",
-									"description": "请求其大小的数组"
+									"description": "原数组。"
 								},
 								{
 									"name": "维度",
 									"type": "整数型",
-									"description": "维度（第一个维度为1，依此类推）"
+									"description": "维度编号，从 1 开始；更深维度沿第一个成员读取。"
 								}
 							],
 							"return": "整数型"
 						},
 						{
 							"name": "取数组成员数",
-							"description": "取数组第一个维度的成员数。",
+							"description": "返回数组第一维的成员数。",
 							"global": true,
 							"params": [
 								{
 									"name": "数组",
 									"type": "变体型",
-									"description": "欲取成员的数组。"
+									"description": "原数组。"
 								}
 							],
 							"return": "整数型"
-						}
-					]
-				},
-				{
-					"name": "文本操作",
-					"description": "实现各种与字符串相关的运行时函数。",
-					"kind": "object",
-					"type": "simple.runtime.文本操作",
-					"functions": [
+						},
 						{
-							"name": "寻找文本",
-							"description": "从给定文本寻找指定文本。",
+							"name": "复制数组成员",
+							"description": "从源数组复制指定数量的成员到目标数组，支持同一数组中的重叠区间。",
+							"global": true,
+							"params": [
+								{
+									"name": "源数组",
+									"type": "变体型",
+									"description": "源数组。"
+								},
+								{
+									"name": "源位置",
+									"type": "整数型",
+									"description": "源起始索引。"
+								},
+								{
+									"name": "目标数组",
+									"type": "变体型",
+									"description": "目标数组，直接修改其内容。"
+								},
+								{
+									"name": "目标位置",
+									"type": "整数型",
+									"description": "目标起始索引。"
+								},
+								{
+									"name": "长度",
+									"type": "整数型",
+									"description": "复制数量，不得为负；类型不兼容或区间越界时抛出错误。"
+								}
+							]
+						},
+						{
+							"name": "合并字节数组",
+							"description": "按先后顺序合并两个字节数组，不修改输入数组。",
+							"global": true,
+							"params": [
+								{
+									"name": "数组1",
+									"type": "字节型()",
+									"description": "第一个字节数组。"
+								},
+								{
+									"name": "数组2",
+									"type": "字节型()",
+									"description": "第二个字节数组。"
+								}
+							],
+							"return": "字节型()"
+						},
+						{
+							"name": "合并文本数组",
+							"description": "按先后顺序合并两个文本数组，不修改输入数组。",
+							"global": true,
+							"params": [
+								{
+									"name": "数组1",
+									"type": "文本型()",
+									"description": "第一个文本数组。"
+								},
+								{
+									"name": "数组2",
+									"type": "文本型()",
+									"description": "第二个文本数组。"
+								}
+							],
+							"return": "文本型()"
+						},
+						{
+							"name": "插入数组成员",
+							"description": "在指定位置插入成员，保留原数组元素类型。",
+							"global": true,
+							"params": [
+								{
+									"name": "数组",
+									"type": "变体型",
+									"description": "原数组。"
+								},
+								{
+									"name": "成员",
+									"type": "变体型",
+									"description": "新成员，按原元素类型执行 Simple 转换。"
+								},
+								{
+									"name": "位置",
+									"type": "整数型",
+									"description": "插入位置，从 0 到成员数；等于成员数表示追加。"
+								}
+							],
+							"return": "变体型"
+						},
+						{
+							"name": "加入数组成员",
+							"description": "在数组末尾追加成员，不修改原数组。",
+							"global": true,
+							"params": [
+								{
+									"name": "数组",
+									"type": "变体型",
+									"description": "原数组。"
+								},
+								{
+									"name": "成员",
+									"type": "变体型",
+									"description": "新成员，按原元素类型执行 Simple 转换。"
+								}
+							],
+							"return": "变体型"
+						},
+						{
+							"name": "删除数组成员",
+							"description": "删除指定索引的一个成员，保留其余成员的顺序和元素类型。",
+							"global": true,
+							"params": [
+								{
+									"name": "数组",
+									"type": "变体型",
+									"description": "原数组。"
+								},
+								{
+									"name": "位置",
+									"type": "整数型",
+									"description": "待删除成员的索引。"
+								}
+							],
+							"return": "变体型"
+						},
+						{
+							"name": "数组排序",
+							"description": "将整数数组按升序原地排序。",
+							"global": true,
+							"params": [
+								{
+									"name": "数组",
+									"type": "整数型()",
+									"description": "待排序数组，不得为空引用。"
+								}
+							],
+							"return": "整数型()"
+						},
+						{
+							"name": "文本数组排序",
+							"description": "将文本数组按 UTF-16 字典顺序原地排序，不进行拼音或数值排序。",
+							"global": true,
+							"params": [
+								{
+									"name": "数组",
+									"type": "文本型()",
+									"description": "待排序数组，数组及其成员不得为空引用。"
+								}
+							],
+							"return": "文本型()"
+						},
+						{
+							"name": "过滤数组文本",
+							"description": "保留包含指定字面文本的成员，沿用去重及首次出现顺序。 筛选得到的新数组。",
+							"global": true,
+							"params": [
+								{
+									"name": "数组",
+									"type": "文本型()",
+									"description": "待筛选的文本数组。"
+								},
+								{
+									"name": "查找文本",
+									"type": "文本型",
+									"description": "要包含的字面文本。"
+								}
+							],
+							"return": "文本型()"
+						},
+						{
+							"name": "过滤数组文本",
+							"description": "按子文本包含关系过滤，并沿用既有去重规则。",
+							"global": true,
+							"params": [
+								{
+									"name": "数组",
+									"type": "文本型()",
+									"description": "原文本数组，成员不得为空引用。"
+								},
+								{
+									"name": "查找文本",
+									"type": "文本型",
+									"description": "字面子文本。"
+								},
+								{
+									"name": "包含",
+									"type": "逻辑型",
+									"description": "真表示保留匹配项，假表示排除匹配项。"
+								}
+							],
+							"return": "文本型()"
+						},
+						{
+							"name": "连接数组文本",
+							"description": "使用指定分隔文本连接数组成员。",
+							"global": true,
+							"params": [
+								{
+									"name": "数组",
+									"type": "文本型()",
+									"description": "文本数组。"
+								},
+								{
+									"name": "分隔符",
+									"type": "文本型",
+									"description": "成员间的分隔文本，不得为空引用，允许空文本。"
+								}
+							],
+							"return": "文本型"
+						},
+						{
+							"name": "分割文本",
+							"description": "使用字面分隔文本分割全部内容，保留末尾空成员。",
 							"global": true,
 							"params": [
 								{
 									"name": "文本",
 									"type": "文本型",
-									"description": "被寻找的文本"
+									"description": "原文本。"
 								},
 								{
-									"name": "查找文本",
+									"name": "分隔符",
 									"type": "文本型",
-									"description": "要寻找的文本"
+									"description": "字面分隔文本；空文本按 UTF-16 边界分割。"
+								}
+							],
+							"return": "文本型()"
+						},
+						{
+							"name": "分割文本",
+							"description": "使用字面分隔文本分割内容，并限制返回成员数。",
+							"global": true,
+							"params": [
+								{
+									"name": "文本",
+									"type": "文本型",
+									"description": "原文本。"
+								},
+								{
+									"name": "分隔符",
+									"type": "文本型",
+									"description": "字面分隔文本，不是正则表达式。"
+								},
+								{
+									"name": "数量",
+									"type": "整数型",
+									"description": "最大成员数，必须大于 0；达到上限后剩余内容作为最后一项。"
+								}
+							],
+							"return": "文本型()"
+						}
+					]
+				},
+				{
+					"name": "字节集操作",
+					"description": "字节数组的计数、合并、截取及分割。",
+					"kind": "object",
+					"type": "simple.runtime.字节集操作",
+					"functions": [
+						{
+							"name": "取字节集长度",
+							"description": "返回字节集长度。",
+							"global": true,
+							"params": [
+								{
+									"name": "字节集",
+									"type": "字节型()",
+									"description": "字节数组，不得为空引用。"
+								}
+							],
+							"return": "整数型"
+						},
+						{
+							"name": "合并字节集",
+							"description": "按先后顺序合并两个字节集。",
+							"global": true,
+							"params": [
+								{
+									"name": "数组1",
+									"type": "字节型()",
+									"description": "第一个字节集。"
+								},
+								{
+									"name": "数组2",
+									"type": "字节型()",
+									"description": "第二个字节集。"
+								}
+							],
+							"return": "字节型()"
+						},
+						{
+							"name": "取字节集左边",
+							"description": "从开头截取指定数量的字节。",
+							"global": true,
+							"params": [
+								{
+									"name": "字节集",
+									"type": "字节型()",
+									"description": "原字节集。"
+								},
+								{
+									"name": "长度",
+									"type": "整数型",
+									"description": "数量，不得为负，超出原长度时返回全部字节的副本。"
+								}
+							],
+							"return": "字节型()"
+						},
+						{
+							"name": "取字节集右边",
+							"description": "从末尾截取指定数量的字节。",
+							"global": true,
+							"params": [
+								{
+									"name": "字节集",
+									"type": "字节型()",
+									"description": "原字节集。"
+								},
+								{
+									"name": "长度",
+									"type": "整数型",
+									"description": "数量，不得为负，超出原长度时返回全部字节的副本。"
+								}
+							],
+							"return": "字节型()"
+						},
+						{
+							"name": "取字节集中间",
+							"description": "从指定位置截取到字节集末尾，不改变原数组。 新字节数组；起点位于末尾时为空数组。",
+							"global": true,
+							"params": [
+								{
+									"name": "字节集",
+									"type": "字节型()",
+									"description": "原字节集。"
 								},
 								{
 									"name": "起始位置",
 									"type": "整数型",
-									"description": "寻找在开始索引str1"
+									"description": "起始索引，允许等于字节集长度。"
+								}
+							],
+							"return": "字节型()"
+						},
+						{
+							"name": "取字节集中间",
+							"description": "从指定位置截取字节，不足指定数量时截取到末尾。",
+							"global": true,
+							"params": [
+								{
+									"name": "字节集",
+									"type": "字节型()",
+									"description": "原字节集。"
+								},
+								{
+									"name": "起始位置",
+									"type": "整数型",
+									"description": "起始索引，允许等于字节集长度。"
+								},
+								{
+									"name": "长度",
+									"type": "整数型",
+									"description": "数量，不得为负。"
+								}
+							],
+							"return": "字节型()"
+						},
+						{
+							"name": "分割字节集",
+							"description": "使用不重叠的字节序列分割字节集。 保留首尾和连续分隔符产生的空片段；空原数据得到一个空片段。 集合的每个项目都是一个字节数组，未找到分隔符时包含原数据的独立副本。",
+							"global": true,
+							"params": [
+								{
+									"name": "字节集",
+									"type": "字节型()",
+									"description": "原字节集。"
+								},
+								{
+									"name": "分隔符",
+									"type": "字节型()",
+									"description": "分隔字节序列，不得为空引用或空数组。"
+								}
+							],
+							"return": "simple.runtime.collections.集合"
+						}
+					]
+				},
+				{
+					"name": "文本操作",
+					"description": "文本查找、截取、传址修改及标记间内容提取。",
+					"kind": "object",
+					"type": "simple.runtime.文本操作",
+					"functions": [
+						{
+							"name": "取字符数",
+							"description": "返回文本中的 UTF-16 代码单元数，补充字符占两个单元。",
+							"global": true,
+							"params": [
+								{
+									"name": "文本",
+									"type": "文本型",
+									"description": "待计数文本。"
+								}
+							],
+							"return": "整数型"
+						},
+						{
+							"name": "取文本字节数",
+							"description": "返回文本按 UTF-8 编码后的字节数。",
+							"global": true,
+							"params": [
+								{
+									"name": "文本",
+									"type": "文本型",
+									"description": "待计数文本。"
+								}
+							],
+							"return": "整数型"
+						},
+						{
+							"name": "取文本字节数",
+							"description": "返回文本按指定字符集编码后的字节数。",
+							"global": true,
+							"params": [
+								{
+									"name": "文本",
+									"type": "文本型",
+									"description": "待计数文本。"
+								},
+								{
+									"name": "编码",
+									"type": "文本型",
+									"description": "字符集名称，例如 UTF-8 或 GBK。"
+								}
+							],
+							"return": "整数型"
+						},
+						{
+							"name": "文本比较",
+							"description": "按 UTF-16 字典顺序比较两个文本。",
+							"global": true,
+							"params": [
+								{
+									"name": "文本1",
+									"type": "文本型",
+									"description": "第一个文本。"
+								},
+								{
+									"name": "文本2",
+									"type": "文本型",
+									"description": "第二个文本。"
+								}
+							],
+							"return": "整数型"
+						},
+						{
+							"name": "寻找文本",
+							"description": "从文本开头向后查找字面内容。 首次匹配的索引，未找到返回 -1。",
+							"global": true,
+							"params": [
+								{
+									"name": "文本",
+									"type": "文本型",
+									"description": "被查找文本。"
+								},
+								{
+									"name": "查找文本",
+									"type": "文本型",
+									"description": "要查找的文本。"
+								}
+							],
+							"return": "整数型"
+						},
+						{
+							"name": "寻找文本",
+							"description": "从指定位置向后查找文本。",
+							"global": true,
+							"params": [
+								{
+									"name": "文本",
+									"type": "文本型",
+									"description": "被查找文本。"
+								},
+								{
+									"name": "查找文本",
+									"type": "文本型",
+									"description": "要查找的文本。"
+								},
+								{
+									"name": "起始位置",
+									"type": "整数型",
+									"description": "起始索引，允许等于文本长度。"
 								}
 							],
 							"return": "整数型"
 						},
 						{
 							"name": "倒找文本",
-							"description": "从给定文本末尾倒序寻找指定文本。",
+							"description": "从文本末尾向前查找字面内容。 最后匹配的索引，未找到返回 -1。",
 							"global": true,
 							"params": [
 								{
 									"name": "文本",
 									"type": "文本型",
-									"description": "被寻找的文本"
+									"description": "被查找文本。"
 								},
 								{
 									"name": "查找文本",
 									"type": "文本型",
-									"description": "要寻找的文本"
-								},
-								{
-									"name": "起始位置",
-									"type": "整数型",
-									"description": "在str1中寻找开始索引"
+									"description": "要查找的文本。"
 								}
 							],
 							"return": "整数型"
 						},
 						{
-							"name": "到小写",
-							"description": "将给定文本全部转换为小写。",
+							"name": "倒找文本",
+							"description": "从指定位置向前查找文本。",
 							"global": true,
 							"params": [
 								{
 									"name": "文本",
 									"type": "文本型",
-									"description": "要转换为小写的文本",
-									"byRef": true
-								}
-							]
-						},
-						{
-							"name": "到大写",
-							"description": "将给定的文本全部转换为大写。",
-							"global": true,
-							"params": [
+									"description": "被查找文本。"
+								},
 								{
-									"name": "文本",
+									"name": "查找文本",
 									"type": "文本型",
-									"description": "要转换为大写文本",
-									"byRef": true
+									"description": "要查找的文本。"
+								},
+								{
+									"name": "起始位置",
+									"type": "整数型",
+									"description": "起始索引，允许等于文本长度。"
 								}
-							]
+							],
+							"return": "整数型"
 						},
 						{
 							"name": "取文本左边",
-							"description": "从给定文本的开头返回指定数的子文本。",
+							"description": "从文本开头截取指定数量的 UTF-16 代码单元。",
 							"global": true,
 							"params": [
 								{
 									"name": "文本",
 									"type": "文本型",
-									"description": "从中返回子文本的给定文本"
+									"description": "原文本。"
 								},
 								{
 									"name": "长度",
 									"type": "整数型",
-									"description": "要返回的文本数"
+									"description": "数量，不得为负，超出可用长度时截取到末尾。"
 								}
 							],
 							"return": "文本型"
 						},
 						{
 							"name": "取文本右边",
-							"description": "从给定文本的末尾返回指定数目的子文本。",
+							"description": "从文本末尾截取指定数量的 UTF-16 代码单元。",
 							"global": true,
 							"params": [
 								{
 									"name": "文本",
 									"type": "文本型",
-									"description": "从中返回子文本的给定文本"
+									"description": "原文本。"
 								},
 								{
 									"name": "长度",
 									"type": "整数型",
-									"description": "要返回的文本数"
+									"description": "数量，不得为负，超出可用长度时返回全文。"
 								}
 							],
 							"return": "文本型"
 						},
 						{
 							"name": "取文本中间",
-							"description": "从给定索引开始，返回给定文本中的指定文本数。",
+							"description": "从指定位置截取到文本末尾，索引仍从 0 开始。 截取的文本；起点位于末尾时为空文本。",
 							"global": true,
 							"params": [
 								{
 									"name": "文本",
 									"type": "文本型",
-									"description": "返回子文本的给定文本"
+									"description": "原文本。"
 								},
 								{
 									"name": "起始位置",
 									"type": "整数型",
-									"description": "在str中开始索引"
-								},
-								{
-									"name": "长度",
-									"type": "整数型",
-									"description": "要返回的字符数"
+									"description": "起始索引，允许等于文本长度。"
 								}
 							],
 							"return": "文本型"
 						},
 						{
-							"name": "取字符数",
-							"description": "返回给定文本中的字符数。",
+							"name": "取文本中间",
+							"description": "从指定位置截取文本。",
 							"global": true,
 							"params": [
 								{
 									"name": "文本",
 									"type": "文本型",
-									"description": "获得长度的文本"
+									"description": "原文本。"
+								},
+								{
+									"name": "起始位置",
+									"type": "整数型",
+									"description": "起始索引，允许等于文本长度。"
+								},
+								{
+									"name": "长度",
+									"type": "整数型",
+									"description": "数量，不得为负，超出剩余长度时截取到末尾。"
 								}
 							],
-							"return": "整数型"
+							"return": "文本型"
+						},
+						{
+							"name": "到小写",
+							"description": "按设备默认区域设置将传入变量转换为小写。",
+							"global": true,
+							"params": [
+								{
+									"name": "文本",
+									"type": "文本型",
+									"description": "待修改的文本变量。",
+									"byRef": true
+								}
+							]
+						},
+						{
+							"name": "到大写",
+							"description": "按设备默认区域设置将传入变量转换为大写。",
+							"global": true,
+							"params": [
+								{
+									"name": "文本",
+									"type": "文本型",
+									"description": "待修改的文本变量。",
+									"byRef": true
+								}
+							]
 						},
 						{
 							"name": "删首尾空",
-							"description": "从给定文本中删除开头和末尾的空格。",
+							"description": "删除传入变量首尾的普通空格。",
 							"global": true,
 							"params": [
 								{
 									"name": "文本",
 									"type": "文本型",
-									"description": "要修剪的文本",
+									"description": "待修改的文本变量。",
 									"byRef": true
 								}
 							]
 						},
 						{
 							"name": "删首空",
-							"description": "从给定文本中删除开头的空格。",
+							"description": "删除传入变量开头的普通空格。",
 							"global": true,
 							"params": [
 								{
 									"name": "文本",
 									"type": "文本型",
-									"description": "要修剪的文本",
+									"description": "待修改的文本变量。",
 									"byRef": true
 								}
 							]
 						},
 						{
 							"name": "删尾空",
-							"description": "从给定文本中删除末尾的空格。",
+							"description": "删除传入变量末尾的普通空格，全空格文本变为空文本。",
 							"global": true,
 							"params": [
 								{
 									"name": "文本",
 									"type": "文本型",
-									"description": "要修剪的文本",
+									"description": "待修改的文本变量。",
 									"byRef": true
 								}
 							]
 						},
 						{
 							"name": "子文本替换",
-							"description": "将给定文本中指定子文本替换为指定文本。",
+							"description": "从文本开头替换全部不重叠的字面匹配，直接修改传入变量。",
 							"global": true,
 							"params": [
 								{
 									"name": "文本",
 									"type": "文本型",
-									"description": "要修改的文本",
+									"description": "待修改的文本变量。",
 									"byRef": true
 								},
 								{
 									"name": "查找文本",
 									"type": "文本型",
-									"description": "要查找的文本"
+									"description": "要查找的原文。"
 								},
 								{
 									"name": "替换文本",
 									"type": "文本型",
-									"description": "子文本替换的文本"
-								},
-								{
-									"name": "起始位置",
-									"type": "整数型",
-									"description": "str中的起始索引"
-								},
-								{
-									"name": "替换次数",
-									"type": "整数型",
-									"description": "执行替换的次数（-1 替换所有）"
+									"description": "替换内容。"
 								}
 							]
 						},
 						{
-							"name": "文本比较",
-							"description": "按字典顺序比较两个给定的文本。",
-							"global": true,
-							"params": [
-								{
-									"name": "文本1",
-									"type": "文本型",
-									"description": "第一个比较文本"
-								},
-								{
-									"name": "文本2",
-									"type": "文本型",
-									"description": "第二个比较文本"
-								}
-							],
-							"return": "整数型"
-						},
-						{
-							"name": "翻转文本",
-							"description": "反转给定的文本。",
+							"name": "子文本替换",
+							"description": "从指定位置替换全部不重叠的字面匹配，直接修改传入变量。",
 							"global": true,
 							"params": [
 								{
 									"name": "文本",
 									"type": "文本型",
-									"description": "要反转的文本",
+									"description": "待修改的文本变量。",
+									"byRef": true
+								},
+								{
+									"name": "查找文本",
+									"type": "文本型",
+									"description": "要查找的原文。"
+								},
+								{
+									"name": "替换文本",
+									"type": "文本型",
+									"description": "替换内容。"
+								},
+								{
+									"name": "起始位置",
+									"type": "整数型",
+									"description": "起始索引，之前的文本保持原样。"
+								}
+							]
+						},
+						{
+							"name": "子文本替换",
+							"description": "从指定位置替换原文本中不重叠的字面匹配，直接修改传入变量。 查找和替换内容中的正则符号均按原文处理；新写入内容不再次参与匹配。 查找内容为空时匹配原文本各位置之间的边界。",
+							"global": true,
+							"params": [
+								{
+									"name": "文本",
+									"type": "文本型",
+									"description": "待修改的文本变量。",
+									"byRef": true
+								},
+								{
+									"name": "查找文本",
+									"type": "文本型",
+									"description": "要查找的原文。"
+								},
+								{
+									"name": "替换文本",
+									"type": "文本型",
+									"description": "替换内容。"
+								},
+								{
+									"name": "起始位置",
+									"type": "整数型",
+									"description": "起始索引，之前的文本保持原样。"
+								},
+								{
+									"name": "数量",
+									"type": "整数型",
+									"description": "替换次数，-1 表示全部，0 或其它负数不替换。"
+								}
+							]
+						},
+						{
+							"name": "替换文本区间",
+							"description": "将指定区间替换为新文本，直接修改传入变量。",
+							"global": true,
+							"params": [
+								{
+									"name": "文本",
+									"type": "文本型",
+									"description": "待修改的文本变量。",
+									"byRef": true
+								},
+								{
+									"name": "起始位置",
+									"type": "整数型",
+									"description": "起始索引，允许等于文本长度。"
+								},
+								{
+									"name": "长度",
+									"type": "整数型",
+									"description": "原区间长度，不得为负，超出剩余长度时替换到末尾；0 表示插入。"
+								},
+								{
+									"name": "替换文本",
+									"type": "文本型",
+									"description": "新文本。"
+								}
+							]
+						},
+						{
+							"name": "翻转文本",
+							"description": "翻转传入文本，保留有效代理对内部的先后关系。",
+							"global": true,
+							"params": [
+								{
+									"name": "文本",
+									"type": "文本型",
+									"description": "待修改的文本变量。",
 									"byRef": true
 								}
 							]
 						},
 						{
+							"name": "取标记间文本",
+							"description": "提取首对左右标记之间的文本，标记本身不包含在结果中。",
+							"global": true,
+							"params": [
+								{
+									"name": "文本",
+									"type": "文本型",
+									"description": "原文本。"
+								},
+								{
+									"name": "左标记",
+									"type": "文本型",
+									"description": "左标记，不得为空。"
+								},
+								{
+									"name": "右标记",
+									"type": "文本型",
+									"description": "右标记，不得为空。"
+								}
+							],
+							"return": "文本型"
+						},
+						{
+							"name": "取全部标记间文本",
+							"description": "按原文顺序提取不重叠标记对之间的全部文本，不处理嵌套标记。",
+							"global": true,
+							"params": [
+								{
+									"name": "文本",
+									"type": "文本型",
+									"description": "原文本。"
+								},
+								{
+									"name": "左标记",
+									"type": "文本型",
+									"description": "左标记，不得为空，按字面内容匹配。"
+								},
+								{
+									"name": "右标记",
+									"type": "文本型",
+									"description": "右标记，不得为空，按字面内容匹配。"
+								}
+							],
+							"return": "文本型()"
+						},
+						{
 							"name": "格式化文本",
-							"description": "使用指定的格式文本和参数返回一个格式化文本。详细信息请参考有关 String.format(String, Object...) 文档。",
+							"description": "使用 Java 格式说明符和参数生成文本，区域设置沿用设备默认值。",
 							"global": true,
 							"params": [
 								{
 									"name": "格式",
 									"type": "文本型",
-									"description": "格式文本"
+									"description": "格式文本。"
 								},
 								{
 									"name": "参数",
 									"type": "变体型",
-									"description": "格式文本中由格式说明符引用的参数，可以是数组"
+									"description": "参数或参数数组。"
 								}
 							],
 							"return": "文本型"
@@ -9123,7 +13190,8 @@
 									"description": "模块名称"
 								}
 							]
-						},						{
+						},
+						{
 							"name": "取输出模块名",
 							"description": "取输出缺省模块名称。",
 							"global": true,
@@ -9428,7 +13496,7 @@
 					"functions": [
 						{
 							"name": "增减时间",
-							"description": "在给定日期添加时间间隔。",
+							"description": "在传入的日期对象上增减日历字段，直接修改原对象；支持年、月、天、星期、时、分、秒。",
 							"global": true,
 							"params": [
 								{
@@ -9450,13 +13518,13 @@
 						},
 						{
 							"name": "日期值",
-							"description": "从给定字符串创建日期。其中yyyy为年（0000-9999），MM为月（01-12），dd为日（01-31）, HH为时（00-23），mm为分（00-59）和ss为秒（00-59）。",
+							"description": "按预设格式解析设备默认时区的日期时间文本；沿用宽松解析并允许尾随文本，不作为严格日期校验器。",
 							"global": true,
 							"params": [
 								{
 									"name": "文本",
 									"type": "文本型",
-									"description": "日期时间文本" 
+									"description": "日期时间文本"
 								}
 							],
 							"return": "日期时间型"
@@ -9476,7 +13544,20 @@
 						},
 						{
 							"name": "格式化时间",
-							"description": "将给定的日期转换为字符串并进行格式化。",
+							"description": "按 yyyy-MM-dd HH:mm:ss 格式输出日期时间，沿用对象自身时区。 日期时间文本。",
+							"global": true,
+							"params": [
+								{
+									"name": "时间",
+									"type": "日期时间型",
+									"description": "要格式化的日期时间，保留对象自身时区。"
+								}
+							],
+							"return": "文本型"
+						},
+						{
+							"name": "格式化时间",
+							"description": "按给定格式和日期对象自身的时区生成文本，文字名称随设备语言区域变化。",
 							"global": true,
 							"params": [
 								{
@@ -9520,7 +13601,7 @@
 						},
 						{
 							"name": "取月份",
-							"description": "返回给定日期时间的月份。",
+							"description": "返回 0–11 的月份编号；一月为 0，与“月份_一月”等常量一致。",
 							"global": true,
 							"params": [
 								{
@@ -9533,7 +13614,7 @@
 						},
 						{
 							"name": "取月份名",
-							"description": "返回给定日期的月份名称。",
+							"description": "返回日期对象的本地化月份名称，随设备语言区域变化。",
 							"global": true,
 							"params": [
 								{
@@ -9565,13 +13646,13 @@
 						},
 						{
 							"name": "取现行时间戳",
-							"description": "返回当前系统以毫秒为单位的时间戳（13位）。",
+							"description": "返回当前 Unix 毫秒时间戳；不是设备启动时长，不以文本位数定义单位。",
 							"global": true,
 							"return": "长整数型"
 						},
 						{
 							"name": "取星期",
-							"description": "返回给定日期时间的星期。",
+							"description": "返回 1–7 的星期编号；星期天为 1、星期一为 2，与星期常量一致。",
 							"global": true,
 							"params": [
 								{
@@ -9584,7 +13665,7 @@
 						},
 						{
 							"name": "取星期名",
-							"description": "返回给定日期的星期名称。",
+							"description": "返回日期对象的本地化星期名称，随设备语言区域变化。",
 							"global": true,
 							"params": [
 								{
@@ -9597,7 +13678,7 @@
 						},
 						{
 							"name": "取年",
-							"description": "返返回给定日期时间的年。",
+							"description": "返回给定日期时间的年份。",
 							"global": true,
 							"params": [
 								{
@@ -9610,7 +13691,25 @@
 						},
 						{
 							"name": "文本到时间",
-							"description": "从给定日期时间文本创建一个指定时区的日期时间。",
+							"description": "按给定格式和设备默认时区解析日期时间，沿用宽松解析与允许尾随文本的行为。 解析得到的日期时间。",
+							"global": true,
+							"params": [
+								{
+									"name": "文本",
+									"type": "文本型",
+									"description": "日期时间文本，例如2008/04/21 09:29:48。"
+								},
+								{
+									"name": "格式",
+									"type": "文本型",
+									"description": "日期时间格式，例如yyyy/MM/dd HH:mm:ss。"
+								}
+							],
+							"return": "日期时间型"
+						},
+						{
+							"name": "文本到时间",
+							"description": "按给定格式和时区解析日期时间；沿用宽松解析并允许尾随文本，不作为严格日期校验器。",
 							"global": true,
 							"params": [
 								{
@@ -9632,21 +13731,44 @@
 							"return": "日期时间型"
 						},
 						{
+							"name": "取时间间隔",
+							"description": "计算结束时间减去开始时间的固定时长差，不修改输入；年按 365 天、月按 30 天、星期按 7 天、天按 24 小时折算，不足单位向零截断，并非日历年月差。",
+							"global": true,
+							"params": [
+								{
+									"name": "开始时间",
+									"type": "日期时间型",
+									"description": "开始时间。"
+								},
+								{
+									"name": "结束时间",
+									"type": "日期时间型",
+									"description": "结束时间。"
+								},
+								{
+									"name": "时间单位",
+									"type": "整数型",
+									"description": "日期_年、日期_月、日期_天、日期_星期、日期_时、日期_分或日期_秒。"
+								}
+							],
+							"return": "长整数型"
+						},
+						{
 							"name": "时间戳到时间",
-							"description": "将时间戳转为设备时区日期时间。",
+							"description": "将 Unix 毫秒时间戳转换为设备默认时区的日期时间，零和负数也按毫秒处理。",
 							"global": true,
 							"params": [
 								{
 									"name": "时间戳",
 									"type": "长整数型",
-									"description": "毫秒时间戳（13位）。"
+									"description": "自 1970-01-01T00:00:00Z 起经过的毫秒数。"
 								}
 							],
 							"return": "日期时间型"
 						},
 						{
 							"name": "到时间戳",
-							"description": "将指点日期时间转为时间戳。",
+							"description": "将日期对象转换为 Unix 毫秒时间戳，不受显示时区影响。",
 							"global": true,
 							"params": [
 								{
@@ -9691,19 +13813,71 @@
 						},
 						{
 							"name": "置时间时区",
-							"description": "取指定日期时间的时区。",
+							"description": "设置日期对象自身的显示时区，保持时间戳不变；不修改设备时区。",
 							"global": true,
 							"params": [
 								{
 									"name": "时间",
 									"type": "日期时间型",
-									"description": "日期时间。"
+									"description": "需要修改的日期时间。"
 								},
 								{
 									"name": "时区",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "时区标识，不识别的标识回退为 GMT。"
 								}
 							]
+						},
+						{
+							"name": "取现行日期文本",
+							"description": "按设备默认时区取得当前日期，以连字符分隔年月日。 yyyy-MM-dd 格式的当前日期文本。",
+							"global": true,
+							"return": "文本型"
+						},
+						{
+							"name": "取现行日期文本",
+							"description": "按设备默认时区返回当前日期文本，依次为四位年份、两位月份和两位日。",
+							"global": true,
+							"params": [
+								{
+									"name": "分隔符",
+									"type": "文本型",
+									"description": "年、月、日之间的文本，如 - 或 /；空文本表示不分隔。"
+								}
+							],
+							"return": "文本型"
+						},
+						{
+							"name": "取现行时间文本",
+							"description": "按设备默认时区取得当前时间，以冒号分隔时分秒。 HH:mm:ss 格式的当前时间文本，使用 24 小时制。",
+							"global": true,
+							"return": "文本型"
+						},
+						{
+							"name": "取现行时间文本",
+							"description": "按设备默认时区返回当前时间文本，依次为两位小时、两位分钟和两位秒，使用 24 小时制。",
+							"global": true,
+							"params": [
+								{
+									"name": "分隔符",
+									"type": "文本型",
+									"description": "时、分、秒之间的文本，如 :；空文本表示不分隔。"
+								}
+							],
+							"return": "文本型"
+						},
+						{
+							"name": "时间戳到时间文本",
+							"description": "将 10 位秒或 13 位毫秒时间戳文本按设备默认时区格式化为 yyyy-MM-dd HH:mm:ss；空值或其他长度返回空文本，正确长度的非法数值抛出异常。",
+							"global": true,
+							"params": [
+								{
+									"name": "时间戳",
+									"type": "文本型",
+									"description": "10 位秒时间戳文本或 13 位毫秒时间戳文本；此长度约定不影响其他数值时间戳接口。"
+								}
+							],
+							"return": "文本型"
 						}
 					]
 				},
@@ -9862,31 +14036,211 @@
 				},
 				{
 					"name": "编码转换",
-					"description": "编码相关函数。",
+					"description": "Unicode 转义、URL 参数、Base64 及文本与字节数组转换。",
 					"kind": "object",
 					"type": "simple.runtime.编码转换",
 					"functions": [
 						{
 							"name": "UCS2解析",
+							"description": "解析四位 Unicode 转义及制表、回车、换行、换页转义；不完整或无效的转义会抛出错误。",
 							"global": true,
 							"params": [
 								{
 									"name": "文本",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "待转换的文本。"
 								}
 							],
 							"return": "文本型"
 						},
 						{
 							"name": "UCS2编码",
+							"description": "将每个 UTF-16 代码单元编码为四位小写十六进制 Unicode 转义，补足前导零。",
 							"global": true,
 							"params": [
 								{
 									"name": "文本",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "待转换的文本。"
 								}
 							],
 							"return": "文本型"
+						},
+						{
+							"name": "URL编码",
+							"description": "使用 UTF-8 编码 URL 参数值，空格转为加号；不用于编码完整网址。",
+							"global": true,
+							"params": [
+								{
+									"name": "文本",
+									"type": "文本型",
+									"description": "待转换的文本。"
+								}
+							],
+							"return": "文本型"
+						},
+						{
+							"name": "URL编码",
+							"description": "使用指定字符集编码 URL 参数值，空格转为加号；不用于编码完整网址。",
+							"global": true,
+							"params": [
+								{
+									"name": "文本",
+									"type": "文本型",
+									"description": "待转换的文本。"
+								},
+								{
+									"name": "编码",
+									"type": "文本型",
+									"description": "字符集名称，例如 UTF-8 或 GBK。"
+								}
+							],
+							"return": "文本型"
+						},
+						{
+							"name": "URL解码",
+							"description": "使用 UTF-8 解码 URL 参数值，加号转为空格，无效百分号转义会抛出错误。",
+							"global": true,
+							"params": [
+								{
+									"name": "文本",
+									"type": "文本型",
+									"description": "待转换的文本。"
+								}
+							],
+							"return": "文本型"
+						},
+						{
+							"name": "URL解码",
+							"description": "使用指定字符集解码 URL 参数值，加号转为空格，无效百分号转义会抛出错误。",
+							"global": true,
+							"params": [
+								{
+									"name": "文本",
+									"type": "文本型",
+									"description": "待转换的文本。"
+								},
+								{
+									"name": "编码",
+									"type": "文本型",
+									"description": "字符集名称，例如 UTF-8 或 GBK。"
+								}
+							],
+							"return": "文本型"
+						},
+						{
+							"name": "Base64编码",
+							"description": "使用标准 Base64 字母表编码字节数组，保留末尾填充且不插入换行。",
+							"global": true,
+							"params": [
+								{
+									"name": "字节数据",
+									"type": "字节型()",
+									"description": "待转换的字节数组。"
+								}
+							],
+							"return": "文本型"
+						},
+						{
+							"name": "Base64解码",
+							"description": "按 Android 标准 Base64 规则解码，允许换行及省略填充，填充错误会抛出错误；不用于严格校验输入。",
+							"global": true,
+							"params": [
+								{
+									"name": "文本",
+									"type": "文本型",
+									"description": "待转换的文本。"
+								}
+							],
+							"return": "字节型()"
+						},
+						{
+							"name": "文本到字节",
+							"description": "使用 UTF-8 将文本转换为字节数组。",
+							"global": true,
+							"params": [
+								{
+									"name": "文本",
+									"type": "文本型",
+									"description": "待转换的文本。"
+								}
+							],
+							"return": "字节型()"
+						},
+						{
+							"name": "文本到字节",
+							"description": "使用指定字符集将文本转换为字节数组，无法表示的字符按默认替换规则处理。",
+							"global": true,
+							"params": [
+								{
+									"name": "文本",
+									"type": "文本型",
+									"description": "待转换的文本。"
+								},
+								{
+									"name": "编码",
+									"type": "文本型",
+									"description": "字符集名称，例如 UTF-8 或 GBK。"
+								}
+							],
+							"return": "字节型()"
+						},
+						{
+							"name": "字节到文本",
+							"description": "使用 UTF-8 将字节数组转换为文本。",
+							"global": true,
+							"params": [
+								{
+									"name": "字节数据",
+									"type": "字节型()",
+									"description": "待转换的字节数组。"
+								}
+							],
+							"return": "文本型"
+						},
+						{
+							"name": "字节到文本",
+							"description": "使用指定字符集将字节数组转换为文本，无效字节序列按默认替换规则处理。",
+							"global": true,
+							"params": [
+								{
+									"name": "字节数据",
+									"type": "字节型()",
+									"description": "待转换的字节数组。"
+								},
+								{
+									"name": "编码",
+									"type": "文本型",
+									"description": "字符集名称，例如 UTF-8 或 GBK。"
+								}
+							],
+							"return": "文本型"
+						},
+						{
+							"name": "字节集到十六进制",
+							"description": "将每个字节编码为两位大写十六进制字符，保留前导零且无分隔符；空引用、空数组或处理失败返回空文本。",
+							"global": true,
+							"params": [
+								{
+									"name": "数据",
+									"type": "字节型()",
+									"description": "待编码的字节数组。"
+								}
+							],
+							"return": "文本型"
+						},
+						{
+							"name": "十六进制到字节集",
+							"description": "每两个字符还原一个字节，大小写均可；奇数长度忽略末尾字符，非法字符沿用低四位映射，不作格式校验。空引用、空文本或处理失败返回空数组。",
+							"global": true,
+							"params": [
+								{
+									"name": "文本",
+									"type": "文本型",
+									"description": "不含前缀或分隔符的十六进制文本。"
+								}
+							],
+							"return": "字节型()"
 						}
 					]
 				},
@@ -10189,6 +14543,136 @@
 								}
 							],
 							"return": "对象()"
+						},
+						{
+							"name": "十六进制到长整数",
+							"description": "解析有符号十六进制文本，允许正负号，不接受 0x 前缀或首尾空白；非法、空输入或溢出返回 0。",
+							"global": true,
+							"params": [
+								{
+									"name": "文本",
+									"type": "文本型",
+									"description": "十六进制文本。"
+								}
+							],
+							"return": "长整数型"
+						},
+						{
+							"name": "整数到二进制",
+							"description": "将 32 位整数转为不带前缀的二进制文本，负数输出 32 位补码。",
+							"global": true,
+							"params": [
+								{
+									"name": "数值",
+									"type": "整数型",
+									"description": "待转换的整数。"
+								}
+							],
+							"return": "文本型"
+						},
+						{
+							"name": "二进制到长整数",
+							"description": "解析有符号二进制文本，允许正负号，不按补码解释；非法、空输入或溢出返回 0。",
+							"global": true,
+							"params": [
+								{
+									"name": "文本",
+									"type": "文本型",
+									"description": "二进制文本，不含 0b 前缀或空白。"
+								}
+							],
+							"return": "长整数型"
+						},
+						{
+							"name": "整数到字节集",
+							"description": "按小端字节序将整数转换为固定四字节数组，低位字节在前。",
+							"global": true,
+							"params": [
+								{
+									"name": "数值",
+									"type": "整数型",
+									"description": "待转换的 32 位整数。"
+								}
+							],
+							"return": "字节型()"
+						},
+						{
+							"name": "字节集到整数",
+							"description": "将前四个小端字节还原为有符号整数；多余字节忽略，空引用或不足四字节返回 0。",
+							"global": true,
+							"params": [
+								{
+									"name": "数据",
+									"type": "字节型()",
+									"description": "小端字节数组。"
+								}
+							],
+							"return": "整数型"
+						},
+						{
+							"name": "长整数到字节集",
+							"description": "按大端字节序将长整数转换为固定八字节数组，高位字节在前。",
+							"global": true,
+							"params": [
+								{
+									"name": "数值",
+									"type": "长整数型",
+									"description": "待转换的 64 位长整数。"
+								}
+							],
+							"return": "字节型()"
+						},
+						{
+							"name": "字节集到长整数",
+							"description": "将前八个大端字节还原为有符号长整数；多余字节忽略，空引用或不足八字节返回 0。",
+							"global": true,
+							"params": [
+								{
+									"name": "数据",
+									"type": "字节型()",
+									"description": "大端字节数组。"
+								}
+							],
+							"return": "长整数型"
+						},
+						{
+							"name": "双精度小数到字节集",
+							"description": "将双精度小数的 IEEE 754 位模式按大端顺序输出为八字节；保留正负零、无穷，NaN 使用规范位模式。",
+							"global": true,
+							"params": [
+								{
+									"name": "数值",
+									"type": "双精度小数型",
+									"description": "待转换的双精度小数。"
+								}
+							],
+							"return": "字节型()"
+						},
+						{
+							"name": "字节集到双精度小数",
+							"description": "将前八个大端字节按 IEEE 754 位模式还原为双精度小数；多余字节忽略，空引用或不足八字节返回 0。",
+							"global": true,
+							"params": [
+								{
+									"name": "数据",
+									"type": "字节型()",
+									"description": "大端字节数组。"
+								}
+							],
+							"return": "双精度小数型"
+						},
+						{
+							"name": "字节到无符号整数",
+							"description": "将单个字节解释为 0 至 255 的整数，例如字节 -1 返回 255。",
+							"global": true,
+							"params": [
+								{
+									"name": "数值",
+									"type": "字节型",
+									"description": "单个有符号字节。"
+								}
+							],
+							"return": "整数型"
 						}
 					]
 				},
@@ -10229,31 +14713,31 @@
 						},
 						{
 							"name": "求反正切",
-							"description": "返回给定值的反正切值。",
+							"description": "根据正切比值求反正切，返回弧度，范围为 [-π/2, π/2]。",
 							"global": true,
 							"params": [
 								{
 									"name": "数值",
 									"type": "双精度小数型",
-									"description": "值"
+									"description": "正切比值。"
 								}
 							],
 							"return": "双精度小数型"
 						},
 						{
 							"name": "求反正切2",
-							"description": "返回从直角坐标（x，y）到极坐标（r，theta>）的转换的角度θ。",
+							"description": "根据纵坐标 y 和横坐标 x 求四象限反正切，参数顺序为 y、x；返回点 (x, y) 相对 X 轴正方向的方向角，单位为弧度，范围为 [-π, π]。",
 							"global": true,
 							"params": [
 								{
 									"name": "纵坐标",
 									"type": "双精度小数型",
-									"description": "纵坐标"
+									"description": "纵坐标 y，第一个参数。"
 								},
 								{
 									"name": "横坐标",
 									"type": "双精度小数型",
-									"description": "横坐标"
+									"description": "横坐标 x，第二个参数。"
 								}
 							],
 							"return": "双精度小数型"
@@ -10433,6 +14917,140 @@
 					]
 				},
 				{
+					"name": "大数运算",
+					"description": "以文本输入输出执行高精度十进制运算，支持科学计数；结果不带指数并保留末尾零。非法文本、空引用及除零保留异常，不返回伪造结果。",
+					"kind": "object",
+					"type": "simple.runtime.大数运算",
+					"functions": [
+						{
+							"name": "大数相加",
+							"description": "精确计算两个十进制数之和，例如 0.1 加 0.2 得到 0.3。",
+							"global": true,
+							"params": [
+								{
+									"name": "数值一",
+									"type": "文本型",
+									"description": "第一个数值文本。"
+								},
+								{
+									"name": "数值二",
+									"type": "文本型",
+									"description": "第二个数值文本。"
+								}
+							],
+							"return": "文本型"
+						},
+						{
+							"name": "大数相减",
+							"description": "精确计算第一个十进制数减去第二个数，允许负数。",
+							"global": true,
+							"params": [
+								{
+									"name": "数值一",
+									"type": "文本型",
+									"description": "第一个数值文本。"
+								},
+								{
+									"name": "数值二",
+									"type": "文本型",
+									"description": "第二个数值文本。"
+								}
+							],
+							"return": "文本型"
+						},
+						{
+							"name": "大数相乘",
+							"description": "精确计算两个十进制数的乘积，保留运算产生的小数位。",
+							"global": true,
+							"params": [
+								{
+									"name": "数值一",
+									"type": "文本型",
+									"description": "第一个数值文本。"
+								},
+								{
+									"name": "数值二",
+									"type": "文本型",
+									"description": "第二个数值文本。"
+								}
+							],
+							"return": "文本型"
+						},
+						{
+							"name": "大数相除",
+							"description": "按指定小数位数相除，使用 HALF_UP 舍入，中间值向远离零方向舍入；调用前应使用大数比较检查零除数，现有 Simple 错误转换不支持算术异常。",
+							"global": true,
+							"params": [
+								{
+									"name": "被除数",
+									"type": "文本型",
+									"description": "被除数文本。"
+								},
+								{
+									"name": "除数",
+									"type": "文本型",
+									"description": "除数文本，不得为零。"
+								},
+								{
+									"name": "小数位数",
+									"type": "整数型",
+									"description": "结果小数位数；0 表示整数，负数表示十位、百位等。"
+								}
+							],
+							"return": "文本型"
+						},
+						{
+							"name": "大数比较",
+							"description": "比较实际数值，忽略小数末尾零；小于返回 -1，相等返回 0，大于返回 1。",
+							"global": true,
+							"params": [
+								{
+									"name": "数值一",
+									"type": "文本型",
+									"description": "第一个数值文本。"
+								},
+								{
+									"name": "数值二",
+									"type": "文本型",
+									"description": "第二个数值文本。"
+								}
+							],
+							"return": "整数型"
+						},
+						{
+							"name": "大数求余",
+							"description": "返回相除所得的余数，非零结果与被除数同号；例如 -5 除以 3 的余数为 -2。调用前应使用大数比较检查零除数。",
+							"global": true,
+							"params": [
+								{
+									"name": "被除数",
+									"type": "文本型",
+									"description": "被除数文本。"
+								},
+								{
+									"name": "除数",
+									"type": "文本型",
+									"description": "除数文本，不得为零。"
+								}
+							],
+							"return": "文本型"
+						},
+						{
+							"name": "科学转普通计数",
+							"description": "将科学计数或普通十进制文本展开为不带指数的文本，不主动删除小数末尾零。",
+							"global": true,
+							"params": [
+								{
+									"name": "数值",
+									"type": "文本型",
+									"description": "数值文本，例如 1.23E+5 或 1E-3。"
+								}
+							],
+							"return": "文本型"
+						}
+					]
+				},
+				{
 					"name": "颜色操作",
 					"description": "提供颜色创建、解析和分量读取功能。",
 					"kind": "object",
@@ -10447,6 +15065,29 @@
 									"name": "颜色",
 									"type": "文本型",
 									"description": "argb/rgb颜色文本。"
+								}
+							],
+							"return": "整数型"
+						},
+						{
+							"name": "到颜色",
+							"description": "将红、绿、蓝分量合成为完全不透明的 ARGB 颜色值。 透明度为 255 的颜色值，不校正超出范围的颜色分量。",
+							"global": true,
+							"params": [
+								{
+									"name": "红色",
+									"type": "整数型",
+									"description": "红色。"
+								},
+								{
+									"name": "绿色",
+									"type": "整数型",
+									"description": "绿色。"
+								},
+								{
+									"name": "蓝色",
+									"type": "整数型",
+									"description": "蓝色。"
 								}
 							],
 							"return": "整数型"
@@ -10627,6 +15268,23 @@
 					"name": "非法参数错误",
 					"description": "运行时错误，指示函数或过程参数的非法值。",
 					"kind": "error",
+					"inherits": [
+						"simple.runtime.errors.运行错误"
+					]
+				},
+				{
+					"name": "数据库错误",
+					"description": "SQLite 路径、连接或 SQL 操作失败，可由错误分支捕获。",
+					"kind": "error",
+					"inherits": [
+						"simple.runtime.errors.运行错误"
+					]
+				},
+				{
+					"name": "XML错误",
+					"description": "XML 输入、遍历、生成或状态错误，可在错误分支捕获；详情由对应对象的取错误信息读取。",
+					"kind": "object",
+					"type": "simple.runtime.errors.XML错误",
 					"inherits": [
 						"simple.runtime.errors.运行错误"
 					]

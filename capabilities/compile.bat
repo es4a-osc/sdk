@@ -10,13 +10,13 @@ REM 参数值无效
 IF "%PROJECT_FILE%" == "" (
 	ECHO - 请指定要编译的 .properties 项目文件
 	ECHO - 用法: %~nx0 "项目文件.properties"
-	GOTO 失败退出
+	GOTO 结束退出
 )
 
 REM 检验项目文件
 IF NOT EXIST "%PROJECT_FILE%" (
 	ECHO - 未找到项目文件: "%PROJECT_FILE%"
-	GOTO 失败退出
+	GOTO 结束退出
 )
 
 REM --------------------------------------------------
@@ -62,19 +62,11 @@ REM 通过 java.exe 使用编译器编译指定项目
 "%JAVA_HOME%\bin\java" -classpath "%ANDROID_HOME%\tools\lib\apkbuilder.jar;%ANDROID_HOME%\platforms\android-%API_LEVEL%\tools\lib\dx.jar;%ANDROID_HOME%\tools\lib\androidprefs.jar;%ANDROID_HOME%\tools\lib\jarutils.jar;%SIMPLE_HOME%\SimpleCompiler.jar" simple.compiler.Main "%PROJECT_FILE%"
 IF NOT %ERRORLEVEL% == 0 (
 	ECHO - 编译应用失败！
-	GOTO 失败退出
+	GOTO 结束退出
 )
 
 REM --------------------------------------------------
 
-:成功退出
+:结束退出
 ECHO.
-REM 仅供工具调用，请勿 PAUSE
-EXIT /B 0
-
-REM --------------------------------------------------
-
-:失败退出
-ECHO.
-REM 仅供工具调用，请勿 PAUSE
-EXIT /B 1
+REM 仅供工具调用，请勿 PAUSE 和 EXIT /B 1
