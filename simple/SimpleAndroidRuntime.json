@@ -1227,6 +1227,165 @@
 					]
 				},
 				{
+					"name": "弹出菜单",
+					"description": "以可视组件为锚点显示动态菜单或 XML 菜单资源；支持分组、排序、父子菜单及选中、关闭事件，无需额外权限。",
+					"icon": "icons/menu-deep.svg",
+					"kind": "component",
+					"type": "simple.runtime.components.弹出菜单",
+					"inherits": [
+						"simple.runtime.components.组件"
+					],
+					"events": [
+						{
+							"name": "被选中",
+							"description": "用户选中菜单项时触发。",
+							"params": [
+								{
+									"name": "项目标识",
+									"type": "整数型",
+									"description": "动态菜单项标识或 XML 菜单资源标识。"
+								}
+							]
+						},
+						{
+							"name": "被关闭",
+							"description": "菜单关闭时触发；组件销毁时不派发。"
+						}
+					],
+					"properties": [
+						{
+							"name": "菜单项",
+							"type": "文本型",
+							"initializer": "\"\"",
+							"description": "@menu/资源名；设置有效资源会清空动态项目，空文本使用动态菜单。"
+						}
+					],
+					"functions": [
+						{
+							"name": "添加",
+							"description": "添加动态顶层项目并切换为动态模式，返回不复用的正整数标识。",
+							"params": [
+								{
+									"name": "标题",
+									"type": "文本型",
+									"description": "菜单项标题。"
+								}
+							],
+							"return": "整数型"
+						},
+						{
+							"name": "删除",
+							"description": "删除动态菜单项及其全部子项；不存在时不作处理。",
+							"params": [
+								{
+									"name": "项目标识",
+									"type": "整数型",
+									"description": "动态菜单项标识。"
+								}
+							]
+						},
+						{
+							"name": "清空",
+							"description": "清空动态项目，不改变菜单资源路径。"
+						},
+						{
+							"name": "取分组",
+							"description": "读取动态菜单项分组，0 表示未分组。",
+							"params": [
+								{
+									"name": "项目标识",
+									"type": "整数型",
+									"description": "动态菜单项标识。"
+								}
+							],
+							"return": "整数型"
+						},
+						{
+							"name": "置分组",
+							"description": "设置动态菜单项分组。",
+							"params": [
+								{
+									"name": "项目标识",
+									"type": "整数型",
+									"description": "动态菜单项标识。"
+								},
+								{
+									"name": "分组标识",
+									"type": "整数型",
+									"description": "分组标识，0 表示未分组。"
+								}
+							]
+						},
+						{
+							"name": "取排序",
+							"description": "读取 Android 菜单排序值。",
+							"params": [
+								{
+									"name": "项目标识",
+									"type": "整数型",
+									"description": "动态菜单项标识。"
+								}
+							],
+							"return": "整数型"
+						},
+						{
+							"name": "置排序",
+							"description": "设置排序值，同值保持添加次序。",
+							"params": [
+								{
+									"name": "项目标识",
+									"type": "整数型",
+									"description": "动态菜单项标识。"
+								},
+								{
+									"name": "排序值",
+									"type": "整数型",
+									"description": "Android 菜单排序值；简单排序使用非负小整数。"
+								}
+							]
+						},
+						{
+							"name": "取父项",
+							"description": "读取父项标识，0 表示顶层。",
+							"params": [
+								{
+									"name": "项目标识",
+									"type": "整数型",
+									"description": "动态菜单项标识。"
+								}
+							],
+							"return": "整数型"
+						},
+						{
+							"name": "置父项",
+							"description": "设置父项，拒绝不存在的标识及父子循环。",
+							"params": [
+								{
+									"name": "项目标识",
+									"type": "整数型",
+									"description": "动态菜单项标识。"
+								},
+								{
+									"name": "父项标识",
+									"type": "整数型",
+									"description": "父菜单项标识，0 表示移至顶层。"
+								}
+							]
+						},
+						{
+							"name": "弹出",
+							"description": "以已附着到当前窗口的可视组件为锚点弹出菜单；数据修改在下一次弹出时生效。",
+							"params": [
+								{
+									"name": "锚点组件",
+									"type": "可视组件",
+									"description": "用于定位菜单的可视组件。"
+								}
+							]
+						}
+					]
+				},
+				{
 					"name": "音频播放器",
 					"description": "音频播放器组件。",
 					"icon": "icons/music.svg",
@@ -1657,6 +1816,112 @@
 							"name": "有线耳机是否连接",
 							"description": "检测系统识别的有线耳麦、有线耳机及明确标识的 USB 耳机，不包含蓝牙；不代表当前播放路由。无需录音或蓝牙运行时权限。",
 							"return": "逻辑型"
+						}
+					]
+				},
+				{
+					"name": "电池监视器",
+					"description": "读取电量、状态、温度（摄氏度）、电压（伏）、外部电源和健康状态，并监听变化；无需额外权限。停用保留快照，重新启用读取最新状态，销毁释放监听。",
+					"icon": "icons/battery-charging.svg",
+					"kind": "component",
+					"type": "simple.runtime.components.电池监视器",
+					"inherits": [
+						"simple.runtime.components.组件"
+					],
+					"constants": [
+						{
+							"name": "状态_未知",
+							"type": "整数型",
+							"value": "1"
+						},
+						{
+							"name": "状态_充电中",
+							"type": "整数型",
+							"value": "2"
+						},
+						{
+							"name": "状态_放电中",
+							"type": "整数型",
+							"value": "3"
+						},
+						{
+							"name": "状态_未充电",
+							"type": "整数型",
+							"value": "4"
+						},
+						{
+							"name": "状态_已充满",
+							"type": "整数型",
+							"value": "5"
+						}
+					],
+					"properties": [
+						{
+							"name": "是否可用",
+							"type": "逻辑型",
+							"description": "已取得存在电池且电量量程有效的系统信息；不保证所有可选数据都有值。",
+							"writable": false
+						},
+						{
+							"name": "启用",
+							"type": "逻辑型",
+							"description": "启用或停止监听，停止后保留快照；已销毁组件不能重新启用。",
+							"initializer": "真"
+						}
+					],
+					"functions": [
+						{
+							"name": "取电池状态",
+							"description": "读取电池状态，未知时为状态_未知。",
+							"return": "整数型"
+						},
+						{
+							"name": "取电池电量",
+							"description": "按系统量程换算为 0 至 100 的整数百分比，小数舍去；未知、无电池或量程无效时为 -1。",
+							"return": "整数型"
+						},
+						{
+							"name": "取电池温度",
+							"description": "读取摄氏温度，系统未报告时为 NaN。",
+							"return": "双精度小数型"
+						},
+						{
+							"name": "取电池电压",
+							"description": "读取以伏为单位的电池电压，未报告有效电压时为 NaN。",
+							"return": "双精度小数型"
+						},
+						{
+							"name": "取充电方式",
+							"description": "读取外部电源类型：未连接、交流电、USB、无线、其他或未知，不等同于是否正在充电。",
+							"return": "文本型"
+						},
+						{
+							"name": "取健康状态",
+							"description": "读取系统健康状态：良好、过热、失效、过压、故障、过冷或未知。",
+							"return": "文本型"
+						}
+					],
+					"events": [
+						{
+							"name": "状态改变",
+							"description": "启用后首次取得状态，或任一公开电池信息变化时触发；全部读取结果在事件前已更新，重复快照不重复报告。",
+							"params": [
+								{
+									"name": "状态",
+									"type": "整数型",
+									"description": "本组件的状态常量。"
+								},
+								{
+									"name": "电量",
+									"type": "整数型",
+									"description": "整数百分比，未知时为 -1。"
+								},
+								{
+									"name": "温度",
+									"type": "双精度小数型",
+									"description": "摄氏温度，未报告时为 NaN。"
+								}
+							]
 						}
 					]
 				},
@@ -3331,6 +3596,301 @@
 						{
 							"name": "释放语音朗读",
 							"description": "停止并释放朗读引擎；后续朗读可重新初始化。"
+						}
+					]
+				},
+				{
+					"name": "HTTP客户端",
+					"description": "异步 HTTP/HTTPS 请求与流式文件提交，每实例一次请求，通过主线程事件通知结果。",
+					"kind": "component",
+					"type": "simple.runtime.components.HTTP客户端",
+					"icon": "icons/world.svg",
+					"inherits": [
+						"simple.runtime.components.组件"
+					],
+					"permissions": [
+						"android.permission.INTERNET"
+					],
+					"events": [
+						{
+							"name": "发送进度",
+							"description": "请求正文写出进度，约每 200 毫秒通知；不表示服务器已处理内容。",
+							"params": [
+								{
+									"name": "已发送",
+									"type": "长整数型",
+									"description": "已写出字节数，文件表单包含字段和边界。"
+								},
+								{
+									"name": "总大小",
+									"type": "长整数型",
+									"description": "正文总字节数；未知时为 -1。"
+								}
+							]
+						},
+						{
+							"name": "接收进度",
+							"description": "响应正文读取进度，约每 200 毫秒通知。",
+							"params": [
+								{
+									"name": "已接收",
+									"type": "长整数型",
+									"description": "已读入字节数。"
+								},
+								{
+									"name": "总大小",
+									"type": "长整数型",
+									"description": "响应总字节数；未知或压缩响应时为 -1。"
+								}
+							]
+						},
+						{
+							"name": "请求完成",
+							"description": "完整响应已保存，响应属性可读取；允许在此事件中开始下一请求。",
+							"params": [
+								{
+									"name": "状态码",
+									"type": "整数型",
+									"description": "HTTP 状态码，包括 3xx、4xx、5xx；业务成功需由应用判断。"
+								}
+							]
+						},
+						{
+							"name": "请求失败",
+							"description": "已受理请求发生网络、文件或响应大小错误时触发。",
+							"params": [
+								{
+									"name": "错误说明",
+									"type": "文本型",
+									"description": "错误说明，不包含请求头及提交正文。"
+								}
+							]
+						},
+						{
+							"name": "请求取消",
+							"description": "主动取消赢得终止状态时触发一次，不保证撤回服务器已接收的数据。"
+						}
+					],
+					"properties": [
+						{
+							"name": "连接超时",
+							"type": "整数型",
+							"description": "返回后续请求的连接超时。",
+							"writable": true,
+							"initializer": "10000"
+						},
+						{
+							"name": "读入超时",
+							"type": "整数型",
+							"description": "返回后续请求的读取超时，此值不是写入或整体请求超时。",
+							"writable": true,
+							"initializer": "30000"
+						},
+						{
+							"name": "响应大小上限",
+							"type": "整数型",
+							"description": "返回后续请求允许缓存的最大响应正文大小。",
+							"writable": true,
+							"initializer": "8388608"
+						},
+						{
+							"name": "正在请求",
+							"type": "逻辑型",
+							"description": "查询是否仍有任务或终止通知等待处理。",
+							"writable": false
+						},
+						{
+							"name": "响应代码",
+							"type": "整数型",
+							"description": "返回最近结束请求的 HTTP 状态。",
+							"writable": false
+						},
+						{
+							"name": "响应文本",
+							"type": "文本型",
+							"description": "返回最近完成请求的正文文本；发送下一请求时保留到新的终止通知。",
+							"writable": false
+						},
+						{
+							"name": "响应数据",
+							"type": "字节型()",
+							"description": "返回最近完成请求的原始正文副本。",
+							"writable": false
+						},
+						{
+							"name": "错误信息",
+							"type": "文本型",
+							"description": "返回最近操作或失败的说明。",
+							"writable": false
+						}
+					],
+					"functions": [
+						{
+							"name": "置请求头",
+							"description": "设置后续请求的请求头，同名头按不区分大小写的规则替换。",
+							"params": [
+								{
+									"name": "名称",
+									"type": "文本型",
+									"description": "非空 HTTP 头名称。"
+								},
+								{
+									"name": "值",
+									"type": "文本型",
+									"description": "请求头值，不得包含换行。"
+								}
+							]
+						},
+						{
+							"name": "清空请求头",
+							"description": "清除后续请求的全部自定义请求头，不影响已开始的任务。"
+						},
+						{
+							"name": "置提交文本",
+							"description": "用 UTF-8 文本替换待提交正文，默认类型为 text/plain; charset=UTF-8。",
+							"params": [
+								{
+									"name": "内容",
+									"type": "文本型",
+									"description": "完整文本。"
+								}
+							]
+						},
+						{
+							"name": "置提交文本",
+							"description": "用指定 MIME 类型的 UTF-8 文本替换待提交正文。",
+							"params": [
+								{
+									"name": "内容",
+									"type": "文本型",
+									"description": "完整文本。"
+								},
+								{
+									"name": "内容类型",
+									"type": "文本型",
+									"description": "MIME 类型，不含字符集参数，例如 application/json；组件添加 UTF-8 字符集。"
+								}
+							]
+						},
+						{
+							"name": "置提交数据",
+							"description": "复制字节集作为下一请求正文，类型为 application/octet-stream。",
+							"params": [
+								{
+									"name": "数据",
+									"type": "字节型()",
+									"description": "完整字节内容；大文件优先使用文件提交。"
+								}
+							]
+						},
+						{
+							"name": "置提交表单",
+							"description": "将字段快照编码为 UTF-8 的 application/x-www-form-urlencoded 正文。",
+							"params": [
+								{
+									"name": "字段",
+									"type": "哈希表",
+									"description": "表单字段，值转换为文本；不保留传入哈希表的可变引用。"
+								}
+							]
+						},
+						{
+							"name": "置提交文件",
+							"description": "配置原始文件正文，实际打开和读取在工作线程执行。",
+							"params": [
+								{
+									"name": "地址",
+									"type": "文本型",
+									"description": "本地路径或已获读权限的 content URI；相对路径以应用内部文件目录为基准。"
+								}
+							]
+						},
+						{
+							"name": "置提交文件表单",
+							"description": "配置单文件 multipart 表单，不附加其它字段。",
+							"params": [
+								{
+									"name": "名称",
+									"type": "文本型",
+									"description": "服务器接收文件的字段名，例如 file。"
+								},
+								{
+									"name": "地址",
+									"type": "文本型",
+									"description": "本地路径或已获读权限的 content URI。"
+								}
+							]
+						},
+						{
+							"name": "置提交文件表单",
+							"description": "配置一个文件和附加文本字段组成的 multipart 表单，替换之前的正文。",
+							"params": [
+								{
+									"name": "名称",
+									"type": "文本型",
+									"description": "文件字段名。"
+								},
+								{
+									"name": "地址",
+									"type": "文本型",
+									"description": "文件路径或 content URI。"
+								},
+								{
+									"name": "字段",
+									"type": "哈希表",
+									"description": "附加字段快照。"
+								}
+							]
+						},
+						{
+							"name": "清空提交内容",
+							"description": "清除待提交正文；不同正文设置方法相互替换，不叠加。"
+						},
+						{
+							"name": "发送请求",
+							"description": "异步发送 GET 请求；如已配置正文则拒绝受理。",
+							"params": [
+								{
+									"name": "地址",
+									"type": "文本型",
+									"description": "HTTP/HTTPS 完整网址。"
+								}
+							],
+							"return": "逻辑型"
+						},
+						{
+							"name": "发送请求",
+							"description": "固定参数快照并异步发送，不自动跟随重定向或重试。",
+							"params": [
+								{
+									"name": "请求方式",
+									"type": "文本型",
+									"description": "GET、POST、PUT、DELETE、HEAD 或 OPTIONS，不区分大小写。"
+								},
+								{
+									"name": "地址",
+									"type": "文本型",
+									"description": "HTTP/HTTPS 完整网址。"
+								}
+							],
+							"return": "逻辑型"
+						},
+						{
+							"name": "取消请求",
+							"description": "尝试取消当前任务；阻塞关闭在后台处理，不保证立即断开网络或撤回服务器数据。",
+							"return": "逻辑型"
+						},
+						{
+							"name": "取响应头",
+							"description": "读取最近完成请求的响应头，同名多值以逗号及空格连接。",
+							"params": [
+								{
+									"name": "名称",
+									"type": "文本型",
+									"description": "响应头名称，不区分大小写。"
+								}
+							],
+							"return": "文本型"
 						}
 					]
 				},
@@ -7861,7 +8421,7 @@
 				},
 				{
 					"name": "画板",
-					"description": "Simple画板组件。",
+					"description": "支持图形、文字、图片绘制、取点和 PNG/JPEG 保存的画板。绘图、触摸、线宽和字号均使用画板内绝对像素 px；取点与保存须等待布局完成。调整尺寸保留左上交集，清空或修改背景色重置画面。",
 					"icon": "icons/palette.svg",
 					"kind": "component",
 					"type": "simple.runtime.components.画板",
@@ -7935,7 +8495,7 @@
 						{
 							"name": "画笔粗细",
 							"type": "单精度小数型",
-							"description": "画笔粗细值。",
+							"description": "以 px 为单位的线宽，非正数沿用 1px，NaN 或无穷数无效。",
 							"initializer": "1.0",
 							"editor": "simple.single"
 						},
@@ -8002,12 +8562,24 @@
 								]
 							},
 							"projection": "backgroundColor"
+						},
+						{
+							"name": "画笔类型",
+							"type": "整数型",
+							"description": "画笔_描边（0）或画笔_填充（1），其它值无效；不影响已绘制内容。",
+							"initializer": "1"
+						},
+						{
+							"name": "字体大小",
+							"type": "单精度小数型",
+							"description": "绘制文字的字号，必须为正数且有限，单位 px，不随系统字体缩放。",
+							"initializer": "16.0"
 						}
 					],
 					"functions": [
 						{
 							"name": "清空",
-							"description": "清除画板（用背景颜色填充）。"
+							"description": "用当前背景颜色重置整个画面；透明背景会恢复为透明像素。"
 						},
 						{
 							"name": "画点",
@@ -8069,6 +8641,257 @@
 									"name": "终点纵坐标",
 									"type": "整数型",
 									"description": "第二点的y坐标"
+								}
+							]
+						},
+						{
+							"name": "画矩形",
+							"description": "按左上角和宽高绘制矩形，填充或描边由画笔类型决定。",
+							"params": [
+								{
+									"name": "左边",
+									"type": "整数型",
+									"description": "左边横坐标，单位 px。"
+								},
+								{
+									"name": "顶边",
+									"type": "整数型",
+									"description": "顶边纵坐标，单位 px。"
+								},
+								{
+									"name": "宽度",
+									"type": "整数型",
+									"description": "矩形宽度，非负 px。"
+								},
+								{
+									"name": "高度",
+									"type": "整数型",
+									"description": "矩形高度，非负 px。"
+								}
+							]
+						},
+						{
+							"name": "画圆角矩形",
+							"description": "绘制圆角矩形，填充或描边由画笔类型决定。",
+							"params": [
+								{
+									"name": "左边",
+									"type": "整数型",
+									"description": "左边横坐标，单位 px。"
+								},
+								{
+									"name": "顶边",
+									"type": "整数型",
+									"description": "顶边纵坐标，单位 px。"
+								},
+								{
+									"name": "宽度",
+									"type": "整数型",
+									"description": "矩形宽度，非负 px。"
+								},
+								{
+									"name": "高度",
+									"type": "整数型",
+									"description": "矩形高度，非负 px。"
+								},
+								{
+									"name": "半径",
+									"type": "单精度小数型",
+									"description": "非负且有限的圆角半径，单位 px。"
+								}
+							]
+						},
+						{
+							"name": "画弧形",
+							"description": "在包围矩形内绘制椭圆弧或扇形，角度单位为度。",
+							"params": [
+								{
+									"name": "左边",
+									"type": "整数型",
+									"description": "包围矩形左边，单位 px。"
+								},
+								{
+									"name": "顶边",
+									"type": "整数型",
+									"description": "包围矩形顶边，单位 px。"
+								},
+								{
+									"name": "宽度",
+									"type": "整数型",
+									"description": "包围矩形宽度，非负 px。"
+								},
+								{
+									"name": "高度",
+									"type": "整数型",
+									"description": "包围矩形高度，非负 px。"
+								},
+								{
+									"name": "起始角度",
+									"type": "单精度小数型",
+									"description": "有限的起始角度，正右方为 0 度。"
+								},
+								{
+									"name": "扫过角度",
+									"type": "单精度小数型",
+									"description": "有限的扫过角度，正数为顺时针。"
+								},
+								{
+									"name": "连接圆心",
+									"type": "逻辑型",
+									"description": "真表示连接圆心形成扇形。"
+								}
+							]
+						},
+						{
+							"name": "画贝塞尔曲线",
+							"description": "使用一个控制点绘制二次贝塞尔曲线，沿用当前画笔类型。",
+							"params": [
+								{
+									"name": "起点横坐标",
+									"type": "整数型",
+									"description": "起点横坐标，单位 px。"
+								},
+								{
+									"name": "起点纵坐标",
+									"type": "整数型",
+									"description": "起点纵坐标，单位 px。"
+								},
+								{
+									"name": "控制点横坐标",
+									"type": "整数型",
+									"description": "控制点横坐标，单位 px。"
+								},
+								{
+									"name": "控制点纵坐标",
+									"type": "整数型",
+									"description": "控制点纵坐标，单位 px。"
+								},
+								{
+									"name": "终点横坐标",
+									"type": "整数型",
+									"description": "终点横坐标，单位 px。"
+								},
+								{
+									"name": "终点纵坐标",
+									"type": "整数型",
+									"description": "终点纵坐标，单位 px。"
+								}
+							]
+						},
+						{
+							"name": "画文字",
+							"description": "按当前画笔颜色、类型和字体大小绘制单行文字。",
+							"params": [
+								{
+									"name": "左边",
+									"type": "整数型",
+									"description": "文字左边横坐标，单位 px。"
+								},
+								{
+									"name": "基线",
+									"type": "整数型",
+									"description": "文字基线纵坐标，单位 px，并非文字顶边。"
+								},
+								{
+									"name": "文字",
+									"type": "文本型",
+									"description": "单行文字；换行符不会自动产生多行布局。"
+								}
+							]
+						},
+						{
+							"name": "画图片",
+							"description": "按图片原始像素尺寸绘制，不按屏幕密度自动缩放。 读写或解码失败抛出文件读写错误；绝对路径受系统访问限制，不自动申请权限。",
+							"params": [
+								{
+									"name": "路径",
+									"type": "文本型",
+									"description": "资产文件名或绝对文件路径，不支持网址或 content URI。"
+								},
+								{
+									"name": "左边",
+									"type": "整数型",
+									"description": "目标左边横坐标，单位 px。"
+								},
+								{
+									"name": "顶边",
+									"type": "整数型",
+									"description": "目标顶边纵坐标，单位 px。"
+								}
+							]
+						},
+						{
+							"name": "画图片",
+							"description": "将图片缩放到指定宽高后绘制，不自动保持宽高比例。 读写或解码失败抛出文件读写错误；绝对路径受系统访问限制，不自动申请权限。",
+							"params": [
+								{
+									"name": "路径",
+									"type": "文本型",
+									"description": "资产文件名或绝对文件路径，不支持网址或 content URI。"
+								},
+								{
+									"name": "左边",
+									"type": "整数型",
+									"description": "目标左边横坐标，单位 px。"
+								},
+								{
+									"name": "顶边",
+									"type": "整数型",
+									"description": "目标顶边纵坐标，单位 px。"
+								},
+								{
+									"name": "宽度",
+									"type": "整数型",
+									"description": "目标宽度，必须为正数，单位 px。"
+								},
+								{
+									"name": "高度",
+									"type": "整数型",
+									"description": "目标高度，必须为正数，单位 px。"
+								}
+							]
+						},
+						{
+							"name": "取点颜色",
+							"description": "读取布局完成后的画板像素；坐标越界时抛出索引超出界限错误。 指定位置的 ARGB 颜色，包含画板背景与已绘制内容，不含边距或其它组件。",
+							"params": [
+								{
+									"name": "横坐标",
+									"type": "整数型",
+									"description": "横坐标，范围为 0 至实际画板宽度减 1。"
+								},
+								{
+									"name": "纵坐标",
+									"type": "整数型",
+									"description": "纵坐标，范围为 0 至实际画板高度减 1。"
+								}
+							],
+							"return": "整数型"
+						},
+						{
+							"name": "保存画面",
+							"description": "以 PNG 保存布局完成后的完整画板，保留透明度，覆盖同名文件。 读写或解码失败抛出文件读写错误；绝对路径受系统访问限制，不自动申请权限。",
+							"params": [
+								{
+									"name": "路径",
+									"type": "文本型",
+									"description": "目标路径；相对路径以应用私有 files 目录为基准，父目录须已存在。"
+								}
+							]
+						},
+						{
+							"name": "保存画面",
+							"description": "保存布局完成后的完整画板；JPEG 质量为 100，并以白色衬底处理透明像素。 读写或解码失败抛出文件读写错误；绝对路径受系统访问限制，不自动申请权限。",
+							"params": [
+								{
+									"name": "路径",
+									"type": "文本型",
+									"description": "目标路径；相对路径以应用私有 files 目录为基准，父目录须已存在。"
+								},
+								{
+									"name": "格式",
+									"type": "整数型",
+									"description": "图片格式_PNG 或图片格式_JPEG；文件后缀不会自动决定格式。"
 								}
 							]
 						}
@@ -8142,6 +8965,32 @@
 									"description": "不断识别触摸手势的方向（@see 组件）。"
 								}
 							]
+						}
+					],
+					"constants": [
+						{
+							"name": "画笔_描边",
+							"type": "整数型",
+							"value": "0",
+							"description": "仅绘制轮廓。"
+						},
+						{
+							"name": "画笔_填充",
+							"type": "整数型",
+							"value": "1",
+							"description": "填充图形内部。"
+						},
+						{
+							"name": "图片格式_PNG",
+							"type": "整数型",
+							"value": "0",
+							"description": "PNG 格式，保留透明度。"
+						},
+						{
+							"name": "图片格式_JPEG",
+							"type": "整数型",
+							"value": "1",
+							"description": "JPEG 格式，不保留透明度。"
 						}
 					]
 				},
@@ -12025,7 +12874,7 @@
 							"return": "整数型"
 						},
 						{
-							"name": "解析像素",
+							"name": "解析为像素",
 							"description": "将整数或带单位的文本解析为绝对像素（px）；文本支持纯数值及 px、dp、dip、sp 后缀，单位不区分大小写，值或单位无效时抛出转换错误。",
 							"global": true,
 							"params": [
@@ -13051,24 +13900,6 @@
 							]
 						},
 						{
-							"name": "合并字节数组",
-							"description": "按先后顺序合并两个字节数组，不修改输入数组。",
-							"global": true,
-							"params": [
-								{
-									"name": "数组1",
-									"type": "字节型()",
-									"description": "第一个字节数组。"
-								},
-								{
-									"name": "数组2",
-									"type": "字节型()",
-									"description": "第二个字节数组。"
-								}
-							],
-							"return": "字节型()"
-						},
-						{
 							"name": "合并文本数组",
 							"description": "按先后顺序合并两个文本数组，不修改输入数组。",
 							"global": true,
@@ -13211,65 +14042,6 @@
 								}
 							],
 							"return": "文本型()"
-						},
-						{
-							"name": "连接数组文本",
-							"description": "使用指定分隔文本连接数组成员。",
-							"global": true,
-							"params": [
-								{
-									"name": "数组",
-									"type": "文本型()",
-									"description": "文本数组。"
-								},
-								{
-									"name": "分隔符",
-									"type": "文本型",
-									"description": "成员间的分隔文本，不得为空引用，允许空文本。"
-								}
-							],
-							"return": "文本型"
-						},
-						{
-							"name": "分割文本",
-							"description": "使用字面分隔文本分割全部内容，保留末尾空成员。",
-							"global": true,
-							"params": [
-								{
-									"name": "文本",
-									"type": "文本型",
-									"description": "原文本。"
-								},
-								{
-									"name": "分隔符",
-									"type": "文本型",
-									"description": "字面分隔文本；空文本按 UTF-16 边界分割。"
-								}
-							],
-							"return": "文本型()"
-						},
-						{
-							"name": "分割文本",
-							"description": "使用字面分隔文本分割内容，并限制返回成员数。",
-							"global": true,
-							"params": [
-								{
-									"name": "文本",
-									"type": "文本型",
-									"description": "原文本。"
-								},
-								{
-									"name": "分隔符",
-									"type": "文本型",
-									"description": "字面分隔文本，不是正则表达式。"
-								},
-								{
-									"name": "数量",
-									"type": "整数型",
-									"description": "最大成员数，必须大于 0；达到上限后剩余内容作为最后一项。"
-								}
-							],
-							"return": "文本型()"
 						}
 					]
 				},
@@ -13409,10 +14181,36 @@
 				},
 				{
 					"name": "文本操作",
-					"description": "文本查找、截取、传址修改及标记间内容提取。",
+					"description": "提供字符代码转换、文本查找、截取、拆分连接、传址修改及格式化。",
 					"kind": "object",
 					"type": "simple.runtime.文本操作",
 					"functions": [
+						{
+							"name": "代码",
+							"description": "返回给定字符串第一个字符的unicode值。",
+							"global": true,
+							"params": [
+								{
+									"name": "文本",
+									"type": "文本型",
+									"description": "用于转换第一个字符的字符串"
+								}
+							],
+							"return": "整数型"
+						},
+						{
+							"name": "字符",
+							"description": "返回给定unicode值的字符串。",
+							"global": true,
+							"params": [
+								{
+									"name": "字符码",
+									"type": "整数型",
+									"description": "要转换为字符串的unicode值"
+								}
+							],
+							"return": "文本型"
+						},
 						{
 							"name": "取字符数",
 							"description": "返回文本中的 UTF-16 代码单元数，补充字符占两个单元。",
@@ -13871,6 +14669,65 @@
 							"return": "文本型()"
 						},
 						{
+							"name": "分割文本",
+							"description": "使用字面分隔文本分割全部内容，保留末尾空成员。",
+							"global": true,
+							"params": [
+								{
+									"name": "文本",
+									"type": "文本型",
+									"description": "原文本。"
+								},
+								{
+									"name": "分隔符",
+									"type": "文本型",
+									"description": "字面分隔文本；空文本按 UTF-16 边界分割。"
+								}
+							],
+							"return": "文本型()"
+						},
+						{
+							"name": "分割文本",
+							"description": "使用字面分隔文本分割内容，并限制返回成员数。",
+							"global": true,
+							"params": [
+								{
+									"name": "文本",
+									"type": "文本型",
+									"description": "原文本。"
+								},
+								{
+									"name": "分隔符",
+									"type": "文本型",
+									"description": "字面分隔文本，不是正则表达式。"
+								},
+								{
+									"name": "数量",
+									"type": "整数型",
+									"description": "最大成员数，必须大于 0；达到上限后剩余内容作为最后一项。"
+								}
+							],
+							"return": "文本型()"
+						},
+						{
+							"name": "连接数组文本",
+							"description": "使用指定分隔文本连接数组成员。",
+							"global": true,
+							"params": [
+								{
+									"name": "数组",
+									"type": "文本型()",
+									"description": "文本数组。"
+								},
+								{
+									"name": "分隔符",
+									"type": "文本型",
+									"description": "成员间的分隔文本，不得为空引用，允许空文本。"
+								}
+							],
+							"return": "文本型"
+						},
+						{
 							"name": "格式化文本",
 							"description": "使用 Java 格式说明符和参数生成文本，区域设置沿用设备默认值。",
 							"global": true,
@@ -13884,6 +14741,50 @@
 									"name": "参数",
 									"type": "变体型",
 									"description": "参数或参数数组。"
+								}
+							],
+							"return": "文本型"
+						},
+						{
+							"name": "格式化数值",
+							"description": "按 DecimalFormat 格式生成数值显示文本，支持补零、分组、百分比和科学计数；输出符号随默认格式区域设置变化，沿用 HALF_EVEN 舍入和双精度浮点精度。非法格式报错，负零、NaN 和无穷大沿用格式化器显示规则。",
+							"global": true,
+							"params": [
+								{
+									"name": "格式",
+									"type": "文本型",
+									"description": "DecimalFormat 格式文本，例如 0000、#,##0.00、0% 或 0.00E0；格式语法不随区域变化。"
+								},
+								{
+									"name": "数值",
+									"type": "双精度小数型",
+									"description": "待格式化的双精度数值；需要精确金额文本时使用格式化金额。"
+								}
+							],
+							"return": "文本型"
+						},
+						{
+							"name": "格式化金额",
+							"description": "直接将十进制金额文本按 HALF_UP 舍入为两位小数，不经过二进制浮点转换；小数点固定为 .，不加千分位或货币符号。支持正负号和科学计数，不去除首尾空白，非法输入报错；结果为零时不保留负号。",
+							"global": true,
+							"params": [
+								{
+									"name": "金额",
+									"type": "文本型",
+									"description": "有效十进制金额文本，例如 12.3；1.005 得到 1.01，-1.005 得到 -1.01。"
+								}
+							],
+							"return": "文本型"
+						},
+						{
+							"name": "科学转普通计数",
+							"description": "将科学计数或普通十进制文本展开为不带指数的文本，不主动删除小数末尾零。",
+							"global": true,
+							"params": [
+								{
+									"name": "数值",
+									"type": "文本型",
+									"description": "数值文本，例如 1.23E+5 或 1E-3。"
 								}
 							],
 							"return": "文本型"
@@ -14631,10 +15532,10 @@
 					]
 				},
 				{
-					"name": "程序操作",
-					"description": "程序相关函数",
+					"name": "其它操作",
+					"description": "程序标识生成与当前单元信息。",
 					"kind": "object",
-					"type": "simple.runtime.程序操作",
+					"type": "simple.runtime.其它操作",
 					"functions": [
 						{
 							"name": "生成GUID",
@@ -14653,7 +15554,15 @@
 							"description": "返回当前单元类名。",
 							"global": true,
 							"return": "文本型"
-						},
+						}
+					]
+				},
+				{
+					"name": "对象操作",
+					"description": "对象信息、实例创建及反射访问。",
+					"kind": "object",
+					"type": "simple.runtime.对象操作",
+					"functions": [
 						{
 							"name": "取对象名",
 							"description": "取指定对象的对象名。",
@@ -15131,45 +16040,6 @@
 					"type": "simple.runtime.数据转换",
 					"functions": [
 						{
-							"name": "代码",
-							"description": "返回给定字符串第一个字符的unicode值。",
-							"global": true,
-							"params": [
-								{
-									"name": "文本",
-									"type": "文本型",
-									"description": "用于转换第一个字符的字符串"
-								}
-							],
-							"return": "整数型"
-						},
-						{
-							"name": "字符",
-							"description": "返回给定unicode值的字符串。",
-							"global": true,
-							"params": [
-								{
-									"name": "字符码",
-									"type": "整数型",
-									"description": "要转换为字符串的unicode值"
-								}
-							],
-							"return": "文本型"
-						},
-						{
-							"name": "十六进制",
-							"description": "返回包含给定值的十六进制值的字符串。如果给定值不是整数，那么将使用其整数部分。",
-							"global": true,
-							"params": [
-								{
-									"name": "值",
-									"type": "变体型",
-									"description": "值"
-								}
-							],
-							"return": "文本型"
-						},
-						{
 							"name": "到逻辑",
 							"description": "将值转为逻辑值。",
 							"global": true,
@@ -15300,45 +16170,6 @@
 							"return": "对象()"
 						},
 						{
-							"name": "十六进制到长整数",
-							"description": "解析有符号十六进制文本，允许正负号，不接受 0x 前缀或首尾空白；非法、空输入或溢出返回 0。",
-							"global": true,
-							"params": [
-								{
-									"name": "文本",
-									"type": "文本型",
-									"description": "十六进制文本。"
-								}
-							],
-							"return": "长整数型"
-						},
-						{
-							"name": "整数到二进制",
-							"description": "将 32 位整数转为不带前缀的二进制文本，负数输出 32 位补码。",
-							"global": true,
-							"params": [
-								{
-									"name": "数值",
-									"type": "整数型",
-									"description": "待转换的整数。"
-								}
-							],
-							"return": "文本型"
-						},
-						{
-							"name": "二进制到长整数",
-							"description": "解析有符号二进制文本，允许正负号，不按补码解释；非法、空输入或溢出返回 0。",
-							"global": true,
-							"params": [
-								{
-									"name": "文本",
-									"type": "文本型",
-									"description": "二进制文本，不含 0b 前缀或空白。"
-								}
-							],
-							"return": "长整数型"
-						},
-						{
 							"name": "整数到字节集",
 							"description": "按小端字节序将整数转换为固定四字节数组，低位字节在前。",
 							"global": true,
@@ -15417,8 +16248,8 @@
 							"return": "双精度小数型"
 						},
 						{
-							"name": "字节到无符号整数",
-							"description": "将单个字节解释为 0 至 255 的整数，例如字节 -1 返回 255。",
+							"name": "取字节无符号值",
+							"description": "取得单个字节按无符号方式解释后的数值，返回普通整数型，范围为 0 至 255，例如字节 -1 返回 255。",
 							"global": true,
 							"params": [
 								{
@@ -15432,10 +16263,70 @@
 					]
 				},
 				{
-					"name": "算术运算",
+					"name": "进制转换",
+					"description": "数值的二进制、十六进制文本表示与解析；不处理字节集编码或字节序。",
+					"kind": "object",
+					"type": "simple.runtime.进制转换",
+					"functions": [
+						{
+							"name": "十六进制",
+							"description": "将变体转换为长整数后生成不带前缀的大写十六进制文本；小数沿用变体截断规则，负数按 64 位补码输出，不能转换的值报转换错误。",
+							"global": true,
+							"params": [
+								{
+									"name": "值",
+									"type": "变体型",
+									"description": "可转换为长整数的变体值。"
+								}
+							],
+							"return": "文本型"
+						},
+						{
+							"name": "十六进制到长整数",
+							"description": "解析有符号十六进制文本，允许正负号，不接受 0x 前缀或首尾空白；非法、空输入或溢出返回 0。",
+							"global": true,
+							"params": [
+								{
+									"name": "文本",
+									"type": "文本型",
+									"description": "十六进制文本。"
+								}
+							],
+							"return": "长整数型"
+						},
+						{
+							"name": "整数到二进制",
+							"description": "将 32 位整数转为不带前缀的二进制文本，负数输出 32 位补码。",
+							"global": true,
+							"params": [
+								{
+									"name": "数值",
+									"type": "整数型",
+									"description": "待转换的整数。"
+								}
+							],
+							"return": "文本型"
+						},
+						{
+							"name": "二进制到长整数",
+							"description": "解析有符号二进制文本，允许正负号，不按补码解释；非法、空输入或溢出返回 0。",
+							"global": true,
+							"params": [
+								{
+									"name": "文本",
+									"type": "文本型",
+									"description": "二进制文本，不含 0b 前缀或空白。"
+								}
+							],
+							"return": "长整数型"
+						}
+					]
+				},
+				{
+					"name": "数值运算",
 					"description": "实现各种数学运行时函数。",
 					"kind": "object",
-					"type": "simple.runtime.算术运算",
+					"type": "simple.runtime.数值运算",
 					"constants": [
 						{
 							"name": "E",
@@ -15467,39 +16358,8 @@
 							"return": "变体型"
 						},
 						{
-							"name": "求反正切",
-							"description": "根据正切比值求反正切，返回弧度，范围为 [-π/2, π/2]。",
-							"global": true,
-							"params": [
-								{
-									"name": "数值",
-									"type": "双精度小数型",
-									"description": "正切比值。"
-								}
-							],
-							"return": "双精度小数型"
-						},
-						{
-							"name": "求反正切2",
-							"description": "根据纵坐标 y 和横坐标 x 求四象限反正切，参数顺序为 y、x；返回点 (x, y) 相对 X 轴正方向的方向角，单位为弧度，范围为 [-π, π]。",
-							"global": true,
-							"params": [
-								{
-									"name": "纵坐标",
-									"type": "双精度小数型",
-									"description": "纵坐标 y，第一个参数。"
-								},
-								{
-									"name": "横坐标",
-									"type": "双精度小数型",
-									"description": "横坐标 x，第二个参数。"
-								}
-							],
-							"return": "双精度小数型"
-						},
-						{
-							"name": "求余弦",
-							"description": "返回给定值的余弦值。",
+							"name": "取符号",
+							"description": "指示给定值的符号。",
 							"global": true,
 							"params": [
 								{
@@ -15508,46 +16368,7 @@
 									"description": "值"
 								}
 							],
-							"return": "双精度小数型"
-						},
-						{
-							"name": "求反对数",
-							"description": "将 e（euler 的常数）返回到给定值的幂。",
-							"global": true,
-							"params": [
-								{
-									"name": "数值",
-									"type": "双精度小数型",
-									"description": "值"
-								}
-							],
-							"return": "双精度小数型"
-						},
-						{
-							"name": "取整数",
-							"description": "返回给定数字的整数部分。",
-							"global": true,
-							"params": [
-								{
-									"name": "数值",
-									"type": "变体型",
-									"description": "值"
-								}
-							],
-							"return": "长整数型"
-						},
-						{
-							"name": "求自然对数",
-							"description": "返回给定数字的自然对数。",
-							"global": true,
-							"params": [
-								{
-									"name": "数值",
-									"type": "双精度小数型",
-									"description": "值"
-								}
-							],
-							"return": "双精度小数型"
+							"return": "整数型"
 						},
 						{
 							"name": "取最大值",
@@ -15586,36 +16407,35 @@
 							"return": "变体型"
 						},
 						{
-							"name": "取随机数",
-							"description": "返回介于 0.0（含）和 1.0（不含）之间的随机数。",
+							"name": "取整数",
+							"description": "返回给定数字的整数部分。",
 							"global": true,
-							"return": "双精度小数型"
+							"params": [
+								{
+									"name": "数值",
+									"type": "变体型",
+									"description": "值"
+								}
+							],
+							"return": "长整数型"
 						},
 						{
-							"name": "求正弦",
-							"description": "返回给定值的正弦。",
+							"name": "四舍五入",
+							"description": "按指定小数位数进行 HALF_UP 舍入，中点向远离零的方向取舍，例如 1.005 保留两位得到 1.01，-1.005 得到 -1.01。位数为零时舍入到整数，负位数表示十位、百位等；结果仍为双精度数值，可能存在浮点表示误差，零不保留负号。NaN、无穷大及无法处理的数值规模报错。",
 							"global": true,
 							"params": [
 								{
 									"name": "数值",
 									"type": "双精度小数型",
-									"description": "值"
+									"description": "待舍入的有限双精度数值。"
+								},
+								{
+									"name": "小数位数",
+									"type": "整数型",
+									"description": "保留的小数位数；0 为整数，-1 为十位，-2 为百位。"
 								}
 							],
 							"return": "双精度小数型"
-						},
-						{
-							"name": "取符号",
-							"description": "指示给定值的符号。",
-							"global": true,
-							"params": [
-								{
-									"name": "数值",
-									"type": "双精度小数型",
-									"description": "值"
-								}
-							],
-							"return": "整数型"
 						},
 						{
 							"name": "求平方根",
@@ -15631,8 +16451,34 @@
 							"return": "双精度小数型"
 						},
 						{
-							"name": "求正切",
-							"description": "返回给定值的正切值。",
+							"name": "求立方根",
+							"description": "求给定值的实数立方根，支持负数；输入为 NaN 时返回 NaN，无穷大或零保留其符号。",
+							"global": true,
+							"params": [
+								{
+									"name": "数值",
+									"type": "双精度小数型",
+									"description": "要求立方根的数值。"
+								}
+							],
+							"return": "双精度小数型"
+						},
+						{
+							"name": "求反对数",
+							"description": "将 e（euler 的常数）返回到给定值的幂。",
+							"global": true,
+							"params": [
+								{
+									"name": "数值",
+									"type": "双精度小数型",
+									"description": "值"
+								}
+							],
+							"return": "双精度小数型"
+						},
+						{
+							"name": "求自然对数",
+							"description": "返回给定数字的自然对数。",
 							"global": true,
 							"params": [
 								{
@@ -15668,6 +16514,144 @@
 								}
 							],
 							"return": "双精度小数型"
+						},
+						{
+							"name": "求正弦",
+							"description": "返回给定值的正弦。",
+							"global": true,
+							"params": [
+								{
+									"name": "数值",
+									"type": "双精度小数型",
+									"description": "值"
+								}
+							],
+							"return": "双精度小数型"
+						},
+						{
+							"name": "求余弦",
+							"description": "返回给定值的余弦值。",
+							"global": true,
+							"params": [
+								{
+									"name": "数值",
+									"type": "双精度小数型",
+									"description": "值"
+								}
+							],
+							"return": "双精度小数型"
+						},
+						{
+							"name": "求正切",
+							"description": "返回给定值的正切值。",
+							"global": true,
+							"params": [
+								{
+									"name": "数值",
+									"type": "双精度小数型",
+									"description": "值"
+								}
+							],
+							"return": "双精度小数型"
+						},
+						{
+							"name": "求反正弦",
+							"description": "根据正弦比值求反正弦，返回弧度，范围为 [-π/2, π/2]；输入越界或为 NaN 时返回 NaN，保留零的符号。",
+							"global": true,
+							"params": [
+								{
+									"name": "数值",
+									"type": "双精度小数型",
+									"description": "正弦比值，有效范围为 [-1, 1]。"
+								}
+							],
+							"return": "双精度小数型"
+						},
+						{
+							"name": "求反余弦",
+							"description": "根据余弦比值求反余弦，返回弧度，范围为 [0, π]；输入越界或为 NaN 时返回 NaN。",
+							"global": true,
+							"params": [
+								{
+									"name": "数值",
+									"type": "双精度小数型",
+									"description": "余弦比值，有效范围为 [-1, 1]。"
+								}
+							],
+							"return": "双精度小数型"
+						},
+						{
+							"name": "求反正切",
+							"description": "根据正切比值求反正切，返回弧度，范围为 [-π/2, π/2]。",
+							"global": true,
+							"params": [
+								{
+									"name": "数值",
+									"type": "双精度小数型",
+									"description": "正切比值。"
+								}
+							],
+							"return": "双精度小数型"
+						},
+						{
+							"name": "求反正切2",
+							"description": "根据纵坐标 y 和横坐标 x 求四象限反正切，参数顺序为 y、x；返回点 (x, y) 相对 X 轴正方向的方向角，单位为弧度，范围为 [-π, π]。",
+							"global": true,
+							"params": [
+								{
+									"name": "纵坐标",
+									"type": "双精度小数型",
+									"description": "纵坐标 y，第一个参数。"
+								},
+								{
+									"name": "横坐标",
+									"type": "双精度小数型",
+									"description": "横坐标 x，第二个参数。"
+								}
+							],
+							"return": "双精度小数型"
+						},
+						{
+							"name": "求斜边",
+							"description": "根据两条直角边求非负斜边长度，避免中间平方运算导致不必要的溢出或下溢；任一参数为无穷大时返回正无穷大，否则任一参数为 NaN 时返回 NaN。两个参数均为零时返回正零，最终结果溢出时返回正无穷大。",
+							"global": true,
+							"params": [
+								{
+									"name": "直角边一",
+									"type": "双精度小数型",
+									"description": "第一条直角边的数值，负数按绝对值处理。"
+								},
+								{
+									"name": "直角边二",
+									"type": "双精度小数型",
+									"description": "第二条直角边的数值，负数按绝对值处理。"
+								}
+							],
+							"return": "双精度小数型"
+						},
+						{
+							"name": "取随机数",
+							"description": "返回介于 0.0（含）和 1.0（不含）之间的随机数。",
+							"global": true,
+							"return": "双精度小数型"
+						},
+						{
+							"name": "取随机数",
+							"description": "在指定整数闭区间内均匀选取随机整数，两端包含，允许负数及完整整数范围；上下限相同时返回该值，最小值大于最大值时报非法参数错误。",
+							"global": true,
+							"params": [
+								{
+									"name": "最小值",
+									"type": "整数型",
+									"description": "包含在范围内的下限。"
+								},
+								{
+									"name": "最大值",
+									"type": "整数型",
+									"description": "包含在范围内的上限，不得小于最小值。"
+								}
+							],
+							"return": "整数型"
 						}
 					]
 				},
@@ -15786,19 +16770,6 @@
 									"name": "除数",
 									"type": "文本型",
 									"description": "除数文本，不得为零。"
-								}
-							],
-							"return": "文本型"
-						},
-						{
-							"name": "科学转普通计数",
-							"description": "将科学计数或普通十进制文本展开为不带指数的文本，不主动删除小数末尾零。",
-							"global": true,
-							"params": [
-								{
-									"name": "数值",
-									"type": "文本型",
-									"description": "数值文本，例如 1.23E+5 或 1E-3。"
 								}
 							],
 							"return": "文本型"
