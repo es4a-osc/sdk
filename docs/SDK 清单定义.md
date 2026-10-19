@@ -1,10 +1,10 @@
 # SDK 清单定义
 
-文档类型：SDK 入口字段参考。核对日期：2026-10-12；仓库结构与本地清单补充核对：2026-10-14。适用范围：当前 SDK 与 ES4A 扩展。依据：随附 sdk.json、模板与能力脚本，并核对扩展 SDK 加载、参数解析及编译器源码。
+文档类型：SDK 入口字段参考。核对日期：2026-10-19。适用范围：本 SDK 与 ES4A。依据：SDK 清单、模板、能力脚本及扩展加载规则。
 
 [`sdk.json`](../sdk.json) 注册编译器、运行库和扩展类库，并声明工具能力与项目模板。
 
-随附 SDK 使用 `sdk.json`、`capabilities/`、`simple/`、`libraries/`、`templates/` 和 `tools/` 目录布局。类库的 Java 源码不是 SDK 使用所需内容，开发工程可另行存放。
+随附 SDK 使用 `sdk.json`、`capabilities/`、`simple/`、`libraries/`、`templates/` 和 `tools/` 目录布局，见 [SDK README](../README.md)。
 
 SDK 仓库的标准 `sdk.json` 使用空的 `libraries` 数组，扩展库及演示库由 [类库仓库](https://gitee.com/es4a/libraries) 维护。需要本地配置时，可将标准清单复制为同目录的 `sdk.local.json` 并在 ES4A 中选择它；该本地清单不提交 SDK 仓库。入口文件名不固定，相对路径以实际所选清单所在目录为准。
 
@@ -47,9 +47,9 @@ SDK 仓库的标准 `sdk.json` 使用空的 `libraries` 数组，扩展库及演
 
 此处登记控制 IDE 元数据，清单路径可位于维护者明确指定的位置。实际 Java 代码另由编译器通过 `LIBRARIES_HOME` 发现：当前随附能力脚本将其设为 SDK 的 `libraries` 目录，编译器扫描直接子目录中的 `classes.jar`。因此，只注册外部清单并不会让该目录的 JAR 自动参与编译。
 
-使用随附脚本时，安装已编译的类库到 `libraries/<类库目录>/`，携带清单、`classes.jar` 及所需依赖和资源即可，无需 Java `src/` 或开发工程的 `build/`。开发工程本身可以在其它目录；使用不同安装布局时，需要相应能力脚本提供正确的 `LIBRARIES_HOME`。
+使用随附脚本时，将类库交付文件安装到 `libraries/<类库目录>/`。使用不同安装布局时，能力脚本需提供相应的 `LIBRARIES_HOME`；交付结构见 [编译器读取的类库结构](Simple%20类库开发.md#编译器读取的类库结构)。
 
-类库仓库的 `release.bat` 安装已有交付文件后自动注册清单，优先更新 `sdk.local.json`，不存在时更新 `sdk.json`；不会自动创建本地清单。构建与发布的用法见 [类库仓库说明](https://gitee.com/es4a/libraries)。
+公共发布脚本的安装与注册方式见 [安装与接入 SDK](Simple%20类库开发.md#安装与接入-sdk)。
 
 ## 能力调用
 
@@ -114,7 +114,7 @@ SDK 仓库的标准 `sdk.json` 使用空的 `libraries` 数组，扩展库及演
 
 占位符写作 `{$变量名}`。`variables` 必须与模板中的变量名称完全一致；文件不存在、重复声明、未声明或未使用的变量会使该模板不可用。
 
-新建项目使用 `project` 与 `main` 模板；普通单元按类型选择模板。Simple 单元模板替换变量后，属性区先解析为 XML 模型，再通过统一持久化边界生成文件。
+新建项目使用 `project` 与 `main` 模板；普通单元按类型选择模板。Simple 单元模板须包含对应单元种类的合法属性区，格式见 [属性区](Simple%20语言定义.md#属性区)。
 
 ## 维护检查
 
