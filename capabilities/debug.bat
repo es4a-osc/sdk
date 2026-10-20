@@ -30,30 +30,23 @@ IF "%APK_FILE%" == "" (
 REM --------------------------------------------------
 
 :定义变量
-REM JavaSDK根目录，必须包含：
-REM .\bin\java.exe
-REM .\lib\dt.jar
-REM .\lib\tools.jar
+REM JavaSDK根目录
 FOR %%I IN ("%~dp0..\tools\jdk1.8.0_503") DO SET "JAVA_HOME=%%~fI"
-
 REM AndroidSDK的API等级
 SET API_LEVEL=26
-
 REM AndroidSDK根目录，必须包含：
 REM .\tools\adb.exe
 REM .\tools\lib\androidprefs.jar
 REM .\tools\lib\apkbuilder.jar
 REM .\tools\lib\jarutils.jar
 REM .\platforms\android-%API_LEVEL%\android.jar
-REM .\platforms\android-%API_LEVEL%\tools\lib\dx.jar
+REM .\platforms\android-%API_LEVEL%\tools\lib\d8.jar
 REM .\platforms\android-%API_LEVEL%\tools\aapt.exe
 FOR %%I IN ("%~dp0..\tools\android") DO SET "ANDROID_HOME=%%~fI"
-
 REM Simple根目录，必须包含：
 REM .\SimpleAndroidRuntime.jar
 REM .\SimpleCompiler.jar
 FOR %%I IN ("%~dp0..\simple") DO SET "SIMPLE_HOME=%%~fI"
-
 REM 扩展库根目录，可选；目录不存在时编译器只加载Simple运行库
 FOR %%I IN ("%~dp0..\libraries") DO SET "LIBRARIES_HOME=%%~fI"
 
@@ -70,7 +63,7 @@ REM --------------------------------------------------
 :编译应用
 ECHO [编译应用]
 REM 通过 java.exe 使用编译器编译指定项目
-"%JAVA_HOME%\bin\java.exe" -classpath "%ANDROID_HOME%\tools\lib\apkbuilder.jar;%ANDROID_HOME%\platforms\android-%API_LEVEL%\tools\lib\dx.jar;%ANDROID_HOME%\tools\lib\androidprefs.jar;%ANDROID_HOME%\tools\lib\jarutils.jar;%SIMPLE_HOME%\SimpleCompiler.jar" simple.compiler.Main "%PROJECT_FILE%"
+"%JAVA_HOME%\bin\java.exe" -classpath "%ANDROID_HOME%\tools\lib\apkbuilder.jar;%ANDROID_HOME%\platforms\android-%API_LEVEL%\tools\lib\d8.jar;%ANDROID_HOME%\tools\lib\androidprefs.jar;%ANDROID_HOME%\tools\lib\jarutils.jar;%SIMPLE_HOME%\SimpleCompiler.jar" simple.compiler.Main "%PROJECT_FILE%"
 IF NOT %ERRORLEVEL% == 0 (
 	ECHO - 编译应用失败！
 	GOTO 结束退出
@@ -94,12 +87,16 @@ IF NOT EXIST "%ADB_FILE%" (
 	GOTO 结束退出
 )
 
-REM ADB安装应用
-"%ADB_FILE%" install -r "%APK_FILE%"
+REM ADB安装应用，失败时显示原始输出
+SET "OUTPUT_FILE=%TEMP%\es4a-debug-%RANDOM%-%RANDOM%.log"
+"%ADB_FILE%" install -r "%APK_FILE%" > "%OUTPUT_FILE%" 2>&1
 IF NOT %ERRORLEVEL% == 0 (
+	REM 将输出内容显示到终端
+	powershell.exe -NoProfile -Command "Get-Content -LiteralPath $env:OUTPUT_FILE -Encoding UTF8"
 	ECHO - 应用安装失败！
 	GOTO 结束退出
 )
+ECHO 安装应用成功。
 
 REM --------------------------------------------------
 
@@ -121,15 +118,24 @@ IF NOT DEFINED PACKAGE_NAME (
 	GOTO 结束退出
 )
 
-REM ADB启动应用
-"%ADB_FILE%" shell am start -n %PACKAGE_NAME%/simple.runtime.android.MainActivity
+REM ADB启动应用，并检查实际启动结果
+"%ADB_FILE%" shell am start -W -n %PACKAGE_NAME%/simple.runtime.android.MainActivity > "%OUTPUT_FILE%" 2>&1
+IF %ERRORLEVEL% == 0 (
+	REM 在输出内容中查询文本
+	FINDSTR /X /C:"Status: ok" "%OUTPUT_FILE%" >NUL
+)
 IF NOT %ERRORLEVEL% == 0 (
+	REM 将输出内容显示到终端
+	powershell.exe -NoProfile -Command "Get-Content -LiteralPath $env:OUTPUT_FILE -Encoding UTF8"
 	ECHO - 应用启动失败！
 	GOTO 结束退出
 )
+ECHO 启动应用成功。
 
 REM --------------------------------------------------
 
 :结束退出
+REM 删除输出文件
+IF DEFINED OUTPUT_FILE IF EXIST "%OUTPUT_FILE%" DEL /Q "%OUTPUT_FILE%"
 ECHO.
 REM 仅供工具调用，请勿 PAUSE 和 EXIT /B 1

@@ -22,11 +22,11 @@
 
 ## 原版备份与恢复
 
-`_aapt2.exe` 是修改前的原版备份。需要恢复时，关闭正在构建的任务，用 `_aapt2.exe` 覆盖 `aapt2.exe`；恢复后将重新出现已复现的中文路径问题。
+`aapt2_bak.exe` 是修改前的原版备份。需要恢复时，关闭正在构建的任务，用 `aapt2_bak.exe` 覆盖 `aapt2.exe`；恢复后将重新出现已复现的中文路径问题。
 
 SHA-256：
 
-- 原版 `_aapt2.exe`：`76fcaa1f9cb846c34544539e619e8e03dbf6b3aa23bb015d523b6c21b5c65c6e`
+- 原版 `aapt2_bak.exe`：`76fcaa1f9cb846c34544539e619e8e03dbf6b3aa23bb015d523b6c21b5c65c6e`
 - 修改版 `aapt2.exe`：`c42ab7159cee7bcd0028903f71d26c444e9a9fffd5db6ea385cc5d5fc152a87c`
 
 后续替换或升级 AAPT2 时，需要重新验证中文路径支持，不能假定新版已包含此兼容处理。
