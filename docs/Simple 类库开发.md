@@ -574,8 +574,8 @@ public final class 演示按钮Impl extends 视图组件 implements 演示按钮
 
 ```java
 @SimpleObject
-@UsesPermissions(
-	permissionNames = "android.permission.INTERNET"
+@UsesPermissions(permissionNames =
+	"android.permission.INTERNET"
 )
 public final class HTTP服务 {
 }
