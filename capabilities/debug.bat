@@ -36,12 +36,9 @@ REM AndroidSDK的API等级
 SET API_LEVEL=26
 REM AndroidSDK根目录，必须包含：
 REM .\tools\adb.exe
-REM .\tools\lib\androidprefs.jar
-REM .\tools\lib\apkbuilder.jar
-REM .\tools\lib\jarutils.jar
 REM .\platforms\android-%API_LEVEL%\android.jar
 REM .\platforms\android-%API_LEVEL%\tools\lib\d8.jar
-REM .\platforms\android-%API_LEVEL%\tools\aapt.exe
+REM .\platforms\android-%API_LEVEL%\tools\aapt2.exe
 FOR %%I IN ("%~dp0..\tools\android") DO SET "ANDROID_HOME=%%~fI"
 REM Simple根目录，必须包含：
 REM .\SimpleAndroidRuntime.jar
@@ -63,7 +60,7 @@ REM --------------------------------------------------
 :编译应用
 ECHO [编译应用]
 REM 通过 java.exe 使用编译器编译指定项目
-"%JAVA_HOME%\bin\java.exe" -classpath "%ANDROID_HOME%\tools\lib\apkbuilder.jar;%ANDROID_HOME%\platforms\android-%API_LEVEL%\tools\lib\d8.jar;%ANDROID_HOME%\tools\lib\androidprefs.jar;%ANDROID_HOME%\tools\lib\jarutils.jar;%SIMPLE_HOME%\SimpleCompiler.jar" simple.compiler.Main "%PROJECT_FILE%"
+"%JAVA_HOME%\bin\java.exe" -classpath "%ANDROID_HOME%\platforms\android-%API_LEVEL%\tools\lib\d8.jar;%SIMPLE_HOME%\SimpleCompiler.jar" simple.compiler.Main "%PROJECT_FILE%"
 IF NOT %ERRORLEVEL% == 0 (
 	ECHO - 编译应用失败！
 	GOTO 结束退出
@@ -103,10 +100,14 @@ REM --------------------------------------------------
 :启动应用
 ECHO.
 ECHO [启动应用]
-REM 检验aapt.exe文件
-SET "AAPT_FILE=%ANDROID_HOME%\platforms\android-%API_LEVEL%\tools\aapt.exe"
+REM 默认使用原版AAPT2；存在UTF-8副本时优先使用，以兼容中文路径。
+REM 仅在副本不存在时回退，执行失败仍按原流程报告。
+SET "AAPT_FILE=%ANDROID_HOME%\platforms\android-%API_LEVEL%\tools\aapt2.exe"
+IF EXIST "%ANDROID_HOME%\platforms\android-%API_LEVEL%\tools\aapt2_utf8.exe" (
+	SET "AAPT_FILE=%ANDROID_HOME%\platforms\android-%API_LEVEL%\tools\aapt2_utf8.exe"
+)
 IF NOT EXIST "%AAPT_FILE%" (
-	ECHO - 未找到AAPT工具: "%AAPT_FILE%"
+	ECHO - 未找到AAPT2工具: "%AAPT_FILE%"
 	GOTO 结束退出
 )
 

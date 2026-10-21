@@ -27,9 +27,6 @@ FOR %%I IN ("%~dp0..\tools\jdk1.8.0_503") DO SET "JAVA_HOME=%%~fI"
 REM AndroidSDK的API等级
 SET API_LEVEL=26
 REM AndroidSDK根目录，必须包含：
-REM .\tools\lib\androidprefs.jar
-REM .\tools\lib\apkbuilder.jar
-REM .\tools\lib\jarutils.jar
 REM .\platforms\android-%API_LEVEL%\android.jar
 REM .\platforms\android-%API_LEVEL%\tools\lib\d8.jar
 FOR %%I IN ("%~dp0..\tools\android") DO SET "ANDROID_HOME=%%~fI"
@@ -52,7 +49,7 @@ REM --------------------------------------------------
 
 :编译应用
 REM 通过 java.exe 使用编译器编译指定项目
-"%JAVA_HOME%\bin\java" -classpath "%ANDROID_HOME%\tools\lib\apkbuilder.jar;%ANDROID_HOME%\platforms\android-%API_LEVEL%\tools\lib\d8.jar;%ANDROID_HOME%\tools\lib\androidprefs.jar;%ANDROID_HOME%\tools\lib\jarutils.jar;%SIMPLE_HOME%\SimpleCompiler.jar" simple.compiler.Main "%PROJECT_FILE%"
+"%JAVA_HOME%\bin\java" -classpath "%ANDROID_HOME%\platforms\android-%API_LEVEL%\tools\lib\d8.jar;%SIMPLE_HOME%\SimpleCompiler.jar" simple.compiler.Main "%PROJECT_FILE%"
 IF NOT %ERRORLEVEL% == 0 (
 	ECHO - 编译应用失败！
 	GOTO 结束退出
