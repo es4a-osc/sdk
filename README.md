@@ -2,7 +2,7 @@
 
 提供 Simple 编译器、Android 运行库、项目模板和工具。
 
-[下载 JDK](https://dwz.wsd.cx/es4a-jdk)，并将 JDK 放入 `tools/jdk1.8.0_503/`。
+[下载 JDK](https://dwz.wsd.cx/es4a-jdk)，将压缩包内的 `jdk-11` 文件夹解压到 SDK 的 `tools/` 目录。
 
 在 ES4A“类库”视图中选择所用 SDK 入口清单：标准清单为 `sdk.json`，本地配置可使用同目录的 `sdk.local.json`。
 

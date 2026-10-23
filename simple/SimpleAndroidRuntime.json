@@ -25,252 +25,302 @@
 						{
 							"name": "水平_对齐_左",
 							"type": "整数型",
-							"value": "0"
+							"value": "0",
+							"description": "内容水平靠左对齐。"
 						},
 						{
 							"name": "水平_对齐_中",
 							"type": "整数型",
-							"value": "1"
+							"value": "1",
+							"description": "内容水平居中对齐。"
 						},
 						{
 							"name": "水平_对齐_右",
 							"type": "整数型",
-							"value": "2"
+							"value": "2",
+							"description": "内容水平靠右对齐。"
 						},
 						{
 							"name": "垂直_对齐_顶",
 							"type": "整数型",
-							"value": "0"
+							"value": "0",
+							"description": "内容垂直靠顶对齐。"
 						},
 						{
 							"name": "垂直_对齐_中",
 							"type": "整数型",
-							"value": "1"
+							"value": "1",
+							"description": "内容垂直居中对齐。"
 						},
 						{
 							"name": "垂直_对齐_底",
 							"type": "整数型",
-							"value": "2"
+							"value": "2",
+							"description": "内容垂直靠底对齐。"
 						},
 						{
 							"name": "颜色_无",
 							"type": "整数型",
-							"value": "&H00FFFFFF"
+							"value": "&H00FFFFFF",
+							"description": "完全透明的 ARGB 颜色值。"
 						},
 						{
 							"name": "颜色_黑",
 							"type": "整数型",
-							"value": "&HFF000000"
+							"value": "&HFF000000",
+							"description": "ARGB 颜色常量：黑。"
 						},
 						{
 							"name": "颜色_蓝",
 							"type": "整数型",
-							"value": "&HFF0000FF"
+							"value": "&HFF0000FF",
+							"description": "ARGB 颜色常量：蓝。"
 						},
 						{
 							"name": "颜色_青绿",
 							"type": "整数型",
-							"value": "&HFF00FFFF"
+							"value": "&HFF00FFFF",
+							"description": "ARGB 颜色常量：青绿。"
 						},
 						{
 							"name": "颜色_深灰",
 							"type": "整数型",
-							"value": "&HFF444444"
+							"value": "&HFF444444",
+							"description": "ARGB 颜色常量：深灰。"
 						},
 						{
 							"name": "颜色_灰",
 							"type": "整数型",
-							"value": "&HFF888888"
+							"value": "&HFF888888",
+							"description": "ARGB 颜色常量：灰。"
 						},
 						{
 							"name": "颜色_绿",
 							"type": "整数型",
-							"value": "&HFF00FF00"
+							"value": "&HFF00FF00",
+							"description": "ARGB 颜色常量：绿。"
 						},
 						{
 							"name": "颜色_浅灰",
 							"type": "整数型",
-							"value": "&HFFCCCCCC"
+							"value": "&HFFCCCCCC",
+							"description": "ARGB 颜色常量：浅灰。"
 						},
 						{
 							"name": "颜色_品红",
 							"type": "整数型",
-							"value": "&HFFFF00FF"
+							"value": "&HFFFF00FF",
+							"description": "ARGB 颜色常量：品红。"
 						},
 						{
 							"name": "颜色_红",
 							"type": "整数型",
-							"value": "&HFFFF0000"
+							"value": "&HFFFF0000",
+							"description": "ARGB 颜色常量：红。"
 						},
 						{
 							"name": "颜色_白",
 							"type": "整数型",
-							"value": "&HFFFFFFFF"
+							"value": "&HFFFFFFFF",
+							"description": "ARGB 颜色常量：白。"
 						},
 						{
 							"name": "颜色_黄",
 							"type": "整数型",
-							"value": "&HFFFFFF00"
+							"value": "&HFFFFFF00",
+							"description": "ARGB 颜色常量：黄。"
 						},
 						{
 							"name": "字体_默认_大小",
 							"type": "单精度小数型",
-							"value": "14"
+							"value": "14",
+							"description": "组件默认字体大小。"
 						},
 						{
 							"name": "重心_中",
 							"type": "单精度小数型",
-							"value": "&H11"
+							"value": "&H11",
+							"description": "内容重心位置：中。"
 						},
 						{
 							"name": "重心_北",
 							"type": "单精度小数型",
-							"value": "&H31"
+							"value": "&H31",
+							"description": "内容重心位置：北。"
 						},
 						{
 							"name": "重心_西北",
 							"type": "单精度小数型",
-							"value": "&H33"
+							"value": "&H33",
+							"description": "内容重心位置：西北。"
 						},
 						{
 							"name": "重心_西",
 							"type": "单精度小数型",
-							"value": "&H13"
+							"value": "&H13",
+							"description": "内容重心位置：西。"
 						},
 						{
 							"name": "重心_西南",
 							"type": "单精度小数型",
-							"value": "&H53"
+							"value": "&H53",
+							"description": "内容重心位置：西南。"
 						},
 						{
 							"name": "重心_南",
 							"type": "单精度小数型",
-							"value": "&H51"
+							"value": "&H51",
+							"description": "内容重心位置：南。"
 						},
 						{
 							"name": "重心_东南",
 							"type": "单精度小数型",
-							"value": "&H55"
+							"value": "&H55",
+							"description": "内容重心位置：东南。"
 						},
 						{
 							"name": "重心_东",
 							"type": "单精度小数型",
-							"value": "&H15"
+							"value": "&H15",
+							"description": "内容重心位置：东。"
 						},
 						{
 							"name": "重心_东北",
 							"type": "单精度小数型",
-							"value": "&H35"
+							"value": "&H35",
+							"description": "内容重心位置：东北。"
 						},
 						{
 							"name": "对齐_左",
 							"type": "整数型",
-							"value": "0"
+							"value": "0",
+							"description": "内容对齐方式：左。"
 						},
 						{
 							"name": "对齐_水平居中",
 							"type": "整数型",
-							"value": "1"
+							"value": "1",
+							"description": "内容对齐方式：水平居中。"
 						},
 						{
 							"name": "对齐_右",
 							"type": "整数型",
-							"value": "2"
+							"value": "2",
+							"description": "内容对齐方式：右。"
 						},
 						{
 							"name": "对齐_上",
 							"type": "整数型",
-							"value": "3"
+							"value": "3",
+							"description": "内容对齐方式：上。"
 						},
 						{
 							"name": "对齐_垂直居中",
 							"type": "整数型",
-							"value": "4"
+							"value": "4",
+							"description": "内容对齐方式：垂直居中。"
 						},
 						{
 							"name": "对齐_下",
 							"type": "整数型",
-							"value": "5"
+							"value": "5",
+							"description": "内容对齐方式：下。"
 						},
 						{
 							"name": "对齐_左上",
 							"type": "整数型",
-							"value": "6"
+							"value": "6",
+							"description": "内容对齐方式：左上。"
 						},
 						{
 							"name": "对齐_左中",
 							"type": "整数型",
-							"value": "8"
+							"value": "8",
+							"description": "内容对齐方式：左中。"
 						},
 						{
 							"name": "对齐_左下",
 							"type": "整数型",
-							"value": "9"
+							"value": "9",
+							"description": "内容对齐方式：左下。"
 						},
 						{
 							"name": "对齐_中上",
 							"type": "整数型",
-							"value": "10"
+							"value": "10",
+							"description": "内容对齐方式：中上。"
 						},
 						{
 							"name": "对齐_居中",
 							"type": "整数型",
-							"value": "11"
+							"value": "11",
+							"description": "内容对齐方式：居中。"
 						},
 						{
 							"name": "对齐_中下",
 							"type": "整数型",
-							"value": "12"
+							"value": "12",
+							"description": "内容对齐方式：中下。"
 						},
 						{
 							"name": "对齐_右上",
 							"type": "整数型",
-							"value": "13"
+							"value": "13",
+							"description": "内容对齐方式：右上。"
 						},
 						{
 							"name": "对齐_右中",
 							"type": "整数型",
-							"value": "14"
+							"value": "14",
+							"description": "内容对齐方式：右中。"
 						},
 						{
 							"name": "对齐_右下",
 							"type": "整数型",
-							"value": "15"
+							"value": "15",
+							"description": "内容对齐方式：右下。"
 						},
 						{
 							"name": "布局_线性",
 							"type": "整数型",
-							"value": "1"
+							"value": "1",
+							"description": "容器布局类型：线性布局。"
 						},
 						{
 							"name": "布局_表格",
 							"type": "整数型",
-							"value": "2"
+							"value": "2",
+							"description": "容器布局类型：表格布局。"
 						},
 						{
 							"name": "布局_单帧",
 							"type": "整数型",
-							"value": "3"
+							"value": "3",
+							"description": "容器布局类型：单帧布局。"
 						},
 						{
 							"name": "布局_相对",
 							"type": "整数型",
-							"value": "4"
+							"value": "4",
+							"description": "容器布局类型：相对布局。"
 						},
 						{
 							"name": "布局_绝对",
 							"type": "整数型",
-							"value": "5"
+							"value": "5",
+							"description": "容器布局类型：绝对布局。"
 						},
 						{
 							"name": "布局_方向_水平",
 							"type": "整数型",
-							"value": "0"
+							"value": "0",
+							"description": "水平排列子组件。"
 						},
 						{
 							"name": "布局_方向_垂直",
 							"type": "整数型",
-							"value": "1"
+							"value": "1",
+							"description": "垂直排列子组件。"
 						},
 						{
 							"name": "布局_规则_真",
@@ -413,568 +463,680 @@
 						{
 							"name": "字体类型_默认",
 							"type": "整数型",
-							"value": "0"
+							"value": "0",
+							"description": "字体类型：默认。"
 						},
 						{
 							"name": "字体类型_无衬线",
 							"type": "整数型",
-							"value": "1"
+							"value": "1",
+							"description": "字体类型：无衬线。"
 						},
 						{
 							"name": "字体类型_衬线",
 							"type": "整数型",
-							"value": "2"
+							"value": "2",
+							"description": "字体类型：衬线。"
 						},
 						{
 							"name": "字体类型_等宽",
 							"type": "整数型",
-							"value": "3"
+							"value": "3",
+							"description": "字体类型：等宽。"
 						},
 						{
 							"name": "长度_适应内容",
 							"type": "整数型",
-							"value": "-1"
+							"value": "-1",
+							"description": "尺寸随内容收缩，对应布局长度 -1。"
 						},
 						{
 							"name": "长度_匹配父级",
 							"type": "整数型",
-							"value": "-2"
+							"value": "-2",
+							"description": "尺寸填满父容器的可用空间，对应布局长度 -2。"
 						},
 						{
 							"name": "触摸_单击",
 							"type": "整数型",
-							"value": "&H00000000"
+							"value": "&H00000000",
+							"description": "触摸手势类型：单击。"
 						},
 						{
 							"name": "触摸_双击",
 							"type": "整数型",
-							"value": "&H00000001"
+							"value": "&H00000001",
+							"description": "触摸手势类型：双击。"
 						},
 						{
 							"name": "触摸_上滑",
 							"type": "整数型",
-							"value": "&H00000002"
+							"value": "&H00000002",
+							"description": "触摸手势类型：上滑。"
 						},
 						{
 							"name": "触摸_下滑",
 							"type": "整数型",
-							"value": "&H00000003"
+							"value": "&H00000003",
+							"description": "触摸手势类型：下滑。"
 						},
 						{
 							"name": "触摸_左滑",
 							"type": "整数型",
-							"value": "&H00000004"
+							"value": "&H00000004",
+							"description": "触摸手势类型：左滑。"
 						},
 						{
 							"name": "触摸_右滑",
 							"type": "整数型",
-							"value": "&H00000005"
+							"value": "&H00000005",
+							"description": "触摸手势类型：右滑。"
 						},
 						{
 							"name": "触摸_上移",
 							"type": "整数型",
-							"value": "&H00000006"
+							"value": "&H00000006",
+							"description": "触摸手势类型：上移。"
 						},
 						{
 							"name": "触摸_下移",
 							"type": "整数型",
-							"value": "&H00000007"
+							"value": "&H00000007",
+							"description": "触摸手势类型：下移。"
 						},
 						{
 							"name": "触摸_左移",
 							"type": "整数型",
-							"value": "&H00000008"
+							"value": "&H00000008",
+							"description": "触摸手势类型：左移。"
 						},
 						{
 							"name": "触摸_右移",
 							"type": "整数型",
-							"value": "&H00000009"
+							"value": "&H00000009",
+							"description": "触摸手势类型：右移。"
 						},
 						{
 							"name": "键码_0",
 							"type": "整数型",
-							"value": "&H00000007"
+							"value": "&H00000007",
+							"description": "按键代码：0。"
 						},
 						{
 							"name": "键码_1",
 							"type": "整数型",
-							"value": "&H00000008"
+							"value": "&H00000008",
+							"description": "按键代码：1。"
 						},
 						{
 							"name": "键码_2",
 							"type": "整数型",
-							"value": "&H00000009"
+							"value": "&H00000009",
+							"description": "按键代码：2。"
 						},
 						{
 							"name": "键码_3",
 							"type": "整数型",
-							"value": "&H0000000A"
+							"value": "&H0000000A",
+							"description": "按键代码：3。"
 						},
 						{
 							"name": "键码_4",
 							"type": "整数型",
-							"value": "&H0000000B"
+							"value": "&H0000000B",
+							"description": "按键代码：4。"
 						},
 						{
 							"name": "键码_5",
 							"type": "整数型",
-							"value": "&H0000000C"
+							"value": "&H0000000C",
+							"description": "按键代码：5。"
 						},
 						{
 							"name": "键码_6",
 							"type": "整数型",
-							"value": "&H0000000D"
+							"value": "&H0000000D",
+							"description": "按键代码：6。"
 						},
 						{
 							"name": "键码_7",
 							"type": "整数型",
-							"value": "&H0000000E"
+							"value": "&H0000000E",
+							"description": "按键代码：7。"
 						},
 						{
 							"name": "键码_8",
 							"type": "整数型",
-							"value": "&H0000000F"
+							"value": "&H0000000F",
+							"description": "按键代码：8。"
 						},
 						{
 							"name": "键码_9",
 							"type": "整数型",
-							"value": "&H00000010"
+							"value": "&H00000010",
+							"description": "按键代码：9。"
 						},
 						{
 							"name": "键码_A",
 							"type": "整数型",
-							"value": "&H0000001D"
+							"value": "&H0000001D",
+							"description": "按键代码：A。"
 						},
 						{
 							"name": "键码_左_ALT",
 							"type": "整数型",
-							"value": "&H00000039"
+							"value": "&H00000039",
+							"description": "按键代码：左 ALT。"
 						},
 						{
 							"name": "键码_右_ALT",
 							"type": "整数型",
-							"value": "&H0000003A"
+							"value": "&H0000003A",
+							"description": "按键代码：右 ALT。"
 						},
 						{
 							"name": "键码_引号",
 							"type": "整数型",
-							"value": "&H0000004B"
+							"value": "&H0000004B",
+							"description": "按键代码：引号。"
 						},
 						{
 							"name": "键码_AT",
 							"type": "整数型",
-							"value": "&H0000004D"
+							"value": "&H0000004D",
+							"description": "按键代码：AT。"
 						},
 						{
 							"name": "键码_B",
 							"type": "整数型",
-							"value": "&H0000001E"
+							"value": "&H0000001E",
+							"description": "按键代码：B。"
 						},
 						{
 							"name": "键码_返回",
 							"type": "整数型",
-							"value": "&H00000004"
+							"value": "&H00000004",
+							"description": "按键代码：返回。"
 						},
 						{
 							"name": "键码_左斜杠",
 							"type": "整数型",
-							"value": "&H00000049"
+							"value": "&H00000049",
+							"description": "按键代码：左斜杠。"
 						},
 						{
 							"name": "键码_C",
 							"type": "整数型",
-							"value": "&H0000001F"
+							"value": "&H0000001F",
+							"description": "按键代码：C。"
 						},
 						{
 							"name": "键码_拨号",
 							"type": "整数型",
-							"value": "&H00000005"
+							"value": "&H00000005",
+							"description": "按键代码：拨号。"
 						},
 						{
 							"name": "键码_拍照",
 							"type": "整数型",
-							"value": "&H0000001B"
+							"value": "&H0000001B",
+							"description": "按键代码：拍照。"
 						},
 						{
 							"name": "键码_CLEAR",
 							"type": "整数型",
-							"value": "&H0000001C"
+							"value": "&H0000001C",
+							"description": "按键代码：CLEAR。"
 						},
 						{
 							"name": "键码_逗号",
 							"type": "整数型",
-							"value": "&H00000037"
+							"value": "&H00000037",
+							"description": "按键代码：逗号。"
 						},
 						{
 							"name": "键码_D",
 							"type": "整数型",
-							"value": "&H00000020"
+							"value": "&H00000020",
+							"description": "按键代码：D。"
 						},
 						{
 							"name": "键码_退格",
 							"type": "整数型",
-							"value": "&H00000043"
+							"value": "&H00000043",
+							"description": "按键代码：退格。"
 						},
 						{
 							"name": "键码_导航_中",
 							"type": "整数型",
-							"value": "&H00000017"
+							"value": "&H00000017",
+							"description": "按键代码：导航 中。"
 						},
 						{
 							"name": "键码_导航_下",
 							"type": "整数型",
-							"value": "&H00000014"
+							"value": "&H00000014",
+							"description": "按键代码：导航 下。"
 						},
 						{
 							"name": "键码_导航_左",
 							"type": "整数型",
-							"value": "&H00000015"
+							"value": "&H00000015",
+							"description": "按键代码：导航 左。"
 						},
 						{
 							"name": "键码_导航_右",
 							"type": "整数型",
-							"value": "&H00000016"
+							"value": "&H00000016",
+							"description": "按键代码：导航 右。"
 						},
 						{
 							"name": "键码_导航_上",
 							"type": "整数型",
-							"value": "&H00000013"
+							"value": "&H00000013",
+							"description": "按键代码：导航 上。"
 						},
 						{
 							"name": "键码_E",
 							"type": "整数型",
-							"value": "&H00000021"
+							"value": "&H00000021",
+							"description": "按键代码：E。"
 						},
 						{
 							"name": "键码_挂机",
 							"type": "整数型",
-							"value": "&H00000006"
+							"value": "&H00000006",
+							"description": "按键代码：挂机。"
 						},
 						{
 							"name": "键码_回车",
 							"type": "整数型",
-							"value": "&H00000042"
+							"value": "&H00000042",
+							"description": "按键代码：回车。"
 						},
 						{
 							"name": "键码_ENVELOPE",
 							"type": "整数型",
-							"value": "&H00000041"
+							"value": "&H00000041",
+							"description": "按键代码：ENVELOPE。"
 						},
 						{
 							"name": "键码_EQUALS",
 							"type": "整数型",
-							"value": "&H00000046"
+							"value": "&H00000046",
+							"description": "按键代码：EQUALS。"
 						},
 						{
 							"name": "键码_EXPLORER",
 							"type": "整数型",
-							"value": "&H00000040"
+							"value": "&H00000040",
+							"description": "按键代码：EXPLORER。"
 						},
 						{
 							"name": "键码_F",
 							"type": "整数型",
-							"value": "&H00000022"
+							"value": "&H00000022",
+							"description": "按键代码：F。"
 						},
 						{
 							"name": "键码_对焦",
 							"type": "整数型",
-							"value": "&H00000050"
+							"value": "&H00000050",
+							"description": "按键代码：对焦。"
 						},
 						{
 							"name": "键码_G",
 							"type": "整数型",
-							"value": "&H00000023"
+							"value": "&H00000023",
+							"description": "按键代码：G。"
 						},
 						{
 							"name": "键码_GRAVE",
 							"type": "整数型",
-							"value": "&H00000044"
+							"value": "&H00000044",
+							"description": "按键代码：GRAVE。"
 						},
 						{
 							"name": "键码_H",
 							"type": "整数型",
-							"value": "&H00000024"
+							"value": "&H00000024",
+							"description": "按键代码：H。"
 						},
 						{
 							"name": "键码_耳机",
 							"type": "整数型",
-							"value": "&H0000004F"
+							"value": "&H0000004F",
+							"description": "按键代码：耳机。"
 						},
 						{
 							"name": "键码_主页",
 							"type": "整数型",
-							"value": "&H00000003"
+							"value": "&H00000003",
+							"description": "按键代码：主页。"
 						},
 						{
 							"name": "键码_I",
 							"type": "整数型",
-							"value": "&H00000025"
+							"value": "&H00000025",
+							"description": "按键代码：I。"
 						},
 						{
 							"name": "键码_J",
 							"type": "整数型",
-							"value": "&H00000026"
+							"value": "&H00000026",
+							"description": "按键代码：J。"
 						},
 						{
 							"name": "键码_K",
 							"type": "整数型",
-							"value": "&H00000027"
+							"value": "&H00000027",
+							"description": "按键代码：K。"
 						},
 						{
 							"name": "键码_L",
 							"type": "整数型",
-							"value": "&H00000028"
+							"value": "&H00000028",
+							"description": "按键代码：L。"
 						},
 						{
 							"name": "键码_左_方括号",
 							"type": "整数型",
-							"value": "&H00000047"
+							"value": "&H00000047",
+							"description": "按键代码：左 方括号。"
 						},
 						{
 							"name": "键码_M",
 							"type": "整数型",
-							"value": "&H00000029"
+							"value": "&H00000029",
+							"description": "按键代码：M。"
 						},
 						{
 							"name": "键码_多媒体_快进",
 							"type": "整数型",
-							"value": "&H0000005A"
+							"value": "&H0000005A",
+							"description": "按键代码：多媒体 快进。"
 						},
 						{
 							"name": "键码_多媒体_下一个",
 							"type": "整数型",
-							"value": "&H00000057"
+							"value": "&H00000057",
+							"description": "按键代码：多媒体 下一个。"
 						},
 						{
 							"name": "键码_多媒体_播放_暂停",
 							"type": "整数型",
-							"value": "&H00000055"
+							"value": "&H00000055",
+							"description": "按键代码：多媒体 播放 暂停。"
 						},
 						{
 							"name": "键码_多媒体_上一个",
 							"type": "整数型",
-							"value": "&H00000058"
+							"value": "&H00000058",
+							"description": "按键代码：多媒体 上一个。"
 						},
 						{
 							"name": "键码_多媒体_快退",
 							"type": "整数型",
-							"value": "&H00000059"
+							"value": "&H00000059",
+							"description": "按键代码：多媒体 快退。"
 						},
 						{
 							"name": "键码_多媒体_暂停",
 							"type": "整数型",
-							"value": "&H00000056"
+							"value": "&H00000056",
+							"description": "按键代码：多媒体 暂停。"
 						},
 						{
 							"name": "键码_菜单",
 							"type": "整数型",
-							"value": "&H00000052"
+							"value": "&H00000052",
+							"description": "按键代码：菜单。"
 						},
 						{
 							"name": "键码_减号",
 							"type": "整数型",
-							"value": "&H00000045"
+							"value": "&H00000045",
+							"description": "按键代码：减号。"
 						},
 						{
 							"name": "键码_话筒静音",
 							"type": "整数型",
-							"value": "&H0000005B"
+							"value": "&H0000005B",
+							"description": "按键代码：话筒静音。"
 						},
 						{
 							"name": "键码_N",
 							"type": "整数型",
-							"value": "&H0000002A"
+							"value": "&H0000002A",
+							"description": "按键代码：N。"
 						},
 						{
 							"name": "键码_通知",
 							"type": "整数型",
-							"value": "&H00000053"
+							"value": "&H00000053",
+							"description": "按键代码：通知。"
 						},
 						{
 							"name": "键码_NUM",
 							"type": "整数型",
-							"value": "&H0000004E"
+							"value": "&H0000004E",
+							"description": "按键代码：NUM。"
 						},
 						{
 							"name": "键码_O",
 							"type": "整数型",
-							"value": "&H0000002B"
+							"value": "&H0000002B",
+							"description": "按键代码：O。"
 						},
 						{
 							"name": "键码_P",
 							"type": "整数型",
-							"value": "&H0000002C"
+							"value": "&H0000002C",
+							"description": "按键代码：P。"
 						},
 						{
 							"name": "键码_句号",
 							"type": "整数型",
-							"value": "&H00000038"
+							"value": "&H00000038",
+							"description": "按键代码：句号。"
 						},
 						{
 							"name": "键码_加号",
 							"type": "整数型",
-							"value": "&H00000051"
+							"value": "&H00000051",
+							"description": "按键代码：加号。"
 						},
 						{
 							"name": "键码_井号",
 							"type": "整数型",
-							"value": "&H00000012"
+							"value": "&H00000012",
+							"description": "按键代码：井号。"
 						},
 						{
 							"name": "键码_电源",
 							"type": "整数型",
-							"value": "&H000000201A"
+							"value": "&H000000201A",
+							"description": "按键代码：电源。"
 						},
 						{
 							"name": "键码_Q",
 							"type": "整数型",
-							"value": "&H0000002D"
+							"value": "&H0000002D",
+							"description": "按键代码：Q。"
 						},
 						{
 							"name": "键码_R",
 							"type": "整数型",
-							"value": "&H0000002E"
+							"value": "&H0000002E",
+							"description": "按键代码：R。"
 						},
 						{
 							"name": "键码_右_方括号",
 							"type": "整数型",
-							"value": "&H00000048"
+							"value": "&H00000048",
+							"description": "按键代码：右 方括号。"
 						},
 						{
 							"name": "键码_S",
 							"type": "整数型",
-							"value": "&H0000002F"
+							"value": "&H0000002F",
+							"description": "按键代码：S。"
 						},
 						{
 							"name": "键码_搜索",
 							"type": "整数型",
-							"value": "&H00000054"
+							"value": "&H00000054",
+							"description": "按键代码：搜索。"
 						},
 						{
 							"name": "键码_分号",
 							"type": "整数型",
-							"value": "&H0000004A"
+							"value": "&H0000004A",
+							"description": "按键代码：分号。"
 						},
 						{
 							"name": "键码_左_SHIFT",
 							"type": "整数型",
-							"value": "&H0000003B"
+							"value": "&H0000003B",
+							"description": "按键代码：左 SHIFT。"
 						},
 						{
 							"name": "键码_右_SHIFT",
 							"type": "整数型",
-							"value": "&H0000003C"
+							"value": "&H0000003C",
+							"description": "按键代码：右 SHIFT。"
 						},
 						{
 							"name": "键码_右斜杠",
 							"type": "整数型",
-							"value": "&H0000004C"
+							"value": "&H0000004C",
+							"description": "按键代码：右斜杠。"
 						},
 						{
 							"name": "键码_左",
 							"type": "整数型",
-							"value": "&H00000001"
+							"value": "&H00000001",
+							"description": "按键代码：左。"
 						},
 						{
 							"name": "键码_右",
 							"type": "整数型",
-							"value": "&H00000002"
+							"value": "&H00000002",
+							"description": "按键代码：右。"
 						},
 						{
 							"name": "键码_空格",
 							"type": "整数型",
-							"value": "&H0000003E"
+							"value": "&H0000003E",
+							"description": "按键代码：空格。"
 						},
 						{
 							"name": "键码_星号",
 							"type": "整数型",
-							"value": "&H00000011"
+							"value": "&H00000011",
+							"description": "按键代码：星号。"
 						},
 						{
 							"name": "键码_SYM",
 							"type": "整数型",
-							"value": "&H0000003F"
+							"value": "&H0000003F",
+							"description": "按键代码：SYM。"
 						},
 						{
 							"name": "键码_T",
 							"type": "整数型",
-							"value": "&H00000030"
+							"value": "&H00000030",
+							"description": "按键代码：T。"
 						},
 						{
 							"name": "键码_TAB",
 							"type": "整数型",
-							"value": "&H0000003D"
+							"value": "&H0000003D",
+							"description": "按键代码：TAB。"
 						},
 						{
 							"name": "键码_U",
 							"type": "整数型",
-							"value": "&H00000031"
+							"value": "&H00000031",
+							"description": "按键代码：U。"
 						},
 						{
 							"name": "键码_V",
 							"type": "整数型",
-							"value": "&H00000032"
+							"value": "&H00000032",
+							"description": "按键代码：V。"
 						},
 						{
 							"name": "键码_音量_减",
 							"type": "整数型",
-							"value": "&H00000019"
+							"value": "&H00000019",
+							"description": "按键代码：音量 减。"
 						},
 						{
 							"name": "键码_音量_增",
 							"type": "整数型",
-							"value": "&H00000018"
+							"value": "&H00000018",
+							"description": "按键代码：音量 增。"
 						},
 						{
 							"name": "键码_W",
 							"type": "整数型",
-							"value": "&H00000033"
+							"value": "&H00000033",
+							"description": "按键代码：W。"
 						},
 						{
 							"name": "键码_X",
 							"type": "整数型",
-							"value": "&H00000034"
+							"value": "&H00000034",
+							"description": "按键代码：X。"
 						},
 						{
 							"name": "键码_Y",
 							"type": "整数型",
-							"value": "&H00000035"
+							"value": "&H00000035",
+							"description": "按键代码：Y。"
 						},
 						{
 							"name": "键码_Z",
 							"type": "整数型",
-							"value": "&H00000036"
+							"value": "&H00000036",
+							"description": "按键代码：Z。"
 						},
 						{
 							"name": "输入模式_文本",
 							"type": "整数型",
-							"value": "0"
+							"value": "0",
+							"description": "编辑框输入模式：文本。"
 						},
 						{
 							"name": "输入模式_数字",
 							"type": "整数型",
-							"value": "1"
+							"value": "1",
+							"description": "编辑框输入模式：数字。"
 						},
 						{
 							"name": "输入模式_邮箱",
 							"type": "整数型",
-							"value": "2"
+							"value": "2",
+							"description": "编辑框输入模式：邮箱。"
 						},
 						{
 							"name": "输入模式_密码",
 							"type": "整数型",
-							"value": "3"
+							"value": "3",
+							"description": "编辑框输入模式：密码。"
 						},
 						{
 							"name": "输入模式_链接",
 							"type": "整数型",
-							"value": "4"
+							"value": "4",
+							"description": "编辑框输入模式：链接。"
 						}
 					],
 					"functions": [
 						{
 							"name": "销毁",
-							"description": "释放组件相关资源。"
+							"description": "释放组件相关资源；对象本身仍需在组件变量释放后由系统回收。"
 						}
 					],
 					"events": [
@@ -1075,7 +1237,7 @@
 						},
 						{
 							"name": "设置服务任务",
-							"description": "设置或覆盖本应用指定服务和编号的任务。正常返回表示已提交调度；服务通过意图附加值“任务编号”和“参数”读取数据。",
+							"description": "设置或覆盖本应用已声明服务的任务；同一服务、同一编号相互覆盖。服务通过意图附加值“任务编号”和“参数”读取数据。服务单元须随项目编译并声明，不能指定其它应用的服务。正常返回仅表示已接受调度，实际执行仍受后台服务限制。",
 							"params": [
 								{
 									"name": "任务编号",
@@ -1403,62 +1565,74 @@
 						{
 							"name": "错误_未知",
 							"type": "整数型",
-							"value": "1"
+							"value": "1",
+							"description": "媒体播放器错误代码：未知。"
 						},
 						{
 							"name": "错误_服务器",
 							"type": "整数型",
-							"value": "100"
+							"value": "100",
+							"description": "媒体播放器错误代码：服务器。"
 						},
 						{
 							"name": "错误_读写",
 							"type": "整数型",
-							"value": "-1004"
+							"value": "-1004",
+							"description": "媒体播放器错误代码：读写。"
 						},
 						{
 							"name": "错误_流无效",
 							"type": "整数型",
-							"value": "-1007"
+							"value": "-1007",
+							"description": "媒体播放器错误代码：流无效。"
 						},
 						{
 							"name": "错误_不支持",
 							"type": "整数型",
-							"value": "-1010"
+							"value": "-1010",
+							"description": "媒体播放器错误代码：不支持。"
 						},
 						{
 							"name": "错误_超时",
 							"type": "整数型",
-							"value": "-110"
+							"value": "-110",
+							"description": "媒体播放器错误代码：超时。"
 						},
 						{
 							"name": "信息_未知",
 							"type": "整数型",
-							"value": "1"
+							"value": "1",
+							"description": "媒体播放器状态信息代码：未知。"
 						},
 						{
 							"name": "信息_缓冲开始",
 							"type": "整数型",
-							"value": "701"
+							"value": "701",
+							"description": "媒体播放器状态信息代码：缓冲开始。"
 						},
 						{
 							"name": "信息_缓冲结束",
 							"type": "整数型",
-							"value": "702"
+							"value": "702",
+							"description": "媒体播放器状态信息代码：缓冲结束。"
 						},
 						{
 							"name": "信息_错误交叉",
 							"type": "整数型",
-							"value": "800"
+							"value": "800",
+							"description": "媒体播放器状态信息代码：错误交叉。"
 						},
 						{
 							"name": "信息_无法跳转",
 							"type": "整数型",
-							"value": "801"
+							"value": "801",
+							"description": "媒体播放器状态信息代码：无法跳转。"
 						},
 						{
 							"name": "信息_元数据更新",
 							"type": "整数型",
-							"value": "802"
+							"value": "802",
+							"description": "媒体播放器状态信息代码：元数据更新。"
 						}
 					],
 					"properties": [
@@ -1552,7 +1726,8 @@
 								},
 								{
 									"name": "附加码",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "附加数据"
 								}
 							]
 						},
@@ -1567,7 +1742,8 @@
 								},
 								{
 									"name": "附加码",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "附加数据"
 								}
 							]
 						},
@@ -1612,7 +1788,8 @@
 							"params": [
 								{
 									"name": "音效编号",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "载入音效返回的音效编号。"
 								}
 							]
 						},
@@ -1622,7 +1799,8 @@
 							"params": [
 								{
 									"name": "音效编号",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "本次载入的音效编号。"
 								},
 								{
 									"name": "失败状态",
@@ -1650,7 +1828,8 @@
 							"params": [
 								{
 									"name": "音效文件",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "资产文件名或以斜杠开头的绝对文件路径。"
 								}
 							],
 							"return": "整数型"
@@ -1661,7 +1840,8 @@
 							"params": [
 								{
 									"name": "音效编号",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "音效编号，必须来自当前播放器。"
 								}
 							],
 							"return": "整数型"
@@ -1672,7 +1852,8 @@
 							"params": [
 								{
 									"name": "音效编号",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "音效编号，必须来自当前播放器。"
 								},
 								{
 									"name": "循环次数",
@@ -1721,7 +1902,8 @@
 							"params": [
 								{
 									"name": "音效编号",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "载入音效返回的音效编号。"
 								}
 							],
 							"return": "逻辑型"
@@ -1748,27 +1930,32 @@
 						{
 							"name": "音量_系统",
 							"type": "整数型",
-							"value": "1"
+							"value": "1",
+							"description": "系统提示音，类型值为 1。"
 						},
 						{
 							"name": "音量_通话",
 							"type": "整数型",
-							"value": "2"
+							"value": "2",
+							"description": "通话音量，类型值为 2。"
 						},
 						{
 							"name": "音量_铃声",
 							"type": "整数型",
-							"value": "3"
+							"value": "3",
+							"description": "来电铃声音量，类型值为 3。"
 						},
 						{
 							"name": "音量_媒体",
 							"type": "整数型",
-							"value": "4"
+							"value": "4",
+							"description": "音乐、视频等媒体音量，类型值为 4。"
 						},
 						{
 							"name": "音量_闹钟",
 							"type": "整数型",
-							"value": "5"
+							"value": "5",
+							"description": "闹钟音量，类型值为 5。"
 						}
 					],
 					"functions": [
@@ -1832,27 +2019,32 @@
 						{
 							"name": "状态_未知",
 							"type": "整数型",
-							"value": "1"
+							"value": "1",
+							"description": "系统未报告明确的充电状态。"
 						},
 						{
 							"name": "状态_充电中",
 							"type": "整数型",
-							"value": "2"
+							"value": "2",
+							"description": "电池正在充电。"
 						},
 						{
 							"name": "状态_放电中",
 							"type": "整数型",
-							"value": "3"
+							"value": "3",
+							"description": "电池正在放电。"
 						},
 						{
 							"name": "状态_未充电",
 							"type": "整数型",
-							"value": "4"
+							"value": "4",
+							"description": "电池当前未充电，可能仍连接外部电源。"
 						},
 						{
 							"name": "状态_已充满",
 							"type": "整数型",
-							"value": "5"
+							"value": "5",
+							"description": "电池已充满。"
 						}
 					],
 					"properties": [
@@ -2506,7 +2698,7 @@
 					"kind": "component",
 					"type": "simple.runtime.components.指纹验证",
 					"icon": "icons/fingerprint.svg",
-					"description": "使用设备已录入的指纹进行本机验证，功能要求 Android 6.0（API 23）及以上；低版本返回不支持。提示由应用显示，单实例一次验证，暂停自动取消，销毁后停止回调。",
+					"description": "仅使用设备已录入的指纹进行本机验证，需要 Android 6.0（API 23）及以上和可用的指纹硬件。所有调用及事件均在主线程进行，单实例同时进行一次验证；应用暂停时取消，销毁后不再派发事件。提示由调用者提供，不接受人脸、虹膜或锁屏密码作为验证成功。",
 					"inherits": [
 						"simple.runtime.components.组件"
 					],
@@ -2595,7 +2787,7 @@
 						{
 							"name": "开始验证",
 							"return": "逻辑型",
-							"description": "开始一次异步验证。成功受理返回真，结果事件延后派发；重复请求、暂停或条件不满足时返回假，原因见错误信息，不派发结果事件。"
+							"description": "开始一次异步指纹验证，仅在宿主位于前台且没有正在进行的验证时受理。成功受理返回真，结果事件延后派发；条件不满足或宿主正在关闭时返回假，原因见错误信息，不派发结果事件。"
 						},
 						{
 							"name": "取消验证",
@@ -2604,7 +2796,7 @@
 						{
 							"name": "打开设置",
 							"return": "逻辑型",
-							"description": "打开系统安全设置，供用户设置锁屏或录入指纹；设置项目由设备提供，离开应用会取消验证。成功返回真，否则返回假，原因见错误信息。"
+							"description": "在应用前台打开系统安全设置，供用户设置锁屏或录入指纹；设置项目由设备提供，离开应用会取消验证。成功返回真，否则返回假，原因见错误信息。"
 						}
 					],
 					"events": [
@@ -2634,7 +2826,7 @@
 						},
 						{
 							"name": "验证取消",
-							"description": "主动取消、应用暂停或系统取消时触发一次；空闲取消、组件或宿主销毁不触发。"
+							"description": "主动取消、应用暂停或系统/用户取消时触发一次；空闲取消、组件或宿主销毁不触发。"
 						},
 						{
 							"name": "验证错误",
@@ -2673,7 +2865,8 @@
 							"params": [
 								{
 									"name": "内容",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "待处理文本"
 								}
 							]
 						},
@@ -2683,7 +2876,8 @@
 							"params": [
 								{
 									"name": "卡号",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "SIM 卡标识"
 								}
 							]
 						}
@@ -2704,7 +2898,8 @@
 							"params": [
 								{
 									"name": "内容",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "待处理文本"
 								}
 							]
 						}
@@ -2731,7 +2926,14 @@
 					"events": [
 						{
 							"name": "扫描完毕",
-							"description": "本组件请求的扫描结果就绪时触发。"
+							"description": "等待扫描期间，收到系统扫描结束通知时触发。通知可能来自系统或其它应用的扫描；结果未更新时，读取到的仍可能是缓存。",
+							"params": [
+								{
+									"name": "结果已更新",
+									"type": "逻辑型",
+									"description": "本次扫描是否成功更新结果"
+								}
+							]
 						},
 						{
 							"name": "开启状态改变",
@@ -2739,230 +2941,301 @@
 							"params": [
 								{
 									"name": "启用",
-									"type": "逻辑型"
+									"type": "逻辑型",
+									"description": "是否已开启"
 								}
 							]
 						},
 						{
 							"name": "网络状态改变",
-							"description": "状态：1 已连接，2 连接中，3 已断开，4 断开中，5 暂停，6 未知。",
+							"description": "Wi-Fi 连接状态变化时触发。",
 							"params": [
 								{
 									"name": "状态",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "1 已连接，2 连接中，3 已断开，4 断开中，5 暂停，6 未知"
 								}
 							]
 						},
 						{
 							"name": "密码错误",
-							"description": "网络认证失败时触发。"
+							"description": "系统报告 Wi-Fi 密码认证错误时触发。Android 9（API 28）及以上系统不保证提供此通知。"
+						},
+						{
+							"name": "网络添加结果",
+							"description": "返回“添加网络”的最终结果；结果码不是系统网络标识。",
+							"params": [
+								{
+									"name": "网络名",
+									"type": "文本型",
+									"description": "本次请求的网络名称"
+								},
+								{
+									"name": "结果",
+									"type": "整数型",
+									"description": "0 成功，1 失败，2 已存在，-1 用户取消"
+								}
+							]
+						},
+						{
+							"name": "本地热点创建成功",
+							"description": "本地热点已就绪时触发，提供系统生成的实际连接信息。",
+							"params": [
+								{
+									"name": "网络名",
+									"type": "文本型",
+									"description": "实际热点名称"
+								},
+								{
+									"name": "密码",
+									"type": "文本型",
+									"description": "实际热点密码；开放热点为空字符串"
+								}
+							]
+						},
+						{
+							"name": "本地热点创建失败",
+							"description": "本地热点创建失败时触发。",
+							"params": [
+								{
+									"name": "错误码",
+									"type": "整数型",
+									"description": "1 无可用信道，2 通用错误，3 模式冲突，4 系统禁止共享；权限异常或系统不支持时为 2"
+								}
+							]
 						}
 					],
 					"functions": [
 						{
 							"name": "取已保存网络列表",
-							"description": "每项为“名称|*|网络标识”。",
+							"description": "返回本应用可以读取的已保存网络，每项为“名称|*|网络标识”。Android 10（API 29）及以上普通应用读取受限，空列表不表示设备没有保存网络。",
 							"return": "文本型()"
 						},
 						{
-							"name": "取已保存网络",
-							"description": "返回匹配网络的标识，未找到时返回 -1。",
+							"name": "取已保存网络标识",
+							"description": "返回指定已保存网络的系统标识；未找到或不可读取时返回 -1。Android 10（API 29）及以上普通应用读取受限。",
 							"params": [
 								{
 									"name": "网络名",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "网络名称"
 								}
 							],
 							"return": "整数型"
 						},
 						{
 							"name": "打开WIFI设置",
-							"description": "打开系统 Wi-Fi 设置界面。"
+							"description": "打开系统 Wi-Fi 控制界面。"
 						},
 						{
 							"name": "置WIFI状态",
-							"description": "请求开启或关闭 Wi-Fi，返回系统是否接受请求。",
+							"description": "请求开启或关闭 Wi-Fi，返回系统是否接受请求。Android 10（API 29）及以上普通应用不能直接开关 Wi-Fi；可通过“打开WIFI设置”由用户操作。",
 							"params": [
 								{
 									"name": "启用",
-									"type": "逻辑型"
+									"type": "逻辑型",
+									"description": "是否开启"
 								}
 							],
 							"return": "逻辑型"
 						},
 						{
 							"name": "是否已开启",
-							"description": "返回 Wi-Fi 是否已开启。",
+							"description": "返回 Wi-Fi 当前是否已开启。",
 							"return": "逻辑型"
 						},
 						{
 							"name": "置静态IP",
-							"description": "旧系统静态 IPv4 配置，前缀固定为 24；依赖系统隐藏接口支持。",
+							"description": "设置指定已保存网络的静态 IPv4，返回系统是否接受完整配置。需要系统允许读取并修改网络配置及静态地址设置；Android 10（API 29）及以上普通应用不可用。",
 							"params": [
 								{
 									"name": "网络名",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "网络名称"
 								},
 								{
 									"name": "地址",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "点分十进制 IPv4 地址"
+								},
+								{
+									"name": "前缀长度",
+									"type": "整数型",
+									"description": "网络前缀长度，范围为 0～32"
 								},
 								{
 									"name": "网关",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "点分十进制 IPv4 网关"
 								},
 								{
 									"name": "域名服务器",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "点分十进制 IPv4 DNS 地址"
 								}
-							]
+							],
+							"return": "逻辑型"
 						},
 						{
 							"name": "置指定WIFI状态",
-							"description": "连接指定网络；禁用其它为真时同时禁用其它已保存网络。",
+							"description": "连接指定的已保存网络，返回系统是否接受请求。Android 10（API 29）及以上普通应用不可用，需要系统允许管理网络配置。",
 							"params": [
 								{
 									"name": "网络标识",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "系统网络标识"
 								},
 								{
 									"name": "禁用其它",
-									"type": "逻辑型"
+									"type": "逻辑型",
+									"description": "是否同时禁用其它已保存网络"
 								}
 							],
 							"return": "逻辑型"
 						},
 						{
 							"name": "取连接状态",
-							"description": "返回系统状态：0 当前连接，1 禁用或不存在，2 启用。",
+							"description": "返回指定系统网络标识对应的状态。配置不可读取时不能据此判断该网络实际是否已禁用。",
 							"params": [
 								{
 									"name": "网络标识",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "系统网络标识"
 								}
 							],
 							"return": "整数型"
 						},
 						{
 							"name": "开始扫描",
-							"description": "请求扫描周围网络；返回是否成功启动扫描。",
+							"description": "请求扫描周围网络，返回系统是否接受请求。需要定位权限及系统要求的定位服务状态，受扫描频率限制；已受理请求的结束通知通过“扫描完毕”返回。",
 							"return": "逻辑型"
 						},
 						{
 							"name": "获取扫描结果",
-							"description": "以“名称*地址*加密信息*信号*频率”返回结果，网络之间以 / 分隔。",
+							"description": "返回当前可读取的扫描结果，各项以 / 分隔，每项为“名称*地址*加密信息*信号*频率”。没有新结果时可能返回系统缓存；读取需要定位权限及系统要求的定位服务状态。",
 							"return": "文本型"
 						},
 						{
 							"name": "添加网络",
-							"description": "添加网络并返回标识；类型：1 开放，2 WEP，3 WPA。",
+							"description": "异步请求添加已保存网络，返回是否受理；最终通过“网络添加结果”事件返回。须在主线程调用，同一实例同时处理一个请求。部分系统需要用户确认；Android 10（API 29）普通应用不可用，WEP 和原始十六进制 PSK 只支持 API 30 以下系统。返回假时不触发结果事件。",
 							"params": [
 								{
 									"name": "网络名",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "网络名称"
 								},
 								{
 									"name": "密码",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "开放网络忽略；WPA/WPA2 密码，API 30 及以上为 8～63 个 ASCII 字符"
 								},
 								{
 									"name": "类型",
 									"type": "整数型",
-									"description": "1 为开放网络，2 为 WEP，3 为 WPA。"
+									"description": "1 开放，2 WEP，3 WPA/WPA2"
 								}
 							],
-							"return": "整数型"
+							"return": "逻辑型"
 						},
 						{
 							"name": "删除网络",
-							"description": "删除指定的已保存网络，返回是否成功。",
+							"description": "删除指定的已保存网络，返回是否成功。Android 10（API 29）及以上普通应用不可用，需要系统允许管理网络配置。",
 							"params": [
 								{
 									"name": "网络标识",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "系统网络标识"
 								}
 							],
 							"return": "逻辑型"
 						},
 						{
 							"name": "锁定WIFI",
-							"description": "获取本组件的 Wi-Fi 唤醒锁。"
+							"description": "获取本组件的 Wi-Fi 锁，持有期间可能增加耗电。组件销毁时自动释放；此锁不能阻止用户主动关闭 Wi-Fi。"
 						},
 						{
 							"name": "解锁WIFI",
-							"description": "释放本组件的 Wi-Fi 唤醒锁。"
+							"description": "释放本组件持有的 Wi-Fi 锁，重复调用不产生额外操作。"
 						},
 						{
 							"name": "创建热点",
-							"description": "按名称和密码启动热点；依赖系统隐藏接口支持。",
+							"description": "按指定名称和密码请求创建系统热点，返回系统是否接受请求。须在主线程调用，需要系统授予热点管理权限，普通应用可能被拒绝。返回真不表示热点已经就绪；此方法不触发本地热点的结果事件。",
 							"params": [
 								{
 									"name": "网络名",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "热点名称"
 								},
 								{
 									"name": "密码",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "热点密码；空字符串或空引用表示开放热点"
 								}
-							]
+							],
+							"return": "逻辑型"
+						},
+						{
+							"name": "创建本地热点",
+							"description": "请求创建系统生成名称和密码的本地热点，不提供互联网共享。需要 Android 8.0（API 26）及以上系统、定位权限及系统要求的定位服务状态；结果通过“本地热点创建成功”或“本地热点创建失败”返回。"
 						},
 						{
 							"name": "关闭热点",
-							"description": "关闭热点；依赖系统隐藏接口支持。"
+							"description": "关闭当前实例的本地热点，或请求关闭系统热点，返回关闭操作是否成功受理。须在主线程调用；关闭系统热点需要相应系统管理权限。本地热点仅释放本实例资源，不影响其它应用持有的资源。",
+							"return": "逻辑型"
 						},
 						{
 							"name": "取当前BSSID",
-							"description": "返回当前连接的接入点地址。",
+							"description": "返回当前连接的接入点 MAC 地址；缺失、不可读取或为系统占位地址时返回空字符串。",
 							"return": "文本型"
 						},
 						{
 							"name": "取当前SSID",
-							"description": "返回当前连接的网络名称。",
+							"description": "返回当前连接的网络名称；缺失或系统不允许读取时返回空字符串。",
 							"return": "文本型"
 						},
 						{
-							"name": "取当前networkid",
-							"description": "返回当前连接的网络标识。",
+							"name": "取当前网络标识",
+							"description": "返回当前 Wi-Fi 连接的系统网络标识；无连接或不可读取时返回 -1。",
 							"return": "整数型"
 						},
 						{
 							"name": "取内网IP",
-							"description": "返回当前设备的内网 IPv4 地址。",
+							"description": "返回当前 Wi-Fi 连接的内网 IPv4 地址；无地址时返回空字符串。",
 							"return": "文本型"
 						},
 						{
 							"name": "取MAC地址",
-							"description": "返回系统提供的设备 Wi-Fi 地址。",
+							"description": "返回系统允许读取的设备 Wi-Fi MAC 地址；缺失、不可读取或为系统占位地址时返回空字符串。",
 							"return": "文本型"
 						},
 						{
 							"name": "取当前信号强度",
-							"description": "返回 0～4 的信号档位；没有连接信息时为 0。",
+							"description": "返回当前 Wi-Fi 信号的 0～4 档位。",
 							"return": "整数型"
 						},
 						{
 							"name": "取当前连接速度",
-							"description": "返回系统提供的连接速度，单位为 Mbps。",
+							"description": "返回系统报告的当前 Wi-Fi 链路速度，单位为 Mbps。",
 							"return": "整数型"
 						},
 						{
 							"name": "取网关",
-							"description": "返回 DHCP 提供的网关地址。",
+							"description": "返回 DHCP 提供的 IPv4 网关地址；无 DHCP 信息时返回空字符串。",
 							"return": "文本型"
 						},
 						{
-							"name": "取网络前缀",
-							"description": "返回 DHCP 提供的子网掩码地址。",
+							"name": "取子网掩码",
+							"description": "返回 DHCP 提供的 IPv4 子网掩码；无 DHCP 信息时返回空字符串。",
 							"return": "文本型"
 						},
 						{
 							"name": "取DNS1",
-							"description": "返回 DHCP 提供的首选域名服务器地址。",
+							"description": "返回 DHCP 提供的首选 IPv4 DNS 地址；无 DHCP 信息时返回空字符串。",
 							"return": "文本型"
 						},
 						{
 							"name": "取DNS2",
-							"description": "返回 DHCP 提供的备用域名服务器地址。",
+							"description": "返回 DHCP 提供的备用 IPv4 DNS 地址；无 DHCP 信息时返回空字符串。",
 							"return": "文本型"
 						}
 					]
@@ -3011,44 +3284,100 @@
 				{
 					"name": "相机",
 					"icon": "icons/camera.svg",
-					"description": "调用系统相机和相册，提供拍照、录像及闪光灯控制。",
+					"description": "调用系统拍摄、媒体选择和裁剪界面，提供持续照明。异步请求须在主线程调用，同一实例同时处理一个任务；未受理时无结果事件，原因见错误信息。",
 					"kind": "component",
 					"type": "simple.runtime.components.相机",
 					"inherits": [
 						"simple.runtime.components.组件"
 					],
 					"permissions": [
-						"android.permission.FLASHLIGHT",
-						"android.permission.CAMERA",
-						"android.permission.READ_EXTERNAL_STORAGE",
-						"android.permission.WRITE_EXTERNAL_STORAGE"
+						"android.permission.CAMERA"
 					],
 					"events": [
 						{
 							"name": "拍摄完毕",
-							"description": "系统拍照结果成功保存后触发。"
-						},
-						{
-							"name": "录像完毕",
-							"description": "系统录像结果成功保存后触发。"
-						},
-						{
-							"name": "浏览完毕",
-							"description": "返回文件路径；媒体提供器未提供路径时复制到应用缓存。",
+							"description": "拍照结果已完整保存到指定文件后触发。",
 							"params": [
 								{
 									"name": "路径",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "实际保存的绝对文件路径"
+								}
+							]
+						},
+						{
+							"name": "录像完毕",
+							"description": "录像结果已完整保存到指定文件后触发。",
+							"params": [
+								{
+									"name": "路径",
+									"type": "文本型",
+									"description": "实际保存的绝对文件路径"
+								}
+							]
+						},
+						{
+							"name": "浏览完毕",
+							"description": "选择的照片或视频已复制到应用缓存后触发。",
+							"params": [
+								{
+									"name": "路径",
+									"type": "文本型",
+									"description": "缓存文件的绝对路径；需长期保留时应另行复制"
 								}
 							]
 						},
 						{
 							"name": "剪裁完毕",
-							"description": "裁剪结果成功保存后触发，返回文件路径。",
+							"description": "裁剪结果已完整保存到应用缓存后触发；不另行触发浏览完毕。",
 							"params": [
 								{
 									"name": "路径",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "裁剪结果的绝对路径；需长期保留时应另行复制"
+								}
+							]
+						},
+						{
+							"name": "操作取消",
+							"description": "用户取消已受理的拍摄、选择或裁剪任务时触发。",
+							"params": [
+								{
+									"name": "操作",
+									"type": "文本型",
+									"description": "拍照、录像、选择照片、选择视频或裁剪照片"
+								}
+							]
+						},
+						{
+							"name": "操作失败",
+							"description": "已受理的任务启动失败、结果无效或保存失败时触发。",
+							"params": [
+								{
+									"name": "操作",
+									"type": "文本型",
+									"description": "失败的操作名称"
+								},
+								{
+									"name": "说明",
+									"type": "文本型",
+									"description": "失败原因"
+								}
+							]
+						},
+						{
+							"name": "相册更新完毕",
+							"description": "系统已为共享存储中的文件更新媒体索引时触发。",
+							"params": [
+								{
+									"name": "路径",
+									"type": "文本型",
+									"description": "被扫描文件的绝对路径"
+								},
+								{
+									"name": "内容地址",
+									"type": "文本型",
+									"description": "系统返回的媒体内容 URI"
 								}
 							]
 						}
@@ -3056,74 +3385,100 @@
 					"functions": [
 						{
 							"name": "开始拍照",
-							"description": "调用系统相机，将结果复制到指定文件路径。",
+							"description": "请求系统拍照，成功后将完整结果保存到指定文件。需要相机权限及可处理拍照的系统应用；Android 9（API 28）及以下还需要外部存储写入权限。取消、失败或空结果不会覆盖原文件。",
 							"params": [
 								{
 									"name": "路径",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "可写的绝对文件路径，不能是目录或内容 URI"
 								}
-							]
+							],
+							"return": "逻辑型"
 						},
 						{
 							"name": "开始录像",
-							"description": "调用系统录像；质量 0 为低质量，1 为高质量。",
+							"description": "请求系统录像，成功后将完整结果保存到指定文件。需要相机权限及可处理录像的系统应用；Android 9（API 28）及以下还需要外部存储写入权限。取消、失败或空结果不会覆盖原文件。",
 							"params": [
 								{
 									"name": "路径",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "可写的绝对文件路径，不能是目录或内容 URI"
 								},
 								{
 									"name": "质量",
 									"type": "整数型",
-									"description": "0 为低质量，1 为高质量。"
+									"description": "0 为低质量，1 为高质量"
 								}
-							]
+							],
+							"return": "逻辑型"
 						},
 						{
 							"name": "更新系统相册",
-							"description": "扫描指定文件，通知系统更新媒体索引。",
+							"description": "请求扫描共享存储中系统可访问的媒体文件，更新媒体索引。不会把应用私有文件复制到公共相册；私有目录不支持此操作。",
 							"params": [
 								{
 									"name": "路径",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "系统媒体服务可访问的共享存储绝对文件路径"
 								}
-							]
+							],
+							"return": "逻辑型"
 						},
 						{
 							"name": "浏览相册",
-							"description": "打开系统界面选择照片。"
+							"description": "打开系统文档界面选择一张照片，选择成功后复制到应用缓存。",
+							"return": "逻辑型"
 						},
 						{
 							"name": "浏览相册视频",
-							"description": "打开系统界面选择视频。"
+							"description": "打开系统文档界面选择一个视频，选择成功后复制到应用缓存。",
+							"return": "逻辑型"
 						},
 						{
 							"name": "浏览相册并剪裁",
-							"description": "依赖设备提供裁剪应用；结果保存在应用缓存，通过剪裁完毕返回路径。"
+							"description": "选择照片后调用设备提供的裁剪应用，将结果保存到应用缓存。Android 不保证安装裁剪应用；缺少处理程序会通过操作失败通知。Android 9（API 28）及以下还需要外部存储写入权限。",
+							"return": "逻辑型"
 						},
 						{
 							"name": "取照片旋转角度",
-							"description": "读取照片方向，返回 0、90、180 或 270 度；无法读取时返回 0。",
+							"description": "读取照片方向中的旋转角度，不执行镜像或修改照片。",
 							"params": [
 								{
 									"name": "路径",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "可读取的绝对文件路径"
 								}
 							],
 							"return": "整数型"
 						},
 						{
 							"name": "是否存在闪光灯",
-							"description": "返回设备是否声明闪光灯能力。",
+							"description": "判断设备是否提供带闪光灯的摄像头。",
 							"return": "逻辑型"
 						},
 						{
 							"name": "开启闪光灯",
-							"description": "开启持续照明，设备不支持时不执行。"
+							"description": "请求开启持续照明；需要相机权限及当前可用的闪光灯硬件。退出前台或组件销毁时自动请求关闭；受其它相机任务占用时可能无法开启。",
+							"return": "逻辑型"
 						},
 						{
 							"name": "关闭闪光灯",
-							"description": "关闭持续照明并释放摄像头资源。"
+							"description": "请求关闭本实例开启的持续照明，重复调用不产生额外请求。",
+							"return": "逻辑型"
+						}
+					],
+					"properties": [
+						{
+							"name": "错误信息",
+							"description": "返回最近一次未受理或异步失败的原因。",
+							"type": "文本型",
+							"writable": false
+						},
+						{
+							"name": "正在处理",
+							"description": "判断是否仍在等待系统界面、复制媒体或更新媒体索引。",
+							"type": "逻辑型",
+							"writable": false
 						}
 					]
 				},
@@ -3507,15 +3862,18 @@
 							"params": [
 								{
 									"name": "名称",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "要操作的名称"
 								},
 								{
 									"name": "地址",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "资源或服务器地址"
 								},
 								{
 									"name": "已配对",
-									"type": "逻辑型"
+									"type": "逻辑型",
+									"description": "设备是否已配对"
 								}
 							]
 						},
@@ -3525,15 +3883,18 @@
 							"params": [
 								{
 									"name": "成功",
-									"type": "逻辑型"
+									"type": "逻辑型",
+									"description": "本次操作是否成功"
 								},
 								{
 									"name": "名称",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "要操作的名称"
 								},
 								{
 									"name": "地址",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "资源或服务器地址"
 								},
 								{
 									"name": "模式",
@@ -3548,15 +3909,18 @@
 							"params": [
 								{
 									"name": "数据",
-									"type": "字节型()"
+									"type": "字节型()",
+									"description": "本次传入的数据"
 								},
 								{
 									"name": "名称",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "要操作的名称"
 								},
 								{
 									"name": "地址",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "资源或服务器地址"
 								}
 							]
 						},
@@ -3566,15 +3930,18 @@
 							"params": [
 								{
 									"name": "数据",
-									"type": "字节型()"
+									"type": "字节型()",
+									"description": "本次传入的数据"
 								},
 								{
 									"name": "名称",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "要操作的名称"
 								},
 								{
 									"name": "地址",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "资源或服务器地址"
 								}
 							]
 						},
@@ -3627,7 +3994,8 @@
 							"params": [
 								{
 									"name": "服务标识",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "服务或特征 UUID"
 								}
 							]
 						},
@@ -3637,7 +4005,8 @@
 							"params": [
 								{
 									"name": "名称",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "要操作的名称"
 								}
 							],
 							"return": "逻辑型"
@@ -3671,7 +4040,8 @@
 							"params": [
 								{
 									"name": "地址",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "资源或服务器地址"
 								}
 							]
 						},
@@ -3681,7 +4051,8 @@
 							"params": [
 								{
 									"name": "数据",
-									"type": "字节型()"
+									"type": "字节型()",
+									"description": "本次传入的数据"
 								}
 							]
 						},
@@ -3704,7 +4075,7 @@
 				{
 					"name": "语音处理器",
 					"icon": "icons/microphone.svg",
-					"description": "调用系统语音识别与朗读引擎。",
+					"description": "调用系统语音识别界面和文字朗读引擎，所有调用和事件均在主线程进行。识别需要可处理请求的系统应用，朗读需要可用的引擎及默认语言数据；宿主销毁时自动释放，销毁后不再派发事件。",
 					"kind": "component",
 					"type": "simple.runtime.components.语音处理器",
 					"inherits": [
@@ -3713,42 +4084,91 @@
 					"events": [
 						{
 							"name": "语音识别完毕",
-							"description": "识别完成时触发，返回识别文本。",
+							"description": "识别成功后返回首项识别文本，不拼接候选结果。",
 							"params": [
 								{
 									"name": "文本",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "识别文本"
+								}
+							]
+						},
+						{
+							"name": "语音识别取消",
+							"description": "用户取消系统识别界面时触发，当前识别已经结束。"
+						},
+						{
+							"name": "语音朗读就绪",
+							"description": "新引擎与默认语言就绪时触发；暂存的最后一次请求先提交，再通知就绪。不表示朗读完成，重复初始化已就绪引擎不再次触发。"
+						},
+						{
+							"name": "操作失败",
+							"description": "已受理的异步操作失败时触发；操作为语音识别、初始化语音朗读或语音朗读。",
+							"params": [
+								{
+									"name": "操作",
+									"type": "文本型",
+									"description": "语音识别、初始化语音朗读或语音朗读"
+								},
+								{
+									"name": "信息",
+									"type": "文本型",
+									"description": "失败原因；不包含系统未报告的实际发声结果"
 								}
 							]
 						}
 					],
 					"functions": [
 						{
-							"name": "是否已安装语音引擎",
-							"description": "保留原名称，实际检查系统是否有可接收语音识别请求的应用。",
+							"name": "是否支持语音识别",
+							"description": "检查是否有可处理语音识别请求的应用，不检查文字朗读引擎；不保证服务或网络当前可用。",
 							"return": "逻辑型"
 						},
 						{
 							"name": "语音识别",
-							"description": "打开系统语音识别界面。"
+							"description": "在应用前台打开系统语音识别界面，同一实例同时一次识别。发起成功返回真，结果通过语音识别完毕、语音识别取消或操作失败通知；未受理返回假，原因见错误信息，不触发事件。",
+							"return": "逻辑型"
 						},
 						{
 							"name": "初始化语音朗读",
-							"description": "初始化系统朗读引擎，可重复调用。"
+							"description": "异步初始化朗读引擎并选择系统默认语言，重复调用不重复创建。已开始、正在初始化或已经就绪返回真；未受理返回假。新引擎通过语音朗读就绪或操作失败通知结果。",
+							"return": "逻辑型"
 						},
 						{
 							"name": "语音朗读",
-							"description": "使用系统默认语言朗读；初始化期间保留最后一次请求，就绪后开始朗读。",
+							"description": "使用系统默认语言朗读非空文本，新请求替换尚未完成的朗读。尚未就绪时自动初始化，只保留最后一次请求。返回真仅表示暂存或交给引擎，不表示已发声或完成；未受理返回假，原因见错误信息，不触发事件。",
+							"return": "逻辑型",
 							"params": [
 								{
 									"name": "内容",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "非空朗读文本，不能超过系统引擎允许的输入长度"
 								}
 							]
 						},
 						{
 							"name": "释放语音朗读",
-							"description": "停止并释放朗读引擎；后续朗读可重新初始化。"
+							"description": "清除暂存文本，停止并释放朗读引擎；可重复调用，后续朗读可重新初始化。不取消系统语音识别。"
+						}
+					],
+					"properties": [
+						{
+							"name": "正在识别",
+							"type": "逻辑型",
+							"writable": false,
+							"description": "是否正在等待系统识别界面返回。"
+						},
+						{
+							"name": "朗读就绪",
+							"type": "逻辑型",
+							"writable": false,
+							"description": "朗读引擎和默认语言是否已准备好；不表示正在发声。"
+						},
+						{
+							"name": "错误信息",
+							"type": "文本型",
+							"writable": false,
+							"description": "最近一次请求被拒绝或异步操作失败的原因；正常受理后清空，能力查询不修改此值。"
 						}
 					]
 				},
@@ -4049,7 +4469,7 @@
 				},
 				{
 					"name": "TCP服务端",
-					"description": "监听 TCP 端口，接收客户连接并按地址和端口收发字节流。",
+					"description": "异步监听 TCP 端口并按客户 IP 和端口收发原始字节流；全部事件在主线程交付。最多同时接入 64 个客户。 主动关闭或宿主销毁时释放资源并取消未完成发送和旧回调。",
 					"icon": "icons/server.svg",
 					"kind": "component",
 					"type": "simple.runtime.components.TCP服务端",
@@ -4061,55 +4481,112 @@
 					],
 					"events": [
 						{
-							"name": "客户进入",
-							"description": "接受客户连接后，通过组件创建线程的消息队列派发。",
+							"name": "启动完毕",
+							"description": "监听尝试完成时触发；端口绑定成功后才报告成功。",
 							"params": [
 								{
-									"name": "地址",
-									"type": "文本型",
-									"description": "对端 IP 地址。"
+									"name": "成功",
+									"type": "逻辑型",
+									"description": "是否成功监听"
 								},
 								{
 									"name": "端口",
 									"type": "整数型",
-									"description": "对端端口号。"
+									"description": "实际监听端口；失败时为 0"
+								}
+							]
+						},
+						{
+							"name": "客户进入",
+							"description": "客户连接建立时触发。",
+							"params": [
+								{
+									"name": "地址",
+									"type": "文本型",
+									"description": "客户 IP 地址"
+								},
+								{
+									"name": "端口",
+									"type": "整数型",
+									"description": "客户端口"
 								}
 							]
 						},
 						{
 							"name": "收到数据",
-							"description": "读取到客户发送的字节时触发；一次事件不保证对应一条完整消息。",
+							"description": "收到客户的字节流片段时触发；一次事件不保证对应一条完整消息。",
 							"params": [
 								{
 									"name": "数据",
 									"type": "字节型()",
-									"description": "要发送或本次收到的字节数组。"
+									"description": "独立的接收数据"
 								},
 								{
 									"name": "地址",
 									"type": "文本型",
-									"description": "对端 IP 地址。"
+									"description": "客户 IP 地址"
 								},
 								{
 									"name": "端口",
 									"type": "整数型",
-									"description": "对端端口号。"
+									"description": "客户端口"
 								}
 							]
 						},
 						{
 							"name": "客户离开",
-							"description": "客户离开通知事件，派发行为沿用原组件实现。",
+							"description": "监听期间某个客户正常结束或异常断开时触发一次；关闭整个服务器时以服务器关闭事件统一通知。",
 							"params": [
 								{
 									"name": "地址",
 									"type": "文本型",
-									"description": "对端 IP 地址。"
+									"description": "客户 IP 地址"
 								},
 								{
 									"name": "端口",
 									"type": "整数型",
-									"description": "对端端口号。"
+									"description": "客户端口"
+								}
+							]
+						},
+						{
+							"name": "服务器关闭",
+							"description": "已成功启动的监听结束并关闭全部客户连接后触发；启动中取消不产生此事件。"
+						},
+						{
+							"name": "发送完毕",
+							"description": "本次数据已写入本地 Socket 输出流时触发，不表示客户应用已经收到或处理。",
+							"params": [
+								{
+									"name": "长度",
+									"type": "整数型",
+									"description": "本次写出的字节数"
+								},
+								{
+									"name": "地址",
+									"type": "文本型",
+									"description": "客户 IP 地址"
+								},
+								{
+									"name": "端口",
+									"type": "整数型",
+									"description": "客户端口"
+								}
+							]
+						},
+						{
+							"name": "操作失败",
+							"description": "操作未受理或异步执行失败时触发；错误信息同时更新。",
+							"params": [
+								{
+									"name": "操作",
+									"type": "文本型",
+									"description": "失败操作"
+								},
+								{
+									"name": "原因",
+									"type": "文本型",
+									"description": "失败原因"
 								}
 							]
 						}
@@ -4117,56 +4594,85 @@
 					"functions": [
 						{
 							"name": "置接收数据包大小",
-							"description": "设置后续读取使用的缓冲区大小，不添加分包或组包协议。",
+							"description": "设置应用层读取缓冲区，不改变 TCP 消息边界；正在阻塞的读取结束后采用新值。 返回值：设置成功为真，参数无效或已销毁为假。",
 							"params": [
 								{
 									"name": "大小",
 									"type": "整数型",
-									"description": "接收缓冲区大小，单位字节，初始为 1024；TCP 不以此划分消息边界。"
+									"description": "缓冲区大小，1～1048576 字节，初始为 1024"
 								}
-							]
+							],
+							"return": "逻辑型"
 						},
 						{
 							"name": "启动服务器",
-							"description": "在后台线程绑定并监听端口；方法返回不代表绑定已经成功。",
+							"description": "在后台绑定并监听端口，结果以启动完毕事件为准；已有启动请求或监听时拒绝重复启动。 返回值：启动请求受理为真，不代表已经监听成功。",
 							"params": [
 								{
 									"name": "端口",
 									"type": "整数型",
-									"description": "本地监听端口号；0 表示由系统分配。"
+									"description": "监听端口，0～65535；0 表示由系统分配"
 								}
-							]
+							],
+							"return": "逻辑型"
 						},
 						{
 							"name": "发送数据",
-							"description": "同步向地址和端口匹配的已连接客户发送字节；应在工作线程调用。",
+							"description": "向匹配的客户复制并异步排队发送，按入队顺序写出；结果由发送完毕或操作失败事件报告。 返回值：成功入队为真，找不到客户或队列满时为假。",
 							"params": [
 								{
 									"name": "数据",
 									"type": "字节型()",
-									"description": "要发送或本次收到的字节数组。"
+									"description": "非空字节集，单次及未完成发送总量最多 4 MiB，最多 128 项待发送"
 								},
 								{
 									"name": "地址",
 									"type": "文本型",
-									"description": "对端 IP 地址。"
+									"description": "客户进入事件给出的 IP 地址，不进行主机名解析"
 								},
 								{
 									"name": "端口",
 									"type": "整数型",
-									"description": "对端端口号。"
+									"description": "客户进入事件给出的端口"
 								}
-							]
+							],
+							"return": "逻辑型"
 						},
 						{
 							"name": "关闭服务器",
-							"description": "关闭监听 Socket 并清空客户列表，已有客户连接的清理行为沿用原组件。"
+							"description": "取消启动或关闭监听和全部客户连接，取消未完成发送及旧监听的排队回调。"
+						}
+					],
+					"properties": [
+						{
+							"name": "正在监听",
+							"type": "逻辑型",
+							"description": "判断是否已经成功绑定且仍在监听。 返回值：当前正在监听时为真。",
+							"writable": false
+						},
+						{
+							"name": "监听端口",
+							"type": "整数型",
+							"description": "获取系统实际绑定的监听端口。 返回值：实际端口，未监听时为 0。",
+							"writable": false
+						},
+						{
+							"name": "客户数量",
+							"type": "整数型",
+							"description": "获取当前已连接客户的数量。 返回值：当前连接数。",
+							"writable": false
+						},
+						{
+							"name": "错误信息",
+							"type": "文本型",
+							"description": "获取最近一次操作失败的原因。 返回值：错误文本；新启动或发送请求前清空。",
+							"writable": false
 						}
 					]
 				},
 				{
 					"name": "TCP客户端",
-					"description": "异步连接 TCP 服务端，通过事件接收字节流并同步发送字节。",
+					"description": "异步连接 TCP 服务端并收发原始字节流；全部事件在主线程交付。 主动关闭或宿主销毁时释放资源并取消未完成发送和旧回调。",
 					"icon": "icons/plug-connected.svg",
 					"kind": "component",
 					"type": "simple.runtime.components.TCP客户端",
@@ -4179,89 +4685,133 @@
 					"events": [
 						{
 							"name": "连接完毕",
-							"description": "后台连接尝试结束后，通过组件创建线程的消息队列派发。",
+							"description": "连接尝试完成时触发；主动取消或被新连接替换的尝试不再回调。",
 							"params": [
 								{
-									"name": "结果",
+									"name": "成功",
 									"type": "逻辑型",
-									"description": "连接成功为真，连接失败为假。"
+									"description": "本次是否成功建立连接"
 								}
 							]
 						},
 						{
 							"name": "收到数据",
-							"description": "读取到服务端发送的字节时触发；一次事件不保证对应一条完整消息。",
+							"description": "收到字节流片段时触发；一次事件不保证对应一条完整消息。",
 							"params": [
 								{
 									"name": "数据",
 									"type": "字节型()",
-									"description": "要发送或本次收到的字节数组。"
+									"description": "独立的接收数据"
 								}
 							]
 						},
 						{
 							"name": "连接断开",
-							"description": "连接读写异常产生断开通知时触发，正常结束和主动关闭行为沿用原组件。"
+							"description": "已建立的连接正常结束、异常中断或主动断开时触发一次；重连替换旧连接不另行通知。"
+						},
+						{
+							"name": "发送完毕",
+							"description": "本次数据已写入本地 Socket 输出流时触发，不表示对端应用已经收到或处理。",
+							"params": [
+								{
+									"name": "长度",
+									"type": "整数型",
+									"description": "本次写出的字节数"
+								}
+							]
+						},
+						{
+							"name": "操作失败",
+							"description": "操作未受理或异步执行失败时触发；错误信息同时更新。",
+							"params": [
+								{
+									"name": "操作",
+									"type": "文本型",
+									"description": "失败操作"
+								},
+								{
+									"name": "原因",
+									"type": "文本型",
+									"description": "失败原因"
+								}
+							]
 						}
 					],
 					"functions": [
 						{
 							"name": "置接收数据包大小",
-							"description": "设置读取缓冲区大小，并用于之后连接的 Socket 收发缓冲区设置。",
+							"description": "设置应用层读取缓冲区，不改变 TCP 消息边界；正在阻塞的读取结束后采用新值。 返回值：设置成功为真，参数无效或已销毁为假。",
 							"params": [
 								{
 									"name": "大小",
 									"type": "整数型",
-									"description": "接收缓冲区大小，单位字节，初始为 1024；TCP 不以此划分消息边界。"
+									"description": "缓冲区大小，1～1048576 字节，初始为 1024"
 								}
-							]
+							],
+							"return": "逻辑型"
 						},
 						{
 							"name": "连接服务器",
-							"description": "在后台线程连接服务端，结果通过连接完毕事件通知。",
+							"description": "在后台连接服务端并替换旧连接，结果以连接完毕事件为准。 返回值：连接请求受理为真，不代表已经连接成功。",
 							"params": [
 								{
 									"name": "地址",
 									"type": "文本型",
-									"description": "服务端 IP 地址或主机名。"
+									"description": "服务端 IP 或主机名"
 								},
 								{
 									"name": "端口",
 									"type": "整数型",
-									"description": "对端端口号。"
+									"description": "服务端端口，1～65535"
 								},
 								{
 									"name": "超时",
 									"type": "整数型",
-									"description": "连接超时时间，单位毫秒；0 表示不限制等待时间。"
+									"description": "连接超时毫秒，0 表示无限；不包含系统 DNS 查询耗时"
 								}
-							]
+							],
+							"return": "逻辑型"
 						},
 						{
 							"name": "取连接状态",
-							"description": "通过发送 TCP 紧急数据探测连接，沿用原组件的探测方式。 紧急数据发送未抛出 IO 异常时返回真，不表示对端应用已处理数据。",
+							"description": "查询本地已知状态，不发送探测数据；对端断网可能尚未被系统检测。 返回值：连接已建立且尚未检测到断开时为真。",
 							"return": "逻辑型"
 						},
 						{
 							"name": "发送数据",
-							"description": "同步发送字节并刷新输出流；应在连接成功后由工作线程调用。",
+							"description": "复制数据并异步排队发送，按入队顺序写出；队列满时拒绝，结果由发送完毕或操作失败事件报告。 返回值：成功入队为真，不表示对端已经收到。",
 							"params": [
 								{
 									"name": "数据",
 									"type": "字节型()",
-									"description": "要发送或本次收到的字节数组。"
+									"description": "非空字节集，单次及未完成发送总量最多 4 MiB，最多 128 项待发送"
 								}
-							]
+							],
+							"return": "逻辑型"
 						},
 						{
 							"name": "断开连接",
-							"description": "设置停止标记，关闭连接并中断连接和接收线程，关闭顺序沿用原组件。"
+							"description": "取消正在连接的请求，或关闭已建立的连接；未完成发送及旧连接排队回调会被取消。"
+						}
+					],
+					"properties": [
+						{
+							"name": "正在连接",
+							"type": "逻辑型",
+							"description": "判断当前是否仍在尝试连接。 返回值：当前连接尝试尚未完成时为真。",
+							"writable": false
+						},
+						{
+							"name": "错误信息",
+							"type": "文本型",
+							"description": "获取最近一次操作失败的原因。 返回值：错误文本；新连接或发送请求前清空。",
+							"writable": false
 						}
 					]
 				},
 				{
 					"name": "UDP数据报",
-					"description": "绑定 UDP 端口接收数据报，使用同一 Socket 定向发送或发送广播。",
+					"description": "异步绑定 UDP 端口并收发独立数据报；事件在主线程交付。UDP 不保证送达、顺序或去重，不自动重发，接收积压时可能丢包。组件或宿主销毁时自动释放资源，不承诺后台保活。",
 					"icon": "icons/arrows-transfer-up-down.svg",
 					"kind": "component",
 					"type": "simple.runtime.components.UDP数据报",
@@ -4273,23 +4823,81 @@
 					],
 					"events": [
 						{
-							"name": "收到数据",
-							"description": "收到一个 UDP 数据报时，通过组件创建线程的消息队列派发。",
+							"name": "启动完毕",
+							"description": "监听尝试完成时触发；主动取消的尝试不再回调。",
 							"params": [
 								{
-									"name": "数据",
-									"type": "字节型()",
-									"description": "要发送或本次收到的字节数组。"
+									"name": "result",
+									"type": "逻辑型",
+									"description": "是否成功绑定"
 								},
 								{
-									"name": "地址",
-									"type": "文本型",
-									"description": "对端 IP 地址。"
-								},
-								{
-									"name": "端口",
+									"name": "port",
 									"type": "整数型",
-									"description": "对端端口号。"
+									"description": "实际监听端口，失败时为 0"
+								}
+							]
+						},
+						{
+							"name": "收到数据",
+							"description": "收到一个完整数据报时触发；不会合并相邻数据报。",
+							"params": [
+								{
+									"name": "data",
+									"type": "字节型()",
+									"description": "独立的数据数组，可为零字节"
+								},
+								{
+									"name": "address",
+									"type": "文本型",
+									"description": "来源 IP 地址"
+								},
+								{
+									"name": "port",
+									"type": "整数型",
+									"description": "来源端口"
+								}
+							]
+						},
+						{
+							"name": "发送完毕",
+							"description": "数据报已交给本地网络栈时触发，不表示对端已经收到。",
+							"params": [
+								{
+									"name": "length",
+									"type": "整数型",
+									"description": "数据报字节数"
+								},
+								{
+									"name": "address",
+									"type": "文本型",
+									"description": "实际目标 IP"
+								},
+								{
+									"name": "port",
+									"type": "整数型",
+									"description": "目标端口"
+								}
+							]
+						},
+						{
+							"name": "监听停止",
+							"description": "成功启动的监听主动停止或异常结束时触发一次；销毁时不再派发事件。",
+							"params": []
+						},
+						{
+							"name": "操作失败",
+							"description": "操作未受理或异步失败时触发；错误信息同时更新。",
+							"params": [
+								{
+									"name": "operation",
+									"type": "文本型",
+									"description": "失败操作"
+								},
+								{
+									"name": "message",
+									"type": "文本型",
+									"description": "失败原因"
 								}
 							]
 						}
@@ -4297,50 +4905,74 @@
 					"functions": [
 						{
 							"name": "置接收数据包大小",
-							"description": "设置后续接收的缓冲区大小；超过缓冲区容量的数据报会被截断。",
+							"description": "设置完整数据报的接收上限；超限时整包丢弃并触发操作失败。正在阻塞的接收结束后采用新值。 设置成功为真，参数无效或已销毁为假",
+							"return": "逻辑型",
 							"params": [
 								{
-									"name": "大小",
+									"name": "size",
 									"type": "整数型",
-									"description": "接收缓冲区大小，单位字节，初始为 1024。"
+									"description": "上限为 1～65507 字节，初始 1024"
 								}
 							]
 						},
 						{
 							"name": "开始监听",
-							"description": "在后台线程绑定 UDP 端口；方法返回不代表绑定已经成功。",
+							"description": "在后台绑定端口，结果以启动完毕事件为准；正在启动或监听时拒绝重复启动。 请求受理为真，不代表已经绑定成功",
+							"return": "逻辑型",
 							"params": [
 								{
-									"name": "端口",
+									"name": "port",
 									"type": "整数型",
-									"description": "本地监听端口号；0 表示由系统分配。"
+									"description": "本地端口为 0～65535，0 表示系统分配"
 								}
 							]
 						},
 						{
 							"name": "发送数据",
-							"description": "使用监听 Socket 同步发送数据报；须先开始监听，应在工作线程调用。",
+							"description": "复制数据并异步排队发送；须先成功监听。最多 128 项未完成发送，总量最多 4 MiB，超限拒绝。 入队成功为真；完成或失败通过事件报告",
+							"return": "逻辑型",
 							"params": [
 								{
-									"name": "数据",
+									"name": "data",
 									"type": "字节型()",
-									"description": "要发送或本次收到的字节数组。"
+									"description": "0～65507 字节，不允许空引用"
 								},
 								{
-									"name": "地址",
+									"name": "address",
 									"type": "文本型",
-									"description": "目标 IP 地址或主机名；空文本使用广播地址 255.255.255.255。"
+									"description": "目标 IP 或主机名；空文本使用广播地址 255.255.255.255，广播是否可达取决于网络环境"
 								},
 								{
-									"name": "端口",
+									"name": "port",
 									"type": "整数型",
-									"description": "对端端口号。"
+									"description": "目标端口为 1～65535"
 								}
 							]
 						},
 						{
 							"name": "停止监听",
-							"description": "清除监听标记、关闭 UDP Socket 并中断监听线程。"
+							"description": "取消启动或停止监听，关闭 Socket；未完成发送和旧会话尚未交付的回调会被取消。",
+							"params": []
+						}
+					],
+					"properties": [
+						{
+							"name": "正在监听",
+							"description": "判断本地端口是否已成功绑定且尚未停止。 正在监听时为真",
+							"type": "逻辑型",
+							"writable": false
+						},
+						{
+							"name": "监听端口",
+							"description": "获取当前实际绑定的本地端口。 尚未启动或已停止时为 0",
+							"type": "整数型",
+							"writable": false
+						},
+						{
+							"name": "错误信息",
+							"description": "获取最近一次操作失败的原因。 错误文本；新启动或发送请求前清空",
+							"type": "文本型",
+							"writable": false
 						}
 					]
 				}
@@ -4352,11 +4984,12 @@
 				{
 					"name": "布局",
 					"description": "Simple组件的布局接口。",
-					"kind": "layout"
+					"kind": "layout",
+					"type": "simple.runtime.components.布局"
 				},
 				{
 					"name": "线性布局",
-					"description": "用于水平或垂直放置组件的线性布局。\n通过设置重总和和子组件权重可以按比例摆放\n也兼容单选分组框的功能",
+					"description": "用于水平或垂直放置组件的线性布局。\n通过设置权重总和和子组件权重可以按比例摆放\n也兼容单选分组框的功能",
 					"kind": "layout",
 					"inherits": [
 						"simple.runtime.components.布局"
@@ -4381,7 +5014,8 @@
 									}
 								]
 							},
-							"projection": "orientation"
+							"projection": "orientation",
+							"description": "子组件的排列方向，可设为水平或垂直。"
 						},
 						{
 							"name": "内容对齐",
@@ -4454,7 +5088,8 @@
 									}
 								]
 							},
-							"projection": "gravity"
+							"projection": "gravity",
+							"description": "子组件整体在布局内的对齐方式。"
 						},
 						{
 							"name": "基线对齐",
@@ -4469,7 +5104,8 @@
 							"description": "用于指定线性布局分配主方向剩余空间时的权重总和。\n\n未设置或不大于 0：自动计算所有子组件的权重总和。\n大于 0：使用该值作为权重分配的比例分母。\n\n例如：子组件权重为 1、权重总和为 2 时，该组件获得二分之一的剩余空间。\n\n通常无需设置。",
 							"projection": "weightSum"
 						}
-					]
+					],
+					"type": "simple.runtime.components.线性布局"
 				},
 				{
 					"name": "表格布局",
@@ -4482,16 +5118,14 @@
 						{
 							"name": "行数",
 							"type": "整数型",
-							"description": "此布局中的行数，注意如果布局中已有子组件将无法修改。",
-							"readable": false,
+							"description": "此布局中的行数，注意如果布局中已有子组件将无法修改。仅可设置，不可读取。",
 							"initializer": "0",
 							"projection": "rowCount"
 						},
 						{
 							"name": "列数",
 							"type": "整数型",
-							"description": "此布局中的列数，注意如果布局中已有子组件将无法修改。",
-							"readable": false,
+							"description": "此布局中的列数，注意如果布局中已有子组件将无法修改。仅可设置，不可读取。",
 							"initializer": "0",
 							"projection": "columnCount"
 						},
@@ -4566,19 +5200,22 @@
 									}
 								]
 							},
-							"projection": "gravity"
+							"projection": "gravity",
+							"description": "单元格内容在表格中的对齐方式。"
 						},
 						{
 							"name": "所有列可收缩",
 							"type": "逻辑型",
 							"initializer": "假",
-							"projection": "shrinkAllColumns"
+							"projection": "shrinkAllColumns",
+							"description": "是否允许所有列缩小以适应可用宽度。"
 						},
 						{
 							"name": "所有列可拉伸",
 							"type": "逻辑型",
 							"initializer": "真",
-							"projection": "stretchAllColumns"
+							"projection": "stretchAllColumns",
+							"description": "是否允许所有列拉伸以填满可用宽度。"
 						}
 					],
 					"functions": [
@@ -4666,7 +5303,8 @@
 								}
 							]
 						}
-					]
+					],
+					"type": "simple.runtime.components.表格布局"
 				},
 				{
 					"name": "单帧布局",
@@ -4687,7 +5325,8 @@
 								}
 							]
 						}
-					]
+					],
+					"type": "simple.runtime.components.单帧布局"
 				},
 				{
 					"name": "相对布局",
@@ -4695,7 +5334,8 @@
 					"kind": "layout",
 					"inherits": [
 						"simple.runtime.components.布局"
-					]
+					],
+					"type": "simple.runtime.components.相对布局"
 				},
 				{
 					"name": "绝对布局",
@@ -4703,7 +5343,8 @@
 					"kind": "layout",
 					"inherits": [
 						"simple.runtime.components.布局"
-					]
+					],
+					"type": "simple.runtime.components.绝对布局"
 				}
 			]
 		},
@@ -4725,7 +5366,6 @@
 							"name": "背景图片",
 							"type": "文本型",
 							"description": "路径和图片名称",
-							"readable": false,
 							"initializer": "\"\"",
 							"editor": "simple.asset",
 							"projection": "backgroundImage"
@@ -4796,7 +5436,6 @@
 						{
 							"name": "背景颜色",
 							"type": "整数型",
-							"readable": false,
 							"initializer": {
 								"label": "白",
 								"value": "颜色_白"
@@ -4855,7 +5494,8 @@
 									}
 								]
 							},
-							"projection": "backgroundColor"
+							"projection": "backgroundColor",
+							"description": "背景的 ARGB 颜色。"
 						}
 					],
 					"functions": [
@@ -5035,7 +5675,6 @@
 						{
 							"name": "背景颜色",
 							"type": "整数型",
-							"readable": false,
 							"initializer": {
 								"label": "白",
 								"value": "颜色_白"
@@ -5094,13 +5733,14 @@
 									}
 								]
 							},
-							"projection": "backgroundColor"
+							"projection": "backgroundColor",
+							"description": "背景的 ARGB 颜色。"
 						}
 					]
 				},
 				{
 					"name": "垂直滚动框",
-					"description": "提供垂直滚动的组件容器，只能直接包含一个可视组件，通常放入面板。",
+					"description": "提供垂直滚动的组件容器，只能直接包含一个可视组件，通常放入面板。滚动请求在布局完成后执行，排队期间只保留最后一次目标；销毁后忽略滚动请求，不再派发滚动事件。",
 					"icon": "icons/arrows-move-vertical.svg",
 					"kind": "component",
 					"type": "simple.runtime.components.垂直滚动框",
@@ -5117,50 +5757,51 @@
 						{
 							"name": "启用滚动条",
 							"type": "逻辑型",
-							"description": "是否启用滚动条。",
+							"description": "是否允许显示垂直滚动条，不影响内容能否滚动；启用不代表此刻可见。",
 							"projection": "scrollbarEnabled"
 						},
 						{
 							"name": "最大滚动值",
 							"type": "整数型",
-							"description": "最大滚动值。",
+							"description": "内容可滚动到的最大垂直像素偏移；没有内容、尚未布局或内容未超出视口时为 0，内容或容器尺寸变化后重新计算。",
 							"writable": false
 						}
 					],
 					"functions": [
 						{
 							"name": "滚动",
-							"description": "滚动的指点位置。",
+							"description": "平滑滚动到相对最顶边的指定像素位置，布局完成后执行；负值按 0 处理，超出内容时限制到最大滚动值。",
 							"params": [
 								{
 									"name": "位置",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "相对最顶边的目标像素偏移。"
 								}
 							]
 						},
 						{
 							"name": "滚动到顶",
-							"description": "滚动到最顶边。"
+							"description": "平滑滚动到最顶边，布局完成后使用实际内容尺寸。"
 						},
 						{
 							"name": "滚动到底",
-							"description": "滚动到最底边。"
+							"description": "平滑滚动到最底边，布局完成后使用实际内容尺寸。"
 						}
 					],
 					"events": [
 						{
 							"name": "被滚动",
-							"description": "被滚动事件事件处理方法。",
+							"description": "垂直滚动位置实际改变时触发，手势和程序滚动都会通知。",
 							"params": [
 								{
 									"name": "滚动距离",
 									"type": "整数型",
-									"description": "新的滚动值（以像素为单位）。"
+									"description": "相对最顶边的当前像素偏移，不是本次移动距离；回弹时可能短暂超出正常范围。"
 								},
 								{
 									"name": "是否到边",
 									"type": "逻辑型",
-									"description": "是否滚动到边界。"
+									"description": "到达或越过顶边或底边时为真。"
 								}
 							]
 						}
@@ -5168,7 +5809,7 @@
 				},
 				{
 					"name": "水平滚动框",
-					"description": "提供水平滚动的组件容器，只能直接包含一个可视组件，通常放入面板。",
+					"description": "提供水平滚动的组件容器，只能直接包含一个可视组件，通常放入面板。滚动请求在布局完成后执行，排队期间只保留最后一次目标；销毁后忽略滚动请求，不再派发滚动事件。",
 					"icon": "icons/arrows-move-horizontal.svg",
 					"kind": "component",
 					"type": "simple.runtime.components.水平滚动框",
@@ -5185,50 +5826,51 @@
 						{
 							"name": "启用滚动条",
 							"type": "逻辑型",
-							"description": "是否启用滚动条",
+							"description": "是否允许显示水平滚动条，不影响内容能否滚动；启用不代表此刻可见。",
 							"projection": "scrollbarEnabled"
 						},
 						{
 							"name": "最大滚动值",
 							"type": "整数型",
-							"description": "最大滚动值",
+							"description": "内容可滚动到的最大水平像素偏移；没有内容、尚未布局或内容未超出视口时为 0，内容或容器尺寸变化后重新计算。",
 							"writable": false
 						}
 					],
 					"functions": [
 						{
 							"name": "滚动",
-							"description": "滚动的指点位置。",
+							"description": "平滑滚动到相对最左边的指定像素位置，布局完成后执行；负值按 0 处理，超出内容时限制到最大滚动值。",
 							"params": [
 								{
 									"name": "位置",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "相对最左边的目标像素偏移。"
 								}
 							]
 						},
 						{
 							"name": "滚动到左",
-							"description": "滚动到最左边。"
+							"description": "平滑滚动到最左边，布局完成后使用实际内容尺寸。"
 						},
 						{
 							"name": "滚动到右",
-							"description": "滚动到最右边。"
+							"description": "平滑滚动到最右边，布局完成后使用实际内容尺寸。"
 						}
 					],
 					"events": [
 						{
 							"name": "被滚动",
-							"description": "被滚动事件事件处理方法。",
+							"description": "水平滚动位置实际改变时触发，手势和程序滚动都会通知。",
 							"params": [
 								{
 									"name": "滚动距离",
 									"type": "整数型",
-									"description": "新的滚动值（以像素为单位）"
+									"description": "相对最左边的当前像素偏移，不是本次移动距离；回弹时可能短暂超出正常范围。"
 								},
 								{
 									"name": "是否到边",
 									"type": "逻辑型",
-									"description": "是否滚动到边界"
+									"description": "到达或越过左边或右边时为真。"
 								}
 							]
 						}
@@ -5521,7 +6163,7 @@
 							],
 							"initializer": {
 								"label": "无",
-								"value": "布局_无_行"
+								"value": "-1"
 							},
 							"projection": "row"
 						},
@@ -5534,7 +6176,7 @@
 							],
 							"initializer": {
 								"label": "无",
-								"value": "布局_无_列"
+								"value": "-1"
 							},
 							"projection": "column"
 						},
@@ -6038,7 +6680,8 @@
 									}
 								]
 							},
-							"projection": "fontFamily"
+							"projection": "fontFamily",
+							"description": "文本使用的字体类型：默认、无衬线、衬线或等宽。"
 						},
 						{
 							"name": "内容对齐",
@@ -6111,7 +6754,8 @@
 									}
 								]
 							},
-							"projection": "gravity"
+							"projection": "gravity",
+							"description": "文本在组件内部的对齐方式。"
 						},
 						{
 							"name": "文本",
@@ -6386,8 +7030,7 @@
 						{
 							"name": "图片",
 							"type": "文本型",
-							"description": "支持：资源标识\n@drawable\n/资源名\n资产文件名\n/外部文件名。",
-							"readable": false,
+							"description": "支持：资源标识\n@drawable\n/资源名\n资产文件名\n/外部文件名。仅可设置，不可读取。",
 							"initializer": "\"\"",
 							"editor": "simple.asset"
 						},
@@ -6437,8 +7080,7 @@
 						{
 							"name": "进度图片",
 							"type": "文本型",
-							"description": "图片路径。",
-							"readable": false,
+							"description": "图片路径。仅可设置，不可读取。",
 							"editor": "simple.asset"
 						}
 					]
@@ -6628,7 +7270,8 @@
 									}
 								]
 							},
-							"projection": "gravity"
+							"projection": "gravity",
+							"description": "文本在按钮内部的对齐方式。"
 						}
 					],
 					"functions": [
@@ -6982,22 +7625,26 @@
 						{
 							"name": "字体样式_正常",
 							"type": "整数型",
-							"value": "1"
+							"value": "1",
+							"description": "正常字体样式。"
 						},
 						{
 							"name": "字体样式_粗体",
 							"type": "整数型",
-							"value": "2"
+							"value": "2",
+							"description": "粗体字体样式。"
 						},
 						{
 							"name": "字体样式_斜体",
 							"type": "整数型",
-							"value": "3"
+							"value": "3",
+							"description": "斜体字体样式。"
 						},
 						{
 							"name": "字体样式_粗斜体",
 							"type": "整数型",
-							"value": "4"
+							"value": "4",
+							"description": "粗斜体字体样式。"
 						}
 					],
 					"events": [
@@ -7007,7 +7654,8 @@
 							"params": [
 								{
 									"name": "网址",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "链接保存的网址或业务标识。"
 								}
 							]
 						}
@@ -7447,7 +8095,8 @@
 									}
 								]
 							},
-							"projection": "gravity"
+							"projection": "gravity",
+							"description": "内容在单选框内部的对齐方式。"
 						}
 					],
 					"events": [
@@ -7558,7 +8207,8 @@
 									}
 								]
 							},
-							"projection": "gravity"
+							"projection": "gravity",
+							"description": "内容在复选框内部的对齐方式。"
 						}
 					],
 					"events": [
@@ -7578,7 +8228,7 @@
 				},
 				{
 					"name": "邮箱选择器",
-					"description": "使用自动完成的文本框从联系人挑出电子邮件地址。",
+					"description": "输入邮箱，并从本机通讯录按姓名或邮箱显示最多 50 个去重候选。补全需要读取联系人权限，未授权仍可手动输入。失焦、停用或离开前台时取消查询并保留文本，销毁时释放资源；全部操作和事件在主线程执行。",
 					"icon": "icons/mail.svg",
 					"kind": "component",
 					"type": "simple.runtime.components.邮箱选择器",
@@ -7591,19 +8241,58 @@
 					"properties": [
 						{
 							"name": "启用",
+							"description": "获取是否允许输入和显示邮箱建议。 启用时为真，组件销毁后为假 设置是否允许输入和显示邮箱建议；停用时取消查询并保留文本。",
 							"type": "逻辑型",
-							"description": "真表示启用，假表示禁用",
 							"initializer": "真"
+						},
+						{
+							"name": "单行模式",
+							"description": "获取邮箱输入框是否使用单行显示。 单行时为真 设置邮箱输入框是否使用单行显示，初始为真。",
+							"type": "逻辑型",
+							"initializer": "真"
+						},
+						{
+							"name": "错误信息",
+							"description": "获取最近一次有效建议查询的失败原因。 无错误或查询成功后为空文本",
+							"type": "文本型",
+							"writable": false
 						}
 					],
 					"events": [
 						{
 							"name": "获得焦点",
-							"description": "默认获得焦点事件处理器。"
+							"description": "输入框获得焦点时触发；不会修改当前文本。"
 						},
 						{
 							"name": "失去焦点",
-							"description": "默认失去焦点事件处理器。"
+							"description": "输入框失去焦点时触发；取消建议查询，保留当前文本。"
+						},
+						{
+							"name": "选择完毕",
+							"description": "用户选中一个邮箱候选后触发；文本已更新为带姓名的邮箱格式，无姓名时为邮箱地址。",
+							"params": [
+								{
+									"name": "name",
+									"type": "文本型",
+									"description": "联系人显示名"
+								},
+								{
+									"name": "address",
+									"type": "文本型",
+									"description": "选中的邮箱地址"
+								}
+							]
+						},
+						{
+							"name": "操作失败",
+							"description": "有效建议查询因权限或联系人提供者错误而失败时触发；没有匹配项不视为失败。",
+							"params": [
+								{
+									"name": "message",
+									"type": "文本型",
+									"description": "失败原因"
+								}
+							]
 						}
 					]
 				},
@@ -7620,7 +8309,8 @@
 						{
 							"name": "保持宽高比",
 							"type": "逻辑型",
-							"initializer": "真"
+							"initializer": "真",
+							"description": "缩放图片时是否保持原始宽高比例。"
 						}
 					],
 					"events": [
@@ -7870,26 +8560,29 @@
 						{
 							"name": "滑块图片",
 							"type": "文本型",
-							"description": "图片路径。",
-							"readable": false,
+							"description": "图片路径。仅可设置，不可读取。",
 							"editor": "simple.asset"
 						}
 					],
 					"events": [
 						{
-							"name": "开始拖动"
+							"name": "开始拖动",
+							"description": "通知开始拖动事件。"
 						},
 						{
-							"name": "停止拖动"
+							"name": "停止拖动",
+							"description": "通知停止拖动事件。"
 						},
 						{
 							"name": "位置被改变",
 							"params": [
 								{
 									"name": "位置",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "当前进度值"
 								}
-							]
+							],
+							"description": "通知位置被改变事件。"
 						}
 					]
 				},
@@ -7904,19 +8597,23 @@
 					],
 					"events": [
 						{
-							"name": "开始拖动"
+							"name": "开始拖动",
+							"description": "通知开始拖动事件。"
 						},
 						{
-							"name": "停止拖动"
+							"name": "停止拖动",
+							"description": "通知停止拖动事件。"
 						},
 						{
 							"name": "位置被改变",
 							"params": [
 								{
 									"name": "位置",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "当前进度值"
 								}
-							]
+							],
+							"description": "通知位置被改变事件。"
 						}
 					]
 				},
@@ -7932,77 +8629,94 @@
 					"functions": [
 						{
 							"name": "获取焦点",
-							"return": "逻辑型"
+							"return": "逻辑型",
+							"description": "请求让列表获得输入焦点。"
 						},
 						{
-							"name": "清除焦点"
+							"name": "清除焦点",
+							"description": "清除列表当前的输入焦点。"
 						},
 						{
 							"name": "垂直滚动",
 							"params": [
 								{
 									"name": "滚动比例",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "垂直位移占视图高度的百分比，正值向下、负值向上。"
 								}
-							]
+							],
+							"description": "按列表视图高度的指定百分比垂直滚动。"
 						},
 						{
 							"name": "取项目数",
-							"return": "整数型"
+							"return": "整数型",
+							"description": "返回列表中的项目总数。"
 						},
 						{
 							"name": "选择项目",
 							"params": [
 								{
 									"name": "索引",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "项目索引，从 0 开始。"
 								}
-							]
+							],
+							"description": "将指定项目滚动至选择位置。"
 						},
 						{
 							"name": "删除项目",
 							"params": [
 								{
 									"name": "索引",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "项目索引，从 0 开始。"
 								}
-							]
+							],
+							"description": "删除指定索引的项目并刷新显示。"
 						},
 						{
-							"name": "清空项目"
+							"name": "清空项目",
+							"description": "移除列表中的全部项目并刷新显示。"
 						},
 						{
 							"name": "添加项目",
 							"params": [
 								{
 									"name": "文本",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "新的项目文本。"
 								}
 							],
-							"return": "整数型"
+							"return": "整数型",
+							"description": "在列表末尾追加项目并刷新显示。"
 						},
 						{
 							"name": "取项目文本",
 							"params": [
 								{
 									"name": "索引",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "项目索引，从 0 开始。"
 								}
 							],
-							"return": "文本型"
+							"return": "文本型",
+							"description": "读取指定索引的项目文本。"
 						},
 						{
 							"name": "置项目文本",
 							"params": [
 								{
 									"name": "索引",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "项目索引，从 0 开始。"
 								},
 								{
 									"name": "文本",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "新的项目文本。"
 								}
-							]
+							],
+							"description": "替换指定索引的项目文本并刷新显示。"
 						}
 					],
 					"events": [
@@ -8011,35 +8725,43 @@
 							"params": [
 								{
 									"name": "索引",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "项目索引，从 0 开始。"
 								}
-							]
+							],
+							"description": "用户单击列表项目时触发。"
 						},
 						{
 							"name": "项目被长按",
 							"params": [
 								{
 									"name": "索引",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "项目索引，从 0 开始。"
 								}
-							]
+							],
+							"description": "用户长按列表项目时触发。"
 						},
 						{
 							"name": "项目被滚动",
 							"params": [
 								{
 									"name": "首项索引",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "第一个可见项目索引"
 								},
 								{
 									"name": "可见项数",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "可见项目数"
 								},
 								{
 									"name": "总项数",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "项目总数"
 								}
-							]
+							],
+							"description": "列表滚动时报告当前可见范围。"
 						}
 					]
 				},
@@ -8055,117 +8777,143 @@
 					"functions": [
 						{
 							"name": "获取焦点",
-							"return": "逻辑型"
+							"return": "逻辑型",
+							"description": "请求让列表获得输入焦点。"
 						},
 						{
-							"name": "清除焦点"
+							"name": "清除焦点",
+							"description": "清除列表当前的输入焦点。"
 						},
 						{
 							"name": "垂直滚动",
 							"params": [
 								{
 									"name": "滚动比例",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "垂直位移占视图高度的百分比，正值向下、负值向上。"
 								}
-							]
+							],
+							"description": "按列表视图高度的指定百分比垂直滚动。"
 						},
 						{
 							"name": "取项目数",
-							"return": "整数型"
+							"return": "整数型",
+							"description": "返回列表中的项目总数。"
 						},
 						{
 							"name": "选择项目",
 							"params": [
 								{
 									"name": "索引",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "项目索引，从 0 开始。"
 								}
-							]
+							],
+							"description": "将指定项目滚动至选择位置。"
 						},
 						{
 							"name": "删除项目",
 							"params": [
 								{
 									"name": "索引",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "项目索引，从 0 开始。"
 								}
-							]
+							],
+							"description": "删除指定索引的项目并刷新显示。"
 						},
 						{
-							"name": "清空项目"
+							"name": "清空项目",
+							"description": "移除列表中的全部项目并刷新显示。"
 						},
 						{
 							"name": "添加项目",
 							"params": [
 								{
 									"name": "文本",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "新的项目文本。"
 								}
 							],
-							"return": "整数型"
+							"return": "整数型",
+							"description": "在列表末尾追加项目并刷新显示。"
 						},
 						{
 							"name": "插入项目",
 							"params": [
 								{
 									"name": "索引",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "项目索引，从 0 开始。"
 								},
 								{
 									"name": "文本",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "新的项目文本。"
 								}
-							]
+							],
+							"description": "在指定索引前插入项目并刷新显示。"
 						},
 						{
 							"name": "取项目文本",
 							"params": [
 								{
 									"name": "索引",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "项目索引，从 0 开始。"
 								}
 							],
-							"return": "文本型"
+							"return": "文本型",
+							"description": "读取指定索引的项目文本。"
 						},
 						{
 							"name": "置项目文本",
 							"params": [
 								{
 									"name": "索引",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "项目索引，从 0 开始。"
 								},
 								{
 									"name": "文本",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "新的项目文本。"
 								}
-							]
+							],
+							"description": "替换指定索引的项目文本并刷新显示。"
 						},
 						{
 							"name": "取项目选中",
 							"params": [
 								{
 									"name": "索引",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "项目索引，从 0 开始。"
 								}
 							],
-							"return": "逻辑型"
+							"return": "逻辑型",
+							"description": "判断指定项目是否被勾选。"
 						},
 						{
 							"name": "置项目选中",
 							"params": [
 								{
 									"name": "索引",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "项目索引，从 0 开始。"
 								},
 								{
 									"name": "选中",
-									"type": "逻辑型"
+									"type": "逻辑型",
+									"description": "该项是否选中。"
 								}
-							]
+							],
+							"description": "设置指定项目的勾选状态。"
 						},
 						{
 							"name": "取选中项目",
-							"return": "整数型"
+							"return": "整数型",
+							"description": "读取当前勾选项目的索引。"
 						}
 					],
 					"events": [
@@ -8174,35 +8922,43 @@
 							"params": [
 								{
 									"name": "索引",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "项目索引，从 0 开始。"
 								}
-							]
+							],
+							"description": "用户单击列表项目时触发。"
 						},
 						{
 							"name": "项目被长按",
 							"params": [
 								{
 									"name": "索引",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "项目索引，从 0 开始。"
 								}
-							]
+							],
+							"description": "用户长按列表项目时触发。"
 						},
 						{
 							"name": "项目被滚动",
 							"params": [
 								{
 									"name": "首项索引",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "第一个可见项目索引"
 								},
 								{
 									"name": "可见项数",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "可见项目数"
 								},
 								{
 									"name": "总项数",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "项目总数"
 								}
-							]
+							],
+							"description": "列表滚动时报告当前可见范围。"
 						}
 					]
 				},
@@ -8218,121 +8974,148 @@
 					"functions": [
 						{
 							"name": "获取焦点",
-							"return": "逻辑型"
+							"return": "逻辑型",
+							"description": "请求让列表获得输入焦点。"
 						},
 						{
-							"name": "清除焦点"
+							"name": "清除焦点",
+							"description": "清除列表当前的输入焦点。"
 						},
 						{
 							"name": "垂直滚动",
 							"params": [
 								{
 									"name": "滚动比例",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "垂直位移占视图高度的百分比，正值向下、负值向上。"
 								}
-							]
+							],
+							"description": "按列表视图高度的指定百分比垂直滚动。"
 						},
 						{
 							"name": "取项目数",
-							"return": "整数型"
+							"return": "整数型",
+							"description": "返回列表中的项目总数。"
 						},
 						{
 							"name": "选择项目",
 							"params": [
 								{
 									"name": "索引",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "项目索引，从 0 开始。"
 								}
-							]
+							],
+							"description": "将指定项目滚动至选择位置。"
 						},
 						{
 							"name": "删除项目",
 							"params": [
 								{
 									"name": "索引",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "项目索引，从 0 开始。"
 								}
-							]
+							],
+							"description": "删除指定索引的项目并刷新显示。"
 						},
 						{
-							"name": "清空项目"
+							"name": "清空项目",
+							"description": "移除列表中的全部项目并刷新显示。"
 						},
 						{
 							"name": "添加项目",
 							"params": [
 								{
 									"name": "文本",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "新的项目文本。"
 								}
 							],
-							"return": "整数型"
+							"return": "整数型",
+							"description": "在列表末尾追加项目并刷新显示。"
 						},
 						{
 							"name": "插入项目",
 							"params": [
 								{
 									"name": "索引",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "项目索引，从 0 开始。"
 								},
 								{
 									"name": "文本",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "新的项目文本。"
 								}
-							]
+							],
+							"description": "在指定索引前插入项目并刷新显示。"
 						},
 						{
 							"name": "取项目文本",
 							"params": [
 								{
 									"name": "索引",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "项目索引，从 0 开始。"
 								}
 							],
-							"return": "文本型"
+							"return": "文本型",
+							"description": "读取指定索引的项目文本。"
 						},
 						{
 							"name": "置项目文本",
 							"params": [
 								{
 									"name": "索引",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "项目索引，从 0 开始。"
 								},
 								{
 									"name": "文本",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "新的项目文本。"
 								}
-							]
+							],
+							"description": "替换指定索引的项目文本并刷新显示。"
 						},
 						{
 							"name": "取项目选中",
 							"params": [
 								{
 									"name": "索引",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "项目索引，从 0 开始。"
 								}
 							],
-							"return": "逻辑型"
+							"return": "逻辑型",
+							"description": "判断指定项目是否被勾选。"
 						},
 						{
 							"name": "置项目选中",
 							"params": [
 								{
 									"name": "索引",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "项目索引，从 0 开始。"
 								},
 								{
 									"name": "选中",
-									"type": "逻辑型"
+									"type": "逻辑型",
+									"description": "该项是否选中。"
 								}
-							]
+							],
+							"description": "设置指定项目的勾选状态。"
 						},
 						{
 							"name": "取选中项目",
-							"return": "整数型()"
+							"return": "整数型()",
+							"description": "读取当前全部勾选项目的索引。"
 						},
 						{
 							"name": "取选中项目数",
-							"return": "整数型"
+							"return": "整数型",
+							"description": "返回当前勾选的项目数量。"
 						}
 					],
 					"events": [
@@ -8341,35 +9124,43 @@
 							"params": [
 								{
 									"name": "索引",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "项目索引，从 0 开始。"
 								}
-							]
+							],
+							"description": "用户单击列表项目时触发。"
 						},
 						{
 							"name": "项目被长按",
 							"params": [
 								{
 									"name": "索引",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "项目索引，从 0 开始。"
 								}
-							]
+							],
+							"description": "用户长按列表项目时触发。"
 						},
 						{
 							"name": "项目被滚动",
 							"params": [
 								{
 									"name": "首项索引",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "第一个可见项目索引"
 								},
 								{
 									"name": "可见项数",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "可见项目数"
 								},
 								{
 									"name": "总项数",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "项目总数"
 								}
-							]
+							],
+							"description": "列表滚动时报告当前可见范围。"
 						}
 					]
 				},
@@ -8629,71 +9420,86 @@
 						{
 							"name": "现行选中项",
 							"type": "整数型",
-							"initializer": "0"
+							"initializer": "0",
+							"description": "当前选中项目的索引，从 0 开始；没有选中项时为 -1。"
 						}
 					],
 					"functions": [
 						{
 							"name": "取项目数",
-							"return": "整数型"
+							"return": "整数型",
+							"description": "返回列表中的项目总数。"
 						},
 						{
 							"name": "删除项目",
 							"params": [
 								{
 									"name": "索引",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "项目索引，从 0 开始。"
 								}
-							]
+							],
+							"description": "删除指定索引的项目并刷新显示。"
 						},
 						{
-							"name": "清空项目"
+							"name": "清空项目",
+							"description": "移除列表中的全部项目并刷新显示。"
 						},
 						{
 							"name": "添加项目",
 							"params": [
 								{
 									"name": "文本",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "新的项目文本。"
 								}
 							],
-							"return": "整数型"
+							"return": "整数型",
+							"description": "在列表末尾追加项目并刷新显示。"
 						},
 						{
 							"name": "插入项目",
 							"params": [
 								{
 									"name": "索引",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "项目索引，从 0 开始。"
 								},
 								{
 									"name": "文本",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "新的项目文本。"
 								}
-							]
+							],
+							"description": "在指定索引前插入项目并刷新显示。"
 						},
 						{
 							"name": "取项目文本",
 							"params": [
 								{
 									"name": "索引",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "项目索引，从 0 开始。"
 								}
 							],
-							"return": "文本型"
+							"return": "文本型",
+							"description": "读取指定索引的项目文本。"
 						},
 						{
 							"name": "置项目文本",
 							"params": [
 								{
 									"name": "索引",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "项目索引，从 0 开始。"
 								},
 								{
 									"name": "文本",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "新的项目文本。"
 								}
-							]
+							],
+							"description": "替换指定索引的项目文本并刷新显示。"
 						}
 					],
 					"events": [
@@ -8702,9 +9508,11 @@
 							"params": [
 								{
 									"name": "索引",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "项目索引，从 0 开始。"
 								}
-							]
+							],
+							"description": "用户选择列表项目时触发。"
 						}
 					]
 				},
@@ -8801,7 +9609,6 @@
 						{
 							"name": "背景颜色",
 							"type": "整数型",
-							"readable": false,
 							"initializer": {
 								"label": "白",
 								"value": "颜色_白"
@@ -8860,7 +9667,8 @@
 									}
 								]
 							},
-							"projection": "backgroundColor"
+							"projection": "backgroundColor",
+							"description": "背景的 ARGB 颜色。"
 						},
 						{
 							"name": "画笔类型",
@@ -9295,7 +10103,7 @@
 				},
 				{
 					"name": "网页浏览框",
-					"description": "Simple的浏览器组件。",
+					"description": "承载网页与 JavaScript 交互，需要系统提供可用的 WebView。调用与事件在主线程执行，宿主销毁时自动释放。脚本接口可被页面及子框架访问，只注册到可信内容。",
 					"icon": "icons/world-www.svg",
 					"kind": "component",
 					"type": "simple.runtime.components.网页浏览框",
@@ -9303,58 +10111,63 @@
 						"simple.runtime.components.可视组件"
 					],
 					"permissions": [
-						"android.permission.INTERNET",
-						"android.permission.ACCESS_FINE_LOCATION",
-						"android.permission.ACCESS_COARSE_LOCATION"
+						"android.permission.INTERNET"
 					],
 					"constants": [
 						{
 							"name": "缓存模式_默认",
 							"type": "整数型",
-							"value": "-1"
+							"value": "-1",
+							"description": "按平台默认策略使用网页缓存。\n\n\nLOAD_DEFAULT"
 						},
 						{
 							"name": "缓存模式_优先缓存",
 							"type": "整数型",
-							"value": "1"
+							"value": "1",
+							"description": "优先使用已有网页缓存。\n\n\nLOAD_CACHE_ELSE_NETWORK"
 						},
 						{
 							"name": "缓存模式_仅网络",
 							"type": "整数型",
-							"value": "2"
+							"value": "2",
+							"description": "仅从网络加载网页内容。\n\n\nLOAD_NO_CACHE"
 						},
 						{
 							"name": "缓存模式_仅缓存",
 							"type": "整数型",
-							"value": "3"
+							"value": "3",
+							"description": "仅从网页缓存加载内容。\n\n\nLOAD_CACHE_ONLY"
 						},
 						{
 							"name": "处理方式_忽略",
 							"type": "整数型",
-							"value": "0"
+							"value": "0",
+							"description": "保持组件默认处理方式。"
 						},
 						{
 							"name": "处理方式_取消",
 							"type": "整数型",
-							"value": "1"
+							"value": "1",
+							"description": "取消本次网页脚本对话框请求。"
 						},
 						{
 							"name": "处理方式_确认",
 							"type": "整数型",
-							"value": "2"
+							"value": "2",
+							"description": "确认本次网页脚本对话框请求。"
 						}
 					],
 					"properties": [
 						{
 							"name": "地址",
 							"type": "文本型",
-							"description": "设置当前网页浏览器的地址。",
+							"description": "当前网址；空文本不发起加载，尚无网址时读取为空文本。",
 							"initializer": "\"\""
 						},
 						{
 							"name": "标题",
 							"type": "文本型",
-							"description": "返回当前网页浏览器的标题。",
+							"description": "网页标题；尚无标题时为空文本。",
 							"writable": false
 						},
 						{
@@ -9366,13 +10179,13 @@
 						{
 							"name": "支持缩放",
 							"type": "逻辑型",
-							"description": "设置当前网页浏览器是否支持缩放。",
+							"description": "是否支持网页缩放，包含双指缩放。",
 							"initializer": "真"
 						},
 						{
 							"name": "启用缩放按钮",
 							"type": "逻辑型",
-							"description": "设置当前网页浏览器是否启用缩放按钮。",
+							"description": "是否显示内置缩放按钮；关闭按钮不关闭双指缩放，是否能缩放仍由支持缩放决定。",
 							"initializer": "假"
 						},
 						{
@@ -9414,12 +10227,30 @@
 							"type": "逻辑型",
 							"description": "设置当前网页浏览器是否启用JS。",
 							"initializer": "真"
+						},
+						{
+							"name": "允许混合内容",
+							"type": "逻辑型",
+							"initializer": "假",
+							"description": "是否允许 HTTPS 页面加载 HTTP 混合内容，默认禁止；开启后仍受系统网络策略限制。"
+						},
+						{
+							"name": "已销毁",
+							"type": "逻辑型",
+							"writable": false,
+							"description": "组件是否已释放，可在任意线程查询。"
+						},
+						{
+							"name": "错误信息",
+							"type": "文本型",
+							"writable": false,
+							"description": "最近主页面加载、渲染进程退出或脚本提交失败的说明；开始新加载或成功提交脚本时清空，销毁后仍可读取。"
 						}
 					],
 					"functions": [
 						{
 							"name": "加载",
-							"description": "加载指定网址。 可以载入asset中的html，如file:///android_asset/index.html",
+							"description": "加载非空网址，支持 file:///android_asset/ 下的本地网页；无效网址、错误线程或销毁后调用会报错。",
 							"params": [
 								{
 									"name": "网址",
@@ -9456,7 +10287,7 @@
 						},
 						{
 							"name": "注册接口",
-							"description": "向浏览器中注册JS接口，会开启JS。 JS中调用格式为接口对象名.call(param)， 将触发param)事件。",
+							"description": "注册供网页调用的接口对象，会开启 JavaScript，同名注册替换原接口。应在加载前注册，网页在下次载入后取得新对象；脚本通过 名称.call(参数) 发送消息。",
 							"params": [
 								{
 									"name": "接口名",
@@ -9467,7 +10298,7 @@
 						},
 						{
 							"name": "调用接口",
-							"description": "执行脚本且不请求接口返回事件，沿用完整方法的系统兼容行为。 已发起执行返回真，否则返回假，不表示脚本业务成功。",
+							"description": "在页面载入后异步执行 JavaScript，可带 javascript: 前缀，会开启 JavaScript。返回真仅表示已提交，不表示语法或业务成功；脚本为空、已销毁或提交失败返回假，原因见错误信息。不请求接口返回事件。",
 							"params": [
 								{
 									"name": "脚本",
@@ -9479,7 +10310,7 @@
 						},
 						{
 							"name": "调用接口",
-							"description": "调用JS中的函数，会开启JS。 注意仅API19及以上版本才可有返回值， 成功将触发result)事件。",
+							"description": "在页面载入后异步执行 JavaScript，可带 javascript: 前缀，会开启 JavaScript。返回真仅表示已提交，不表示语法或业务成功；脚本为空、已销毁或提交失败返回假，原因见错误信息。请求返回结果时异步触发接口返回。",
 							"params": [
 								{
 									"name": "脚本",
@@ -9493,6 +10324,18 @@
 								}
 							],
 							"return": "逻辑型"
+						},
+						{
+							"name": "移除接口",
+							"return": "逻辑型",
+							"description": "移除注册接口并立即停止其排队消息通知；页面中的 JS 对象在下次载入后消失。原接口存在且已移除返回真，未注册或已销毁返回假；空名称会报错。",
+							"params": [
+								{
+									"name": "接口名",
+									"type": "文本型",
+									"description": "已注册的接口对象名"
+								}
+							]
 						}
 					],
 					"events": [
@@ -9509,7 +10352,7 @@
 						},
 						{
 							"name": "即将跳转",
-							"description": "即将跳转事件处理方法。",
+							"description": "主页面由网页链接、脚本或重定向发起导航时触发，可同步屏蔽本次导航。主动调用加载及 POST 等部分导航不会保证触发。",
 							"params": [
 								{
 									"name": "网址",
@@ -9526,7 +10369,7 @@
 						},
 						{
 							"name": "开始载入",
-							"description": "开始载入事件处理方法。",
+							"description": "主页面开始载入时触发。",
 							"params": [
 								{
 									"name": "网址",
@@ -9537,7 +10380,7 @@
 						},
 						{
 							"name": "载入完毕",
-							"description": "载入完毕事件处理方法。",
+							"description": "主页面完成本轮载入时触发，不代表全部子资源成功或没有 HTTP 错误。",
 							"params": [
 								{
 									"name": "网址",
@@ -9548,7 +10391,7 @@
 						},
 						{
 							"name": "载入失败",
-							"description": "载入失败事件处理方法。",
+							"description": "主页面网络或资源加载失败时触发，子资源失败不触发。HTTP 状态错误通过 HTTP错误报告；渲染进程退出时标记组件销毁，以未知错误码 -1 报告，原因见错误信息；渲染进程退出通知需要 API 26 及以上。",
 							"params": [
 								{
 									"name": "错误码",
@@ -9557,7 +10400,8 @@
 								},
 								{
 									"name": "网址",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "失败的网址。"
 								}
 							]
 						},
@@ -9574,7 +10418,7 @@
 						},
 						{
 							"name": "弹出警告框",
-							"description": "弹出警告框事件处理方法。",
+							"description": "网页请求 alert 时触发；屏蔽后不显示界面，脚本继续执行。",
 							"params": [
 								{
 									"name": "网址",
@@ -9596,7 +10440,7 @@
 						},
 						{
 							"name": "弹出确认框",
-							"description": "弹出确认框事件处理方法。",
+							"description": "网页请求 confirm 时触发；忽略使用系统界面，确认返回真，取消返回假。",
 							"params": [
 								{
 									"name": "网址",
@@ -9618,7 +10462,7 @@
 						},
 						{
 							"name": "弹出输入框",
-							"description": "弹出输入框事件处理方法。",
+							"description": "网页请求 prompt 时触发；忽略使用系统界面，确认返回参考参数文本，取消返回 null。",
 							"params": [
 								{
 									"name": "网址",
@@ -9646,7 +10490,7 @@
 						},
 						{
 							"name": "开始下载",
-							"description": "开始下载事件处理方法。",
+							"description": "网页请求下载时通知地址，不自动保存文件；长度为字节数，未知时为 -1。",
 							"params": [
 								{
 									"name": "网址",
@@ -9662,7 +10506,7 @@
 						},
 						{
 							"name": "接口调用",
-							"description": "接口触发事件处理方法。 JS脚本中调用已注册的接口对象触发该事件。",
+							"description": "网页调用注册对象后在主线程触发，参数为脚本传入文本；已移除、替换、切换页面或销毁后的排队消息不再派发。",
 							"params": [
 								{
 									"name": "接口名",
@@ -9678,7 +10522,7 @@
 						},
 						{
 							"name": "接口返回",
-							"description": "接口返回事件处理方法。 调用JS脚本中函数后返回结果触发触发该事件。",
+							"description": "脚本结果异步返回，结果为 JSON 文本；字符串含 JSON 引号，空结果通常为 null 文本。页面切换或组件销毁后丢弃旧页面排队结果。",
 							"params": [
 								{
 									"name": "脚本",
@@ -9689,6 +10533,22 @@
 									"name": "结果",
 									"type": "文本型",
 									"description": "函数返回结果。"
+								}
+							]
+						},
+						{
+							"name": "HTTP错误",
+							"description": "主页面收到 HTTP 错误响应时触发，子资源错误不触发；错误页面仍可能显示并触发载入完毕。",
+							"params": [
+								{
+									"name": "状态码",
+									"type": "整数型",
+									"description": "HTTP 状态码，例如 404 或 500"
+								},
+								{
+									"name": "网址",
+									"type": "文本型",
+									"description": "主页面网址"
 								}
 							]
 						}
@@ -9709,74 +10569,86 @@
 							"params": [
 								{
 									"name": "路径",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "视频来源路径或地址。"
 								}
-							]
+							],
+							"description": "设置视频来源并开始播放。"
 						},
 						{
-							"name": "暂停播放"
+							"name": "暂停播放",
+							"description": "暂停当前视频播放。"
 						},
 						{
-							"name": "继续播放"
+							"name": "继续播放",
+							"description": "继续当前视频播放。"
 						},
 						{
-							"name": "停止播放"
+							"name": "停止播放",
+							"description": "停止当前视频并释放播放资源。"
 						},
 						{
 							"name": "取视频时长",
-							"return": "整数型"
+							"return": "整数型",
+							"description": "读取当前视频总时长，单位为毫秒。"
 						},
 						{
 							"name": "取播放位置",
-							"return": "整数型"
+							"return": "整数型",
+							"description": "读取当前播放位置，单位为毫秒。"
 						},
 						{
 							"name": "置播放位置",
 							"params": [
 								{
 									"name": "位置",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "目标播放位置，单位为毫秒。"
 								}
-							]
+							],
+							"description": "跳转到指定的毫秒位置。"
 						},
 						{
 							"name": "取播放状态",
-							"return": "逻辑型"
+							"return": "逻辑型",
+							"description": "判断当前视频是否正在播放。"
 						},
 						{
 							"name": "取缓冲进度",
-							"return": "整数型"
+							"return": "整数型",
+							"description": "读取已缓冲内容的百分比。"
 						},
 						{
 							"name": "置控制条状态",
 							"params": [
 								{
 									"name": "显示",
-									"type": "逻辑型"
+									"type": "逻辑型",
+									"description": "是否显示播放控制条。"
 								}
-							]
+							],
+							"description": "设置视频播放控制条是否显示。"
 						}
 					],
 					"events": [
 						{
-							"name": "播放完毕"
+							"name": "播放完毕",
+							"description": "视频播放结束时触发。"
 						}
 					]
 				},
 				{
 					"name": "摄像框",
 					"icon": "icons/augmented-reality.svg",
-					"description": "嵌入窗口的摄像头预览组件，支持拍照和录像。",
+					"description": "嵌入窗口预览、对焦、拍照和录制 MP4。需要相机权限，有声录像还需麦克风权限；使用尚不存在的可写绝对文件路径，建议应用私有目录，共享存储受系统限制。预览就绪后拍摄，结果以完成或失败事件为准；离开前台自动关闭并取消未交付拍摄，返回后需重新开启。",
 					"kind": "component",
 					"type": "simple.runtime.components.摄像框",
 					"inherits": [
 						"simple.runtime.components.可视组件"
 					],
 					"permissions": [
-						"android.permission.RECORD_AUDIO",
 						"android.permission.CAMERA",
-						"android.permission.FLASHLIGHT",
-						"android.permission.READ_EXTERNAL_STORAGE",
+						"android.permission.RECORD_AUDIO",
 						"android.permission.WRITE_EXTERNAL_STORAGE"
 					],
 					"events": [
@@ -9786,7 +10658,8 @@
 							"params": [
 								{
 									"name": "成功",
-									"type": "逻辑型"
+									"type": "逻辑型",
+									"description": "本次操作是否成功"
 								}
 							]
 						},
@@ -9800,7 +10673,8 @@
 							"params": [
 								{
 									"name": "路径",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "已保存文件的绝对路径。"
 								}
 							]
 						},
@@ -9810,27 +10684,65 @@
 							"params": [
 								{
 									"name": "数据",
-									"type": "字节型()"
+									"type": "字节型()",
+									"description": "方向已校正的 JPEG 或 PNG 编码数据"
 								}
 							]
 						},
 						{
 							"name": "获得预览尺寸列表",
-							"description": "按高×宽逐行报告支持的预览尺寸。",
+							"description": "按短边×长边逐行报告支持的预览尺寸。",
 							"params": [
 								{
 									"name": "尺寸",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "相机支持的尺寸列表"
 								}
 							]
 						},
 						{
 							"name": "获得照片尺寸列表",
-							"description": "按高×宽逐行报告支持的照片尺寸。",
+							"description": "按短边×长边逐行报告支持的照片尺寸。",
 							"params": [
 								{
 									"name": "尺寸",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "相机支持的尺寸列表"
+								}
+							]
+						},
+						{
+							"name": "预览就绪",
+							"description": "摄像头和预览会话可接受拍摄操作时触发。"
+						},
+						{
+							"name": "录像开始",
+							"description": "录像器实际开始录制后触发。"
+						},
+						{
+							"name": "录像完毕",
+							"description": "显式停止录像且文件成功保存后触发。",
+							"params": [
+								{
+									"name": "路径",
+									"type": "文本型",
+									"description": "已保存 MP4 文件的绝对路径"
+								}
+							]
+						},
+						{
+							"name": "操作失败",
+							"description": "操作未完成时触发，不会同时报告该操作成功。",
+							"params": [
+								{
+									"name": "操作",
+									"type": "文本型",
+									"description": "失败的操作"
+								},
+								{
+									"name": "原因",
+									"type": "文本型",
+									"description": "错误原因"
 								}
 							]
 						}
@@ -9838,7 +10750,7 @@
 					"functions": [
 						{
 							"name": "开启摄像头",
-							"description": "类型：1 前置，2 后置；宽高用于选择竖屏拍摄和预览尺寸。",
+							"description": "请求打开摄像头；类型：1 前置，2 后置；按请求宽高选择近似尺寸，就绪后触发预览就绪。",
 							"params": [
 								{
 									"name": "类型",
@@ -9863,11 +10775,12 @@
 						},
 						{
 							"name": "拍摄照片",
-							"description": "保存照片；格式：1 JPEG，2 PNG；质量范围 0～100。",
+							"description": "保存像素方向正确的照片；格式：1 JPEG，2 PNG；质量范围 0～100（PNG 为无损编码，忽略质量）。",
 							"params": [
 								{
 									"name": "路径",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "尚不存在的可写绝对文件路径。"
 								},
 								{
 									"name": "格式",
@@ -9883,7 +10796,7 @@
 						},
 						{
 							"name": "拍摄照片2",
-							"description": "返回照片字节；格式和质量规则与拍摄照片一致。",
+							"description": "拍摄并由拍照完毕2返回编码字节；格式和质量规则与拍摄照片一致。",
 							"params": [
 								{
 									"name": "格式",
@@ -9899,21 +10812,17 @@
 						},
 						{
 							"name": "开始录像",
-							"description": "质量 1～7：LOW、QVGA、CIF、480P、720P、1080P、HIGH。格式保留兼容，输出由设备档位决定。",
+							"description": "录制 MP4 视频；质量 1～7 为最低、240p、288p、480p、720p、1080p、最高（不超过 1080p），选择设备支持的近似档位。",
 							"params": [
 								{
 									"name": "路径",
-									"type": "文本型"
-								},
-								{
-									"name": "格式",
-									"type": "整数型",
-									"description": "保留兼容参数，输出格式由设备档位决定。"
+									"type": "文本型",
+									"description": "尚不存在的可写绝对文件路径。"
 								},
 								{
 									"name": "质量",
 									"type": "整数型",
-									"description": "1～7：LOW、QVGA、CIF、480P、720P、1080P、HIGH。"
+									"description": "1～7 录像质量档位，使用设备支持的近似分辨率。"
 								},
 								{
 									"name": "录音",
@@ -9924,7 +10833,7 @@
 						},
 						{
 							"name": "停止录像",
-							"description": "停止录像并释放录制资源。"
+							"description": "停止录像；正常完成后触发录像完毕，过短或未开始的录像报告失败。"
 						},
 						{
 							"name": "开启闪光灯",
@@ -9936,7 +10845,15 @@
 						},
 						{
 							"name": "关闭摄像头",
-							"description": "关闭摄像头预览并释放拍摄资源。"
+							"description": "关闭预览并释放资源，取消未交付的照片和录像，不覆盖已有文件。"
+						}
+					],
+					"properties": [
+						{
+							"name": "错误信息",
+							"description": "获取最近一次操作失败的原因。",
+							"type": "文本型",
+							"writable": false
 						}
 					]
 				}
@@ -9956,7 +10873,7 @@
 				},
 				{
 					"name": "位置传感器",
-					"description": "可提供经度、纬度和海拔信息的传感器。",
+					"description": "在应用前台接收经纬度、海拔与水平精度，并异步查询地址；需要定位权限及已开启的定位服务。按 60 秒、5 米作为更新请求条件，实际更新频率由系统决定。停用保留最近结果。",
 					"icon": "icons/map-pin.svg",
 					"kind": "component",
 					"type": "simple.runtime.components.位置传感器",
@@ -9965,84 +10882,157 @@
 					],
 					"permissions": [
 						"android.permission.ACCESS_FINE_LOCATION",
-						"android.permission.ACCESS_COARSE_LOCATION",
-						"android.permission.ACCESS_MOCK_LOCATION",
-						"android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"
+						"android.permission.ACCESS_COARSE_LOCATION"
 					],
 					"properties": [
 						{
 							"name": "是否可用",
+							"description": "判断本实例是否已收到有效经纬度。返回值：已有位置结果时为真；停用后仍保留，不表示当前正在定位。",
 							"type": "逻辑型",
-							"description": "指示设备是否具有位置传感器。",
 							"writable": false
 						},
 						{
 							"name": "具备海拔",
+							"description": "判断最近一次位置是否附带海拔。返回值：最近一次结果有海拔时为真。",
 							"type": "逻辑型",
-							"description": "指示海拔信息是否可用。",
 							"writable": false
 						},
 						{
 							"name": "具备精度",
+							"description": "判断最近一次位置是否附带水平精度。返回值：最近一次结果有水平精度时为真，精度为 0 也可能是有效值。",
 							"type": "逻辑型",
-							"description": "指示有关位置精度的信息是否可用。",
 							"writable": false
 						},
 						{
 							"name": "经度",
+							"description": "读取最近一次位置的经度。返回值：经度，单位度；尚无位置时为 0，是否有效应检查是否可用。",
 							"type": "双精度小数型",
-							"description": "最新的可用经度值。如果没有值可用，将返回0。",
 							"writable": false
 						},
 						{
 							"name": "纬度",
+							"description": "读取最近一次位置的纬度。返回值：纬度，单位度；尚无位置时为 0，是否有效应检查是否可用。",
 							"type": "双精度小数型",
-							"description": "最新可用的纬度值。如果没有值可用，将返回0。",
 							"writable": false
 						},
 						{
 							"name": "海拔",
+							"description": "读取最近一次位置的海拔，不沿用更早结果的海拔。返回值：海拔，单位米；尚无海拔时为 0，是否有效应检查具备海拔。",
 							"type": "双精度小数型",
-							"description": "最近可用的海拔值，以米为单位。如果没有值可用，将返回0。",
 							"writable": false
 						},
 						{
 							"name": "精度",
+							"description": "读取最近一次位置的水平精度，不以提供者的精度等级代替实际测量。返回值：估计误差半径，单位米；尚无精度时为 0，是否有效应检查具备精度。",
 							"type": "双精度小数型",
-							"description": "最新的精度测量，以米为单位。如果没有可用的值，则返回0。",
 							"writable": false
 						},
 						{
 							"name": "启用",
+							"description": "读取请求的启用状态。返回值：希望在应用前台接收位置时为真，不表示权限、服务或定位结果可用。",
 							"type": "逻辑型",
-							"description": "真表示传感器生成事件，假表示它不生成事件",
 							"initializer": "真"
 						},
 						{
-							"name": "当前地址",
+							"name": "正在定位",
+							"description": "判断是否已登记至少一个可用提供者的定位监听。返回值：正在前台等待定位时为真，不表示已得到位置。",
+							"type": "逻辑型",
+							"writable": false
+						},
+						{
+							"name": "错误信息",
+							"description": "读取最近一次未受理或操作失败的原因。返回值：错误说明；正常启动定位或受理地址查询后为空。",
 							"type": "文本型",
-							"description": "提供当前地址或空字符串的文本表示形式。",
+							"writable": false
+						},
+						{
+							"name": "当前地址",
+							"description": "读取最近一次地址查询缓存，不执行网络或磁盘查询。返回值：与当前经纬度对应的已查询地址；尚未查询或坐标改变后为空。",
+							"type": "文本型",
 							"writable": false
 						}
 					],
 					"events": [
 						{
 							"name": "位置改变",
-							"description": "指示已检测到新位置。",
+							"description": "收到新的有效位置后触发，相关属性在事件前更新。",
 							"params": [
 								{
 									"name": "纬度",
-									"type": "双精度小数型"
+									"type": "双精度小数型",
+									"description": "纬度，范围为 -90～90 度"
 								},
 								{
 									"name": "经度",
-									"type": "双精度小数型"
+									"type": "双精度小数型",
+									"description": "经度，范围为 -180～180 度"
 								},
 								{
-									"name": "高度",
-									"type": "双精度小数型"
+									"name": "海拔",
+									"type": "双精度小数型",
+									"description": "海拔，单位米；具备海拔为假时为 0"
 								}
 							]
+						},
+						{
+							"name": "定位状态改变",
+							"description": "定位监听开始、停止或提供者可用状态改变时触发。",
+							"params": [
+								{
+									"name": "正在定位",
+									"type": "逻辑型",
+									"description": "是否正在等待定位结果，不表示已经取得位置"
+								},
+								{
+									"name": "说明",
+									"type": "文本型",
+									"description": "当前状态说明"
+								}
+							]
+						},
+						{
+							"name": "地址查询完毕",
+							"description": "请求的地址查询完成后触发；坐标对应发起查询时的位置。",
+							"params": [
+								{
+									"name": "纬度",
+									"type": "双精度小数型",
+									"description": "查询时的纬度"
+								},
+								{
+									"name": "经度",
+									"type": "双精度小数型",
+									"description": "查询时的经度"
+								},
+								{
+									"name": "地址",
+									"type": "文本型",
+									"description": "地址文本；系统没有匹配地址时为空"
+								}
+							]
+						},
+						{
+							"name": "操作失败",
+							"description": "定位注册、权限检查或已受理的地址查询失败时触发。",
+							"params": [
+								{
+									"name": "操作",
+									"type": "文本型",
+									"description": "定位或查询地址"
+								},
+								{
+									"name": "说明",
+									"type": "文本型",
+									"description": "失败原因"
+								}
+							]
+						}
+					],
+					"functions": [
+						{
+							"name": "请求地址",
+							"description": "在后台查询最近一次位置的地址，界面线程不会等待查询完成。需要先取得位置，并且系统提供地址查询服务；网络或服务故障可能导致失败。查询期间再次请求会被拒绝，组件销毁后不再报告结果。返回值：已受理时为真，之后通过地址查询完毕或操作失败通知；未受理时为假，原因见错误信息。",
+							"return": "逻辑型"
 						}
 					]
 				},
@@ -10117,7 +11107,7 @@
 				},
 				{
 					"name": "方向传感器",
-					"description": "可以测量3个维度绝对方向的传感器。",
+					"description": "在应用前台测量设备相对磁北的方向与倾斜，不需要运行时权限。坐标轴依设备自然方向确定，不随横竖屏切换。停用或离开前台后注销监听并保留最近有效结果，宿主销毁时自动释放。磁场干扰、快速运动和接近竖直的姿态可能降低稳定性。",
 					"icon": "icons/compass.svg",
 					"kind": "component",
 					"type": "simple.runtime.components.方向传感器",
@@ -10128,65 +11118,99 @@
 						{
 							"name": "可用",
 							"type": "逻辑型",
-							"description": "true indicates that an orientation sensor is available, false that it isn't",
+							"description": "设备是否提供可以测量磁北方向的传感器组合，不保证监听注册成功或当前数据有效；销毁后为假。",
 							"writable": false
 						},
 						{
 							"name": "启用",
 							"type": "逻辑型",
-							"description": "true enables sensor event generation, false disables it",
+							"description": "是否希望在应用前台监听方向，默认真，不表示监听成功或数据有效；停用立即注销，重新启用或返回前台时重试。",
 							"initializer": "真"
 						},
 						{
 							"name": "俯仰角",
 							"type": "单精度小数型",
-							"description": "current pitch",
+							"description": "最近有效俯仰角，单位度，范围 [-180,180]；Z 轴向 Y 轴倾斜时为正。尚无方向时为 0，应检查已有方向。",
 							"writable": false
 						},
 						{
 							"name": "翻滚角",
 							"type": "单精度小数型",
-							"description": "current roll",
+							"description": "最近有效翻滚角，单位度，范围 [-90,90]；X 轴向 Z 轴倾斜时为正。尚无方向时为 0，应检查已有方向。",
 							"writable": false
 						},
 						{
 							"name": "偏航角",
 							"type": "单精度小数型",
-							"description": "current yaw",
+							"description": "最近有效磁北方位角，单位度，范围 [0,360)；北 0、东 90、南 180、西 270，不是真北。尚无方向时为 0，应检查已有方向。",
 							"writable": false
 						},
 						{
 							"name": "倾斜角",
 							"type": "单精度小数型",
-							"description": "the angle in degrees",
+							"description": "以翻滚角为横坐标、俯仰角为纵坐标计算的倾斜方向，单位度，范围 [-180,180]；水平时为 0，应检查已有方向。",
 							"writable": false
 						},
 						{
 							"name": "Magnitude",
 							"type": "单精度小数型",
-							"description": "magnitude",
+							"description": "归一化倾斜程度，范围 [0,1]；俯仰角和翻滚角的绝对值各限制到 90 度后计算归一化长度，不表示传感器精度。",
 							"writable": false
+						},
+						{
+							"name": "正在监听",
+							"type": "逻辑型",
+							"writable": false,
+							"description": "是否已注册且仍在前台接收数据，不表示已经取得有效方向。"
+						},
+						{
+							"name": "已有方向",
+							"type": "逻辑型",
+							"writable": false,
+							"description": "是否已经取得过有效方向；停用后仍保留，销毁后为假。"
+						},
+						{
+							"name": "错误信息",
+							"type": "文本型",
+							"writable": false,
+							"description": "最近一次注册失败或无效数据的说明，重新注册成功或收到有效数据后清空，能力查询不修改。"
 						}
 					],
 					"events": [
 						{
 							"name": "方向改变",
-							"description": "Default OrientationChanged event handler.",
+							"description": "收到有效方向后触发，相关属性在事件前更新；停用、后台或销毁后不派发方向事件。",
 							"params": [
 								{
 									"name": "偏航角",
 									"type": "单精度小数型",
-									"description": "angle between the magnetic north direction and the Y axis, around the Z axis (0 to 359). 0=North, 90=East, 180=South, 270=West"
+									"description": "最近有效磁北方位角，单位度，范围 [0,360)；北 0、东 90、南 180、西 270，不是真北。尚无方向时为 0，应检查已有方向。"
 								},
 								{
 									"name": "俯仰角",
 									"type": "单精度小数型",
-									"description": "rotation around X axis (-180 to 180), with positive values when the z-axis moves toward the y-axis."
+									"description": "最近有效俯仰角，单位度，范围 [-180,180]；Z 轴向 Y 轴倾斜时为正。尚无方向时为 0，应检查已有方向。"
 								},
 								{
 									"name": "翻滚角",
 									"type": "单精度小数型",
-									"description": "rotation around Y axis (-90 to 90), with positive values when the x-axis moves away from the z-axis."
+									"description": "最近有效翻滚角，单位度，范围 [-90,90]；X 轴向 Z 轴倾斜时为正。尚无方向时为 0，应检查已有方向。"
+								}
+							]
+						},
+						{
+							"name": "监听状态改变",
+							"description": "监听开始、停止或数据有效状态改变时触发，不重复通知相同状态。",
+							"params": [
+								{
+									"name": "正在监听",
+									"type": "逻辑型",
+									"description": "是否已经注册方向监听，不表示已经取得有效方向。"
+								},
+								{
+									"name": "说明",
+									"type": "文本型",
+									"description": "当前状态或失败原因。"
 								}
 							]
 						}
@@ -10405,11 +11429,13 @@
 							"params": [
 								{
 									"name": "键",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "主机公钥或记录键"
 								},
 								{
 									"name": "值",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "请求头的内容。"
 								}
 							],
 							"return": "逻辑型"
@@ -10460,10 +11486,12 @@
 							"params": [
 								{
 									"name": "数据",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "本次传入的数据"
 								}
 							],
-							"return": "逻辑型"
+							"return": "逻辑型",
+							"description": "按当前默认字符集将文本编码为提交字节。"
 						},
 						{
 							"name": "置提交数据",
@@ -10493,17 +11521,20 @@
 						{
 							"name": "值类型_空",
 							"type": "整数型",
-							"value": "0"
+							"value": "0",
+							"description": "JSON null 值的类型标识。"
 						},
 						{
 							"name": "值类型_对象",
 							"type": "整数型",
-							"value": "1"
+							"value": "1",
+							"description": "JSON 对象的类型标识。"
 						},
 						{
 							"name": "值类型_数组",
 							"type": "整数型",
-							"value": "2"
+							"value": "2",
+							"description": "JSON 数组的类型标识。"
 						}
 					],
 					"properties": [
@@ -11339,21 +12370,26 @@
 							"params": [
 								{
 									"name": "录音源",
-									"type": "整数型"
+									"type": "整数型",
+									"description": "Android MediaRecorder.AudioSource 值，1 为麦克风"
 								}
-							]
+							],
+							"description": "设置下一次录音的音频来源，默认使用系统默认来源。"
 						},
 						{
 							"name": "开始录音",
 							"params": [
 								{
 									"name": "路径",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "可写的录音文件路径，缺少的父目录会自动创建"
 								}
-							]
+							],
+							"description": "开始录音，输出路径已有的文件会被覆盖；当前录音须先停止。"
 						},
 						{
-							"name": "停止录音"
+							"name": "停止录音",
+							"description": "停止录音并释放资源；未开始或已经停止时不执行操作。\n录音过短等原因导致停止失败时，删除无效输出并报告错误。"
 						}
 					]
 				},
@@ -11427,17 +12463,17 @@
 				},
 				{
 					"name": "服务",
-					"description": "Simple的服务对象，注意该对象将由系统实例化。",
+					"description": "由 Android 系统实例化的服务单元基类，使用同一工作线程串行处理启动意图，队列完成后自动停止。API 26 及以上受普通服务后台启动与执行限制；不提供前台通知、持久任务或进程保活，显式终止应用会结束同一进程。",
 					"kind": "object",
 					"type": "simple.runtime.collections.服务",
 					"functions": [
 						{
 							"name": "服务创建",
-							"description": "服务被创建时执行该方法，继承单元请覆写该过程。"
+							"description": "服务实例创建后在主线程调用，供服务单元覆写初始化。"
 						},
 						{
 							"name": "服务处理",
-							"description": "收到意图将执行该方法，继承单元请覆写该过程。",
+							"description": "在同一工作线程按启动顺序处理意图，不直接操作界面。外部停止或销毁会取消排队任务并中断工作线程，当前操作需自行响应中断；正常返回后继续处理后续任务。",
 							"params": [
 								{
 									"name": "意图",
@@ -11448,7 +12484,7 @@
 						},
 						{
 							"name": "服务销毁",
-							"description": "服务将被销毁时执行该方法，继承单元请覆写该过程。"
+							"description": "服务销毁时在主线程调用，供服务单元覆写释放资源；正在执行的任务可能仍在响应中断，进程直接终止时不保证调用。"
 						}
 					]
 				},
@@ -11461,17 +12497,20 @@
 						{
 							"name": "匹配_规范等价",
 							"type": "整数型",
-							"value": "128"
+							"value": "128",
+							"description": "启用 Unicode 规范等价匹配。"
 						},
 						{
 							"name": "匹配_不区分大小写",
 							"type": "整数型",
-							"value": "2"
+							"value": "2",
+							"description": "启用不区分大小写匹配。"
 						},
 						{
 							"name": "匹配_允许空白注释",
 							"type": "整数型",
-							"value": "4"
+							"value": "4",
+							"description": "允许表达式包含可忽略的空白和注释。"
 						},
 						{
 							"name": "匹配_DOTALL模式",
@@ -11482,7 +12521,8 @@
 						{
 							"name": "匹配_字面值解析",
 							"type": "整数型",
-							"value": "16"
+							"value": "16",
+							"description": "将表达式按普通文本解释，不解析正则元字符。"
 						},
 						{
 							"name": "匹配_多行模式",
@@ -11493,12 +12533,14 @@
 						{
 							"name": "匹配_UNICODE_CASE",
 							"type": "整数型",
-							"value": "64"
+							"value": "64",
+							"description": "配合不区分大小写标志使用 Unicode 大小写折叠。"
 						},
 						{
 							"name": "匹配_UNIX_LINES",
 							"type": "整数型",
-							"value": "1"
+							"value": "1",
+							"description": "仅将换行字符视为行终止符。"
 						}
 					],
 					"functions": [
@@ -11547,7 +12589,8 @@
 							"params": [
 								{
 									"name": "文本",
-									"type": "文本型"
+									"type": "文本型",
+									"description": "待匹配文本"
 								}
 							]
 						},
@@ -11623,27 +12666,32 @@
 						{
 							"name": "节点_文档开始",
 							"type": "整数型",
-							"value": "0"
+							"value": "0",
+							"description": "文档开始节点类型。"
 						},
 						{
 							"name": "节点_文档结束",
 							"type": "整数型",
-							"value": "1"
+							"value": "1",
+							"description": "文档结束节点类型。"
 						},
 						{
 							"name": "节点_开始",
 							"type": "整数型",
-							"value": "2"
+							"value": "2",
+							"description": "开始节点类型。"
 						},
 						{
 							"name": "节点_结束",
 							"type": "整数型",
-							"value": "3"
+							"value": "3",
+							"description": "结束节点类型。"
 						},
 						{
 							"name": "节点_文本",
 							"type": "整数型",
-							"value": "4"
+							"value": "4",
+							"description": "文本节点类型。"
 						}
 					],
 					"functions": [
@@ -11996,32 +13044,38 @@
 						{
 							"name": "状态_新建",
 							"type": "整数型",
-							"value": "0"
+							"value": "0",
+							"description": "线程已创建，尚未启动。"
 						},
 						{
 							"name": "状态_可运行",
 							"type": "整数型",
-							"value": "1"
+							"value": "1",
+							"description": "线程可以由系统调度执行。"
 						},
 						{
 							"name": "状态_阻塞",
 							"type": "整数型",
-							"value": "2"
+							"value": "2",
+							"description": "线程正在等待进入同步监视器。"
 						},
 						{
 							"name": "状态_无限等待",
 							"type": "整数型",
-							"value": "3"
+							"value": "3",
+							"description": "线程正在无限期等待其它线程的通知或结束。"
 						},
 						{
 							"name": "状态_限时等待",
 							"type": "整数型",
-							"value": "4"
+							"value": "4",
+							"description": "线程正在等待且设置了最长等待时间。"
 						},
 						{
 							"name": "状态_结束",
 							"type": "整数型",
-							"value": "5"
+							"value": "5",
+							"description": "线程已经执行结束。"
 						}
 					],
 					"properties": [
@@ -12166,7 +13220,8 @@
 								},
 								{
 									"name": "项目",
-									"type": "变体型"
+									"type": "变体型",
+									"description": "新项目值"
 								}
 							]
 						},
@@ -13083,7 +14138,8 @@
 								},
 								{
 									"name": "参数",
-									"type": "变体型()"
+									"type": "变体型()",
+									"description": "事件参数"
 								}
 							]
 						}
@@ -13099,19 +14155,22 @@
 							"name": "像素_绝对",
 							"type": "整数型",
 							"value": "0",
-							"global": true
+							"global": true,
+							"description": "绝对像素单位 px。"
 						},
 						{
 							"name": "像素_相对",
 							"type": "整数型",
 							"value": "1",
-							"global": true
+							"global": true,
+							"description": "随屏幕密度缩放的尺寸单位 dp。"
 						},
 						{
 							"name": "像素_缩放",
 							"type": "整数型",
 							"value": "2",
-							"global": true
+							"global": true,
+							"description": "随屏幕密度与字体缩放的尺寸单位 sp。"
 						}
 					],
 					"functions": [
@@ -13890,7 +14949,8 @@
 							"params": [
 								{
 									"name": "进度框",
-									"type": "对象"
+									"type": "对象",
+									"description": "进度框对象实例。"
 								}
 							]
 						},
@@ -13974,7 +15034,7 @@
 						},
 						{
 							"name": "终止",
-							"description": "终止此应用程序。",
+							"description": "终止此应用程序，结束主活动及当前应用进程。",
 							"global": true
 						},
 						{
@@ -14015,25 +15075,25 @@
 						},
 						{
 							"name": "取应用名",
-							"description": "获取应用程序名称",
+							"description": "获取应用程序名称；失败时返回空字符串。",
 							"global": true,
 							"return": "文本型"
 						},
 						{
 							"name": "取版本名",
-							"description": "获取应用程序版本名称信息",
+							"description": "获取应用程序版本名称；失败时返回空字符串。",
 							"global": true,
 							"return": "文本型"
 						},
 						{
 							"name": "取版本号",
-							"description": "获取应用程序版本名称信息",
+							"description": "获取应用程序版本编号；失败时返回 0。",
 							"global": true,
-							"return": "长整数型"
+							"return": "整数型"
 						},
 						{
 							"name": "启动服务",
-							"description": "启动指定服务。",
+							"description": "请求启动指定服务，返回真仅表示系统受理，不表示任务处理完成。API 26 及以上受普通服务后台执行限制，并需满足目标服务的权限要求；服务不存在、启动受限、意图无效或权限不足时返回假。",
 							"global": true,
 							"params": [
 								{
@@ -14046,7 +15106,7 @@
 						},
 						{
 							"name": "停止服务",
-							"description": "立刻停止指定服务。注意：服务在任务执行完成后自行结束自己，不需要外部去调用停止服务。",
+							"description": "请求停止指定服务；正在运行的匹配服务已收到停止请求时返回真，未运行或请求失败返回假。正在执行的任务需要响应中断后退出。",
 							"global": true,
 							"params": [
 								{
@@ -14070,38 +15130,38 @@
 							]
 						},
 						{
-							"name": "取屏幕宽度",
-							"description": "获取屏幕宽度，单位像素（px）。",
+							"name": "取显示宽度",
+							"description": "取当前应用的显示区域宽度，单位像素（px）。左右若有系统导航栏或刘海，不包含其占用区域。",
 							"global": true,
 							"return": "整数型"
 						},
 						{
-							"name": "取屏幕高度",
-							"description": "获取屏幕高度，单位像素（px）。",
+							"name": "取显示高度",
+							"description": "取当前应用的显示区域高度，单位像素（px）。含系统状态栏和应用标题栏，不含上下系统导航栏及刘海占用区域。",
 							"global": true,
 							"return": "整数型"
 						},
 						{
-							"name": "取屏幕密度",
-							"description": "获取屏幕密度缩放系数。",
+							"name": "取显示密度",
+							"description": "取当前应用的显示密度比例。",
 							"global": true,
 							"return": "双精度小数型"
 						},
 						{
 							"name": "取状态栏高度",
-							"description": "获取系统状态栏尺寸资源对应的高度，单位像素（px）。",
+							"description": "取系统状态栏高度，单位像素（px），不受是否隐藏影响。",
 							"global": true,
 							"return": "整数型"
 						},
 						{
 							"name": "取内容宽度",
-							"description": "获取当前窗口内容视图的宽度，单位像素（px）。",
+							"description": "取当前应用实际内容宽度，单位像素（px）。左右若有系统导航栏，不包含其占用区域。",
 							"global": true,
 							"return": "整数型"
 						},
 						{
 							"name": "取内容高度",
-							"description": "获取当前窗口内容视图的高度，单位像素（px）。",
+							"description": "取当前应用实际内容高度，单位像素（px）。不含系统状态栏、应用标题栏和底部系统导航栏。",
 							"global": true,
 							"return": "整数型"
 						},
@@ -15281,37 +16341,43 @@
 							"name": "日期_月",
 							"type": "整数型",
 							"value": "2",
-							"global": true
+							"global": true,
+							"description": "日期运算使用的月字段。"
 						},
 						{
 							"name": "日期_天",
 							"type": "整数型",
 							"value": "5",
-							"global": true
+							"global": true,
+							"description": "日期运算使用的天字段。"
 						},
 						{
 							"name": "日期_星期",
 							"type": "整数型",
 							"value": "3",
-							"global": true
+							"global": true,
+							"description": "日期运算使用的星期字段。"
 						},
 						{
 							"name": "日期_时",
 							"type": "整数型",
 							"value": "11",
-							"global": true
+							"global": true,
+							"description": "日期运算使用的时字段。"
 						},
 						{
 							"name": "日期_分",
 							"type": "整数型",
 							"value": "12",
-							"global": true
+							"global": true,
+							"description": "日期运算使用的分字段。"
 						},
 						{
 							"name": "日期_秒",
 							"type": "整数型",
 							"value": "13",
-							"global": true
+							"global": true,
+							"description": "日期运算使用的秒字段。"
 						},
 						{
 							"name": "星期_星期一",
@@ -15324,37 +16390,43 @@
 							"name": "星期_星期二",
 							"type": "整数型",
 							"value": "3",
-							"global": true
+							"global": true,
+							"description": "Java 日期星期常量：星期二。"
 						},
 						{
 							"name": "星期_星期三",
 							"type": "整数型",
 							"value": "4",
-							"global": true
+							"global": true,
+							"description": "Java 日期星期常量：星期三。"
 						},
 						{
 							"name": "星期_星期四",
 							"type": "整数型",
 							"value": "5",
-							"global": true
+							"global": true,
+							"description": "Java 日期星期常量：星期四。"
 						},
 						{
 							"name": "星期_星期五",
 							"type": "整数型",
 							"value": "6",
-							"global": true
+							"global": true,
+							"description": "Java 日期星期常量：星期五。"
 						},
 						{
 							"name": "星期_星期六",
 							"type": "整数型",
 							"value": "7",
-							"global": true
+							"global": true,
+							"description": "Java 日期星期常量：星期六。"
 						},
 						{
 							"name": "星期_星期天",
 							"type": "整数型",
 							"value": "1",
-							"global": true
+							"global": true,
+							"description": "Java 日期星期常量：星期天。"
 						},
 						{
 							"name": "月份_一月",
@@ -15367,79 +16439,92 @@
 							"name": "月份_二月",
 							"type": "整数型",
 							"value": "1",
-							"global": true
+							"global": true,
+							"description": "Java 日期月份常量：二月，月份编号从 0 开始。对应 Calendar.FEBRUARY。"
 						},
 						{
 							"name": "月份_三月",
 							"type": "整数型",
 							"value": "2",
-							"global": true
+							"global": true,
+							"description": "Java 日期月份常量：三月，月份编号从 0 开始。对应 Calendar.MARCH。"
 						},
 						{
 							"name": "月份_四月",
 							"type": "整数型",
 							"value": "3",
-							"global": true
+							"global": true,
+							"description": "Java 日期月份常量：四月，月份编号从 0 开始。对应 Calendar.APRIL。"
 						},
 						{
 							"name": "月份_五月",
 							"type": "整数型",
 							"value": "4",
-							"global": true
+							"global": true,
+							"description": "Java 日期月份常量：五月，月份编号从 0 开始。对应 Calendar.MAY。"
 						},
 						{
 							"name": "月份_六月",
 							"type": "整数型",
 							"value": "5",
-							"global": true
+							"global": true,
+							"description": "Java 日期月份常量：六月，月份编号从 0 开始。对应 Calendar.JUNE。"
 						},
 						{
 							"name": "月份_七月",
 							"type": "整数型",
 							"value": "6",
-							"global": true
+							"global": true,
+							"description": "Java 日期月份常量：七月，月份编号从 0 开始。对应 Calendar.JULY。"
 						},
 						{
 							"name": "月份_八月",
 							"type": "整数型",
 							"value": "7",
-							"global": true
+							"global": true,
+							"description": "Java 日期月份常量：八月，月份编号从 0 开始。对应 Calendar.AUGUST。"
 						},
 						{
 							"name": "月份_九月",
 							"type": "整数型",
 							"value": "8",
-							"global": true
+							"global": true,
+							"description": "Java 日期月份常量：九月，月份编号从 0 开始。对应 Calendar.SEPTEMBER。"
 						},
 						{
 							"name": "月份_十月",
 							"type": "整数型",
 							"value": "9",
-							"global": true
+							"global": true,
+							"description": "Java 日期月份常量：十月，月份编号从 0 开始。对应 Calendar.OCTOBER。"
 						},
 						{
 							"name": "月份_十一月",
 							"type": "整数型",
 							"value": "10",
-							"global": true
+							"global": true,
+							"description": "Java 日期月份常量：十一月，月份编号从 0 开始。对应 Calendar.NOVEMBER。"
 						},
 						{
 							"name": "月份_十二月",
 							"type": "整数型",
 							"value": "11",
-							"global": true
+							"global": true,
+							"description": "Java 日期月份常量：十二月，月份编号从 0 开始。对应 Calendar.DECEMBER。"
 						},
 						{
 							"name": "时区_格林尼治",
 							"type": "文本型",
 							"value": "\"GMT\"",
-							"global": true
+							"global": true,
+							"description": "格林尼治时区标识。"
 						},
 						{
 							"name": "时区_上海",
 							"type": "文本型",
 							"value": "\"Asia/Shanghai\"",
-							"global": true
+							"global": true,
+							"description": "上海时区标识。"
 						}
 					],
 					"functions": [
@@ -15903,13 +16988,13 @@
 						},
 						{
 							"name": "创建对象",
-							"description": "创建指定限定类名的对象",
+							"description": "通过可访问的无参数构造方法创建指定类的对象；类不存在、不能实例化、构造方法不可访问或抛出异常时返回空。",
 							"global": true,
 							"params": [
 								{
 									"name": "类名",
 									"type": "文本型",
-									"description": "单元的完全限定类名。"
+									"description": "类的完全限定名称。"
 								}
 							],
 							"return": "对象"
@@ -17241,7 +18326,8 @@
 				{
 					"name": "运行错误",
 					"description": "所有Simple运行时错误的超类。",
-					"kind": "error"
+					"kind": "error",
+					"type": "simple.runtime.errors.运行错误"
 				},
 				{
 					"name": "属性访问错误",
@@ -17249,7 +18335,8 @@
 					"kind": "error",
 					"inherits": [
 						"simple.runtime.errors.运行错误"
-					]
+					],
+					"type": "simple.runtime.errors.属性访问错误"
 				},
 				{
 					"name": "文件已存在错误",
@@ -17257,7 +18344,8 @@
 					"kind": "error",
 					"inherits": [
 						"simple.runtime.errors.运行错误"
-					]
+					],
+					"type": "simple.runtime.errors.文件已存在错误"
 				},
 				{
 					"name": "文件未存在错误",
@@ -17265,7 +18353,8 @@
 					"kind": "error",
 					"inherits": [
 						"simple.runtime.errors.运行错误"
-					]
+					],
+					"type": "simple.runtime.errors.文件未存在错误"
 				},
 				{
 					"name": "文件读写错误",
@@ -17273,7 +18362,8 @@
 					"kind": "error",
 					"inherits": [
 						"simple.runtime.errors.运行错误"
-					]
+					],
+					"type": "simple.runtime.errors.文件读写错误"
 				},
 				{
 					"name": "断言失败",
@@ -17281,7 +18371,8 @@
 					"kind": "error",
 					"inherits": [
 						"simple.runtime.errors.运行错误"
-					]
+					],
+					"type": "simple.runtime.errors.断言失败"
 				},
 				{
 					"name": "未初始化实例错误",
@@ -17289,7 +18380,8 @@
 					"kind": "error",
 					"inherits": [
 						"simple.runtime.errors.运行错误"
-					]
+					],
+					"type": "simple.runtime.errors.未初始化实例错误"
 				},
 				{
 					"name": "未知文件句柄错误",
@@ -17297,7 +18389,8 @@
 					"kind": "error",
 					"inherits": [
 						"simple.runtime.errors.运行错误"
-					]
+					],
+					"type": "simple.runtime.errors.未知文件句柄错误"
 				},
 				{
 					"name": "未知标识符错误",
@@ -17305,7 +18398,8 @@
 					"kind": "error",
 					"inherits": [
 						"simple.runtime.errors.运行错误"
-					]
+					],
+					"type": "simple.runtime.errors.未知标识符错误"
 				},
 				{
 					"name": "索引超出界限错误",
@@ -17313,7 +18407,8 @@
 					"kind": "error",
 					"inherits": [
 						"simple.runtime.errors.运行错误"
-					]
+					],
+					"type": "simple.runtime.errors.索引超出界限错误"
 				},
 				{
 					"name": "转换错误",
@@ -17321,7 +18416,8 @@
 					"kind": "error",
 					"inherits": [
 						"simple.runtime.errors.运行错误"
-					]
+					],
+					"type": "simple.runtime.errors.转换错误"
 				},
 				{
 					"name": "非法参数错误",
@@ -17329,7 +18425,8 @@
 					"kind": "error",
 					"inherits": [
 						"simple.runtime.errors.运行错误"
-					]
+					],
+					"type": "simple.runtime.errors.非法参数错误"
 				},
 				{
 					"name": "数据库错误",
@@ -17337,12 +18434,13 @@
 					"kind": "error",
 					"inherits": [
 						"simple.runtime.errors.运行错误"
-					]
+					],
+					"type": "simple.runtime.errors.数据库错误"
 				},
 				{
 					"name": "XML错误",
 					"description": "XML 输入、遍历、生成或状态错误，可在错误分支捕获；详情由对应对象的取错误信息读取。",
-					"kind": "object",
+					"kind": "error",
 					"type": "simple.runtime.errors.XML错误",
 					"inherits": [
 						"simple.runtime.errors.运行错误"

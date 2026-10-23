@@ -1,14 +1,12 @@
 # SDK 清单定义
 
-文档类型：SDK 入口字段参考。核对日期：2026-10-19。适用范围：本 SDK 与 ES4A。依据：SDK 清单、模板、能力脚本及扩展加载规则。
-
 [`sdk.json`](../sdk.json) 注册编译器、运行库和扩展类库，并声明工具能力与项目模板。
 
 随附 SDK 使用 `sdk.json`、`capabilities/`、`simple/`、`libraries/`、`templates/` 和 `tools/` 目录布局，见 [SDK README](../README.md)。
 
 SDK 仓库的标准 `sdk.json` 使用空的 `libraries` 数组，扩展库及演示库由 [类库仓库](https://gitee.com/es4a/libraries) 维护。需要本地配置时，可将标准清单复制为同目录的 `sdk.local.json` 并在 ES4A 中选择它；该本地清单不提交 SDK 仓库。入口文件名不固定，相对路径以实际所选清单所在目录为准。
 
-本文面向配置 SDK 的维护者，包含入口、路径、能力与模板的字段和示例。ES4A 仅加载用户通过“选择 SDK”明确指定的入口；未配置或入口路径失效时保持未加载状态，不推断工作区中的 SDK，也不根据目录名自动注册类库。
+ES4A 仅加载用户通过“选择 SDK”明确指定的入口；未配置或入口路径失效时保持未加载状态，不推断工作区中的 SDK，也不根据目录名自动注册类库。
 
 ## 入口字段
 
@@ -82,7 +80,7 @@ SDK 仓库的标准 `sdk.json` 使用空的 `libraries` 数组，扩展库及演
 | `PROJECT_FILE` | 项目的 `project.properties` 绝对路径。 |
 | `APK_FILE` | 项目构建目录下 `deploy/<应用名称>.apk` 的绝对路径。 |
 
-当前随附 `compile` 脚本使用 SDK 内的 `tools/jdk1.8.0_503/`、`tools/android/`（API 26）、`simple/SimpleCompiler.jar` 和 `simple/SimpleAndroidRuntime.jar`；工具准备见 [SDK README](../README.md)，执行项目能力无需 Ant。`debug` 先编译，再通过 ADB 安装 APK 并启动应用，不提供断点或单步调试。脚本负责工具路径、环境变量和执行流程，扩展只按清单调用。
+当前随附 `compile` 脚本使用 SDK 内的 `tools/jdk-11/`、`tools/android/`（API 30）、`simple/SimpleCompiler.jar` 和 `simple/SimpleAndroidRuntime.jar`；工具准备见 [SDK README](../README.md)，执行项目能力无需 Ant。`debug` 先编译，再通过 ADB 安装 APK 并启动应用，不提供断点或单步调试。脚本负责工具路径、环境变量和执行流程，扩展只按清单调用。
 
 ### 编译能力与签名
 

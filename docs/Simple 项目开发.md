@@ -1,8 +1,6 @@
 # Simple 项目开发
 
-文档类型：应用开发指南。核对日期：2026-10-19。适用范围：使用本 SDK 开发 Android 应用。依据：项目模板、能力脚本、编译器及 ES4A 项目功能。
-
-本文说明项目结构、窗口与事件、资源、已有类库调用及编译运行。语言规则按需查阅 [Simple 语言定义](Simple%20语言定义.md)。
+Simple 项目通过 `project.properties` 组织源码、资源和构建配置。语言规则见 [Simple 语言定义](Simple%20语言定义.md)。
 
 开发 Simple 应用使用 SDK 的编译器、运行库及按需安装的扩展库，无需编写 Java 或重建已有类库。
 
@@ -15,8 +13,8 @@
 | 路径 | 用途 |
 | --- | --- |
 | `sdk.json` 或 `sdk.local.json` | 所选 SDK 的入口清单；本地清单按需创建 |
-| `tools/jdk1.8.0_503/` | JDK 8 |
-| `tools/android/` | Android 编译、打包、安装和启动工具，随附脚本使用 API 26 |
+| `tools/jdk-11/` | JDK 11 |
+| `tools/android/` | Android 编译、打包、安装和启动工具，随附脚本使用 API 30 |
 | `simple/SimpleCompiler.jar`、`simple/SimpleAndroidRuntime.jar` | 编译器与 Android 运行库 |
 | `libraries/<类库目录>/` | 已安装扩展库及其所需依赖和资源 |
 

@@ -23,9 +23,9 @@ REM --------------------------------------------------
 
 :定义变量
 REM JavaSDK根目录：
-FOR %%I IN ("%~dp0..\tools\jdk1.8.0_503") DO SET "JAVA_HOME=%%~fI"
+FOR %%I IN ("%~dp0..\tools\jdk-11") DO SET "JAVA_HOME=%%~fI"
 REM AndroidSDK的API等级
-SET API_LEVEL=26
+SET API_LEVEL=30
 REM AndroidSDK根目录，必须包含：
 REM .\platforms\android-%API_LEVEL%\android.jar
 REM .\platforms\android-%API_LEVEL%\tools\lib\d8.jar

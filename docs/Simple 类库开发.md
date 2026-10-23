@@ -1,9 +1,5 @@
 # Simple 类库开发
 
-文档类型：Java 类库开发与交付指南。核对日期：2026-10-19。适用范围：扩展对象和 Android 组件。依据：编译器、运行库、类库构建发布脚本及演示工程。
-
-本文说明 Java API 导出、依赖与资源交付、IDE 接入及构建发布。编译器约定与构建发布脚本的目录要求分别说明。
-
 运行库提供 `SimpleAndroidRuntime.jar`；扩展库提供自己的 `classes.jar`。本文以扩展库为主，Java 注解与类型规则也适用于运行库成员。
 
 | 要做什么 | 阅读章节 |
@@ -60,7 +56,7 @@ sdk/libraries/com.example.demo/
 - 候选来自全部已安装类库。项目需要某个依赖组时，实际选中的版本可能由另一个已安装类库提供；类加载、DEX 和 JAR 资源打包共用这一选择，不在打包阶段重新选版。
 - `classes.jar` 不参与版本选择；不要将依赖合并进它后，又在 `libs/` 重复提供相同类。
 
-建议保留上游正式制品名称，版本未知时不猜测。依赖及其所需 JAR 应完整提供，并适配当前 JDK 8、dx、Android API 和设备；自动选最高版本不保证 API 或运行兼容性。
+建议保留上游正式制品名称，版本未知时不猜测。依赖及其所需 JAR 应完整提供，并适配当前 JDK、DEX 转换工具、Android API 和设备；自动选最高版本不保证 API 或运行兼容性。
 
 当前没有 Maven/Gradle 的传递依赖解析、自动下载、每项目版本锁定或包名隔离。Android 平台、Simple 运行库以及其它已安装扩展库不应再复制进 `libs/` 重复打包；跨扩展库的 Java 编译类路径需另行配置，不能依赖 SDK 清单注册顺序。
 
@@ -631,8 +627,8 @@ Java 开发需要 Android 平台和 `SimpleAndroidRuntime.jar`。使用其它构
 
 | SDK 内路径 | 用途 |
 | --- | --- |
-| `tools/jdk1.8.0_503/bin/javac.exe`、`jar.exe` | JDK 8 编译和打包 |
-| `tools/android/platforms/android-26/android.jar` | Android API 26 |
+| `tools/jdk-11/bin/javac.exe`、`jar.exe` | JDK 11 编译和打包 |
+| `tools/android/platforms/android-30/android.jar` | Android API 30 |
 | `simple/SimpleAndroidRuntime.jar` | Simple 注解、类型及基础组件 |
 
 在 Windows 命令提示符中运行，例如：
@@ -817,7 +813,6 @@ assets=./assets
 | 重复类、缺失类型或方法不存在 | 按诊断来源检查全部已安装类库的依赖及实际选中版本，不能只检查当前项目使用的库 |
 | Java 编译成功，资源失败 | 检查 `res/` XML、资源名、重名及未生成的第三方包 `R`；Java 构建不验证 Android 资源 |
 | 原生库加载失败 | 检查 APK `lib/<ABI>/` 内容、设备进程架构、加载名称、原生依赖和 JNI 绑定；改目录名不能转换 ABI |
-| JDK 8 找不到真实存在的中文源码 | 确认 UTF-8，必要时在当前 PowerShell 设置 `$env:JAVA_TOOL_OPTIONS = "-Dfile.encoding=UTF-8"` 排查，结束后恢复原值，无需转换 BAT 编码 |
 
 ## 延伸参考
 
