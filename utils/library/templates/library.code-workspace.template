@@ -1,0 +1,105 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.exclude": {
+			"**/.gradle": true,
+			"**/build": true
+		},
+		"files.associations": {
+			"library.gradle": "groovy"
+		},
+		"java.server.launchMode": "Standard",
+		"java.configuration.runtimes": [
+			{
+				"path": "@JDK_PATH@",
+				"name": "@JAVA_RUNTIME@",
+				"default": true
+			}
+		],
+		"java.import.gradle.enabled": false,
+		"java.import.maven.enabled": false,
+		"java.import.exclusions": [
+			"**/build/**",
+			"**/.gradle/**",
+			"**/test/**"
+		],
+		"java.project.sourcePaths": [
+			"src"
+		],
+		"java.project.outputPath": "build/ide/classes",
+		"java.project.referencedLibraries": {
+			"include": "@REFERENCE_INCLUDES@",
+			"exclude": [
+				"libs/*-sources.jar",
+				"build/ide/libs/**/*-sources.jar"
+			],
+			"sources": "@REFERENCE_SOURCES@"
+		}
+	},
+	"tasks": {
+		"version": "2.0.0",
+		"tasks": [
+			{
+				"label": "ES4A扩展库: 刷新依赖",
+				"type": "process",
+				"command": "powershell.exe",
+				"args": [
+					"-NoLogo",
+					"-NoProfile",
+					"-ExecutionPolicy",
+					"Bypass",
+					"-File",
+					"@LIBRARY_TOOL@",
+					"prepare",
+					"${workspaceFolder}"
+				],
+				"options": {
+					"cwd": "${workspaceFolder}"
+				},
+				"problemMatcher": []
+			},
+			{
+				"label": "ES4A扩展库: 编译扩展库",
+				"type": "process",
+				"command": "powershell.exe",
+				"args": [
+					"-NoLogo",
+					"-NoProfile",
+					"-ExecutionPolicy",
+					"Bypass",
+					"-File",
+					"@LIBRARY_TOOL@",
+					"compile",
+					"${workspaceFolder}"
+				],
+				"options": {
+					"cwd": "${workspaceFolder}"
+				},
+				"problemMatcher": []
+			},
+			{
+				"label": "ES4A扩展库: 发布到SDK",
+				"type": "process",
+				"command": "powershell.exe",
+				"args": [
+					"-NoLogo",
+					"-NoProfile",
+					"-ExecutionPolicy",
+					"Bypass",
+					"-File",
+					"@LIBRARY_TOOL@",
+					"publish",
+					"${workspaceFolder}"
+				],
+				"options": {
+					"cwd": "${workspaceFolder}"
+				},
+				"problemMatcher": []
+			}
+		]
+	}
+}

@@ -1,0 +1,344 @@
+/* 扩展库公共构建、依赖解析与 IDE 模型导出。xhwsd@qq.com 2026-10-25 */
+import groovy.json.JsonOutput
+import groovy.json.JsonSlurper
+import javax.inject.Inject
+import org.gradle.api.component.SoftwareComponentFactory
+import org.gradle.api.artifacts.ModuleDependency
+import org.gradle.api.artifacts.ProjectDependency
+
+/* 只发布原始模块声明；组件没有二进制制品，类库本体仍由 ES4A 目录格式交付。 */
+class Es4aDependencyPublication implements Plugin<Project> {
+	private final SoftwareComponentFactory factory
+
+	@Inject
+	Es4aDependencyPublication(SoftwareComponentFactory factory) {
+		this.factory = factory
+	}
+
+	void apply(Project project) {
+		project.components.add(factory.adhoc('es4aDependencies'))
+	}
+}
+import org.gradle.api.artifacts.component.ModuleComponentIdentifier
+import org.gradle.api.artifacts.result.ResolvedArtifactResult
+import org.gradle.jvm.JvmLibrary
+import org.gradle.language.base.artifact.SourcesArtifact
+
+buildscript {
+	repositories {
+		google()
+		mavenCentral()
+	}
+	dependencies {
+		classpath 'com.android.tools.build:gradle:7.4.2'
+	}
+}
+
+apply plugin: 'com.android.library'
+apply plugin: 'maven-publish'
+apply plugin: Es4aDependencyPublication
+
+def libraryRoot = file(providers.gradleProperty('libraryDir').get())
+def sdkRoot = file(providers.gradleProperty('sdkDir').get())
+buildDir = new File(libraryRoot, 'build/gradle/android')
+
+// 无自有 Android 清单的库使用工具生成的最小清单，不增加作者维护项。
+def libraryManifest = new File(libraryRoot, 'AndroidManifest.xml')
+if (!libraryManifest.isFile()) {
+	libraryManifest = new File(libraryRoot, 'build/gradle/AndroidManifest.xml')
+	libraryManifest.parentFile.mkdirs()
+	libraryManifest.setText('<manifest xmlns:android="http://schemas.android.com/apk/res/android" />\r\n', 'UTF-8')
+}
+
+android {
+	compileSdk = 30
+	buildToolsVersion = '36.1.0'
+	defaultConfig {
+		minSdk = 24
+	}
+	sourceSets {
+		main {
+			manifest.srcFile libraryManifest
+			java.srcDirs = [new File(libraryRoot, 'src')]
+			res.srcDirs = [new File(libraryRoot, 'res')]
+			assets.srcDirs = [new File(libraryRoot, 'assets')]
+			jniLibs.srcDirs = [new File(libraryRoot, 'jni')]
+		}
+	}
+	compileOptions {
+		sourceCompatibility = JavaVersion.VERSION_11
+		targetCompatibility = JavaVersion.VERSION_11
+	}
+	buildFeatures {
+		buildConfig = false
+	}
+}
+
+dependencies {
+	// 本地包按文件依赖处理，所需外部依赖由本库唯一配置显式补齐。
+	compileOnly files(new File(sdkRoot, 'simple/SimpleAndroidRuntime.jar'))
+	implementation files(gradle.ext.libraryLocalFiles)
+}
+
+// 由本库唯一的构建声明补充资源命名空间、在线依赖及确有需要的特殊选项。
+apply from: new File(libraryRoot, 'library.gradle')
+if (!android.namespace) {
+	throw new GradleException('请在 library.gradle 中声明 android.namespace。')
+}
+
+// 同时核对直接与传递的模块依赖；旧 Support 不能作为 AndroidX 基线下的有效构建结果。
+// 本地归档不声明坐标，不能据其文件名猜测类型或版本，仍须由库作者选用 AndroidX 版本。
+configurations.configureEach { configuration ->
+	configuration.incoming.afterResolve { dependencies ->
+		def legacy = dependencies.resolutionResult.allComponents.findAll { component ->
+			component.id instanceof ModuleComponentIdentifier && component.id.group == 'com.android.support'
+		}.collect { it.id.displayName }.sort()
+		if (legacy) {
+			throw new GradleException("扩展库统一采用 AndroidX，请迁移旧 Support 依赖：${legacy.join(', ')}")
+		}
+	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	options.encoding = 'UTF-8'
+	options.compilerArgs.addAll(['-Xlint:unchecked', '-Xlint:deprecation'])
+}
+
+// Android 插件在项目配置完成后创建变体任务，再取得实际编译任务的提供者。
+afterEvaluate {
+	def compilation = tasks.named('compileDebugJavaWithJavac', JavaCompile)
+
+	// 导出正式 Java 编译使用的类路径；VS Code 不再自行解析第二套依赖。
+	tasks.register('prepareIde') {
+		group = 'build'
+		description = '解析依赖并准备 VS Code 所需的类路径和源码关联。'
+		dependsOn 'generateDebugRFile'
+		inputs.files { compilation.get().classpath }
+		doLast {
+			def configuration = configurations.debugCompileClasspath
+			def originalArtifacts = configuration.incoming.artifacts.artifacts
+			def originals = originalArtifacts.collectEntries { artifact ->
+				[(artifact.id.componentIdentifier): artifact.file]
+			}
+			def transformedArtifacts = configuration.incoming.artifactView {
+				attributes {
+					attribute(Attribute.of('artifactType', String), 'android-classes-jar')
+				}
+			}.artifacts.artifacts
+			def origins = transformedArtifacts.collectEntries { artifact ->
+				[(artifact.file.canonicalPath): artifact.id.componentIdentifier]
+			}
+			originals.each { component, original ->
+				origins[original.canonicalPath] = component
+			}
+
+			// 源码是可选开发资料；上游未提供时保留字节码提示，不伪造或替换源码。
+			def modules = originals.keySet().findAll { it instanceof ModuleComponentIdentifier }
+			def sourceArtifacts = dependencies.createArtifactResolutionQuery()
+				.forComponents(modules).withArtifacts(JvmLibrary, SourcesArtifact).execute()
+			def sources = [:]
+			sourceArtifacts.resolvedComponents.each { component ->
+				def source = component.getArtifacts(SourcesArtifact).find { it instanceof ResolvedArtifactResult }
+				if (source) {
+					sources[component.id] = source.file
+				}
+			}
+
+			def paths = (compilation.get().classpath.files + android.bootClasspath).findAll { it.isFile() }.unique()
+			def libraries = paths.collect { binary ->
+				def component = origins[binary.canonicalPath]
+				if (!component) {
+					// AGP 的编译 API JAR 使用“原名-api.jar”；只在当前解析结果中唯一匹配时关联源码。
+					def base = binary.name.replaceFirst(/(?:-api)?\.jar$/, '')
+					def matches = originals.findAll { id, original -> original.name.replaceFirst(/\.[^.]+$/, '') == base }
+					if (matches.size() == 1) {
+						component = matches.keySet().first()
+					}
+				}
+				def original = originals[component] ?: binary
+				def baseName = original.name.replaceFirst(/\.[^.]+$/, '')
+				// JAR 的源码附件与原包同目录；AAR 保持独立的源码附件目录。
+				def sourceName = original.name.toLowerCase(Locale.ROOT).endsWith('.aar') ?
+						"sources/${baseName}-sources.jar" : "${baseName}-sources.jar"
+				def localSource = new File(original.parentFile, sourceName)
+				if (component instanceof ModuleComponentIdentifier) {
+					localSource = new File(libraryRoot, "libs/${baseName}-sources.jar")
+				}
+				def source = localSource.isFile() ? localSource : sources[component]
+				if (binary.canonicalFile == new File(sdkRoot, 'simple/SimpleAndroidRuntime.jar').canonicalFile) {
+					// 运行库只使用 SDK 的 JAR，不提供源码包，也不探测 SDK 之外的源码仓库。
+					source = null
+				} else if (binary.name == 'android.jar') {
+					def platformSources = new File(android.sdkDirectory, "sources/${android.compileSdkVersion}")
+					def platformSourceJar = new File(android.sdkDirectory, "platforms/${android.compileSdkVersion}/android-stubs-src.jar")
+					if (platformSourceJar.isFile()) {
+						source = platformSourceJar
+					} else if (platformSources.isDirectory()) {
+						source = platformSources
+					}
+				}
+				def repository = component instanceof ModuleComponentIdentifier
+				def prepare = repository || original.name.toLowerCase(Locale.ROOT).endsWith('.aar') ||
+						binary.canonicalPath.startsWith(buildDir.canonicalPath + File.separator)
+				[binary: binary, source: source, prepare: prepare, repository: repository,
+						identity: (component?.displayName ?: binary.canonicalPath)]
+			}
+
+			// SDK 和本地 JAR 直接引用；仓库依赖、AAR 转换结果和本库资源类统一整理。
+			def ideRoot = new File(libraryRoot, 'build/ide/libs').canonicalFile
+			def expected = [] as Set
+			def staged = libraries.collect { library ->
+				if (!library.prepare) {
+					return [path: library.binary.canonicalPath, source: library.source?.canonicalPath]
+				}
+				def key = java.security.MessageDigest.getInstance('SHA-256')
+					.digest("${library.identity}/${library.binary.name}".getBytes('UTF-8')).encodeHex().toString()
+				def directory = new File(ideRoot, key)
+				def binary = new File(directory, library.binary.name)
+				directory.mkdirs()
+				copy { from library.binary; into directory }
+				expected.add(binary.canonicalPath)
+				// 线上匹配源码随依赖整理，避免把个人缓存路径写入工作区；本地源码保持原引用。
+				def source = library.source
+				if (library.repository && source?.isFile()) {
+					def stagedSource = new File(directory, binary.name.replaceFirst(/\.jar$/, '-sources.jar'))
+					copy {
+						from source
+						into directory
+						rename { stagedSource.name }
+					}
+					source = stagedSource
+					expected.add(source.canonicalPath)
+				}
+				[path: binary.canonicalPath, source: source?.canonicalPath]
+			}
+			// 清理仅限工具拥有的 IDE JAR；移除依赖或源码关联后不能继续被通配符加载。
+			fileTree(ideRoot).files.each { stale ->
+				if (!stale.canonicalPath.startsWith(ideRoot.canonicalPath + File.separator)) {
+					throw new GradleException("IDE 依赖路径超出生成目录：${stale}")
+				}
+				if (!expected.contains(stale.canonicalPath) && !stale.delete()) {
+					throw new GradleException("未能清除已失效的 IDE 依赖：${stale}")
+				}
+			}
+			// 只删除工具生成目录中已经为空的子目录，清除旧副本留下的哈希目录。
+			def emptyDirectories = []
+			if (ideRoot.isDirectory()) {
+				ideRoot.eachDirRecurse { directory -> emptyDirectories.add(directory) }
+			}
+			emptyDirectories.sort { -it.absolutePath.length() }.each { directory ->
+				if (!directory.canonicalPath.startsWith(ideRoot.canonicalPath + File.separator)) {
+					throw new GradleException("IDE 依赖目录超出生成目录：${directory}")
+				}
+				if (directory.list()?.length == 0 && !directory.delete()) {
+					throw new GradleException("未能清除空的 IDE 依赖目录：${directory}")
+				}
+			}
+			def model = new File(libraryRoot, 'build/ide/classpath.json')
+			model.parentFile.mkdirs()
+			model.setText(JsonOutput.prettyPrint(JsonOutput.toJson([namespace: android.namespace, java: android.compileOptions.sourceCompatibility.majorVersion.toInteger(), libraries: staged])) + '\r\n', 'UTF-8')
+		}
+	}
+
+	// 本库只输出自己的类，编译用 R 与第三方代码保持独立。
+	def compiledClasses = tasks.register('compileLibraryClasses', Jar) {
+		group = 'build'
+		description = '编译扩展库，输出独立 classes.jar。'
+		dependsOn compilation
+		from compilation.flatMap { it.destinationDirectory }
+		exclude '**/R.class', '**/R$*.class'
+		archiveFileName = 'classes.jar'
+		destinationDirectory = new File(libraryRoot, 'build/gradle/library')
+		preserveFileTimestamps = false
+		reproducibleFileOrder = true
+	}
+
+	// 交付 Gradle 原生模块元数据，保留 api/runtime、约束和排除规则，不固化本机解析结果。
+	def identity = new JsonSlurper().parse(new File(libraryRoot, 'library.json'))
+	['Api': 'compile', 'Runtime': 'runtime'].each { suffix, scope ->
+		def original = configurations.getByName("debug${suffix}Elements")
+		def exported = configurations.create("es4a${suffix}Elements") {
+			canBeConsumed = true
+			canBeResolved = false
+		}
+		original.attributes.keySet().each { key ->
+			exported.attributes.attribute(key, original.attributes.getAttribute(key))
+		}
+		original.allDependencies.each { dependency ->
+			if (dependency instanceof ProjectDependency) {
+				throw new GradleException('扩展库交付不接受开发工程引用，请使用仓库坐标或原始本地包。')
+			}
+			if (dependency instanceof ModuleDependency) exported.dependencies.add(dependency.copy())
+		}
+		original.allDependencyConstraints.each { constraint -> exported.dependencyConstraints.add(constraint) }
+		components.es4aDependencies.addVariantsFromConfiguration(exported) { mapToMavenScope(scope) }
+	}
+	publishing.publications.create('es4a', MavenPublication) {
+		groupId = 'es4a.extension'
+		artifactId = android.namespace
+		version = identity.version ?: '0.0.0'
+		from components.es4aDependencies
+	}
+
+	// 编译完成后的库根目录就是可复制的完整类库，build 仅保存可丢弃的开发产物。
+	tasks.register('compileLibrary') {
+		group = 'build'
+		description = '编译扩展库并生成可随目录复制的必要附加文件。'
+		dependsOn compiledClasses, 'prepareIde', 'processDebugManifest', 'generateMetadataFileForEs4aPublication'
+		doLast {
+			// 发布前验证完整运行输入，但只将声明写入交付，不复制下载制品。
+			// runtimeOnly 不在 Java 编译类路径中，不能以 javac 成功代替此检查。
+			configurations.debugRuntimeClasspath.files.each { archive ->
+				if (!archive.isFile() || !(archive.name.toLowerCase(Locale.ROOT) ==~ /.*\.(jar|aar)/)) {
+					throw new GradleException("运行依赖必须是可读取的 JAR/AAR：${archive}")
+				}
+				new java.util.zip.ZipFile(archive).withCloseable { zip ->
+					if (archive.name.toLowerCase(Locale.ROOT).endsWith('.aar') && !zip.getEntry('AndroidManifest.xml')) {
+						throw new GradleException("AAR 缺少 AndroidManifest.xml：${archive}")
+					}
+				}
+			}
+			def entries = []
+			def portableFiles = []
+			def rootPath = libraryRoot.canonicalFile.toPath()
+			def localFiles = configurations.debugRuntimeClasspath.allDependencies.findAll {
+				it instanceof FileCollectionDependency
+			}.collectMany { it.files.files }.unique { it.canonicalPath }.sort { it.canonicalPath }
+			localFiles.each { dependency ->
+				if (!dependency.isFile() || !(dependency.name.toLowerCase(Locale.ROOT) ==~ /.*\.(jar|aar)/)) {
+					throw new GradleException("本地运行依赖必须是 JAR/AAR 原包：${dependency}")
+				}
+				def path = dependency.canonicalFile.toPath()
+				def relative = path.startsWith(rootPath) ? rootPath.relativize(path).toString().replace('\\', '/') : null
+				// 外部文件或 build 中的临时文件必须物化到库内，避免传播时引用原机器或生成目录。
+				if (!relative || relative.startsWith('build/')) {
+					def digest = java.security.MessageDigest.getInstance('SHA-256').digest(dependency.bytes).encodeHex().toString()
+					relative = "files/${digest}/${dependency.name}"
+					portableFiles.add([source: dependency, relative: relative])
+				}
+				entries.add([file: relative])
+			}
+
+			// 所有输入检查完成后才更新库根产物；处理后的清单使用独立名称，不覆盖作者清单。
+			portableFiles.each { item ->
+				copy { from item.source; into new File(libraryRoot, item.relative).parentFile }
+			}
+			copy {
+				from compiledClasses.flatMap { it.archiveFile }
+				from new File(buildDir, 'intermediates/compile_symbol_list/debug/R.txt')
+				into libraryRoot
+			}
+			copy {
+				from new File(buildDir, 'intermediates/merged_manifest/debug/AndroidManifest.xml')
+				into libraryRoot
+				rename { 'AndroidManifest.generated.xml' }
+			}
+			def metadata = new File(buildDir, 'publications/es4a/module.json')
+			copy { from metadata; into libraryRoot; rename { 'dependencies.module' } }
+			def index = [schemaVersion: 2, namespace: android.namespace, java: android.compileOptions.sourceCompatibility.majorVersion.toInteger(),
+				minSdk: android.defaultConfig.minSdkVersion.apiLevel, module: 'dependencies.module',
+				manifest: 'AndroidManifest.generated.xml', files: entries]
+			new File(libraryRoot, 'dependencies.json').setText(JsonOutput.prettyPrint(JsonOutput.toJson(index)) + '\r\n', 'UTF-8')
+		}
+	}
+}

@@ -1,14 +1,28 @@
 # ES4A SDK
 
-提供 Simple 编译器、Android 运行库、项目模板和工具。
+本仓库面向 Simple 编译器、运行库开发者，维护 SDK 工具、模板和文档。
 
-[下载 JDK](https://dwz.wsd.cx/es4a-jdk)，将压缩包内的 `jdk-11` 文件夹解压到 SDK 的 `tools/` 目录。
+> 普通用户和扩展库开发者请下载[完整 SDK](https://dwz.wsd.cx/es4a-sdk)。
 
-在 ES4A“类库”视图中选择所用 SDK 入口清单：标准清单为 `sdk.json`，本地配置可使用同目录的 `sdk.local.json`。
 
-扩展类库（含演示库）及样例在 [ES4A 类库仓库](https://gitee.com/es4a/libraries) 独立维护，按需编译并发布到本地 SDK。
+## 工具准备
 
-Simple 语法、项目开发、类库开发及清单说明见 [docs/README.md](docs/README.md)。
+| 下载 | 目录 |
+| --- | --- |
+| [jdk-11.0.32.1](https://dwz.wsd.cx/es4a-jdk) | `tools/jdk-11.0.32.1/` |
+| [gradle-8.14.6](https://dwz.wsd.cx/es4a-gradle) | `tools/gradle-8.14.6/` |
+| [android-sdk](https://dwz.wsd.cx/es4a-android-sdk) | `tools/android-sdk/` |
+
+> 下载所需工具，并解压至表中对应目录。
+
+
+## 使用
+
+将 [Simple 仓库](https://gitee.com/es4a/simple)与本仓库同级放置，按其构建说明将编译器、运行库及依赖发布到 `simple/`。随后在 ES4A“类库”视图中选择此 SDK 根目录；扩展库按需安装到 `libraries/`。
+
+- [使用与开发文档](docs/README.md)
+- [扩展库开发工具](utils/library/README.md)
+- [扩展类库仓库](https://gitee.com/es4a/libraries)
 
 
 ## 相关链接

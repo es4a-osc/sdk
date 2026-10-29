@@ -1,0 +1,30 @@
+package @NAMESPACE@;
+
+import simple.runtime.annotations.SimpleFunction;
+import simple.runtime.annotations.SimpleObject;
+
+/**
+ * 提供问候文本的最小扩展对象，可按需要补充公开功能。
+ *
+ * @author @AUTHOR@
+ */
+@SimpleObject
+public final class 工具 {
+
+	/**
+	 * 创建工具对象。
+	 */
+	public 工具() {
+	}
+
+	/**
+	 * 返回包含指定名称的问候文本。
+	 *
+	 * @param name 要问候的名称
+	 * @return 包含名称的问候文本
+	 */
+	@SimpleFunction
+	public static String 问候(String name) {
+		return "你好，" + name;
+	}
+}

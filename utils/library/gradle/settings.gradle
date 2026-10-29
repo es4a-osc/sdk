@@ -1,0 +1,44 @@
+/* 扩展库公共构建入口和本地依赖收集。xhwsd@qq.com 2026-10-25 */
+def libraryPath = providers.gradleProperty('libraryDir').orNull
+if (!libraryPath) {
+	throw new GradleException('请通过扩展库工具入口指定类库目录。')
+}
+def libraryRoot = file(libraryPath)
+rootProject.name = libraryRoot.name
+
+// 构建脚本由工具提供，项目身份仍属于扩展库；library.gradle 中的相对路径据此解析。
+rootProject.projectDir = libraryRoot
+def generatedBuildPath = 'build/gradle/build.gradle'
+rootProject.buildFileName = generatedBuildPath
+def buildScript = new File(libraryRoot, generatedBuildPath)
+buildScript.parentFile.mkdirs()
+buildScript.bytes = new File(settingsDir, 'build.gradle').bytes
+
+// 本地文件只提供包本身，外部依赖统一在 library.gradle 显式声明；不读取同名 POM。
+def localFiles = []
+['libs': 'jar', 'aars': 'aar'].each { directoryName, extension ->
+	def directory = new File(libraryRoot, directoryName)
+	if (directory.exists() && !directory.isDirectory()) {
+		throw new GradleException("本地依赖目录被普通文件占用：${directory}")
+	}
+	(directory.listFiles() ?: []).findAll { it.isFile() }.sort { it.name }.each { binary ->
+		def suffix = binary.name.tokenize('.').last().toLowerCase(Locale.ROOT)
+		// 源码包与本地 JAR 同目录，仅供 IDE 关联，不参与编译和运行依赖收集。
+		if (suffix in ['jar', 'aar'] && !binary.name.toLowerCase(Locale.ROOT).endsWith('-sources.jar')) {
+			if (suffix != extension) {
+				throw new GradleException("本地 JAR 请放入 libs/，本地 AAR 请放入 aars/：${binary}")
+			}
+			localFiles.add(binary)
+		}
+	}
+}
+gradle.ext.libraryLocalFiles = localFiles
+
+dependencyResolutionManagement {
+	repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+	repositories {
+		google()
+		mavenCentral()
+		maven { url = uri('https://jitpack.io/') }
+	}
+}

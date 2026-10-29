@@ -1,0 +1,33 @@
+{
+	"name": "@NAME@",
+	"description": "扩展库功能说明。",
+	"version": "0.1.0",
+	"kind": "library",
+	"categories": [
+		{
+			"name": "扩展对象",
+			"definitions": [
+				{
+					"name": "工具",
+					"kind": "object",
+					"type": "@TOOL_TYPE@",
+					"functions": [
+						{
+							"name": "问候",
+							"description": "返回包含指定名称的问候文本。",
+							"static": true,
+							"params": [
+								{
+									"name": "名称",
+									"type": "文本型",
+									"description": "要问候的名称。"
+								}
+							],
+							"return": "文本型"
+						}
+					]
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,10 @@
+.gradle/
+build/
+
+# 编译交付产物
+/classes.jar
+/dependencies.json
+/dependencies.module
+/R.txt
+/AndroidManifest.generated.xml
+/files/

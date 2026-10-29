@@ -1,0 +1,13 @@
+/*
+ * ES4A 扩展库 Gradle 配置。
+ * 公共构建规则由 SDK 扩展库工具提供，本文件维护资源命名空间和依赖。
+ */
+android {
+	// 通常与 Java 基础包名一致；复制模板时同步修改源码和 library.json 中的导出类型。
+	namespace = '@NAMESPACE@'
+}
+
+dependencies {
+	// 按需声明仓库依赖，以及本地 JAR/AAR 所需的外部依赖；Android 扩展使用 AndroidX。
+	// libs/*.jar、aars/*.aar 由工具自动收集，不读取本地同名 POM。
+}
