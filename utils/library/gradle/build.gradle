@@ -1,4 +1,8 @@
 /* 扩展库公共构建、依赖解析与 IDE 模型导出。xhwsd@qq.com 2026-10-25 */
+import org.gradle.maven.MavenModule
+import org.gradle.maven.MavenPomArtifact
+import org.gradle.api.artifacts.result.ResolvedArtifactResult
+import simple.compiler.util.MavenRepository
 import groovy.json.JsonOutput
 import groovy.json.JsonSlurper
 import javax.inject.Inject
@@ -20,17 +24,13 @@ class Es4aDependencyPublication implements Plugin<Project> {
 	}
 }
 import org.gradle.api.artifacts.component.ModuleComponentIdentifier
-import org.gradle.api.artifacts.result.ResolvedArtifactResult
 import org.gradle.jvm.JvmLibrary
 import org.gradle.language.base.artifact.SourcesArtifact
 
 buildscript {
-	repositories {
-		google()
-		mavenCentral()
-	}
+	def sdk = file(providers.gradleProperty('sdkDir').get())
 	dependencies {
-		classpath 'com.android.tools.build:gradle:7.4.2'
+		classpath files(new File(sdk, 'simple/SimpleCompiler.jar'), fileTree(new File(sdk, 'simple/libs')) { include '*.jar' })
 	}
 }
 
@@ -255,6 +255,9 @@ afterEvaluate {
 
 	// 交付 Gradle 原生模块元数据，保留 api/runtime、约束和排除规则，不固化本机解析结果。
 	def identity = new JsonSlurper().parse(new File(libraryRoot, 'library.json'))
+	if (identity.kind != 'library') {
+		throw new GradleException('扩展库清单必须声明 kind 为 library。')
+	}
 	['Api': 'compile', 'Runtime': 'runtime'].each { suffix, scope ->
 		def original = configurations.getByName("debug${suffix}Elements")
 		def exported = configurations.create("es4a${suffix}Elements") {
@@ -280,14 +283,23 @@ afterEvaluate {
 		from components.es4aDependencies
 	}
 
-	// 编译完成后的库根目录就是可复制的完整类库，build 仅保存可丢弃的开发产物。
+	// 独立交付目录避免覆盖作者输入；编译不再生成或改写 IDE 工作区。
 	tasks.register('compileLibrary') {
 		group = 'build'
-		description = '编译扩展库并生成可随目录复制的必要附加文件。'
-		dependsOn compiledClasses, 'prepareIde', 'processDebugManifest', 'generateMetadataFileForEs4aPublication'
+		description = '编译扩展库并准备可直接复制的完整交付目录。'
+		dependsOn compiledClasses, 'processDebugManifest', 'generateMetadataFileForEs4aPublication'
 		doLast {
-			// 发布前验证完整运行输入，但只将声明写入交付，不复制下载制品。
-			// runtimeOnly 不在 Java 编译类路径中，不能以 javac 成功代替此检查。
+			def namespace = android.namespace
+			if (!(namespace ==~ /[a-z][a-z0-9_]*(\.[a-z][a-z0-9_]*)+/)) {
+				throw new GradleException("类库命名空间无效：${namespace}")
+			}
+			if (android.compileSdkVersion != 'android-30' || android.defaultConfig.minSdkVersion.apiLevel != 24 ||
+				android.compileOptions.sourceCompatibility != JavaVersion.VERSION_11 ||
+				android.compileOptions.targetCompatibility != JavaVersion.VERSION_11) {
+				throw new GradleException('ES4A 工具链固定使用编译 API 30、最低 API 24 和 Java 11。')
+			}
+
+			// 验证完整运行输入；默认仅交付声明，按需另外导出原始仓库，不复制缓存或展开结果。
 			configurations.debugRuntimeClasspath.files.each { archive ->
 				if (!archive.isFile() || !(archive.name.toLowerCase(Locale.ROOT) ==~ /.*\.(jar|aar)/)) {
 					throw new GradleException("运行依赖必须是可读取的 JAR/AAR：${archive}")
@@ -298,47 +310,190 @@ afterEvaluate {
 					}
 				}
 			}
-			def entries = []
-			def portableFiles = []
-			def rootPath = libraryRoot.canonicalFile.toPath()
 			def localFiles = configurations.debugRuntimeClasspath.allDependencies.findAll {
 				it instanceof FileCollectionDependency
 			}.collectMany { it.files.files }.unique { it.canonicalPath }.sort { it.canonicalPath }
+			def localEntries = [:]
 			localFiles.each { dependency ->
-				if (!dependency.isFile() || !(dependency.name.toLowerCase(Locale.ROOT) ==~ /.*\.(jar|aar)/)) {
+				def lower = dependency.name.toLowerCase(Locale.ROOT)
+				if (!dependency.isFile() || !(lower ==~ /.*\.(jar|aar)/) || lower.endsWith('-sources.jar')) {
 					throw new GradleException("本地运行依赖必须是 JAR/AAR 原包：${dependency}")
 				}
-				def path = dependency.canonicalFile.toPath()
-				def relative = path.startsWith(rootPath) ? rootPath.relativize(path).toString().replace('\\', '/') : null
-				// 外部文件或 build 中的临时文件必须物化到库内，避免传播时引用原机器或生成目录。
-				if (!relative || relative.startsWith('build/')) {
-					def digest = java.security.MessageDigest.getInstance('SHA-256').digest(dependency.bytes).encodeHex().toString()
-					relative = "files/${digest}/${dependency.name}"
-					portableFiles.add([source: dependency, relative: relative])
+				def relative = (lower.endsWith('.aar') ? 'aars/' : 'libs/') + dependency.name
+				def key = relative.toLowerCase(Locale.ROOT)
+				def previous = localEntries[key]
+				if (previous && !java.util.Arrays.equals(previous.source.bytes, dependency.bytes)) {
+					throw new GradleException("本地交付依赖同名但内容不同：${previous.source}\n${dependency}")
 				}
-				entries.add([file: relative])
+				localEntries[key] = [source: dependency, relative: relative]
 			}
 
-			// 所有输入检查完成后才更新库根产物；处理后的清单使用独立名称，不覆盖作者清单。
-			portableFiles.each { item ->
-				copy { from item.source; into new File(libraryRoot, item.relative).parentFile }
+			// 输出根目录由调用者选择，目录身份仍来自本库 namespace，不能覆盖源码或开发中间目录。
+			def outputRoot = providers.gradleProperty('outputRoot').isPresent() ?
+				file(providers.gradleProperty('outputRoot').get()).canonicalFile : new File(libraryRoot, 'build').canonicalFile
+			def target = new File(outputRoot, namespace)
+			def sourcePath = libraryRoot.canonicalFile.toPath()
+			def targetPath = target.canonicalFile.toPath()
+			if (sourcePath.startsWith(targetPath) ||
+				(targetPath.startsWith(sourcePath) && outputRoot != new File(libraryRoot, 'build').canonicalFile)) {
+				throw new GradleException('交付目录不能覆盖源码目录或开发中间目录。')
 			}
-			copy {
-				from compiledClasses.flatMap { it.archiveFile }
-				from new File(buildDir, 'intermediates/compile_symbol_list/debug/R.txt')
-				into libraryRoot
+			def assertTree = { File directory, boolean excludeBuild = false ->
+				if (directory.exists()) {
+					java.nio.file.Files.walkFileTree(directory.toPath(), new java.nio.file.SimpleFileVisitor<java.nio.file.Path>() {
+						@Override
+						java.nio.file.FileVisitResult preVisitDirectory(java.nio.file.Path path, java.nio.file.attribute.BasicFileAttributes attributes) {
+							if (excludeBuild && path.parent == directory.toPath() && path.fileName.toString() == 'build') {
+								return java.nio.file.FileVisitResult.SKIP_SUBTREE
+							}
+							if (path.toRealPath() != path.toAbsolutePath().normalize()) {
+								throw new GradleException("交付目录不能经过链接：${path}")
+							}
+							return java.nio.file.FileVisitResult.CONTINUE
+						}
+
+						@Override
+						java.nio.file.FileVisitResult visitFile(java.nio.file.Path path, java.nio.file.attribute.BasicFileAttributes attributes) {
+							if (attributes.isSymbolicLink()) {
+								throw new GradleException("交付文件不能是链接：${path}")
+							}
+							return java.nio.file.FileVisitResult.CONTINUE
+						}
+					})
+				}
 			}
-			copy {
-				from new File(buildDir, 'intermediates/merged_manifest/debug/AndroidManifest.xml')
-				into libraryRoot
-				rename { 'AndroidManifest.generated.xml' }
+			// 工作目录与目标在同一文件系统；暂存内容在二级目录，不被 SDK 当作已安装类库。
+			def workParent = new File(outputRoot, '.library-delivery')
+			assertTree(workParent)
+			assertTree(target)
+			workParent.mkdirs()
+			def lockFile = new File(workParent, namespace + '.lock')
+			new RandomAccessFile(lockFile, 'rw').withCloseable { handle ->
+				handle.channel.lock().withCloseable { lock ->
+					def work = new File(workParent, UUID.randomUUID().toString())
+					def pending = new File(work, 'new')
+					def previous = new File(work, 'previous')
+					pending.mkdirs()
+					boolean cleanup = true
+					try {
+						copy {
+							from compiledClasses.flatMap { it.archiveFile }
+							from new File(buildDir, 'intermediates/compile_symbol_list/debug/R.txt')
+							from new File(libraryRoot, 'library.json')
+							into pending
+						}
+						copy {
+							from new File(buildDir, 'intermediates/merged_manifest/debug/AndroidManifest.xml')
+							into pending
+						}
+						copy {
+							from new File(buildDir, 'publications/es4a/module.json')
+							into pending
+							rename { 'dependencies.module' }
+						}
+						if (providers.gradleProperty('includeDependencies').getOrElse('false').toBoolean()) {
+							def configuration = configurations.debugRuntimeClasspath
+							def artifacts = configuration.resolvedConfiguration.resolvedArtifacts
+							def selected = configuration.incoming.resolutionResult.allComponents.findAll {
+								it.id instanceof ModuleComponentIdentifier
+							}.collect { "${it.id.group}:${it.id.module}:${it.id.version}".toString() }
+							def metadataFiles = [:]
+							def metadataSource = { String coordinate, String extension ->
+								def key = "${coordinate}@${extension}".toString()
+								if (!metadataFiles.containsKey(key)) {
+									def id = coordinate.split(':')
+									File metadataFile = new File(MavenRepository.directory(new File(libraryRoot, 'dependencies'), coordinate), "${id[1]}-${id[2]}.${extension}")
+									if (!metadataFile.isFile()) {
+										metadataFile = null
+									}
+									if (metadataFile == null && extension == 'pom') {
+										def result = dependencies.createArtifactResolutionQuery().forModule(id[0], id[1], id[2])
+											.withArtifacts(MavenModule, MavenPomArtifact).execute()
+										result.resolvedComponents.each { component ->
+											component.getArtifacts(MavenPomArtifact).each { artifact ->
+												if (artifact instanceof ResolvedArtifactResult) {
+													metadataFile = artifact.file
+												}
+											}
+										}
+									} else if (metadataFile == null) {
+										def query = configurations.detachedConfiguration(dependencies.create(key))
+										query.transitive = false
+										def candidates = query.resolvedConfiguration.lenientConfiguration.files
+										metadataFile = candidates ? candidates.first() : null
+									}
+									metadataFiles[key] = metadataFile
+								}
+								metadataFiles[key]
+							} as MavenRepository.MetadataSource
+							def originals = artifacts.collect { artifact ->
+								new MavenRepository.Artifact(artifact.moduleVersion.id.toString(), artifact.file)
+							}
+							MavenRepository.export(new File(pending, 'dependencies'), originals, selected, metadataSource)
+						}
+						localEntries.values().each { item ->
+							copy { from item.source; into new File(pending, item.relative).parentFile }
+						}
+						['icons', 'res', 'assets', 'jni', 'example'].each { name ->
+							def input = new File(libraryRoot, name)
+							assertTree(input, name == 'example')
+							copy {
+								from input
+								into new File(pending, name)
+								if (name == 'example') {
+									exclude 'build', 'build/**'
+								}
+							}
+						}
+						['README.md', 'LICENSE', 'LICENSE.txt', 'NOTICE', 'NOTICE.txt'].each { name ->
+							copy { from new File(libraryRoot, name); into pending }
+						}
+						['libs', 'aars'].each { name ->
+							copy {
+								from new File(libraryRoot, name)
+								include '*.txt', 'LICENSE*', 'NOTICE*'
+								exclude '*-sources.jar'
+								into new File(pending, name)
+							}
+						}
+						['classes.jar', 'library.json', 'AndroidManifest.xml', 'R.txt', 'dependencies.module'].each { name ->
+							if (!new File(pending, name).isFile()) {
+								throw new GradleException("交付文件缺失：${name}")
+							}
+						}
+						def deliveredManifest = new XmlSlurper(false, false).parse(new File(pending, 'AndroidManifest.xml'))
+						if (deliveredManifest.name() != 'manifest' || deliveredManifest.@package.text() != namespace) {
+							throw new GradleException('交付清单 package 必须与 library.gradle 的 android.namespace 一致。')
+						}
+						assertTree(pending)
+
+						// 全部准备成功后才替换；保留原目录以便恢复失败的移动。
+						boolean hadPrevious = target.exists()
+						if (hadPrevious) {
+							java.nio.file.Files.move(target.toPath(), previous.toPath())
+						}
+						try {
+							java.nio.file.Files.move(pending.toPath(), target.toPath())
+						} catch (Exception failure) {
+							if (hadPrevious) {
+								try {
+									java.nio.file.Files.move(previous.toPath(), target.toPath())
+								} catch (Exception recovery) {
+									cleanup = false
+									throw new GradleException("交付替换失败，原文件保留在：${previous}", recovery)
+								}
+							}
+							throw failure
+						}
+						new File(libraryRoot, 'build/gradle/delivery.txt').setText(target.canonicalPath, 'UTF-8')
+					} finally {
+						if (cleanup) {
+							assertTree(work)
+							delete work
+						}
+					}
+				}
 			}
-			def metadata = new File(buildDir, 'publications/es4a/module.json')
-			copy { from metadata; into libraryRoot; rename { 'dependencies.module' } }
-			def index = [schemaVersion: 2, namespace: android.namespace, java: android.compileOptions.sourceCompatibility.majorVersion.toInteger(),
-				minSdk: android.defaultConfig.minSdkVersion.apiLevel, module: 'dependencies.module',
-				manifest: 'AndroidManifest.generated.xml', files: entries]
-			new File(libraryRoot, 'dependencies.json').setText(JsonOutput.prettyPrint(JsonOutput.toJson(index)) + '\r\n', 'UTF-8')
 		}
 	}
 }

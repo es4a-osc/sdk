@@ -66,7 +66,7 @@ function Invoke-LibraryBuild {
 	<#
 	正式编译和 IDE 准备共用同一 Gradle 工程、依赖解析及 JDK。
 	#>
-	param ([string]$LibraryRoot, $Configuration, [string]$Task)
+	param ([string]$LibraryRoot, $Configuration, [string]$Task, [string]$OutputRoot, [switch]$IncludeDependencies)
 	$gradle = Join-Path $Configuration.gradle 'bin/gradle.bat'
 	$previousJava = $env:JAVA_HOME
 	$previousAndroid = $env:ANDROID_HOME
@@ -84,8 +84,15 @@ function Invoke-LibraryBuild {
 			'-p', $LibraryRoot,
 			'--settings-file', (Join-Path $toolRoot 'gradle/settings.gradle'),
 			'--project-cache-dir', (Join-Path $LibraryRoot 'build/gradle/cache'),
-			"-PlibraryDir=$LibraryRoot", "-PsdkDir=$($Configuration.sdk)", $Task
+			"-PlibraryDir=$LibraryRoot", "-PsdkDir=$($Configuration.sdk)",
+			"-Pandroid.aapt2FromMavenOverride=$(Join-Path $Configuration.androidSdk 'build-tools/36.1.0/aapt2.exe')", $Task
 		)
+		if ($IncludeDependencies) {
+			$arguments += '-PincludeDependencies=true'
+		}
+		if ($OutputRoot) {
+			$arguments += "-PoutputRoot=$OutputRoot"
+		}
 		& $gradle @arguments
 		if ($LASTEXITCODE -ne 0) {
 			throw "Gradle 执行失败，退出代码：$LASTEXITCODE。上方保留了实际诊断信息。"

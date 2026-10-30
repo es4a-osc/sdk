@@ -13,12 +13,12 @@
 | [gradle-8.14.6](https://dwz.wsd.cx/es4a-gradle) | `tools/gradle-8.14.6/` |
 | [android-sdk](https://dwz.wsd.cx/es4a-android-sdk) | `tools/android-sdk/` |
 
-> 下载所需工具，并解压至表中对应目录。
+> 下载后解压到对应目录接口。
 
 
 ## 使用
 
-将 [Simple 仓库](https://gitee.com/es4a/simple)与本仓库同级放置，按其构建说明将编译器、运行库及依赖发布到 `simple/`。随后在 ES4A“类库”视图中选择此 SDK 根目录；扩展库按需安装到 `libraries/`。
+将 [Simple 仓库](https://gitee.com/es4a/simple)与本仓库同级放置，按其构建说明将Simple 自身交付发布到 `simple/`。随后在 ES4A“类库”视图中选择此 SDK 根目录；扩展库按需安装到 `libraries/`。
 
 - [使用与开发文档](docs/README.md)
 - [扩展库开发工具](utils/library/README.md)

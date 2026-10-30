@@ -39,7 +39,7 @@ function Resolve-PublishFile {
 		-not $file.StartsWith($Root + '\', [StringComparison]::OrdinalIgnoreCase) -or
 		$file.StartsWith($Root + '\build\', [StringComparison]::OrdinalIgnoreCase) -or
 		-not (Test-Path -LiteralPath $file -PathType Leaf)) {
-		throw "交付索引引用了无效依赖或文件：$Relative"
+		throw "交付目录中的依赖或文件无效：$Relative"
 	}
 	$item = Get-Item -LiteralPath $file -Force
 	while ($item.FullName -ne $Root) {
@@ -88,51 +88,68 @@ function Publish-Library {
 		(Get-Item -LiteralPath $sourceRoot -Force).LinkType) {
 		throw "类库目录无效或属于链接：$sourceRoot"
 	}
-	$files = @('classes.jar', 'library.json', 'dependencies.json', 'dependencies.module', 'R.txt')
-	foreach ($name in $files) {
-		if (-not (Test-Path -LiteralPath (Join-Path $sourceRoot $name) -PathType Leaf)) {
-			throw "类库交付文件不完整：$name。请先成功编译。"
+	# 源码目录默认安装上次的 build/<命名空间>/；交付目录可以直接复制或传给 publish。
+	if (Test-Path -LiteralPath (Join-Path $sourceRoot 'library.gradle') -PathType Leaf) {
+		$build = Join-Path $sourceRoot 'build'
+		$candidates = @(Get-ChildItem -LiteralPath $build -Directory -ErrorAction SilentlyContinue | Where-Object {
+			(Test-Path -LiteralPath (Join-Path $_.FullName 'classes.jar') -PathType Leaf) -and
+			(Test-Path -LiteralPath (Join-Path $_.FullName 'library.json') -PathType Leaf)
+		})
+		if ($candidates.Count -ne 1) {
+			throw '请先编译扩展库，或直接指定唯一的完整交付目录。'
 		}
+		$sourceRoot = $candidates[0].FullName
+	}
+	if ((Get-Item -LiteralPath $sourceRoot -Force).LinkType) {
+		throw "类库交付目录不能是链接：$sourceRoot"
+	}
+	$files = @('classes.jar', 'library.json', 'AndroidManifest.xml', 'dependencies.module', 'R.txt')
+	foreach ($name in $files) {
 		Resolve-PublishFile $sourceRoot $name | Out-Null
 	}
 	$manifest = Get-Content -LiteralPath (Join-Path $sourceRoot 'library.json') -Raw -Encoding UTF8 | ConvertFrom-Json
 	if ($manifest.kind -ne 'library') {
 		throw '发布的 library.json 必须声明 kind 为 library。'
 	}
-	$index = Get-Content -LiteralPath (Join-Path $sourceRoot 'dependencies.json') -Raw -Encoding UTF8 | ConvertFrom-Json
-	$namespace = [string]$index.namespace
-	if ($namespace -notmatch '^[a-z][a-z0-9_]*(\.[a-z][a-z0-9_]*)+$') {
-		throw '交付索引中的类库命名空间无效。'
+
+	# 资源命名空间以标准 Android 清单为准，不依赖文件夹名称或额外索引。
+	$settings = [Xml.XmlReaderSettings]::new()
+	$settings.DtdProcessing = [Xml.DtdProcessing]::Prohibit
+	$settings.XmlResolver = $null
+	$reader = [Xml.XmlReader]::Create((Join-Path $sourceRoot 'AndroidManifest.xml'), $settings)
+	try {
+		$androidManifest = [Xml.XmlDocument]::new()
+		$androidManifest.XmlResolver = $null
+		$androidManifest.Load($reader)
+		$namespace = $androidManifest.DocumentElement.GetAttribute('package')
+	} finally {
+		$reader.Dispose()
 	}
-	if ($index.schemaVersion -ne 2 -or $index.module -ne 'dependencies.module') {
-		throw '发布必须使用当前工具生成的 schemaVersion 2 依赖声明。'
+	if ($androidManifest.DocumentElement.Name -ne 'manifest' -or
+		$namespace -notmatch '^[a-z][a-z0-9_]*(\.[a-z][a-z0-9_]*)+$') {
+		throw 'AndroidManifest.xml 中的类库命名空间无效。'
 	}
-	$manifestFile = 'AndroidManifest.xml'
-	if ($index.manifest) {
-		$manifestFile = [string]$index.manifest
-	}
-	Resolve-PublishFile $sourceRoot $manifestFile | Out-Null
-	$files += $manifestFile
 	$module = Get-Content -LiteralPath (Join-Path $sourceRoot 'dependencies.module') -Raw -Encoding UTF8 | ConvertFrom-Json
-	if ($module.component.group -ne 'es4a.extension' -or $module.component.module -ne $namespace -or
-		[string]::IsNullOrWhiteSpace([string]$module.component.version) -or
+	if ($module.formatVersion -ne '1.1' -or $module.component.group -ne 'es4a.extension' -or
+		$module.component.module -ne $namespace -or
+		[string]$module.component.version -notmatch '^[A-Za-z0-9][A-Za-z0-9._+\-]*$' -or
 		@($module.variants | Where-Object { $_.attributes.'org.gradle.usage' -eq 'java-runtime' }).Count -eq 0 -or
 		@($module.variants | Where-Object { $_.files -or $_.'available-at' }).Count -gt 0) {
 		throw '类库原生依赖元数据身份不匹配或包含不应交付的制品引用。'
 	}
-
-	foreach ($dependency in $index.files) {
-		$file = Resolve-PublishFile $sourceRoot ([string]$dependency.file)
-		if ($file -notmatch '(?i)\.(jar|aar)$' -or $file -match '(?i)-sources\.jar$') {
-			throw "交付索引引用了无效依赖：$($dependency.file)"
+	foreach ($entry in @(@('libs', '*.jar'), @('aars', '*.aar'))) {
+		$directory = Join-Path $sourceRoot $entry[0]
+		if (Test-Path -LiteralPath $directory -PathType Container) {
+			$files += @(Get-ChildItem -LiteralPath $directory -File -Force | Where-Object {
+				$_.Name -like $entry[1] -and $_.Name -notlike '*-sources.jar'
+			} | ForEach-Object { "$($entry[0])/$($_.Name)" })
 		}
-		$files += [string]$dependency.file
 	}
 
 	# 安装目录由命名空间决定，与源码文件夹名称和源码所在盘符无关。
 	$installRoot = Join-Path $Configuration.sdk 'libraries'
 	$target = Join-Path $installRoot $namespace
-	$source = [IO.Path]::GetFullPath($LibraryRoot).TrimEnd('\')
+	$source = $sourceRoot
 	if ($source.Equals($target, [StringComparison]::OrdinalIgnoreCase) -or
 		$source.StartsWith($target + '\', [StringComparison]::OrdinalIgnoreCase) -or
 		$target.StartsWith($source + '\', [StringComparison]::OrdinalIgnoreCase)) {
@@ -179,7 +196,7 @@ function Publish-Library {
 			[IO.Directory]::CreateDirectory((Split-Path $destination -Parent)) | Out-Null
 			Copy-Item -LiteralPath $file -Destination $destination -Force
 		}
-		foreach ($name in @('icons', 'res', 'assets', 'jni', 'example')) {
+		foreach ($name in @('icons', 'res', 'assets', 'jni', 'example', 'dependencies')) {
 			$directory = Join-Path $sourceRoot $name
 			if (Test-Path -LiteralPath $directory) {
 				Copy-PublishDirectory $directory (Join-Path $pending $name) ($name -eq 'example')

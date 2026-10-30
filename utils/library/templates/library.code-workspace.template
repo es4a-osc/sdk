@@ -45,6 +45,7 @@
 		"tasks": [
 			{
 				"label": "ES4A扩展库: 刷新依赖",
+				"detail": "刷新供VSC代码提示等使用的依赖包",
 				"type": "process",
 				"command": "powershell.exe",
 				"args": [
@@ -63,7 +64,8 @@
 				"problemMatcher": []
 			},
 			{
-				"label": "ES4A扩展库: 编译扩展库",
+				"label": "ES4A扩展库: 构建类库",
+				"detail": "将扩展库源码等构建为可交付类库",
 				"type": "process",
 				"command": "powershell.exe",
 				"args": [
@@ -74,31 +76,50 @@
 					"-File",
 					"@LIBRARY_TOOL@",
 					"compile",
-					"${workspaceFolder}"
+					"${workspaceFolder}",
+					"-Dependencies",
+					"${input:libraryDependencies}",
+					"-Destination",
+					"${input:libraryDestination}"
 				],
 				"options": {
 					"cwd": "${workspaceFolder}"
 				},
 				"problemMatcher": []
+			}
+		],
+		"inputs": [
+			{
+				"id": "libraryDependencies",
+				"type": "pickString",
+				"description": "是否包含离线依赖？",
+				"options": [
+					{
+						"label": "排除离线依赖",
+						"value": "exclude"
+					},
+					{
+						"label": "包含离线依赖",
+						"value": "include"
+					}
+				],
+				"default": "exclude"
 			},
 			{
-				"label": "ES4A扩展库: 发布到SDK",
-				"type": "process",
-				"command": "powershell.exe",
-				"args": [
-					"-NoLogo",
-					"-NoProfile",
-					"-ExecutionPolicy",
-					"Bypass",
-					"-File",
-					"@LIBRARY_TOOL@",
-					"publish",
-					"${workspaceFolder}"
+				"id": "libraryDestination",
+				"type": "pickString",
+				"description": "是否发布到SDK？",
+				"options": [
+					{
+						"label": "输出到本库构建目录",
+						"value": "build"
+					},
+					{
+						"label": "输出到SDK类库目录",
+						"value": "sdk"
+					}
 				],
-				"options": {
-					"cwd": "${workspaceFolder}"
-				},
-				"problemMatcher": []
+				"default": "build"
 			}
 		]
 	}

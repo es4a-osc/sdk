@@ -53,11 +53,8 @@ function Invoke-ProjectCompilation {
 		}
 		$java = Join-Path $env:JAVA_HOME 'bin/java.exe'
 		$compiler = Join-Path $env:SIMPLE_HOME 'SimpleCompiler.jar'
-		$compilerLibraries = Join-Path $env:SIMPLE_HOME 'libs'
-		if (-not (Test-Path -LiteralPath $compilerLibraries -PathType Container) -or
-			@(Get-ChildItem -LiteralPath $compilerLibraries -Filter '*.jar' -File).Count -eq 0) {
-			throw "缺少编译器配套依赖目录：$compilerLibraries。请交付完整编译器工具包。"
-		}
+		# 使用 Simple 发布的统一依赖，与编译器及配套 Gradle 工程保持一致。
+		$compilerLibraries = @(Join-Path $env:SIMPLE_HOME 'libs/*')
 		# 此次保留编译器现有的 API 30 工具布局，不改变其内部构建流程。
 		$platform = Join-Path $env:ANDROID_HOME 'platforms/android-30'
 		$d8 = Join-Path $platform 'tools/lib/d8.jar'
@@ -83,12 +80,13 @@ function Invoke-ProjectCompilation {
 		# 标准输出和错误输出显式使用 UTF-8，与 PowerShell 的解码保持一致。
 		[Console]::OutputEncoding = [Text.UTF8Encoding]::new($false)
 		$OutputEncoding = [Console]::OutputEncoding
+		$classPath = (@($d8, $compiler) + $compilerLibraries) -join [IO.Path]::PathSeparator
 		$compilerArguments = @(
 			'-Dfile.encoding=UTF-8',
 			'-Dsun.stdout.encoding=UTF-8',
 			'-Dsun.stderr.encoding=UTF-8',
 			'-classpath',
-			"$d8;$compiler;$compilerLibraries/*",
+			$classPath,
 			'simple.compiler.Main'
 		)
 		if ($ForDebug) {
