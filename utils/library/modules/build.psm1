@@ -64,7 +64,7 @@ function Get-LibraryDirectory {
 
 function Invoke-LibraryBuild {
 	<#
-	正式编译和 IDE 准备共用同一 Gradle 工程、依赖解析及 JDK。
+	类库构建和 IDE 准备共用同一 Gradle 工程、依赖解析及 JDK。
 	#>
 	param ([string]$LibraryRoot, $Configuration, [string]$Task, [string]$OutputRoot, [switch]$IncludeDependencies)
 	$gradle = Join-Path $Configuration.gradle 'bin/gradle.bat'

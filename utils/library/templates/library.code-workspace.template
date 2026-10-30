@@ -24,8 +24,7 @@
 		"java.import.maven.enabled": false,
 		"java.import.exclusions": [
 			"**/build/**",
-			"**/.gradle/**",
-			"**/test/**"
+			"**/.gradle/**"
 		],
 		"java.project.sourcePaths": [
 			"src"
@@ -75,7 +74,7 @@
 					"Bypass",
 					"-File",
 					"@LIBRARY_TOOL@",
-					"compile",
+					"build",
 					"${workspaceFolder}",
 					"-Dependencies",
 					"${input:libraryDependencies}",

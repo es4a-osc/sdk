@@ -14,7 +14,7 @@
 | IDE 中显示的类型、成员及说明 | `library.json` |
 | 命名空间和仓库依赖 | `library.gradle` |
 | 本地 JAR、AAR | `libs/`、`aars/` |
-| 本库测试项目 | `test/` |
+| 本库使用示例与验证入口 | `example/` |
 
 按功能选择写法：计算、文本处理等可用普通对象；需要 Android 界面、容器或生命周期的功能使用组件。先完成一个可调用的类型，再逐步添加成员。
 
@@ -483,17 +483,17 @@ public final class 示例对象 {
 也可从 SDK 根目录执行：
 
 ```powershell
-& .\utils\library\library.ps1 compile "D:\LibraryWork\com.example.demo"
+& .\utils\library\library.ps1 build "D:\LibraryWork\com.example.demo"
 ```
 
-`compile` 自动准备依赖并编译，不要求先执行 `prepare`；`prepare` 只刷新依赖和工作区，不编译本库。`compile` 不改写工作区和源码清单。
+`build` 自动准备依赖并构建，不要求先执行 `prepare`；`prepare` 只刷新依赖和工作区，不构建本库。`build` 不改写工作区和源码清单。
 
 | 需要做什么 | 命令或选项 |
 | --- | --- |
-| 构建到本库 `build/<基础包名>/` | `compile <库目录>` |
+| 构建到本库 `build/<基础包名>/` | `build <库目录>` |
 | 包含离线依赖 | 添加 `-Dependencies include`，默认是 `exclude` |
 | 直接构建到 SDK | 添加 `-Destination sdk` |
-| 指定其他输出位置 | `compile <库目录> <交付根目录>`，自动追加基础包名，不与 `-Destination sdk` 同用 |
+| 指定其他输出位置 | `build <库目录> <交付根目录>`，自动追加基础包名，不与 `-Destination sdk` 同用 |
 | 刷新 VS Code 代码提示 | `prepare <库目录>` |
 
 使用其他构建工具时，需引用 Android 平台和 `SimpleAndroidRuntime.jar`，并遵守本文类型及依赖约定。
@@ -502,35 +502,35 @@ public final class 示例对象 {
 
 1. 构建类库，确认 Java 实现可以编译。
 2. 在 IDE 检查清单中的类型、成员、继承、参数及属性默认值。
-3. 用本库的 `test/` 编译 APK，再到设备上检查功能、权限、事件、失败处理和资源释放。
-4. 测试通过后再安装供其他项目使用；未执行的验证明确记录。
+3. 用本库的 `example/` 构建 APK，再到设备上按真实使用流程检查功能、权限、事件、失败处理和资源释放。
+4. 验证通过后再安装供其他项目使用；未执行的验证明确记录。
 
 Java 编译、IDE 显示和设备功能需要分别检查，不能相互代替。
 
-### 类库测试项目
+### 类库使用示例
 
-每个类库维护一份独立的 `test/`，目录名用单数。以下配置保存为 `test/project.properties`：
+每个类库在 `example/` 下维护一份可直接构建运行的 Simple 示例，作为使用入口和实际验证工程，不再维护独立测试工程。以下配置保存为 `example/project.properties`：
 
 ```properties
-main=com.example.demo.test.主窗口
-name=演示扩展库测试
+main=com.example.demo.example.主窗口
+name=演示扩展库示例
 source=./src
 assets=./assets
 ```
 
-主窗口对应 `test/src/com/example/demo/test/主窗口.simple`。声明的资产目录须存在，需要 Android 资源时再配置 `res`；其他项目配置见 [Simple 项目开发](Simple项目开发.md)。
+主窗口对应 `example/src/com/example/demo/example/主窗口.simple`。声明的资产目录须存在，需要 Android 资源时再配置 `res`；其他项目配置见 [Simple 项目开发](Simple项目开发.md)。
 
-测试名称和界面应表明测试用途。确定性结果使用固定输入和断言，界面、声音、打印等写清观察标准；设备、权限、服务器或账号条件就近说明。测试不与教学演示混用，也不随类库安装到 SDK。
+示例面向类库使用者，展示常用功能、典型操作、属性和事件处理。构建 APK 后，在模拟器或设备上核对实际画面、返回值、事件和失败路径；设备、权限、服务器或账号条件就近说明，条件不足时如实标注未验证。构建和启动成功不能替代功能验证。示例随库交付，排除整个 `example/build/`。
 
 ## 安装与接入 SDK
 
-将构建生成的 `build/<基础包名>/` 整个目录复制到 SDK 的 `libraries/`。也可从 SDK 根目录执行：
+将构建生成的 `build/<基础包名>/` 整个目录复制到 SDK 的 `libraries/`。也可从 SDK 根目录直接构建到当前 SDK：
 
 ```powershell
-& .\utils\library\library.ps1 publish "D:\LibraryWork\com.example.demo"
+& .\utils\library\library.ps1 build "D:\LibraryWork\com.example.demo" -Destination sdk
 ```
 
-`publish` 只安装已有结果，不重新编译。更新后执行“ES4A: 刷新类库”即可；无需复制源码、测试或开发缓存。
+更新后执行“ES4A: 刷新类库”即可；无需额外复制类库实现源码或开发缓存。
 
 ## 编译器读取的类库结构
 
@@ -567,7 +567,7 @@ assets=./assets
 默认构建只携带仓库依赖声明。需要随库携带已下载依赖时，从 SDK 根目录执行：
 
 ```powershell
-& .\utils\library\library.ps1 compile "D:\我的类库" -Dependencies include
+& .\utils\library\library.ps1 build "D:\我的类库" -Dependencies include
 ```
 
 工具会在交付目录增加 `dependencies/`，复制整个类库即可携带，准备过程可能联网。
@@ -656,4 +656,4 @@ public void 增加一(IntegerReferenceParameter value) {
 ## 延伸参考
 
 - [类库清单定义](类库清单定义.md)：填写类型、成员、属性编辑器及设计器投影。
-- [Simple 项目开发](Simple项目开发.md)：创建项目、编译 APK 和运行应用。
+- [Simple 项目开发](Simple项目开发.md)：创建项目、构建 APK 和运行应用。

@@ -243,7 +243,7 @@ afterEvaluate {
 	// 本库只输出自己的类，编译用 R 与第三方代码保持独立。
 	def compiledClasses = tasks.register('compileLibraryClasses', Jar) {
 		group = 'build'
-		description = '编译扩展库，输出独立 classes.jar。'
+		description = '构建扩展库，输出独立 classes.jar。'
 		dependsOn compilation
 		from compilation.flatMap { it.destinationDirectory }
 		exclude '**/R.class', '**/R$*.class'
@@ -283,10 +283,10 @@ afterEvaluate {
 		from components.es4aDependencies
 	}
 
-	// 独立交付目录避免覆盖作者输入；编译不再生成或改写 IDE 工作区。
-	tasks.register('compileLibrary') {
+	// 独立交付目录避免覆盖作者输入；构建不生成或改写 IDE 工作区。
+	tasks.register('buildLibrary') {
 		group = 'build'
-		description = '编译扩展库并准备可直接复制的完整交付目录。'
+		description = '构建扩展库并准备可直接复制的完整交付目录。'
 		dependsOn compiledClasses, 'processDebugManifest', 'generateMetadataFileForEs4aPublication'
 		doLast {
 			def namespace = android.namespace
